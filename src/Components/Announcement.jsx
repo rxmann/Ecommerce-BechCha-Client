@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 const Container = styled.div`
-    background-color: #508888;
+    background-color: #0171B6;
     height: 30px;
     color: white;
     display: flex;
@@ -9,7 +9,8 @@ const Container = styled.div`
     justify-content: center;
 `
 const Title = styled.h1`
-    font-size: 24px;
+    font-size: 20px;
+    font-weight: 400;
 `
 
 
