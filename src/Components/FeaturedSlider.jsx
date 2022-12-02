@@ -7,16 +7,17 @@ import 'swiper/css/bundle';
 
 
 const Container = styled.div`
-    margin: 0 50px;
-    /* color: white; */
+    padding: 0px 50px;
+    /* color: #eeeded; */
 `
 
 const Wrapper = styled.div`
-    height: 60vh;
+    height: 50vh;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #e4e4e4;
+    background-color: aliceblue;
 `
 
 const ImageContainer = styled.div`
@@ -37,8 +38,8 @@ const InfoContainer = styled.div`
     padding: 50px;
 `
 
-const Title = styled.h1`
-    font-size: 40px;
+const Title = styled.h3`
+    font-size: 30px;
 `
 
 const Description = styled.p`

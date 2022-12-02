@@ -1,27 +1,83 @@
 import styled from 'styled-components'
+import OneCategory from './CategoryBlock'
 
-const Conatainer = styled.div`
-    padding: 50px;
+const Container = styled.div`
+    margin: 50px;
 `
+
 const Title = styled.h1`
     color: #0171b6;
-    display:table;
-    padding-bottom: 15px;
-    font-weight: 600;
+    display: table;
+    padding-bottom: 10px;
+    font-weight: 700;
     font-size: 24px;
-    border-bottom: 2px solid #0171b6;
+    border-bottom: 3px solid #0171b6;
+`
+const List = styled.div`
+    display: flex;
+    /* justify-content: space-between; */
+    flex-wrap: wrap;
+    padding: 20px 10px;
+    margin-top: 20px;
 `
 
-
 const Categories = () => {
+
+    const CategoriesList = [
+        {
+            id: 0,
+            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/G24F2.png?raw=true",
+            title: "Monitors",
+            category: "monitor"
+        },
+        {
+            id: 1,
+            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/G24F2.png?raw=true",
+            title: "Monitors",
+            category: "monitor"
+        },
+        {
+            id: 2,
+            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/G24F2.png?raw=true",
+            title: "Monitors",
+            category: "monitor"
+        },
+        {
+            id: 3,
+            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
+            title: "Keyboards",
+            category: "keyboard"
+        },
+        {
+            id: 2,
+            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/G24F2.png?raw=true",
+            title: "Monitors",
+            category: "monitor"
+        },
+        {
+            id: 3,
+            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
+            title: "Keyboards",
+            category: "keyboard"
+        }
+    ];
+
   return (
-    <Conatainer >
+    
+
+    <Container >
         <Title>
             Categories
         </Title>
 
-        
-    </Conatainer>
+        <List>
+            {CategoriesList.map( (each) => (
+                <OneCategory category={each} key={each.id}/>
+            ))}
+        </List>
+
+
+    </Container>
   )
 }
 

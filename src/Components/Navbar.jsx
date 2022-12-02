@@ -10,7 +10,6 @@ import { useState } from 'react';
 
 const Container = styled.div`
     height: 60px;
-    width: 100vw;
     box-shadow: 0 0.2px #999;
 `
 const Wrapper = styled.div`
