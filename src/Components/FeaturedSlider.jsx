@@ -7,15 +7,16 @@ import 'swiper/css/bundle';
 
 
 const Container = styled.div`
-    margin: 0 30px;
+    margin: 0 50px;
+    /* color: white; */
 `
 
 const Wrapper = styled.div`
-    height: 50vh;
+    height: 60vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #a1d3f1;
+    background-color: #e4e4e4;
 `
 
 const ImageContainer = styled.div`
@@ -33,13 +34,7 @@ const Image = styled.img`
 
 const InfoContainer = styled.div`
     flex: 1;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 50px;
+    padding: 50px;
 `
 
 const Title = styled.h1`
@@ -54,10 +49,18 @@ const Description = styled.p`
 `
 
 const ShopNow  = styled.button`
-    padding: 10px;
+    padding: 15px;
     font-size: 20px;
     background-color: transparent;
     cursor:pointer;
+    font-weight: 600;
+    border: 1px solid #000000;
+    letter-spacing: 2px;
+
+    &:hover {
+        background-color: #0171b6;
+        color: white;
+    }
 `
 
 const FeaturedSlider = () => {
@@ -87,13 +90,11 @@ const FeaturedSlider = () => {
     <Container>
         <Swiper 
         loop = {true}
-        spaceBetween = {20}
-        slidesPreview = {3}
+        spaceBetween = {0}
         navigation
         pagination = {{ clickable: true }}
-        modules = {[Navigation, Thumbs, Pagination]}
-        grabCursor = {true}
-    
+        modules = {[Navigation, Thumbs, Pagination]}   
+        grabCursor 
         >
             {sliderItems.map( (product) => (
                 <SwiperSlide key={product.id} >

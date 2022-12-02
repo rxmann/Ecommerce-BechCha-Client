@@ -7,13 +7,14 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useState } from 'react';
 
+
 const Container = styled.div`
     height: 60px;
     width: 100vw;
     box-shadow: 0 0.2px #999;
 `
 const Wrapper = styled.div`
-    color: #0171B6;
+    color: #0171b6;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -67,7 +68,7 @@ const SearchButton = styled.button`
     color: white;
     cursor: pointer;
     padding: 10px 20px;
-    margin: 3px;
+    margin: 5px 3px;
     border: none;
     transition: all 0.2s ease-in-out;
 
@@ -94,7 +95,7 @@ const Navbar = () => {
 
   return (
     <Container>
-        <Wrapper>
+        <Wrapper >
             <Left>
                 <Logo>Bech-cha</Logo>
             </Left>
@@ -114,8 +115,10 @@ const Navbar = () => {
             
             <Right>
                     <AccountCircleIcon style={{marginLeft: '20px', cursor: 'pointer'}} />
-                    <Badge badgeContent={4} color={"primary"} style={{marginLeft: '20px', cursor: 'pointer'}} > 
-                        <ShoppingCartOutlined />
+                    <Badge badgeContent={4} 
+                            color = {'secondary'}
+                            style={{marginLeft: '20px', cursor: 'pointer'}} > 
+                            <ShoppingCartOutlined />
                     </Badge>
                     <CompareIcon style={{marginLeft: '20px', cursor: 'pointer'}} />
             </Right>
