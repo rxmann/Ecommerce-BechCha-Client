@@ -1,5 +1,15 @@
 import styled from 'styled-components'
 
+
+const Image = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+  z-index: 0;
+`
+
+
 const Container = styled.div`
   flex: 1;
   margin: 5px;
@@ -10,20 +20,18 @@ const Container = styled.div`
   padding: 10px;
   position: relative;
   border: 0.7px solid white;
-
+  transition: all ease 0.2s;
 
   &:hover {
     border: 0.2px solid lightgray;
     background-color: aliceblue;
   }
+  &:hover ${Image} {
+    opacity: 0.5;
+  }
+
 `
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  overflow: hidden;
-  z-index: 0;
-`
+
 const Display = styled.div`
   position: absolute;
   top: 0;
@@ -40,7 +48,7 @@ const Display = styled.div`
 `
 
 const Name = styled.h3`
-  background-color: black;
+  background-color: gray;
   padding: 10px;
   margin-bottom: 10px;
 `

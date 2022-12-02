@@ -17,8 +17,7 @@ const List = styled.div`
     display: flex;
     /* justify-content: space-between; */
     flex-wrap: wrap;
-    padding: 20px 10px;
-    margin-top: 20px;
+    padding: 10px;
 `
 
 const Categories = () => {
