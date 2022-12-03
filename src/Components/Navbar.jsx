@@ -9,16 +9,20 @@ import { useState } from 'react';
 
 
 const Container = styled.div`
-    height: 60px;
+    height: 70px;
     width: 100%;
     box-shadow: 0 0.2px #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 const Wrapper = styled.div`
+    width: 100%;
+    margin: 0px 50px;
     color: #0171b6;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 50px;
 `
 
 const Left = styled.div`
@@ -34,21 +38,20 @@ const Logo = styled.h1`
 
 const Middle = styled.div`
     flex: 2;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 40px;
 `
 
 const SearchContainer = styled.div`
     border: 0.7px solid lightgray;
     display: flex;
-    justify-content: space-between;
+    justify-content:center;
     align-items: center;
     height: 100%; 
     width: 80%;
-    box-sizing: border-box;
-    box-shadow: 0px 2px 2px 0px #888888;
+    box-shadow: 0px 2px 4px #888888;
 `
 const Searchicon = styled(SearchIcon)`
     font-size: larger;
@@ -60,25 +63,21 @@ const SearchBox = styled.input`
     border: none;
     outline: none;
     padding: 5px;
-    margin: 5px 20px; 
+    margin: 0px 10px;
     font-size: 15px;
     font-weight: 400;
 `
 
 const SearchButton = styled.button`
+    height: 100%;
     background-color:#0171b6;
-    font-weight: 600;
     color: white;
     cursor: pointer;
     padding: 10px 20px;
-    margin-left: 20px;
+    margin-left: 10px;
     border: none;
     transition: all 0.2s ease-in-out;
-
-    &:hover {
-        background-color: #0171b6;
-        
-    }
+    box-shadow: 0px 2px 12px #888888;
 `
 
 const Right = styled.div`
@@ -113,7 +112,6 @@ const Navbar = () => {
                     : <ClearIcon onClick={() => setSearch('')} 
                     style={{cursor: 'pointer', maxWidth: '20px'}} />
                     }
-
                     <SearchButton>Search</SearchButton>
                 </SearchContainer>
             </Middle>
@@ -123,10 +121,10 @@ const Navbar = () => {
                     <AccountCircleIcon style={{marginLeft: '20px', cursor: 'pointer'}} />
                     <Badge badgeContent={4} 
                             color = {'secondary'}
-                            style={{marginLeft: '20px', cursor: 'pointer'}} > 
+                            style={{margin: '0px 10px', cursor: 'pointer'}} > 
                             <ShoppingCartOutlined />
                     </Badge>
-                    <CompareIcon style={{marginLeft: '20px', cursor: 'pointer'}} />
+                    <CompareIcon style={{margin: '0px 10px', cursor: 'pointer'}} />
             </Right>
         </Wrapper>
     </Container>

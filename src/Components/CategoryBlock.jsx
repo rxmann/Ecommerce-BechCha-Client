@@ -8,27 +8,31 @@ const Image = styled.img`
   object-fit: cover;
   overflow: hidden;
   z-index: 0;
+  opacity: 0.8;
 `
 
 
 const Container = styled.div`
   flex: 1;
-  margin: 5px 20px 0px 0px;
+  margin: 20px 10px 0px 0px;
   height: 30vh;
   min-width: 200px;
-  /* max-width: 400px; */
   color: white;
   padding: 20px;
   position: relative;
-  border: 0.7px solid white;
-  transition: all ease 0.2s;
+  border: 0.3px solid white;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  transition: box-shadow 0.1s ease-in-out;
+  
 
   &:hover {
-    border: 0.2px solid lightgray;
-    background-color: #9cb2e0;
+    border: 1px solid lightgray;
+    background-color: aliceblue;
+    transform: scale(1, 1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   }
   &:hover ${Image} {
-    opacity: 0.9;
+    opacity: 1;
   }
 
 `

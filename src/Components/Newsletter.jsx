@@ -8,13 +8,14 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding: 10px;
-
   height: 20vh;
   background-color: #9cb2e0;
 `
 const Title = styled.h1`
-  font-weight: 700;
-  font-size: 20px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 3px;
+  font-size: 32px;
   margin: 10px 0px;
 `
 

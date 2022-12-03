@@ -6,7 +6,7 @@ import { Navigation, Pagination, Thumbs } from "swiper";
 import "swiper/css/bundle";
 
 const Container = styled.div`
-  padding: 0px 50px;
+  padding: 10px 50px;
 `;
 
 const Wrapper = styled.div`
@@ -51,15 +51,19 @@ const Description = styled.p`
 const ShopNow = styled.button`
   padding: 15px;
   font-size: 20px;
-  background-color: transparent;
+  background-color: #9cb2e0;
   cursor: pointer;
   font-weight: 600;
   border: 1px solid #000000;
   letter-spacing: 2px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  transition: box-shadow 0.3s ease-in-out;
 
   &:hover {
     background-color: #0171b6;
     color: white;
+    transform: scale(1.1, 1.1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   }
 `;
 
