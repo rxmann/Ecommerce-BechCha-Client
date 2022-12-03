@@ -6,6 +6,12 @@ import styled from "styled-components"
 import Newsletter from "../Components/Newsletter"
 import Footer from "../Components/Footer"
 
+
+
+// #9cb2e0
+// #0171b6
+
+
 const Container = styled.div`
   
 `

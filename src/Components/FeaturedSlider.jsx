@@ -20,13 +20,14 @@ const Wrapper = styled.div`
 
 const ImageContainer = styled.div`
   flex: 1;
-  height: 100%;
   display: flex;
   align-items: center;
 `;
 
 const Image = styled.img`
   height: 90%;
+  width: 90%;
+  object-fit: cover;
   overflow: hidden;
   padding-left: 50px;
 `;

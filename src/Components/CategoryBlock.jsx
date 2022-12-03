@@ -25,7 +25,7 @@ const Container = styled.div`
 
   &:hover {
     border: 0.2px solid lightgray;
-    background-color: #b7d7eb;
+    background-color: #9cb2e0;
   }
   &:hover ${Image} {
     opacity: 0.9;
