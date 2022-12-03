@@ -43,6 +43,10 @@ const Input = styled.input`
   border-radius: 4px;
   font-size: 14px;
   font-weight: 200;
+
+  &:focus {
+    background-color: lightblue;
+  }
 `
 const Icon = styled(SendIcon)`
 `;

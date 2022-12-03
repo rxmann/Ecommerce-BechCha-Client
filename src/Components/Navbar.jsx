@@ -41,12 +41,12 @@ const Middle = styled.div`
 `
 
 const SearchContainer = styled.div`
-    border: 1px solid lightgray;
+    border: 0.7px solid lightgray;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 100%; 
-    width: 100%;
+    width: 80%;
     box-sizing: border-box;
     box-shadow: 0px 2px 2px 0px #888888;
 `
@@ -66,7 +66,8 @@ const SearchBox = styled.input`
 `
 
 const SearchButton = styled.button`
-    background-color: #0171b6;
+    background-color:#0171b6;
+    font-weight: 600;
     color: white;
     cursor: pointer;
     padding: 10px 20px;
@@ -76,6 +77,7 @@ const SearchButton = styled.button`
 
     &:hover {
         background-color: #0171b6;
+        
     }
 `
 

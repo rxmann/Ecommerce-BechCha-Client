@@ -30,9 +30,9 @@ const Categories = () => {
         },
         {
             id: 1,
-            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/G24F2.png?raw=true",
-            title: "Monitors",
-            category: "monitor"
+            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
+            title: "Keyboards",
+            category: "keyboard"
         },
         {
             id: 2,
