@@ -10,6 +10,7 @@ import { useState } from 'react';
 
 const Container = styled.div`
     height: 60px;
+    width: 100%;
     box-shadow: 0 0.2px #999;
 `
 const Wrapper = styled.div`
@@ -36,17 +37,18 @@ const Middle = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0px 10px;
     height: 40px;
-    max-width: 900px;
 `
 
 const SearchContainer = styled.div`
-    border: 2px solid lightgray;
+    border: 1px solid lightgray;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
     height: 100%; 
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0px 2px 2px 0px #888888;
 `
 const Searchicon = styled(SearchIcon)`
     font-size: larger;
@@ -54,28 +56,27 @@ const Searchicon = styled(SearchIcon)`
     padding: 10px;
 `
 const SearchBox = styled.input`
+    flex: 8;
     border: none;
-    height: 100%;
-    padding: 0px 10px;
     outline: none;
-    font-size: 20px;
+    padding: 5px;
+    margin: 5px 20px; 
+    font-size: 15px;
     font-weight: 400;
 `
 
 const SearchButton = styled.button`
-    background-color: #0171B6;
+    background-color: #0171b6;
     color: white;
     cursor: pointer;
     padding: 10px 20px;
-    margin: 5px 3px;
+    margin-left: 20px;
     border: none;
     transition: all 0.2s ease-in-out;
 
-    &::after
-    {
-        transform: translateY(-50%) scale(0.98);
+    &:hover {
+        background-color: #0171b6;
     }
-
 `
 
 const Right = styled.div`
@@ -102,11 +103,15 @@ const Navbar = () => {
             <Middle>
                 <SearchContainer>
                     <Searchicon/>
-                    <SearchBox maxLength={20} onChange={(e) => setSearch(e.value) } name='search' value={search}/>
-                    {search !== '' 
-                    && <ClearIcon onClick={() => setSearch('')} 
-                    style={{cursor: 'pointer', width: '40px'}} 
-                    />}
+                    <SearchBox maxLength={30} onChange={(e) => setSearch(e.value) } name='search' value={search}/>
+                    
+                    
+                    { search === '' ? 
+                    <div style={{maxWidth: '20px', backgroundColor: 'red'}} ></div>
+                    : <ClearIcon onClick={() => setSearch('')} 
+                    style={{cursor: 'pointer', maxWidth: '20px'}} />
+                    }
+
                     <SearchButton>Search</SearchButton>
                 </SearchContainer>
             </Middle>

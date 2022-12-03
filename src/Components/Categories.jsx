@@ -17,7 +17,6 @@ const List = styled.div`
     display: flex;
     /* justify-content: space-between; */
     flex-wrap: wrap;
-    padding: 10px;
 `
 
 const Categories = () => {
@@ -34,18 +33,6 @@ const Categories = () => {
             img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/G24F2.png?raw=true",
             title: "Monitors",
             category: "monitor"
-        },
-        {
-            id: 2,
-            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/G24F2.png?raw=true",
-            title: "Monitors",
-            category: "monitor"
-        },
-        {
-            id: 3,
-            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
-            title: "Keyboards",
-            category: "keyboard"
         },
         {
             id: 2,

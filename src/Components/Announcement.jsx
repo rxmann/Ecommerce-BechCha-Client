@@ -1,8 +1,8 @@
 import styled from "styled-components"
 
 const Container = styled.div`
-    /* margin: 0px 50px; */
-    background-color: #295b68;
+    width: 100%;
+    background-color: #0171b6;
     height: 30px;
     color: white;
     display: flex;

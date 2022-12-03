@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 
+
 const Image = styled.img`
   width: 100%;
   height: 100%;
@@ -12,22 +13,22 @@ const Image = styled.img`
 
 const Container = styled.div`
   flex: 1;
-  margin: 5px;
-  height: 25vh;
+  margin: 5px 20px 0px 0px;
+  height: 30vh;
   min-width: 200px;
-  max-width: 200px;
+  /* max-width: 400px; */
   color: white;
-  padding: 10px;
+  padding: 20px;
   position: relative;
   border: 0.7px solid white;
   transition: all ease 0.2s;
 
   &:hover {
     border: 0.2px solid lightgray;
-    background-color: aliceblue;
+    background-color: #b7d7eb;
   }
   &:hover ${Image} {
-    opacity: 0.5;
+    opacity: 0.9;
   }
 
 `
@@ -58,7 +59,6 @@ const Button = styled.button`
   padding: 10px 20px;
   font-size: 20px;
   background-color: white;
-  color: gray;
   cursor: pointer;
 `
 

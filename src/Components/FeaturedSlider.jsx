@@ -8,11 +8,10 @@ import 'swiper/css/bundle';
 
 const Container = styled.div`
     padding: 0px 50px;
-    /* color: #eeeded; */
 `
 
 const Wrapper = styled.div`
-    height: 50vh;
+    height: 70vh;
     width: 100%;
     display: flex;
     align-items: center;
