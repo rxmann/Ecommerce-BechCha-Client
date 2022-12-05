@@ -39,6 +39,7 @@ const Logo = styled.h1`
 const Middle = styled.div`
     flex: 2;
     height: 100%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,8 +51,6 @@ const SearchContainer = styled.div`
     justify-content:center;
     align-items: center;
     height: 100%; 
-    width: 80%;
-    box-shadow: 0px 2px 4px #888888;
 `
 const Searchicon = styled(SearchIcon)`
     font-size: larger;
@@ -67,17 +66,20 @@ const SearchBox = styled.input`
     font-size: 15px;
     font-weight: 400;
 `
-
 const SearchButton = styled.button`
-    height: 100%;
-    background-color:#0171b6;
-    color: white;
+    font-size: 20px;
+    background-color: transparent;
     cursor: pointer;
     padding: 10px 20px;
-    margin-left: 10px;
-    border: none;
-    transition: all 0.2s ease-in-out;
-    box-shadow: 0px 2px 12px #888888;
+    margin: 0px 0px 0px 10px;
+    border: 0.3px solid #0171b6;
+
+    
+
+    &:hover {
+        background-color:#0171b6;
+        color: white;
+    }
 `
 
 const Right = styled.div`
@@ -98,12 +100,12 @@ const Navbar = () => {
     <Container>
         <Wrapper >
             <Left>
-                <Logo>Bech-cha</Logo>
+                <Logo>Bech'cha</Logo>
             </Left>
 
             <Middle>
                 <SearchContainer>
-                    <Searchicon/>
+                    <Searchicon fontSize= "medium" />
                     <SearchBox maxLength={30} onChange={(e) => setSearch(e.value) } name='search' value={search}/>
                     
                     

@@ -8,31 +8,32 @@ const Image = styled.img`
   object-fit: cover;
   overflow: hidden;
   z-index: 0;
-  opacity: 0.8;
+  opacity: 1;
 `
 
 
 const Container = styled.div`
   flex: 1;
   margin: 20px 10px 0px 0px;
-  height: 30vh;
-  min-width: 200px;
+  height: 20vh;
+  min-width: 100px;
+  max-width: 200px;
   color: white;
   padding: 20px;
   position: relative;
   border: 0.3px solid white;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
   transition: box-shadow 0.1s ease-in-out;
   
 
   &:hover {
     border: 1px solid lightgray;
+    border-radius: 10px;
     background-color: aliceblue;
-    transform: scale(1, 1);
+    transform: scale(1.1, 1.1);
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   }
   &:hover ${Image} {
-    opacity: 1;
+    opacity: 0.9;
   }
 
 `
@@ -64,6 +65,11 @@ const Button = styled.button`
   font-size: 20px;
   background-color: white;
   cursor: pointer;
+
+  &:hover {
+      transform: scale(1.1, 1.1);
+  }
+
 `
 
 const OneCategory = ( {category} ) => {

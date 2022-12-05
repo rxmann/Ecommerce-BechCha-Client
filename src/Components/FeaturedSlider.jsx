@@ -10,7 +10,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  height: 70vh;
+  height: 60vh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -51,19 +51,18 @@ const Description = styled.p`
 const ShopNow = styled.button`
   padding: 15px;
   font-size: 20px;
-  background-color: #9cb2e0;
+  background-color: transparent;
   cursor: pointer;
   font-weight: 600;
-  border: 1px solid #000000;
   letter-spacing: 2px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  box-shadow: 1px 2px 4px rgba(0,0,0,0.15);
   transition: box-shadow 0.3s ease-in-out;
+  border: 0.3px solid #0171b6;
 
   &:hover {
     background-color: #0171b6;
     color: white;
-    transform: scale(1.1, 1.1);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: 1px 2px 6px rgba(0,0,0,0.3);
   }
 `;
 

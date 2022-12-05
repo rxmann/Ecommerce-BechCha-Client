@@ -81,7 +81,7 @@ const Newsletter = () => {
           <Paragraph> Get updates from your favourite products </Paragraph>
 
           <InputField>
-            <Input maxLength={30} placeholder='someone@example.com'/>
+            <Input type={'email'} maxLength={30} placeholder='someone@example.com'/>
             <Button>
               <Icon sx={{ fontSize: "30px", cursor: 'pointer', color: 'teal' }} />
             </Button>

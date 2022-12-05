@@ -5,6 +5,7 @@ import Categories from "../Components/Categories"
 import styled from "styled-components"
 import Newsletter from "../Components/Newsletter"
 import Footer from "../Components/Footer"
+import TopSales from "../Components/TopSales"
 
 
 
@@ -28,6 +29,7 @@ const Homepage = () => {
         <Navbar />
         <FeaturedSlider />
         <Categories />
+        <TopSales />
         <Newsletter />
         <Footer />
       </Wrapper>

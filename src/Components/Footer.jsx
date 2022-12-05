@@ -9,6 +9,9 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 const Container = styled.div`
     display: flex;    
+    background-color: #141414;
+    color: gray;
+    height: 100%;
 `
 
 const LeftDiv = styled.div`
@@ -18,6 +21,10 @@ const LeftDiv = styled.div`
 
 const Description = styled.p`
     margin: 20px 0px;
+
+    &:hover {
+        color: white;
+    }
 `
 
 
@@ -36,6 +43,10 @@ const MediaIcon = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    &:hover {
+        transform: scale(1.1, 1.1);
+    }
 `
 
 
@@ -46,6 +57,7 @@ const MidDiv = styled.div`
 
 const Title = styled.h3`
     margin-bottom: 30px;
+    color: white;
 `
 
 const List = styled.ul`
@@ -59,6 +71,11 @@ const List = styled.ul`
 const ListItems = styled.li`
     width: 50%;
     margin-bottom: 10px;
+
+    &:hover {
+        color: white;
+        cursor: pointer;
+    }
 `
 
 const RightDiv = styled.div`
@@ -70,6 +87,10 @@ const ContactItem = styled.div`
     margin-bottom: 20px;
     display: flex;
     align-items: center;
+
+    &:hover {
+        color: white;
+    }
 `
 
 const Payment = styled.img`
