@@ -37,9 +37,8 @@ const Logo = styled.h1`
 `
 
 const Middle = styled.div`
-    flex: 2;
+    flex: 1;
     height: 100%;
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -110,7 +109,7 @@ const Navbar = () => {
                     
                     
                     { search === '' ? 
-                    <div style={{maxWidth: '20px', backgroundColor: 'red'}} ></div>
+                    <div style={{width: '20px', backgroundColor: 'red'}} ></div>
                     : <ClearIcon onClick={() => setSearch('')} 
                     style={{cursor: 'pointer', maxWidth: '20px'}} />
                     }
