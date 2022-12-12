@@ -1,11 +1,11 @@
 import styled from "styled-components"
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { red } from "@mui/material/colors";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
     height: 100vh;
-    background-color: aliceblue;
+    background-color: #4893c2;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -87,7 +87,9 @@ const LoginPage = () => {
                         label="Password*"
                         type="password"
                     />
+                    
                     <Button size="large" variant="contained"> Login </Button>
+                    
                 </Form>
             </Right>
 
@@ -100,17 +102,20 @@ const LoginPage = () => {
                     Lorem ipsum dolor sit amet consectetur
                     Best ecommerce site in town with 100+ active users. </Desc>
                 <Span> Already have an account? </Span>
-                <SearchButton 
-                    style={{
-                        backgroundColor: 'transparent',
-                        color: 'white',
-                        border: "1px solid #0171b6"
-                    }}
-                    color='info' 
-                    variant="outlined"
-                > 
-                Register
-                 </SearchButton>
+                
+                <Link to="/login" >
+
+                    <SearchButton 
+                        style={{
+                            color: 'white'
+                        }}
+                        color='info' 
+                        variant="outlined"
+                    > 
+                        Login
+                    </SearchButton>
+                
+                </Link>
             </Left>                
             </Card>
     </Container>
