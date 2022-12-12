@@ -3,8 +3,8 @@ import LoginPage from "./Pages/LoginPage"
 
 const App = () => {
   return (
-    <Homepage />
-    // <LoginPage />
+    // <Homepage />
+    <LoginPage />
 
   )
 }

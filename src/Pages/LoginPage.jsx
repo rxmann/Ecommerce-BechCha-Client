@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { red } from "@mui/material/colors";
 
 const Container = styled.div`
     height: 100vh;
@@ -23,7 +24,7 @@ const Left = styled.div`
     flex: 1;
     background: 
         linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-        url("https://images.pexels.com/photos/4049870/pexels-photo-4049870.jpeg?auto=compress&cs=tinysrgb&w=400") center;
+        url("https://images.pexels.com/photos/50987/money-card-business-credit-card-50987.jpeg?auto=compress&cs=tinysrgb&w=400") center;
     background-size: cover;
     display: flex;
     padding: 50px;
@@ -45,16 +46,6 @@ const Span = styled.span`
     font-size: 14px;
 `
 
-const ButtonR = styled.button`
-    width: 50%;
-    padding: 10px;
-    border: none;
-    background-color: white;
-    cursor: pointer;
-    color: rebeccapurple;
-    font-weight: bold;
-`
-
 const Right = styled.div`
     flex: 1;
     padding: 50px;
@@ -72,17 +63,9 @@ const Form = styled.form`
     gap: 30px;
 `
 
-const ButtonL = styled.button`
-    width: 50%;
-    padding: 10px;
-    border: none;
-    color: white;
-    cursor: pointer;
-    background-color: rebeccapurple;
-    font-weight: bold;
+const SearchButton = styled(Button)`
+
 `
-
-
 
 const LoginPage = () => {
   return (
@@ -96,7 +79,17 @@ const LoginPage = () => {
                         Lorem ipsum dolor sit amet consectetur
                         Best ecommerce site in town with 100+ active users. </Desc>
                     <Span> Don't have an account yet? </Span>
-                    <Button color='info' variant="outlined"> Register </Button>
+                    <SearchButton 
+                        style={{
+                            backgroundColor: 'transparent',
+                            color: 'white',
+                            border: "1px solid #0171b6"
+                        }}
+                        color='info' 
+                        variant="outlined"
+                    > 
+                        Register 
+                    </SearchButton>
                 </Left>
 
 
