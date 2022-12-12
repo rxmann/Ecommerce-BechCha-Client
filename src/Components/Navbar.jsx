@@ -6,7 +6,7 @@ import CompareIcon from '@mui/icons-material/Compare';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useState } from 'react';
-
+import Button from '@mui/material/Button';
 
 const Container = styled.div`
     height: 70px;
@@ -65,20 +65,26 @@ const SearchBox = styled.input`
     font-size: 15px;
     font-weight: 400;
 `
-const SearchButton = styled.button`
-    font-size: 20px;
-    background-color: transparent;
-    cursor: pointer;
-    padding: 10px 20px;
-    margin: 0px 0px 0px 10px;
-    border: 0.3px solid #0171b6;
+// const SearchButton = styled.button`
+//     font-size: 20px;
+//     background-color: transparent;
+//     cursor: pointer;
+//     padding: 10px 20px;
+//     margin: 0px 0px 0px 10px;
+//     border: 0.3px solid #0171b6;
 
     
 
-    &:hover {
-        background-color:#0171b6;
-        color: white;
-    }
+//     &:hover {
+//         background-color:#0171b6;
+//         color: white;
+//     }
+// `
+
+const SearchButton = styled(Button)`
+    
+    cursor: pointer;
+    color: #0171b6;
 `
 
 const Right = styled.div`
@@ -113,7 +119,10 @@ const Navbar = () => {
                     : <ClearIcon onClick={() => setSearch('')} 
                     style={{cursor: 'pointer', maxWidth: '20px'}} />
                     }
+
+
                     <SearchButton>Search</SearchButton>
+
                 </SearchContainer>
             </Middle>
 
