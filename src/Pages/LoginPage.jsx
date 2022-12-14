@@ -5,15 +5,18 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { publicRequest } from "../requestMethods/requestMethods";
 
+
+
 const Container = styled.div`
     height: 100vh;
-    background-color: #4893c2;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: antiquewhite;
 `
 
 const Card = styled.div`
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     display: flex;
     width: 60%;
     min-height: 600px;
@@ -25,8 +28,8 @@ const Card = styled.div`
 const Left = styled.div`
     flex: 1;
     background: 
-        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-        url("https://images.pexels.com/photos/50987/money-card-business-credit-card-50987.jpeg?auto=compress&cs=tinysrgb&w=400") center;
+        linear-gradient(#0171b66c, #00000057),
+        url("https://images.unsplash.com/photo-1602526212101-12eb978b129a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjN8fGNyZWRpdCUyMGNhcmR8ZW58MHwwfDB8YmxhY2t8&auto=format&fit=crop&w=500&q=60") center;
     background-size: cover;
     display: flex;
     padding: 50px;
@@ -37,9 +40,11 @@ const Left = styled.div`
 `
 
 const Title = styled.div`
-    font-size: 60px;
+    font-size: 70px;
+    font-weight: bolder;
     line-height: 100px;
 `
+
 const Desc = styled.p`
 
 `
@@ -66,8 +71,10 @@ const Form = styled.form`
 `
 
 const SearchButton = styled(Button)`
-
 `
+
+
+
 
 const LoginPage = () => {
 
