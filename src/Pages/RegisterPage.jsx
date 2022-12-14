@@ -1,18 +1,18 @@
 import styled from "styled-components"
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const Container = styled.div`
     height: 100vh;
-    background-color: #4893c2;
     display: flex;
     align-items: center;
     justify-content: center;
-`
+    `
 
 const Card = styled.div`
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     display: flex;
     width: 60%;
     min-height: 600px;
@@ -67,15 +67,16 @@ const Form = styled.form`
 const SearchButton = styled(Button)`
 `
 
-const LoginPage = () => {
+const RegisterPage = () => {
 
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     
+    const navigate = useNavigate();
 
-    const handleSubmit = () => {
+    const handleSubmitRegister = () => {
         
     }
   return (
@@ -84,33 +85,33 @@ const LoginPage = () => {
 
             <Right>
                 <H1> Register </H1>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmitRegister}>
                     <TextField
                         value={username}
                         onChange={ e => setUsername(e.target.value) }
                         required
-                        label="Username*"
+                        label="Username"
                         type="text"
                     />
                     <TextField
                         value={email}
                         onChange={(e) => {setEmail(e.target.value)}}
                         required
-                        label="Email*"
+                        label="Email"
                         type="email"
                     />
                     <TextField
                         value={password}
                         onChange={(e) => {setPassword(e.target.value)} }
                         required
-                        label="Password*"
+                        label="Password"
                         type="password"
                     />
                     <TextField
                         value={confirmPassword}
                         onChange={(e) => {setConfirmPassword(e.target.value)} }
                         required
-                        label="Password*"
+                        label="Confirm Password"
                         type="password"
                     />
                     
@@ -118,7 +119,7 @@ const LoginPage = () => {
                         size="large" 
                         variant="contained"
                     > 
-                        Login </Button>
+                        Register </Button>
                     
                 </Form>
             </Right>
@@ -132,10 +133,9 @@ const LoginPage = () => {
                     Lorem ipsum dolor sit amet consectetur
                     Best ecommerce site in town with 100+ active users. </Desc>
                 <Span> Already have an account? </Span>
-                
-                <Link to="/login" >
 
                     <SearchButton 
+                        onClick={() => navigate("/login")}
                         style={{
                             color: 'white'
                         }}
@@ -144,12 +144,10 @@ const LoginPage = () => {
                     > 
                         Login
                     </SearchButton>
-                
-                </Link>
             </Left>                
             </Card>
     </Container>
   )
 }
 
-export default LoginPage
+export default RegisterPage

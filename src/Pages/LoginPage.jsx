@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Container = styled.div`
     height: 100vh;
@@ -68,6 +68,10 @@ const SearchButton = styled(Button)`
 `
 
 const LoginPage = () => {
+
+
+    const navigate = useNavigate();
+
   return (
     <Container>
             <Card>
@@ -80,8 +84,8 @@ const LoginPage = () => {
                         Best ecommerce site in town with 100+ active users. </Desc>
                     <Span> Don't have an account yet? </Span>
                     
-                    <Link to="/register" >
                         <SearchButton 
+                        onClick={() => navigate("/register")}
                             style={{
                                 color: 'white'
                             }}
@@ -90,7 +94,6 @@ const LoginPage = () => {
                             > 
                             Register 
                         </SearchButton>
-                    </Link>
                 </Left>
 
 

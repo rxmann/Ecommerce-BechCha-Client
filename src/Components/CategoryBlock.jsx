@@ -27,12 +27,7 @@ const Container = styled.div`
   &:hover {
     border: 1px solid lightgray;
     border-radius: 10px;
-    background-color: aliceblue;
-    transform: scale(1.1, 1.1);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  }
-  &:hover ${Image} {
-    opacity: 0.9;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
 
 `

@@ -65,21 +65,6 @@ const SearchBox = styled.input`
     font-size: 15px;
     font-weight: 400;
 `
-// const SearchButton = styled.button`
-//     font-size: 20px;
-//     background-color: transparent;
-//     cursor: pointer;
-//     padding: 10px 20px;
-//     margin: 0px 0px 0px 10px;
-//     border: 0.3px solid #0171b6;
-
-    
-
-//     &:hover {
-//         background-color:#0171b6;
-//         color: white;
-//     }
-// `
 
 const SearchButton = styled(Button)`
     
