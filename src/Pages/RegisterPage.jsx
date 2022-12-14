@@ -1,8 +1,9 @@
 import styled from "styled-components"
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { publicRequest } from "../requestMethods/requestMethods";
 
 const Container = styled.div`
     height: 100vh;
@@ -76,8 +77,22 @@ const RegisterPage = () => {
     
     const navigate = useNavigate();
 
-    const handleSubmitRegister = () => {
-        
+    const handleSubmitRegister = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await publicRequest.post("/users/register", {
+                username,
+                email,
+                password,
+                confirmPassword
+            })
+            console.log(response);
+            navigate("/login");
+        }
+        catch (err) {
+            console.log(err);
+        }
+
     }
   return (
     <Container>
@@ -85,7 +100,7 @@ const RegisterPage = () => {
 
             <Right>
                 <H1> Register </H1>
-                <Form onSubmit={handleSubmitRegister}>
+                <Form >
                     <TextField
                         value={username}
                         onChange={ e => setUsername(e.target.value) }
@@ -116,6 +131,7 @@ const RegisterPage = () => {
                     />
                     
                     <Button 
+                        onClick={handleSubmitRegister}
                         size="large" 
                         variant="contained"
                     > 

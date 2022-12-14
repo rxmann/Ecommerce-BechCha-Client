@@ -1,7 +1,9 @@
 import styled from "styled-components"
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { publicRequest } from "../requestMethods/requestMethods";
 
 const Container = styled.div`
     height: 100vh;
@@ -69,8 +71,28 @@ const SearchButton = styled(Button)`
 
 const LoginPage = () => {
 
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
 
     const navigate = useNavigate();
+
+
+    const handleSubmitLogin = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await publicRequest.post("/users/login", {
+                email,
+                password
+            })
+            console.log(response);
+            navigate("/home");
+        }
+        catch (err) {
+            console.log(err);
+        }
+
+    }
 
   return (
     <Container>
@@ -99,20 +121,24 @@ const LoginPage = () => {
 
                 <Right>
                     <H1> Login </H1>
-                    <Form>
+                    <Form >
                         <TextField
                             id="outlined-password-input"
                             label="Email"
                             type="Email"
-                            autoComplete="current-password"
+                            value= {email}
+                            onChange={(e) => {setEmail(e.target.value)}}
+                            required
                         />
                         <TextField
                             id="outlined-password-input"
                             label="Password"
                             type="password"
-                            autoComplete="current-password"
+                            value={password}
+                            onChange={(e) => {setPassword(e.target.value)} }
+                            required
                         />
-                        <Button size="large" variant="contained"> Login </Button>
+                        <Button onClick={handleSubmitLogin} size="large" variant="contained"> Login </Button>
 
                     </Form>
                 </Right>
