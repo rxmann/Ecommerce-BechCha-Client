@@ -35,7 +35,7 @@ const Left = styled.div`
 `
 
 const Title = styled.div`
-    font-size: 70px;
+    font-size: 60px;
     line-height: 100px;
 `
 const Desc = styled.p`

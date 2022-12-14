@@ -2,6 +2,7 @@ import styled from "styled-components"
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Container = styled.div`
     height: 100vh;
@@ -35,7 +36,7 @@ const Left = styled.div`
 `
 
 const Title = styled.div`
-    font-size: 70px;
+    font-size: 60px;
     line-height: 100px;
 `
 const Desc = styled.p`
@@ -64,31 +65,60 @@ const Form = styled.form`
 `
 
 const SearchButton = styled(Button)`
-
 `
 
 const LoginPage = () => {
+
+    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
+    
+
+    const handleSubmit = () => {
+        
+    }
   return (
     <Container>
             <Card>
 
             <Right>
                 <H1> Register </H1>
-                <Form>
+                <Form onSubmit={handleSubmit}>
                     <TextField
+                        value={username}
+                        onChange={ e => setUsername(e.target.value) }
+                        required
                         label="Username*"
                         type="text"
                     />
                     <TextField
+                        value={email}
+                        onChange={(e) => {setEmail(e.target.value)}}
+                        required
                         label="Email*"
                         type="email"
                     />
                     <TextField
+                        value={password}
+                        onChange={(e) => {setPassword(e.target.value)} }
+                        required
+                        label="Password*"
+                        type="password"
+                    />
+                    <TextField
+                        value={confirmPassword}
+                        onChange={(e) => {setConfirmPassword(e.target.value)} }
+                        required
                         label="Password*"
                         type="password"
                     />
                     
-                    <Button size="large" variant="contained"> Login </Button>
+                    <Button 
+                        size="large" 
+                        variant="contained"
+                    > 
+                        Login </Button>
                     
                 </Form>
             </Right>
