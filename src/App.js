@@ -1,11 +1,7 @@
 import Homepage from "./Pages/Homepage"
 import LoginPage from "./Pages/LoginPage"
 import RegisterPage from "./Pages/RegisterPage"
-
-
-import {createBrowserRouter, RouterProvider, Route } from "react-router-dom"
-
-
+import {createBrowserRouter, RouterProvider } from "react-router-dom"
 
 
 const App = () => {

@@ -73,11 +73,18 @@ const Form = styled.form`
 const SearchButton = styled(Button)`
 `
 
-
+const SpanMessage = styled.div`
+    background-color: red;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0px;
+`
 
 
 const LoginPage = () => {
-
+    const [error, setError] = useState("");
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -96,6 +103,8 @@ const LoginPage = () => {
             navigate("/home");
         }
         catch (err) {
+
+            setError(err.response.data);
             console.log(err);
         }
 
@@ -145,6 +154,7 @@ const LoginPage = () => {
                             onChange={(e) => {setPassword(e.target.value)} }
                             required
                         />
+                        {error? <SpanMessage> {error} </SpanMessage> : ""}
                         <Button onClick={handleSubmitLogin} size="large" variant="contained"> Login </Button>
 
                     </Form>
