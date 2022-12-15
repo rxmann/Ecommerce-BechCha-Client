@@ -29,7 +29,7 @@ const Left = styled.div`
     flex: 1;
     background: 
         linear-gradient(#0171b66c, #00000057),
-        url("https://images.unsplash.com/photo-1602526212101-12eb978b129a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjN8fGNyZWRpdCUyMGNhcmR8ZW58MHwwfDB8YmxhY2t8&auto=format&fit=crop&w=500&q=60") center;
+        url("https://images.unsplash.com/photo-1552830779-966dc9e59b46?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nzd8fGNyZWRpdCUyMGNhcmR8ZW58MHwwfDB8YmxhY2t8&auto=format&fit=crop&w=500&q=60") center;
     background-size: cover;
     display: flex;
     padding: 50px;
