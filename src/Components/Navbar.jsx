@@ -7,6 +7,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
     height: 70px;
@@ -82,6 +83,9 @@ const Right = styled.div`
 
 
 const Navbar = () => {
+
+    const navigate = useNavigate();
+
     const [search, setSearch] = useState("");
 
 
@@ -112,8 +116,8 @@ const Navbar = () => {
             </Middle>
 
             
-            <Right>
-                    <AccountCircleIcon style={{marginLeft: '20px', cursor: 'pointer'}} />
+            <Right> 
+                    <AccountCircleIcon onClick={()=>navigate("/register")} style={{marginLeft: '20px', cursor: 'pointer'}} />
                     <Badge badgeContent={4} 
                             color = {'secondary'}
                             style={{margin: '0px 10px', cursor: 'pointer'}} > 

@@ -103,8 +103,11 @@ const RegisterPage = () => {
             navigate("/login");
         }
         catch (err) {
-            setError("User Registration not valid! ")
-            console.log(err);
+            if (err.response.data.keyPattern.username === 1) {setError("Username already taken. ") }
+
+            else if (err.response.data.keyPattern.email === 1) {setError("Email already exists.")}
+
+            console.log(err.response.data.keyPattern.username);
         }
 
     }
