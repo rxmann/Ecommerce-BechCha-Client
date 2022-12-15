@@ -13,12 +13,20 @@ const Title = styled.h1`
     border-bottom: 3px solid #0171b6;
 `
 
+const Wrapper = styled.div`
+  
+`
+
 const TopSales = () => {
   return (
     <Container>
         <Title>
             Top Sold Products
         </Title>
+
+        <Wrapper>
+
+        </Wrapper>
     </Container>
   )
 }
