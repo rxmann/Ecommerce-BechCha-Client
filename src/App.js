@@ -1,7 +1,7 @@
 import Homepage from "./Pages/Homepage"
 import LoginPage from "./Pages/LoginPage"
 import RegisterPage from "./Pages/RegisterPage"
-import {createBrowserRouter, RouterProvider } from "react-router-dom"
+import {createBrowserRouter, RouterProvider} from "react-router-dom"
 
 
 const App = () => {
@@ -16,9 +16,10 @@ const App = () => {
       element: <RegisterPage />
     },
     {
-      path: "/home",
+      path: "/",
       element: <Homepage />
     }
+    
   ])
 
 
