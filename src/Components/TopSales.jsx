@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import ProductCard from './ProductCard'
 
 const Container = styled.div`
     padding: 0px 50px;
@@ -25,7 +26,7 @@ const TopSales = () => {
         </Title>
 
         <Wrapper>
-
+            <ProductCard />
         </Wrapper>
     </Container>
   )
