@@ -15,10 +15,22 @@ const Title = styled.h1`
 `
 
 const Wrapper = styled.div`
-  
+    display: flex;
+    flex-wrap: wrap;
 `
 
 const TopSales = () => {
+
+    const data = [
+        {
+          id: 0,
+          img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/G24F2.png?raw=true",
+          title: "Dashain Sale",
+          desc: "DON'T COMPROMISE ON TECH! GET FLAT 30% OFF FOR NEW MODELS",
+        }
+      ];
+
+
   return (
     <Container>
         <Title>
@@ -26,7 +38,9 @@ const TopSales = () => {
         </Title>
 
         <Wrapper>
-            <ProductCard />
+            { data.map(element => (
+                <ProductCard data={element} />
+            )) }
         </Wrapper>
     </Container>
   )

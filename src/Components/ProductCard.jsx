@@ -2,20 +2,26 @@ import styled from "styled-components"
 const data = require("../")
 
 const Container = styled.div`
-
+  margin: 10px 5px;
 `
 
 const Wrapper = styled.div`
   background-color: aliceblue;
   height: 40vh;
-  margin: 10px 0px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `
 const ImageContainer = styled.div`
-
+  overflow: hidden;
+  height: 80%;
+  width: 90%;
 `
 
 const Image = styled.img`
-
+  object-fit: contain;
 `
 const Title = styled.h2`
 
@@ -27,31 +33,7 @@ const Price = styled.span`
 
 
 
-const ProductCard = () => {
-
-  const data = [
-    {
-      id: 0,
-      img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/G24F2.png?raw=true",
-      title: "Dashain Sale",
-      desc: "DON'T COMPROMISE ON TECH! GET FLAT 30% OFF FOR NEW MODELS",
-    },
-    {
-      id: 1,
-      img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
-      title: "Dashain Sale",
-      desc: "DON'T COMPROMISE ON TECH! GET FLAT 30% OFF FOR NEW MODELS",
-    },
-    {
-      id: 2,
-      img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/G24F2.png?raw=true",
-      title: "Dashain Sale",
-      desc: "DON'T COMPROMISE ON TECH! GET FLAT 30% OFF FOR NEW MODELS",
-    },
-  ];
-
-
-
+const ProductCard = ({data}) => {
   return (
     <Container >
       <Wrapper>
@@ -59,7 +41,7 @@ const ProductCard = () => {
           <Image src={data.img}/>
         </ImageContainer>
 
-        <Title>  </Title>
+        <Title> {data.title} </Title>
         <Price>  </Price>
 
       </Wrapper>
