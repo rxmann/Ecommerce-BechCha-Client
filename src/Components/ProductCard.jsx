@@ -1,8 +1,25 @@
 import styled from "styled-components"
 
+
+const Container = styled.div`
+
+`
+
+const Wrapper = styled.div`
+
+`
+
+
+
+
+
 const ProductCard = () => {
   return (
-    <div>ProductCard</div>
+    <Container >
+      <Wrapper>
+
+      </Wrapper>
+    </Container>
   )
 }
 
