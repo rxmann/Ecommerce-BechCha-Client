@@ -42,7 +42,7 @@ const ProductCard = ({data}) => {
         </ImageContainer>
 
         <Title> {data.title} </Title>
-        <Price>  </Price>
+        <Price> {data.price} </Price>
 
       </Wrapper>
     </Container>

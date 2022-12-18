@@ -39,7 +39,7 @@ const TopSales = () => {
 
         <Wrapper>
             { data.map(element => (
-                <ProductCard data={element} />
+                <ProductCard data={element} key={element.id} />
             )) }
         </Wrapper>
     </Container>
