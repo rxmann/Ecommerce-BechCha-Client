@@ -6,11 +6,8 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   background-color: aliceblue;
-  max-width: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  max-width: 280px;
+  padding: 20px 0px;
 `
 
 const Image = styled.img`
@@ -22,10 +19,12 @@ const Image = styled.img`
 const Title = styled.h2`
   font-size: 18px;
   font-weight: 500;
+  margin: 10px;
 `
 const Price = styled.span`
-  font-size: 16px;
-  font-weight: 400;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 10px;
 `
 
 
@@ -38,7 +37,7 @@ const ProductCard = ({ data }) => {
         <Image src={data.img} />
 
         <Title> {data.title} </Title>
-        <Price> {data.price} </Price>
+        <Price> RS {data.price} </Price>
 
       </Wrapper>
     </Container>
