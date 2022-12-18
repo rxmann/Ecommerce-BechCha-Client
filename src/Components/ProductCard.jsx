@@ -1,5 +1,4 @@
 import styled from "styled-components"
-const data = require("../")
 
 const Container = styled.div`
   margin: 10px 5px;
@@ -7,39 +6,36 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   background-color: aliceblue;
-  height: 40vh;
   max-width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `
-const ImageContainer = styled.div`
-  overflow: hidden;
-  height: 80%;
-  width: 90%;
-`
 
 const Image = styled.img`
-  object-fit: contain;
+  overflow: hidden;
+  object-fit: center;
+  width: 100%;
+  height: 100%;
 `
 const Title = styled.h2`
-
+  font-size: 18px;
+  font-weight: 500;
 `
 const Price = styled.span`
-
+  font-size: 16px;
+  font-weight: 400;
 `
 
 
 
 
-const ProductCard = ({data}) => {
+const ProductCard = ({ data }) => {
   return (
     <Container >
       <Wrapper>
-        <ImageContainer> 
-          <Image src={data.img}/>
-        </ImageContainer>
+        <Image src={data.img} />
 
         <Title> {data.title} </Title>
         <Price> {data.price} </Price>

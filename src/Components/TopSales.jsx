@@ -25,8 +25,8 @@ const TopSales = () => {
         {
           id: 0,
           img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/G24F2.png?raw=true",
-          title: "Dashain Sale",
-          desc: "DON'T COMPROMISE ON TECH! GET FLAT 30% OFF FOR NEW MODELS",
+          title: "Gigabyte G24F-2 180hz (OC)",
+          price: 36000
         }
       ];
 
