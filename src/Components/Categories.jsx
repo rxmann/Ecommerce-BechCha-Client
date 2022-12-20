@@ -3,7 +3,6 @@ import OneCategory from './CategoryBlock'
 
 const Container = styled.div`
     margin: 10px 50px;
-    background-color: #ffffff;
 `
 
 const Title = styled.h1`
@@ -16,8 +15,9 @@ const Title = styled.h1`
 `
 const List = styled.div`
     display: flex;
-    /* justify-content: space-between; */
     flex-wrap: wrap;
+    margin: 10px 0px;
+    padding: 0px;
 `
 
 const Categories = () => {

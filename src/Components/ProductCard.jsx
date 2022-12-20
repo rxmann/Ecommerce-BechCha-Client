@@ -2,14 +2,14 @@ import styled from "styled-components"
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 
 const Container = styled.div`
-  margin: 10px 5px;
-  min-width: 220px;
-  max-width: 220px;
+  margin: 10px 0px;
+  max-width: 230px;
   padding: 10px;
   border: 1px solid #ffffff;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
+  border-radius: 2px;
 
   &:hover {
     border: 1px solid lightgray;
@@ -19,15 +19,18 @@ const Container = styled.div`
 `
 
 const Image = styled.img`
+  background-color: #f5f7f8;
   overflow: hidden;
   object-fit: contain;
   width: 100%;
   height: 100%;
   cursor: pointer;
   transition: transform .3s ease;
+  transform: scale(0.8);
+  border-radius: 2px;
 
   &:hover {
-    transform: scale(1.06);
+    transform: scale(1);
   }
 `
 

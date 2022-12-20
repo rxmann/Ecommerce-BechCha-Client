@@ -9,6 +9,7 @@ const Button = styled.button`
   font-size: 20px;
   background-color: white;
   cursor: pointer;
+  border: 1px solid gray;
   z-index: -1;
   &:hover {
     transform: scale(1.06, 1.06);
@@ -17,7 +18,7 @@ const Button = styled.button`
 
 const Container = styled.div`
   flex: 1;
-  max-width: 200px;
+  max-width: 180px;
   padding: 20px;
   position: relative;
   border: 1px solid white;
@@ -25,7 +26,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
+  margin-right: 10px;
+  border-radius: 20px;
+  background-color: #ffffff;
+
   &:hover {
     border: 1px solid lightgray;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -42,6 +46,11 @@ const Image = styled.img`
   height: 80%;
   object-fit: cover;
   overflow: hidden;
+  transform: scale(0.8);
+
+  &:hover {
+    transform: scale(1);
+  }
 `
 
 
