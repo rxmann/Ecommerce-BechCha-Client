@@ -10,7 +10,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  height: 500px;
+  height: 400px;
   width: 100%;
   display: flex;
   align-items: center;

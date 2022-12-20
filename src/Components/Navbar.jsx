@@ -7,7 +7,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
     height: 70px;
@@ -35,6 +35,8 @@ const Left = styled.div`
 const Logo = styled.h1`
     font-size: 24px;
     font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
 `
 
 const Middle = styled.div`
@@ -93,7 +95,9 @@ const Navbar = () => {
     <Container>
         <Wrapper >
             <Left>
+            <Link to="/"> 
                 <Logo>Bech'cha</Logo>
+            </Link>
             </Left>
 
             <Middle>
@@ -116,6 +120,7 @@ const Navbar = () => {
 
             
             <Right> 
+                    NP
                     <AccountCircleIcon onClick={()=>navigate("/register")} style={{marginLeft: '20px', cursor: 'pointer'}} />
                     <Badge badgeContent={4} 
                             color = {'secondary'}
