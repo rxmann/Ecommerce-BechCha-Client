@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import OneCategory from './CategoryBlock'
 
 const Container = styled.div`
-    margin: 50px;
+    margin: 10px 50px;
     background-color: #ffffff;
 `
 
