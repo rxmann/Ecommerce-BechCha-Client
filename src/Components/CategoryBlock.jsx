@@ -32,6 +32,7 @@ const Container = styled.div`
   }
 
   &:hover ${Button} {
+      transition: transform .2s ease;
       z-index: 1;
     }
 `

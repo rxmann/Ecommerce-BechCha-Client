@@ -27,7 +27,14 @@ const TopSales = () => {
           img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/G24F2.png?raw=true",
           title: "Gigabyte G24F-2 180hz (OC)",
           price: 36000
-        }
+        },
+          {
+            id: 2,
+            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
+            title: "K552 rgb Keyboard",
+            price: 5000
+          }
+                    
       ];
 
 
