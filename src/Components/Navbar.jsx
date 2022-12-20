@@ -12,7 +12,6 @@ import { useNavigate } from 'react-router-dom';
 const Container = styled.div`
     height: 70px;
     width: 100%;
-    box-shadow: 0 0.2px #999;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,7 +67,6 @@ const SearchBox = styled.input`
 `
 
 const SearchButton = styled(Button)`
-    
     cursor: pointer;
     color: #0171b6;
 `
@@ -120,10 +118,10 @@ const Navbar = () => {
                     <AccountCircleIcon onClick={()=>navigate("/register")} style={{marginLeft: '20px', cursor: 'pointer'}} />
                     <Badge badgeContent={4} 
                             color = {'secondary'}
-                            style={{margin: '0px 10px', cursor: 'pointer'}} > 
+                            style={{marginLeft: '20px', cursor: 'pointer'}} > 
                             <ShoppingCartOutlined />
                     </Badge>
-                    <CompareIcon style={{margin: '0px 10px', cursor: 'pointer'}} />
+                    <CompareIcon style={{marginLeft: '20px', cursor: 'pointer'}} />
             </Right>
         </Wrapper>
     </Container>
