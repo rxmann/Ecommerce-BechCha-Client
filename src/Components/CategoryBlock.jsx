@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const Image = styled.img`
   width: 100%;
-  height: 100%;
+  height: 80%;
   object-fit: cover;
   overflow: hidden;
   z-index: 0;
@@ -13,11 +13,8 @@ const Image = styled.img`
 
 const Container = styled.div`
   flex: 1;
-  margin: 20px 10px 0px 0px;
-  height: 20vh;
   min-width: 100px;
   max-width: 200px;
-  color: white;
   padding: 20px;
   position: relative;
   border: 0.3px solid white;
@@ -28,7 +25,12 @@ const Container = styled.div`
     border: 1px solid lightgray;
     border-radius: 10px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+    .Button {
+      z-index: 2;
+    }
   }
+
 
 `
 
@@ -48,9 +50,10 @@ const Display = styled.div`
 `
 
 const Name = styled.h3`
-  background-color: gray;
+  /* background-color: gray; */
   padding: 10px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
+  color: black;
 `
 
 const Button = styled.button`
@@ -59,20 +62,18 @@ const Button = styled.button`
   font-size: 20px;
   background-color: white;
   cursor: pointer;
-
-  &:hover {
-      transform: scale(1.1, 1.1);
-  }
+  z-index: -1;
 
 `
 
 const OneCategory = ( {category} ) => {
   return (
     <Container>
+        <Name> {category.title} </Name>
+
         <Image src={category.img} />
 
         <Display>
-            <Name> {category.title} </Name>
             <Button> Shop Now </Button>
         </Display>
     </Container>

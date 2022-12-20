@@ -3,6 +3,8 @@ import OneCategory from './CategoryBlock'
 
 const Container = styled.div`
     margin: 50px;
+    background-color: #ffffff;
+    padding: 20px 0px;
 `
 
 const Title = styled.h1`

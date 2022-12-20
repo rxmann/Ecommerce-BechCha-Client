@@ -10,26 +10,29 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  height: 60vh;
+  height: 500px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: aliceblue;
+  background-color: #ffffff;
 `;
 
 const ImageContainer = styled.div`
   flex: 1;
   display: flex;
+  overflow: hidden;
   align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
 `;
 
 const Image = styled.img`
   height: 90%;
   width: 90%;
-  object-fit: cover;
-  overflow: hidden;
   padding-left: 50px;
+  object-fit: contain;
 `;
 
 const InfoContainer = styled.div`

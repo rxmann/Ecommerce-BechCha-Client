@@ -14,7 +14,7 @@ import TopSales from "../Components/TopSales"
 
 
 const Container = styled.div`
-  background-color: #ffffff;
+  background-color: #F5F7F8;
 `
 
 const Wrapper = styled.div`
