@@ -15,11 +15,12 @@ const Title = styled.h1`
 `
 const List = styled.div`
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
     margin: 10px 0px;
-    padding: 0px;
+    padding: 10px;
 
-    background-color: #ffffff;
+    height: 20vh;
+    width: 100%;
 `
 
 const Categories = () => {
