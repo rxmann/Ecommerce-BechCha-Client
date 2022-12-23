@@ -31,7 +31,6 @@ const Container = styled.div`
   padding: 20px;
   margin: 10px;
   transition: box-shadow 0.1s ease-in-out;
-  background-color: #ffffff;
   border-radius: 20px;
 
 
@@ -40,6 +39,7 @@ const Container = styled.div`
 
   &:hover {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background-color: #ffffff;
   }
 
   &:hover ${Button} {
