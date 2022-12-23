@@ -18,6 +18,8 @@ const List = styled.div`
     flex-wrap: wrap;
     margin: 10px 0px;
     padding: 0px;
+
+    background-color: #ffffff;
 `
 
 const Categories = () => {
