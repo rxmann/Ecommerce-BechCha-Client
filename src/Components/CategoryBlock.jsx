@@ -5,33 +5,33 @@ import styled from 'styled-components'
 
 const Button = styled.button`
   border: none;
-  padding: 10px 20px;
-  font-size: 20px;
+  padding: 10px;
+  font-size: 10px;
   background-color: white;
   cursor: pointer;
-  border: 1px solid gray;
   z-index: -1;
   &:hover {
     transform: scale(1.06, 1.06);
+    background-color: #0171b6;
+    color: white;
   }
 `
 
 const Container = styled.div`
   flex: 1;
-  max-width: 180px;
+  max-width: 120px;
+  max-height: 100px;
   padding: 20px;
   position: relative;
-  border: 1px solid white;
   transition: box-shadow 0.1s ease-in-out;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-right: 10px;
-  border-radius: 20px;
   background-color: #ffffff;
+  border-radius: 20px;
 
   &:hover {
-    border: 1px solid lightgray;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
 
@@ -75,10 +75,8 @@ const Name = styled.h3`
 const OneCategory = ( {category} ) => {
   return (
     <Container>
-        <Name> {category.title} </Name>
-
         <Image src={category.img} />
-
+        <Name> {category.title} </Name>
         <Display>
             <Button> Shop Now </Button>
         </Display>

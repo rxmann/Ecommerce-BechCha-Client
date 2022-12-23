@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Thumbs } from "swiper";
+import { Navigation, Pagination, Thumbs, Autoplay } from "swiper";
 
 // Import Swiper styles
 import "swiper/css/bundle";
+import "swiper/css/autoplay"
 
 const Container = styled.div`
   padding: 10px 50px;
@@ -94,11 +95,13 @@ const FeaturedSlider = () => {
   return (
     <Container>
       <Swiper
+        modules={[Navigation, Thumbs, Pagination, Autoplay]}
+        autoplay = {{delay: 4000}}
         loop={true}
         spaceBetween={0}
+        slidesPerView= {1}
         navigation
         pagination={{ clickable: true }}
-        modules={[Navigation, Thumbs, Pagination]}
         grabCursor
       >
         {sliderItems.map((product) => (

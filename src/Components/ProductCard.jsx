@@ -2,7 +2,6 @@ import styled from "styled-components"
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 
 const Container = styled.div`
-  margin: 10px 0px;
   max-width: 230px;
   padding: 10px;
   border: 1px solid #ffffff;
