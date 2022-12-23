@@ -2,14 +2,19 @@ import styled from 'styled-components'
 
 
 
-
 const Button = styled.button`
   border: none;
+  border-radius: 2px;
+  background-color: #ffffff;
   padding: 10px;
-  font-size: 10px;
-  background-color: white;
+  font-size: 16px;
   cursor: pointer;
   z-index: -1;
+
+  position: absolute;
+  top: calc(50%);
+  left: calc(50% - 50px);
+
   &:hover {
     transform: scale(1.06, 1.06);
     background-color: #0171b6;
@@ -17,68 +22,73 @@ const Button = styled.button`
   }
 `
 
+
 const Container = styled.div`
-  flex: 1;
-  max-width: 120px;
-  max-height: 100px;
-  padding: 20px;
-  position: relative;
-  transition: box-shadow 0.1s ease-in-out;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-right: 10px;
+  justify-content: center;
+  padding: 20px;
+  margin: 10px;
+  transition: box-shadow 0.1s ease-in-out;
   background-color: #ffffff;
   border-radius: 20px;
+
+
+  width: 180px;
+  height: 150px;
 
   &:hover {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
 
   &:hover ${Button} {
-      transition: transform .2s ease;
-      z-index: 1;
-    }
-`
-
-const Image = styled.img`
-  width: 100%;
-  height: 80%;
-  object-fit: cover;
-  overflow: hidden;
-  transform: scale(0.8);
-
-  &:hover {
-    transform: scale(1);
+    transition: transform .2s ease;
+    z-index: 1;
   }
 `
 
-
-const Display = styled.div`
-  position: absolute;
-  top: 50;
-  left: 50;
-  height: 100%; width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;  
-`
-
 const Name = styled.h3`
-  padding: 10px;
-  color: black;
+  flex: 1;
+
 `
+const Display = styled.div`
+  flex: 5;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  position: relative;
+  background-color: #f5f7f8;
+
+`
+
+
+const Image = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  overflow: hidden;
+  border-radius: 2px;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+`
+
+
+
+
+
 
 
 
 const OneCategory = ( {category} ) => {
   return (
     <Container>
-        <Image src={category.img} />
         <Name> {category.title} </Name>
         <Display>
-            <Button> Shop Now </Button>
+          <Image src={category.img} />
+          <Button> Shop Now </Button>
         </Display>
     </Container>
   )
