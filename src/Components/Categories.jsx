@@ -1,6 +1,12 @@
 import styled from 'styled-components'
 import OneCategory from './CategoryBlock'
 
+import { Navigation, Pagination, Thumbs, Autoplay } from "swiper";
+
+// Import Swiper styles
+import "swiper/css/bundle";
+import "swiper/css/autoplay"
+import { Swiper, SwiperSlide } from "swiper/react";
 const Container = styled.div`
     margin: 10px 50px;
 `
@@ -52,23 +58,38 @@ const Categories = () => {
         }
     ];
 
-  return (
-    
-
-    <Container >
-        <Title>
-            Categories
-        </Title>
-
-        <List>
-            {CategoriesList.map( (each) => (
-                <OneCategory category={each} key={each.id}/>
-            ))}
-        </List>
+    return (
 
 
-    </Container>
-  )
+        <Container >
+            <Title>
+                Categories
+            </Title>
+
+
+            <Swiper
+                modules={[Navigation, Pagination, Autoplay]}
+                autoplay={{ delay: 2000 }}
+                // loop={true}
+                spaceBetween={10}
+                slidesPerView={3}
+                navigation
+                pagination={{ clickable: true }}
+                grabCursor
+            >
+                <List>
+                    {CategoriesList.map((each) => (
+                        <SwiperSlide key={each.id}>
+                            <OneCategory category={each} key={each.id} />
+                        </SwiperSlide>
+                    ))}
+                </List>
+
+            </Swiper>
+
+
+        </Container>
+    )
 }
 
 export default Categories
