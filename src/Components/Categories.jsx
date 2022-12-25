@@ -70,10 +70,9 @@ const Categories = () => {
             <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
                 autoplay={{ delay: 2000 }}
-                // loop={true}
                 spaceBetween={10}
+                navaigation
                 slidesPerView={3}
-                navigation
                 pagination={{ clickable: true }}
                 grabCursor
             >
