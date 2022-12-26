@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  height: 400px;
+  height: 60vh;
   width: 100%;
   display: flex;
   align-items: center;

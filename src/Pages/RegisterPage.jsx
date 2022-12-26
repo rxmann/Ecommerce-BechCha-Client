@@ -37,9 +37,8 @@ const Left = styled.div`
     color: white;
 `
 
-const Title = styled.div`
-    font-size: 70px;
-    font-weight: bolder;
+const Title = styled.h1`
+    font-size: 40px;
     line-height: 100px;
 `
 const Desc = styled.p`
@@ -51,7 +50,7 @@ const Span = styled.span`
 `
 
 const Right = styled.div`
-    flex: 1;
+    flex: 2;
     padding: 50px;
     display: flex;
     flex-direction: column;
@@ -67,7 +66,20 @@ const Form = styled.form`
     gap: 30px;
 `
 
-const SearchButton = styled(Button)`
+const loginButton = styled.button`
+    font-size: 16;
+    padding: '6px 12px';
+    border: '1px solid';
+    line-height: 1.5;
+    background-color: #0063cc;
+    border-color: #0063cc;
+    
+    
+    &:hover {
+        background-color: #0069d9;
+        border-color: #0062cc;
+        box-shadow: none;
+    }
 `
 
 const SpanMessage = styled.div`
@@ -167,17 +179,14 @@ const RegisterPage = () => {
                     Lorem ipsum dolor sit amet consectetur
                     Best ecommerce site in town with 100+ active users. </Desc>
                 <Span> Already have an account? </Span>
+                
 
-                    <SearchButton 
+                <loginButton> Login </loginButton>
+                    <loginButton 
                         onClick={() => navigate("/login")}
-                        style={{
-                            color: 'white'
-                        }}
-                        color='info' 
-                        variant="outlined"
                     > 
                         Login
-                    </SearchButton>
+                    </loginButton>
             </Left>                
             </Card>
     </Container>

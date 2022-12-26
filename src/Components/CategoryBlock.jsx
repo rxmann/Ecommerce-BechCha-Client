@@ -29,13 +29,12 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding: 20px;
-  margin: 10px;
   transition: box-shadow 0.1s ease-in-out;
   border-radius: 20px;
 
 
-  width: 180px;
-  height: 150px;
+  width: 220px;
+  height: 120px;
 
   &:hover {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;

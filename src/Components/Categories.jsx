@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import OneCategory from './CategoryBlock'
 
-import { Navigation, Pagination, Thumbs, Autoplay } from "swiper";
+import { Navigation, Autoplay } from "swiper";
 
 // Import Swiper styles
 import "swiper/css/bundle";
@@ -55,6 +55,36 @@ const Categories = () => {
             img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
             title: "Keyboards",
             category: "keyboard"
+        },
+        {
+            id: 4,
+            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
+            title: "Keyboards",
+            category: "keyboard"
+        },
+        {
+            id: 5,
+            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
+            title: "Keyboards",
+            category: "keyboard"
+        },
+        {
+            id: 6,
+            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
+            title: "Keyboards",
+            category: "keyboard"
+        },
+        {
+            id: 7,
+            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
+            title: "Keyboards",
+            category: "keyboard"
+        },
+        {
+            id: 8,
+            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
+            title: "Keyboards",
+            category: "keyboard"
         }
     ];
 
@@ -68,13 +98,19 @@ const Categories = () => {
 
 
             <Swiper
-                modules={[Navigation, Pagination, Autoplay]}
-                autoplay={{ delay: 2000 }}
-                spaceBetween={10}
-                navaigation
-                slidesPerView={3}
+                modules={[Navigation, Autoplay]}
+                autoplay= {{
+                    delay: 2000,
+                    disableOnInteraction: false,
+                    pauseOnMouseEnter: true,
+                }}
+                spaceBetween={2}
+                navigation
+                slidesPerView={5}
+                loop={true}
                 pagination={{ clickable: true }}
-                grabCursor
+                effect =  {'slide'}
+                longSwipes=  {true}
             >
                 <List>
                     {CategoriesList.map((each) => (

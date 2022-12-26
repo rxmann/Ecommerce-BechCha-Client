@@ -39,9 +39,8 @@ const Left = styled.div`
     color: white;
 `
 
-const Title = styled.div`
-    font-size: 70px;
-    font-weight: bolder;
+const Title = styled.h1`
+    font-size: 40px;
     line-height: 100px;
 `
 
@@ -54,7 +53,7 @@ const Span = styled.span`
 `
 
 const Right = styled.div`
-    flex: 1;
+    flex: 2;
     padding: 50px;
     display: flex;
     flex-direction: column;
@@ -71,6 +70,7 @@ const Form = styled.form`
 `
 
 const SearchButton = styled(Button)`
+
 `
 
 const SpanMessage = styled.div`
