@@ -66,20 +66,11 @@ const Form = styled.form`
     gap: 30px;
 `
 
-const loginButton = styled.button`
-    font-size: 16;
-    padding: '6px 12px';
-    border: '1px solid';
-    line-height: 1.5;
-    background-color: #0063cc;
-    border-color: #0063cc;
-    
-    
-    &:hover {
-        background-color: #0069d9;
-        border-color: #0062cc;
-        box-shadow: none;
-    }
+const Btn = styled.button`
+    padding: 10px;
+    border: none;
+    background-color: transparent;
+    color: white;
 `
 
 const SpanMessage = styled.div`
@@ -123,13 +114,14 @@ const RegisterPage = () => {
         }
 
     }
+
   return (
     <Container>
             <Card>
 
             <Right>
                 <H1> Register </H1>
-                <Form >
+                <Form onSubmit={handleSubmitRegister}>
                     <TextField
                         value={username}
                         onChange={ e => setUsername(e.target.value) }
@@ -161,7 +153,6 @@ const RegisterPage = () => {
                     
                     {error? <SpanMessage> {error} </SpanMessage> : ""}
                     <Button 
-                        onClick={handleSubmitRegister}
                         size="large" 
                         variant="contained"
                     > 
@@ -181,12 +172,7 @@ const RegisterPage = () => {
                 <Span> Already have an account? </Span>
                 
 
-                <loginButton> Login </loginButton>
-                    <loginButton 
-                        onClick={() => navigate("/login")}
-                    > 
-                        Login
-                    </loginButton>
+                <Btn onClick={() => navigate("/login")} > Login </Btn>
             </Left>                
             </Card>
     </Container>
