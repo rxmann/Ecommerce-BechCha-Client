@@ -4,6 +4,16 @@ import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { publicRequest } from "../requestMethods/requestMethods";
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
+
+
 
 const Container = styled.div`
     height: 100vh;
@@ -93,14 +103,20 @@ const RegisterPage = () => {
     
     const navigate = useNavigate();
 
+
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+
     const handleSubmitRegister = async (e) => {
         e.preventDefault();
         try {
             const response = await publicRequest.post("/users/register", {
                 username,
                 email,
-                password,
-                confirmPassword
+                password
             })
             console.log(response);
             navigate("/login");
@@ -121,7 +137,7 @@ const RegisterPage = () => {
 
             <Right>
                 <H1> Register </H1>
-                <Form onSubmit={handleSubmitRegister}>
+                <Form >
                     <TextField
                         value={username}
                         onChange={ e => setUsername(e.target.value) }
@@ -136,25 +152,39 @@ const RegisterPage = () => {
                         label="Email"
                         type="email"
                     />
-                    <TextField
-                        value={password}
-                        onChange={(e) => {setPassword(e.target.value)} }
-                        required
-                        label="Password"
-                        type="password"
-                    />
-                    <TextField
-                        value={confirmPassword}
-                        onChange={(e) => {setConfirmPassword(e.target.value)} }
-                        required
-                        label="Confirm Password"
-                        type="password"
-                    />
+                    {/* ////////////////// */}
+
+
+
+                    <FormControl>
+                    <InputLabel> Password </InputLabel>
+                        <OutlinedInput
+                            value={password}
+                            onChange={(e) => {setPassword(e.target.value)} }
+                            type={showPassword ? 'text' : 'password'}
+                            endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton onClick={handleClickShowPassword} >
+                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                            }
+                            label="Password"
+                            required = {true}
+                        />
+                     </FormControl>
+
+
+
+
+
+                    {/* ///////////////// */}
                     
                     {error? <SpanMessage> {error} </SpanMessage> : ""}
                     <Button 
                         size="large" 
                         variant="contained"
+                        onClick={handleSubmitRegister}
                     > 
                         Register </Button>
                     

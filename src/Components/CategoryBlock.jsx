@@ -1,6 +1,24 @@
 import styled from 'styled-components'
 
+const Container = styled.div`
+  padding: 10px 20px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 8px;
 
+  width: 200px;
+  height: 120px;
+
+  &:hover {
+    transition: transform .2s ease-in-out;
+    transform: scale(1.1, 1.1);
+  }
+`
 
 const Button = styled.button`
   border: none;
@@ -22,24 +40,15 @@ const Button = styled.button`
   }
 `
 
+const Wrapper = styled.div`
+  position: relative;
+  overflow: hidden;
+  background: url(${props => props.img}) center;
+  background-size: cover;
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  transition: box-shadow 0.1s ease-in-out;
-  border-radius: 20px;
+  width: 100%;
+  height: 100%;
 
-
-  width: 220px;
-  height: 120px;
-
-  &:hover {
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    background-color: #ffffff;
-  }
 
   &:hover ${Button} {
     transition: transform .2s ease;
@@ -49,46 +58,18 @@ const Container = styled.div`
 
 const Name = styled.h3`
   flex: 1;
-
+  display: table;
+  font-weight: 800;
 `
-const Display = styled.div`
-  flex: 5;
-  width: 100%;
-  height: 100%;
-  padding: 10px;
-  position: relative;
-  background-color: #f5f7f8;
-
-`
-
-
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-  overflow: hidden;
-  border-radius: 2px;
-
-  position: absolute;
-  top: 0;
-  left: 0;
-`
-
-
-
-
-
-
 
 
 const OneCategory = ( {category} ) => {
   return (
-    <Container>
+    <Container >
         <Name> {category.title} </Name>
-        <Display>
-          <Image src={category.img} />
+        <Wrapper img={category.img} >
           <Button> Shop Now </Button>
-        </Display>
+        </Wrapper>
     </Container>
   )
 }

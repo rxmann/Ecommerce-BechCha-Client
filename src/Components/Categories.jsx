@@ -7,8 +7,9 @@ import { Navigation, Autoplay } from "swiper";
 import "swiper/css/bundle";
 import "swiper/css/autoplay"
 import { Swiper, SwiperSlide } from "swiper/react";
+
 const Container = styled.div`
-    margin: 10px 50px;
+    padding: 10px 50px;
 `
 
 const Title = styled.h1`
@@ -19,14 +20,26 @@ const Title = styled.h1`
     font-size: 24px;
     border-bottom: 3px solid #0171b6;
 `
+
 const List = styled.div`
     display: flex;
     align-items: center;
-    margin: 10px 0px;
-    padding: 10px;
-
+    margin: 20px;
     height: 20vh;
     width: 100%;
+`
+
+const Display = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 20px;
+`
+
+const Span = styled.span`
+    color: #0171b6;
+    font-size: 14px;
+    font-weight: 200;
+    border-bottom: .5px solid #0171b6;
 `
 
 const Categories = () => {
@@ -92,9 +105,15 @@ const Categories = () => {
 
 
         <Container >
-            <Title>
-                Categories
-            </Title>
+
+            <Display>
+                <Title>
+                    Categories
+                </Title>
+                <Span>
+                    Buy Items best siuite for you
+                </Span>
+            </Display>
 
 
             <Swiper
@@ -110,7 +129,6 @@ const Categories = () => {
                 loop={true}
                 pagination={{ clickable: true }}
                 effect =  {'slide'}
-                longSwipes=  {true}
             >
                 <List>
                     {CategoriesList.map((each) => (
