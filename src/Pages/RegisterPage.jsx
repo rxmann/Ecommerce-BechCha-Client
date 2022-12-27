@@ -68,7 +68,7 @@ const Form = styled.form`
 
 const Btn = styled.button`
     padding: 10px;
-    border: none;
+    border: none;   
     background-color: transparent;
     color: white;
 `

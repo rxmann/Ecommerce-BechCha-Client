@@ -100,7 +100,7 @@ const LoginPage = () => {
                 password
             })
             console.log(response);
-            navigate("/home");
+            navigate("/");
         }
         catch (err) {
 
