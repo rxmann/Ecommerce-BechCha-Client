@@ -124,15 +124,19 @@ const RegisterPage = () => {
                 email,
                 password
             })
-            console.log(response);
+            console.log("Log In successful");
             navigate("/login");
         }
         catch (err) {
-            if (err.response.data.keyPattern.username === 1) {setError("Username already taken. ") }
+            console.log(err.response.data);
+            setError(err.response.data.Error[0].message)
+            // if (err.response.data.keyPattern.username === 1) {setError("Username already taken. ") }
 
-            else if (err.response.data.keyPattern.email === 1) {setError("Email already exists.")}
+            // else if (err.response.data.keyPattern.email === 1) {setError("Email already exists.")}
 
-            console.log(err.response.data.keyPattern.username);
+            // else {
+                
+            // }
         }
 
     }
@@ -171,11 +175,29 @@ const RegisterPage = () => {
                             endAdornment={
                             <InputAdornment position="end">
                                 <IconButton onClick={handleClickShowPassword} >
-                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                {showPassword ? <Visibility /> : <VisibilityOff />}
                                         </IconButton>
                                     </InputAdornment>
                             }
                             label="Password"
+                            required = {true}
+                        />
+                     </FormControl>
+
+                     <FormControl>
+                    <InputLabel>Confirm Password </InputLabel>
+                        <OutlinedInput
+                            value={confirmPassword}
+                            onChange={(e) => {setConfirmPassword(e.target.value)} }
+                            type={showPassword ? 'text' : 'password'}
+                            endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton onClick={handleClickShowPassword} >
+                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                                        </IconButton>
+                                    </InputAdornment>
+                            }
+                            label="Confirm Password"
                             required = {true}
                         />
                      </FormControl>

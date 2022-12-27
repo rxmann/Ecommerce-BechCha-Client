@@ -10,12 +10,16 @@ import Button from '@mui/material/Button';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
+    position: sticky;
+    top: 0;
     height: 70px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #ffffff;
+    z-index: 999;
+    box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);
 `
 const Wrapper = styled.div`
     width: 100%;
