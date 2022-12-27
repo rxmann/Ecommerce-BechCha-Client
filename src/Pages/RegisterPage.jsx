@@ -4,13 +4,17 @@ import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { publicRequest } from "../requestMethods/requestMethods";
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
+
+import { 
+    FormControl, 
+    InputLabel, 
+    IconButton, 
+    OutlinedInput, 
+    InputAdornment
+} from "@mui/material";
+
+import {Visibility, VisibilityOff} from '@mui/icons-material';
 
 
 
@@ -105,6 +109,8 @@ const RegisterPage = () => {
 
 
 
+
+    // for password box (visibility, toogle, functions)
     const [showPassword, setShowPassword] = useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);

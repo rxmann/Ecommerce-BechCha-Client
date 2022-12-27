@@ -4,6 +4,16 @@ import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { publicRequest } from "../requestMethods/requestMethods";
+import { 
+    FormControl, 
+    InputLabel, 
+    IconButton, 
+    OutlinedInput, 
+    InputAdornment
+} from "@mui/material";
+
+import {Visibility, VisibilityOff} from '@mui/icons-material';
+
 
 
 
@@ -92,6 +102,12 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
 
+     // for password box (visibility, toogle, functions)
+     const [showPassword, setShowPassword] = useState(false);
+
+     const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+     
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
         try {
@@ -146,14 +162,29 @@ const LoginPage = () => {
                             onChange={(e) => {setEmail(e.target.value)}}
                             required
                         />
-                        <TextField
-                            id="outlined-password-input"
-                            label="Password"
-                            type="password"
-                            value={password}
-                            onChange={(e) => {setPassword(e.target.value)} }
-                            required
-                        />
+                       
+                        
+                       <FormControl >
+                        <InputLabel> Password </InputLabel>
+                            <OutlinedInput
+                                value={password}
+                                onChange={(e) => {setPassword(e.target.value)} }
+                                type={showPassword ? 'text' : 'password'}
+                                endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton onClick={handleClickShowPassword} >
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                }
+                                label="Password"
+                                required = {true}
+                            />
+                        </FormControl>
+
+
+
+
                         {error? <SpanMessage> {error} </SpanMessage> : ""}
                         <Button onClick={handleSubmitLogin} size="large" variant="contained"> Login </Button>
 
