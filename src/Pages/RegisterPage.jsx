@@ -30,7 +30,7 @@ const Container = styled.div`
 const Card = styled.div`
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     display: flex;
-    width: 60%;
+    width: 40%;
     min-height: 600px;
     border-radius: 10px;
     background-color: white;
@@ -119,7 +119,7 @@ const RegisterPage = () => {
     const handleSubmitRegister = async (e) => {
         e.preventDefault();
         try {
-            const response = await publicRequest.post("/users/register", {
+            await publicRequest.post("/users/register", {
                 username,
                 email,
                 password
