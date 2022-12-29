@@ -8,7 +8,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 2px;
-  margin: 20px 5px;
+  margin: 20px 10px;
 
   &:hover {
     transform: translate(2);
@@ -59,7 +59,13 @@ const Price = styled.span`
   margin: 10px;
 `
 
-
+const AddBtn = styled(AddBoxOutlinedIcon)`
+  transition: box-shadow 150ms ease-out;
+  &:hover {
+		box-shadow: 0 0 0 8px rgba($white, 0.5);
+    transform: scale(1.1, 1.1);
+	}
+`
 
 
 const ProductCard = ({ data }) => {
@@ -71,7 +77,7 @@ const ProductCard = ({ data }) => {
       </Wrapper>
       <Info>
         <Price> RS {data.price} </Price>
-        <AddBoxOutlinedIcon 
+        <AddBtn
           sx= {{cursor: 'pointer'}}
         fontSize="medium"  color="primary"/>
       </Info>

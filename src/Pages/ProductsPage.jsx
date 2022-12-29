@@ -5,40 +5,50 @@ import ProductList from "../Components/Products/ProductList"
 
 
 const Products = styled.div`
-
+  padding: 30px 50px;
+  display: flex;
+  background-color: #f5f7f8;
 `
 
 const Left = styled.div`
-
+  flex: 1;
+  position: sticky;
+  height: 100%;
+  top: 100px;
 `
 
 const Right = styled.div`
-  
+  flex: 3;
 `
 
 const FilterItem = styled.div`
-
+  margin-bottom: 30px;
 `
 
 const FilterHeading = styled.h2`
-
+  font-weight: 400;
+  margin-bottom: 20px;
 `
 
 const InputItem = styled.div`
-
+  margin-bottom: 10px;
 `
 
 const Input = styled.input`
 
 `
 const Label = styled.label`
-
+  margin-left: 10px;
 `
 
 
 
 const Image = styled.img`
-
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  margin-bottom: 50px;
+  cursor: pointer;
 `
 
 

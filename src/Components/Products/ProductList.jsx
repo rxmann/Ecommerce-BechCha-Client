@@ -3,10 +3,8 @@ import ProductCard from "./ProductCard";
 
 
 const Container = styled.div`
-
-`
-const List = styled.div`
-
+  display: flex;
+  flex-wrap: wrap;
 `
 
 const ProductList = () => {
@@ -67,15 +65,9 @@ const ProductList = () => {
 
   return (
     <Container>
-      <List>
         {data.map((product) => (
           <ProductCard  data={product} key={product.id} />
         ))}
-
-
-
-
-      </List>
     </Container>
   )
 }
