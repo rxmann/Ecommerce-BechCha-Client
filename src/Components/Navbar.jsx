@@ -36,9 +36,8 @@ const Left = styled.div`
     align-items: center;  
 `
 
-const Logo = styled.h1`
-    font-size: 24px;
-    font-weight: bold;
+const Logo = styled.img`
+    width: 150px;
     cursor: pointer;
     text-decoration: none;
 `
@@ -100,14 +99,14 @@ const Navbar = () => {
         <Wrapper >
             <Left>
             <Link to="/"> 
-                <Logo>Bech'cha</Logo>
+                <Logo src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true' />
             </Link>
             </Left>
 
             <Middle>
                 <SearchContainer>
                     <Searchicon fontSize= "medium" />
-                    <SearchBox maxLength={30} onChange={(e) => setSearch(e.value) } name='search' value={search}/>
+                    <SearchBox maxLength={30} onChange={(e) => setSearch(e.target.value) } name='search' value={search}/>
                     
                     
                     { search === '' ? 

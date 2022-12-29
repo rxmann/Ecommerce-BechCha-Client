@@ -10,9 +10,8 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 const Container = styled.div`
     display: flex;    
-    background-color: #141414;
-    color: gray;
-    height: 100%;
+    background-color: #333333;
+    color: #aaaaaa;
 `
 
 const LeftDiv = styled.div`
@@ -24,7 +23,7 @@ const Description = styled.p`
     margin: 20px 0px;
 
     &:hover {
-        color: white;
+        color: #ffffff;
     }
 `
 
@@ -58,7 +57,7 @@ const MidDiv = styled.div`
 
 const Title = styled.h3`
     margin-bottom: 30px;
-    color: white;
+    color: #ffffff;
 `
 
 const List = styled.ul`
@@ -74,7 +73,7 @@ const ListItems = styled.li`
     margin-bottom: 10px;
 
     &:hover {
-        color: white;
+        color: #ffffff;
         cursor: pointer;
     }
 `

@@ -11,7 +11,7 @@ const Container = styled.div`
   margin: 10px 0px;
   padding: 20px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  border-radius: 8px;
+  border-radius: 10px;
 
   width: 200px;
   height: 120px;
@@ -62,6 +62,7 @@ const Name = styled.h3`
   flex: 1;
   display: table;
   font-weight: 800;
+  padding: 10px;
 `
 
 

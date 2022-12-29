@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   max-width: 230px;
@@ -69,18 +70,23 @@ const AddBtn = styled(AddBoxOutlinedIcon)`
 
 
 const ProductCard = ({ data }) => {
+
+  const navigate = useNavigate();
+
   return (
     <Container >
-        <Image src={data.img} />
+        <Image onClick={() => navigate("/product/:id")} src={data.img} />
       <Wrapper>
         <Title> {data.title} </Title>
       </Wrapper>
+
       <Info>
         <Price> RS {data.price} </Price>
         <AddBtn
           sx= {{cursor: 'pointer'}}
         fontSize="medium"  color="primary"/>
       </Info>
+
     </Container>
   )
 }

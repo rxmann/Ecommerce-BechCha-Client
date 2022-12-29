@@ -5,13 +5,16 @@ import {createBrowserRouter, RouterProvider, Outlet } from "react-router-dom"
 import Navbar from "./Components/Navbar"
 import Footer from "./Components/Footer"
 import ProductsPage from "./Pages/ProductsPage"
-
+import EmptyView from "./Components/EmptyView/EmptyView"
+import SingleProductPage from "./Pages/SingleProductPage"
 
 
 // COLORS
 // #F5F7F8
 // #0171B6
 // #FFFFFF
+// #333333
+// #aaaaaa
 
 
 const App = () => {
@@ -40,10 +43,10 @@ const App = () => {
           path: "/products/:id",
           element: <ProductsPage />,
         },
-        // {
-        //   path: "/product/:id",
-        //   element: <Product />,
-        // },
+        {
+          path: "/product/:id",
+          element: <SingleProductPage />,
+        },
       ],
     },
     {
@@ -53,6 +56,10 @@ const App = () => {
     {
       path: "/register",
       element: <RegisterPage />
+    },
+    {
+      path: "*",
+      element: <EmptyView />
     }
     
   ])

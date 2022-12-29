@@ -119,8 +119,7 @@ const LoginPage = () => {
             navigate("/");
         }
         catch (err) {
-
-            setError(err.response.data);
+            setError("Unable to Login. Please Try again");
             console.log(err);
         }
 
