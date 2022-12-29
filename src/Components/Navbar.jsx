@@ -125,13 +125,13 @@ const Navbar = () => {
             
             <Right> 
                     NP
-                    <AccountCircleIcon onClick={()=>navigate("/register")} style={{marginLeft: '20px', cursor: 'pointer'}} />
+                    <AccountCircleIcon onClick={()=>navigate("/register")} style={{width: "20px", marginLeft: '20px', cursor: 'pointer'}} />
                     <Badge badgeContent={4} 
                             color = {'secondary'}
-                            style={{marginLeft: '20px', cursor: 'pointer'}} > 
+                            style={{width: "20px", marginLeft: '20px', cursor: 'pointer'}} > 
                             <ShoppingCartOutlined />
                     </Badge>
-                    <CompareIcon style={{marginLeft: '20px', cursor: 'pointer'}} />
+                    <CompareIcon style={{width: "20px", marginLeft: '20px', cursor: 'pointer'}} />
             </Right>
         </Wrapper>
     </Container>

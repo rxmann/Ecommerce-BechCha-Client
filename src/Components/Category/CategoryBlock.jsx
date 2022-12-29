@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -65,11 +66,14 @@ const Name = styled.h3`
 
 
 const OneCategory = ( {category} ) => {
+
+  const navigate = useNavigate();
+
   return (
     <Container >
         <Name> {category.title} </Name>
         <Wrapper img={category.img} >
-          <Button> Shop Now </Button>
+          <Button onClick={()=>navigate("/products/1")}> Shop Now </Button>
         </Wrapper>
     </Container>
   )
