@@ -1,4 +1,7 @@
+import { useState } from "react"
+import { useParams } from "react-router-dom"
 import styled from "styled-components"
+import ProductList from "../Components/Products/ProductList"
 
 
 const Products = styled.div`
@@ -42,6 +45,11 @@ const Image = styled.img`
 
 const ProductsPage = () => {
 
+  const catId = parseInt(useParams().id)
+
+  const [maxPrice, setMaxPrice] = useState(100000);
+  const [sort, setSort] = useState(null);
+
   const imgUrl = "https://dlcdnwebimgs.asus.com/gain/9F8C42DB-36CE-4003-95E1-94E92594127F/fwebp";
 
   return (
@@ -73,8 +81,8 @@ const ProductsPage = () => {
           <FilterHeading> Price </FilterHeading>
           <InputItem>
               <span>0</span>
-              <Input type={"range"}/>
-              <span>100000</span>
+              <Input type={"range"} min={0} max={100000} onChange={e => setMaxPrice(e.target.value)}/>
+              <span>{maxPrice}</span>
           </InputItem>
 
 
@@ -84,12 +92,12 @@ const ProductsPage = () => {
 
           <FilterHeading> Sort </FilterHeading>
           <InputItem>
-              <Input  type={"radio"} id="asc" value={"asc"} name={"price"} />
+              <Input  type={"radio"} id="asc" value={"asc"} name={"price"} onChange={e => setSort(e.target.value)} />
               <Label htmlFor={"asc"} > Price ( Low - High ) </Label>
           </InputItem>
 
           <InputItem>
-              <Input  type={"radio"} id="desc" value={"desc"} name={"price"} />
+              <Input  type={"radio"} id="desc" value={"desc"} name={"price"} onChange={e => setSort(e.target.value)} />
               <Label htmlFor={"desc"} > Price ( High - Low ) </Label>
           </InputItem>
 
@@ -103,8 +111,9 @@ const ProductsPage = () => {
 
       <Right>
 
-        <Image src={imgUrl}/>
+        <Image src={imgUrl} alt={"category image"} />
 
+        <ProductList catId={catId} maxPrice={maxPrice} sort={sort} />
 
       </Right>
 

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import ProductCard from './ProductCard'
+import ProductCard from './Products/ProductCard'
 
 const Container = styled.div`
     padding: 10px 50px;
