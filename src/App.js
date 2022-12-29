@@ -3,6 +3,7 @@ import LoginPage from "./Pages/LoginPage"
 import RegisterPage from "./Pages/RegisterPage"
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
 import AddCategory from "./Pages/AddCategory"
+import ProductList from "./Pages/ProductsPage"
 
 
 
@@ -30,6 +31,10 @@ const App = () => {
     {
       path: "/addcategory",
       element: <AddCategory />
+    },
+    {
+      path: "/products",
+      element: <ProductList />
     }
     
   ])
