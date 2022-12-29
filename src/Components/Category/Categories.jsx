@@ -125,7 +125,7 @@ const Categories = () => {
                 }}
                 spaceBetween={2}
                 navigation
-                slidesPerView={5}
+                slidesPerView={5.5}
                 loop={true}
                 pagination={{ clickable: true }}
                 effect =  {'slide'}
