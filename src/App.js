@@ -10,10 +10,6 @@ import SingleProductPage from "./Pages/SingleProductPage"
 import styled from "styled-components"
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100vh;
 `
 
 // COLORS
@@ -22,6 +18,8 @@ const Wrapper = styled.div`
 // #FFFFFF
 // #333333
 // #aaaaaa
+// #f57224
+// #3c6e71
 
 
 const App = () => {
