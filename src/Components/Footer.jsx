@@ -9,13 +9,15 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 
 const Container = styled.div`
-    display: flex;    
-    background-color: #333333;
-    color: #aaaaaa;
+    display: flex;
+    overflow: hidden;
+    max-height: 200px;
+    background-color: #f5f7f8;
 `
 
 const LeftDiv = styled.div`
     flex: 1;
+    height: 100%;
     padding: 20px 50px;
 `
 
@@ -23,7 +25,7 @@ const Description = styled.p`
     margin: 20px 0px;
 
     &:hover {
-        color: #ffffff;
+        color: #333333;
     }
 `
 
@@ -53,11 +55,12 @@ const MediaIcon = styled.div`
 const MidDiv = styled.div`
     flex: 1;
     padding: 20px 50px;
+    height: 100%;
 `
 
 const Title = styled.h3`
     margin-bottom: 30px;
-    color: #ffffff;
+    color: #333333;
 `
 
 const List = styled.ul`
@@ -73,7 +76,7 @@ const ListItems = styled.li`
     margin-bottom: 10px;
 
     &:hover {
-        color: #ffffff;
+        color: #0171b6;
         cursor: pointer;
     }
 `
@@ -81,16 +84,13 @@ const ListItems = styled.li`
 const RightDiv = styled.div`
     flex: 1;
     padding: 20px 50px;
+    height: 100%;
 `
 
 const ContactItem = styled.div`
     margin-bottom: 20px;
     display: flex;
     align-items: center;
-
-    &:hover {
-        color: white;
-    }
 `
 
 const Payment = styled.img`

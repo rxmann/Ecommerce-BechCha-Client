@@ -18,8 +18,7 @@ const Wrapper = styled.div`
 // #FFFFFF
 // #333333
 // #aaaaaa
-// #f57224
-// #3c6e71
+// #0076CE
 
 
 const App = () => {

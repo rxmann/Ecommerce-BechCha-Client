@@ -8,40 +8,33 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 const Wrapper = styled.div`
   margin: 10px 50px; 
   padding: 10px;
-  display: flex;
+  display: flex;  
   gap: 50px;
+  background-color: #ffffff;
 `
 const Left = styled.div`
   flex: 1;
   display: flex;
-  flex-direction: column;
-  gap: 30px;
+  gap: 20px;
 `
 
 const ImageContainer = styled.div`
   flex: 1;
-  display: flex;
-  gap: 20px;
-  width: 100%;
 `
 
 const MainImageContainer = styled.div`
-  flex: 2;
+  flex: 6;
 `
 const SmallImage = styled.img`
-  width: 70px;
+  width: 100%;
+  height: 150px;
   object-fit: cover;
   cursor: pointer;
   margin-bottom: 10px;
-  padding: 10px;
-
-  &:hover {
-    background-color: #f57224;
-  }
 `
 const BigImage = styled.img`
   width: 100%;
-  height: 300px;
+  height: 800px;
   object-fit: contain;
 `
 
@@ -50,21 +43,22 @@ const Right = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
+  padding-top: 50px;
 `
 
 const Title = styled.h1`
-
+font-weight: 500;
 `
 
 const Price = styled.span`
-  font-size: 30px;
-  color: #f57224;
+  font-size: 24px;
   font-weight: 500;
+  color: #0171b6;
 `
 
 const Description = styled.p`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 300;
   text-align: justify;
 `
@@ -72,12 +66,13 @@ const Description = styled.p`
 const QuantityDiv = styled.div`
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
 `
 const Button = styled.button`
   cursor: pointer;
   width: 50px;
   height: 50px;
+  font-size: 24px;
   display : flex;
   justify-content: center;
   align-items: center;
@@ -85,27 +80,28 @@ const Button = styled.button`
 `
 
 const AddToCart = styled.div`
-    padding: 10px;
-    width: 250px;
-    background-color: #0171b6;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    cursor: pointer;
-    border: none;
-    font-weight: 500;
+     width: 250px;
+      padding: 10px;
+      background-color: #0076CE;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      cursor: pointer;
+      border: none;
+      font-weight: 500;
 `
 const QuickLinks = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 50px;
+  padding: 10px 0px;
 `
 const Links = styled.div`
-  color: #0171b6;
+  color: #0076CE;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
   cursor: pointer;
   font-size: 14px;
 `
@@ -127,10 +123,6 @@ const SingleProductPage = () => {
         <Wrapper>
 
             <Left>
-                <MainImageContainer> 
-                  <BigImage src={Images[imageSelected]} />
-                </MainImageContainer>
-
                 <ImageContainer>
                   <SmallImage src={Images[0]} 
                             onClick={e => {
@@ -144,16 +136,16 @@ const SingleProductPage = () => {
                     onClick={e => {
                       setImageSelected(2);
                     }} />
-                    <SmallImage  src={Images[3]} 
-                    onClick={e => {
-                      setImageSelected(3);
-                    }} />
                 </ImageContainer>
+
+                <MainImageContainer> 
+                  <BigImage src={Images[imageSelected]} />
+                </MainImageContainer>
             </Left>
 
 
             <Right>
-                    <Title> Title </Title>
+                    <Title> Asus Gaming Monitor (390 hz) </Title>
                     <Price> RS 35000</Price>
                     <Description > Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis pariatur officiis commodi iusto laudantium placeat obcaecati nemo veritatis nesciunt voluptas ad beatae eum, distinctio cum voluptatem hic illo dolorem quae harum voluptatibus accusantium fugiat labore iure! Vero similique distinctio architecto est natus nobis ipsum atque laborum, dolores dolore hic praesentium! </Description>
                     
