@@ -22,7 +22,7 @@ const Button = styled.button`
   opacity: 0;
 
   position: absolute;
-  top: calc(40%);
+  top: calc(30%);
   left: calc(50% - 50px);
 
   &:hover {
