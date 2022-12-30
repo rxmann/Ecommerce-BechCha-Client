@@ -1,38 +1,28 @@
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-const Container = styled.div`
-  padding: 10px 20px;
-  background-color: #ffffff;
+
+
+const Wrapper = styled.div`
+  flex: 1;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin: 10px 0px;
-  padding: 20px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  border-radius: 10px;
-
-  width: 200px;
-  height: 120px;
-
-  &:hover {
-    transition: transform .2s ease-in-out;
-    transform: scale(1.1, 1.1);
-  }
+  gap: 20px;
 `
 
+
 const Button = styled.button`
+  flex: 1;
   border: none;
   border-radius: 2px;
   background-color: #ffffff;
   padding: 10px;
   font-size: 16px;
   cursor: pointer;
-  z-index: -1;
+  opacity: 0;
 
   position: absolute;
-  top: calc(50%);
+  top: calc(40%);
   left: calc(50% - 50px);
 
   &:hover {
@@ -42,27 +32,52 @@ const Button = styled.button`
   }
 `
 
-const Wrapper = styled.div`
+
+
+const Container = styled.div`
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  padding: 10px 20px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  border-radius: 10px;
   position: relative;
-  overflow: hidden;
-  background: url(${props => props.img}) center;
-  background-size: cover;
+  
 
-  width: 100%;
-  height: 100%;
+  width: 250px;
+  height: 60px;
 
+  &:hover {
+    transition: transform .2s ease-in-out;
+    transform: scale(1.1, 1.1);
+  }
 
   &:hover ${Button} {
+    opacity: 100;
     transition: transform .2s ease;
-    z-index: 1;
   }
 `
 
-const Name = styled.h3`
+
+
+const Image = styled.img`
   flex: 1;
-  display: table;
-  font-weight: 800;
-  padding: 10px;
+  width: 90%;
+  background: url(${props => props.img}) center;
+  overflow: hidden;
+  background-size: cover;
+
+`
+
+
+const Name = styled.h3`
+  font-size: 18px;
+  flex: 4;
+  color: #0171b6;
+  font-weight: 400;
 `
 
 
@@ -72,10 +87,12 @@ const OneCategory = ( {category} ) => {
 
   return (
     <Container >
-        <Name> {category.title} </Name>
-        <Wrapper img={category.img} >
-          <Button onClick={()=>navigate("/products/1")}> Shop Now </Button>
+        <Wrapper >
+          <Image src={category.img}/>
+          <Name> {category.title} </Name>
         </Wrapper>
+        <Button onClick={()=>navigate("/products/1")}> Shop Now </Button>
+    
     </Container>
   )
 }

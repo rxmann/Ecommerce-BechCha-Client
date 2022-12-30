@@ -27,6 +27,7 @@ const List = styled.div`
     margin: 20px;
     height: 20vh;
     width: 100%;
+    padding: 20px;
 `
 
 const Display = styled.div`
@@ -60,13 +61,13 @@ const Categories = () => {
         {
             id: 2,
             img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/G24F2.png?raw=true",
-            title: "Monitors",
+            title: "House Appliances",
             category: "monitor"
         },
         {
             id: 3,
             img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
-            title: "Keyboards",
+            title: "Gaming Accessories",
             category: "keyboard"
         },
         {
@@ -125,7 +126,7 @@ const Categories = () => {
                 }}
                 spaceBetween={2}
                 navigation
-                slidesPerView={5.5}
+                slidesPerView={4}
                 loop={true}
                 pagination={{ clickable: true }}
                 effect =  {'slide'}

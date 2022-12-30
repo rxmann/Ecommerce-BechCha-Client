@@ -7,7 +7,14 @@ import Footer from "./Components/Footer"
 import ProductsPage from "./Pages/ProductsPage"
 import EmptyView from "./Components/EmptyView/EmptyView"
 import SingleProductPage from "./Pages/SingleProductPage"
+import styled from "styled-components"
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+`
 
 // COLORS
 // #F5F7F8
@@ -21,11 +28,11 @@ const App = () => {
 
   const Layout = () => {
     return (
-      <div className="app">
+      <Wrapper>
         <Navbar />
         <Outlet />
         <Footer />
-      </div>
+      </Wrapper>
     );
   };
 

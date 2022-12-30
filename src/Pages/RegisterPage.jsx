@@ -30,8 +30,8 @@ const Container = styled.div`
 const Card = styled.div`
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     display: flex;
-    width: 40%;
-    min-height: 600px;
+    width: 50%;
+    height: 80%;
     border-radius: 10px;
     background-color: white;
     overflow: hidden;
@@ -44,19 +44,19 @@ const Left = styled.div`
         url("https://images.unsplash.com/photo-1548372033-893f42a8c1f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTB8fGNyZWRpdCUyMGNhcmR8ZW58MHwwfDB8YmxhY2t8&auto=format&fit=crop&w=500&q=60") center;
     background-size: cover;
     display: flex;
-    padding: 50px;
+    padding: 40px;
     flex-direction: column;
     justify-content: space-around;
-    gap: 30px;
+    gap: 20px;
     color: white;
 `
 
 const Title = styled.h1`
-    font-size: 40px;
+    font-size: 30px;
     line-height: 100px;
 `
 const Desc = styled.p`
-
+    font-size: 12px;
 `
 
 const Span = styled.span`
@@ -82,9 +82,16 @@ const Form = styled.form`
 
 const Btn = styled.button`
     padding: 10px;
-    border: none;   
-    background-color: transparent;
+    border: none; 
+    font-size  : 14px;
+    background-color: #aaaaaa;
     color: white;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #f5f7f8;
+        color: #333333;
+    }
 `
 
 const SpanMessage = styled.div`
