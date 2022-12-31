@@ -3,8 +3,12 @@ import styled from "styled-components"
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import BalanceIcon from '@mui/icons-material/Balance';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import DescriptionTable from "../Components/DescriptionTable/DescriptionTable";
 
-
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 const Wrapper = styled.div`
   margin: 10px 50px; 
   padding: 10px;
@@ -120,14 +124,15 @@ const SingleProductPage = () => {
   ]
 
   return (
-        <Wrapper>
+    <Container>
 
+        <Wrapper>
             <Left>
                 <ImageContainer>
                   <SmallImage src={Images[0]} 
                             onClick={e => {
                               setImageSelected(0); 
-                              }} />
+                            }} />
                   <SmallImage  src={Images[1]} 
                     onClick={e => {
                       setImageSelected(1);
@@ -146,15 +151,16 @@ const SingleProductPage = () => {
 
             <Right>
                     <Title> Asus Gaming Monitor (390 hz) </Title>
+                    <span>#19172323414341413</span>
                     <Price> RS 35000</Price>
                     <Description > Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis pariatur officiis commodi iusto laudantium placeat obcaecati nemo veritatis nesciunt voluptas ad beatae eum, distinctio cum voluptatem hic illo dolorem quae harum voluptatibus accusantium fugiat labore iure! Vero similique distinctio architecto est natus nobis ipsum atque laborum, dolores dolore hic praesentium! </Description>
                     
                     <QuantityDiv> 
                       <Button onClick={e => { 
                         if (quantity > 1 ) 
-                          setQuantity(quantity-1) 
-                        }} 
-                        > - </Button>
+                        setQuantity(quantity-1) 
+                      }} 
+                      > - </Button>
                         {quantity}
                       <Button onClick={e => setQuantity(quantity+1) } > + </Button>
                       </QuantityDiv>
@@ -167,10 +173,11 @@ const SingleProductPage = () => {
                         <Links> <FavoriteIcon /> ADD TO WISHLIST </Links>
                         <Links> <BalanceIcon /> ADD TO COMPARE </Links>
                       </QuickLinks>
-
-                    
             </Right>
+
         </Wrapper>
+        <DescriptionTable/>
+      </Container>
   )
 }
 
