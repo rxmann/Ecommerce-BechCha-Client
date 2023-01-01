@@ -124,7 +124,7 @@ const Categories = () => {
                     disableOnInteraction: false,
                     pauseOnMouseEnter: true,
                 }}
-                spaceBetween={2}
+                spaceBetween={1}
                 navigation
                 slidesPerView={4}
                 loop={true}

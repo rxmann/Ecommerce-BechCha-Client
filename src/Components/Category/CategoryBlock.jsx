@@ -17,12 +17,12 @@ const Button = styled.button`
   border-radius: 2px;
   background-color: #ffffff;
   padding: 10px;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   opacity: 0;
 
   position: absolute;
-  top: calc(30%);
+  top: calc(20%);
   left: calc(50% - 50px);
 
   &:hover {
@@ -48,7 +48,7 @@ const Container = styled.div`
   
 
   width: 250px;
-  height: 60px;
+  height: 50px;
 
   &:hover {
     transition: transform .2s ease-in-out;
@@ -91,7 +91,7 @@ const OneCategory = ( {category} ) => {
           <Image src={category.img}/>
           <Name> {category.title} </Name>
         </Wrapper>
-        <Button onClick={()=>navigate("/products/1")}> Shop Now </Button>
+        <Button onClick={()=>navigate("/products/1")}> SHOP NOW </Button>
     
     </Container>
   )
