@@ -38,7 +38,7 @@ const Left = styled.div`
 `
 
 const Logo = styled.img`
-    width: 150px;
+    width: 100px;
     cursor: pointer;
     text-decoration: none;
 `
@@ -92,7 +92,7 @@ const Mbtn = styled.div`
     width: 30px;
     margin-left: 30px;
     cursor: pointer;
-    color: #333333;
+    color: #0171b6;
 `
 
 

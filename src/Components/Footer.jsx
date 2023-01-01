@@ -4,8 +4,8 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
-
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { Link } from 'react-router-dom';
 
 
 const Container = styled.div`
@@ -96,12 +96,22 @@ const ContactItem = styled.div`
 const Payment = styled.img`
     width: 50%;
 `
+
+const Logo = styled.img`
+    width: 100px;
+    cursor: pointer;
+    text-decoration: none;
+`
+
+
 const Footer = () => {
   return (
     <Container>
       
       <LeftDiv>
-          <Title> Bech-cha </Title>
+      <Link to="/"> 
+                <Logo src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true' />
+        </Link>
           <Description> Shop with Bech-cha Online  </Description>
           <MediaContainer>
             <MediaIcon color="3b5999" > <FacebookIcon /> </MediaIcon>
