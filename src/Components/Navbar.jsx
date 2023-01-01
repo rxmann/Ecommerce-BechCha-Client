@@ -14,17 +14,17 @@ const Container = styled.div`
     position: sticky;
     top: 0;
     height: 70px;
-    width: 100%;
+    padding: 0px 50px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     background-color: #ffffff;
     z-index: 999;
     box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);
 `
 const Wrapper = styled.div`
     width: 100%;
-    margin: 0px 50px;
     color: #0171b6;
     display: flex;
     align-items: center;
@@ -148,8 +148,8 @@ const Navbar = () => {
                         <CompareIcon  />
                     </Mbtn>
             </Right>
-            {cartOpen  && <CartBox />}
         </Wrapper>
+        {cartOpen  && <CartBox />}
     </Container>
   )
 }
