@@ -31,14 +31,14 @@ const MainImageContainer = styled.div`
 `
 const SmallImage = styled.img`
   width: 100%;
-  height: 150px;
-  object-fit: cover;
+  height: 120px;
+  object-fit: contain;
   cursor: pointer;
   margin-bottom: 10px;
 `
 const BigImage = styled.img`
   width: 100%;
-  height: 800px;
+  height: 600px;
   object-fit: contain;
 `
 
@@ -50,14 +50,16 @@ const Right = styled.div`
   gap: 30px;
   padding-top: 50px;
 `
+const TitleWrapper = styled.div`
 
+`
 const Title = styled.h1`
 font-weight: 500;
 `
 
 const Price = styled.span`
-  font-size: 24px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 600;
   color: #0171b6;
 `
 
@@ -84,9 +86,9 @@ const Button = styled.button`
 `
 
 const AddToCart = styled.div`
-     width: 250px;
-      padding: 10px;
-      background-color: #0076CE;
+      padding: 10px 20px;
+      width: 180px;
+      background-color: #0171b6;
       color: white;
       display: flex;
       align-items: center;
@@ -108,6 +110,12 @@ const Links = styled.div`
   gap: 10px;
   cursor: pointer;
   font-size: 14px;
+`
+
+const Span = styled.span`
+    font-size: 12px;
+    color: #aaaaaa;
+    margin: 0px;
 `
 
 
@@ -150,8 +158,10 @@ const SingleProductPage = () => {
 
 
             <Right>
+              <TitleWrapper>
                     <Title> Asus Gaming Monitor (390 hz) </Title>
-                    <span >#076598712191723234143</span>
+                    <Span >Product ID: #076598712191723234143</Span>
+              </TitleWrapper>
                     <Price> RS 35000</Price>
                     <Description > Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis pariatur officiis commodi iusto laudantium placeat obcaecati nemo veritatis nesciunt voluptas ad beatae eum, distinctio cum voluptatem hic illo dolorem quae harum voluptatibus accusantium fugiat labore iure! Vero similique distinctio architecto est natus nobis ipsum atque laborum, dolores dolore hic praesentium! </Description>
                     

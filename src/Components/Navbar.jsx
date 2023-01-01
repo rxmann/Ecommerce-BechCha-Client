@@ -85,14 +85,14 @@ const Right = styled.div`
     justify-content: end;
 `
 const Span = styled.span`
-    color: #0171b6;
     cursor: pointer;
 `
 
 const Mbtn = styled.div`
-    width: 20px;
-    margin-left: 20px;
+    width: 30px;
+    margin-left: 30px;
     cursor: pointer;
+    color: #333333;
 `
 
 
@@ -140,8 +140,7 @@ const Navbar = () => {
                         <AccountCircleIcon />
                     </Mbtn>
                     <Mbtn onClick={() => setCartOpen(!cartOpen)}>
-                        <Badge badgeContent={4} 
-                                color = {'secondary'} > 
+                        <Badge badgeContent={4}  > 
                                 <ShoppingCartOutlined />
                         </Badge>
                     </Mbtn>

@@ -7,7 +7,7 @@ const Container = styled.div`
 const CartBox = () => {
   return (
     <Container>
-
+          CART
     </Container>
   )
 }
