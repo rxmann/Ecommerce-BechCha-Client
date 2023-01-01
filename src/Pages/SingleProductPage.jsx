@@ -151,7 +151,7 @@ const SingleProductPage = () => {
 
             <Right>
                     <Title> Asus Gaming Monitor (390 hz) </Title>
-                    <span>#19172323414341413</span>
+                    <span >#076598712191723234143</span>
                     <Price> RS 35000</Price>
                     <Description > Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis pariatur officiis commodi iusto laudantium placeat obcaecati nemo veritatis nesciunt voluptas ad beatae eum, distinctio cum voluptatem hic illo dolorem quae harum voluptatibus accusantium fugiat labore iure! Vero similique distinctio architecto est natus nobis ipsum atque laborum, dolores dolore hic praesentium! </Description>
                     
@@ -176,7 +176,11 @@ const SingleProductPage = () => {
             </Right>
 
         </Wrapper>
+
+
         <DescriptionTable/>
+
+        
       </Container>
   )
 }

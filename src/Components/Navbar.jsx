@@ -8,6 +8,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 import { Link, useNavigate } from 'react-router-dom';
+import CartBox from './Cart/CartBox';
 
 const Container = styled.div`
     position: sticky;
@@ -83,6 +84,16 @@ const Right = styled.div`
     align-items: center;
     justify-content: end;
 `
+const Span = styled.span`
+    color: #0171b6;
+    cursor: pointer;
+`
+
+const Mbtn = styled.div`
+    width: 20px;
+    margin-left: 20px;
+    cursor: pointer;
+`
 
 
 
@@ -92,6 +103,7 @@ const Navbar = () => {
 
     const [search, setSearch] = useState("");
 
+    const [cartOpen, setCartOpen] = useState(false);
 
 
   return (
@@ -123,15 +135,21 @@ const Navbar = () => {
 
             
             <Right> 
-                    NP
-                    <AccountCircleIcon onClick={()=>navigate("/register")} style={{width: "20px", marginLeft: '20px', cursor: 'pointer'}} />
-                    <Badge badgeContent={4} 
-                            color = {'secondary'}
-                            style={{width: "20px", marginLeft: '20px', cursor: 'pointer'}} > 
-                            <ShoppingCartOutlined />
-                    </Badge>
-                    <CompareIcon style={{width: "20px", marginLeft: '20px', cursor: 'pointer'}} />
+                    <Span>NP</Span>
+                    <Mbtn onClick={()=>navigate("/register")} >
+                        <AccountCircleIcon />
+                    </Mbtn>
+                    <Mbtn onClick={() => setCartOpen(!cartOpen)}>
+                        <Badge badgeContent={4} 
+                                color = {'secondary'} > 
+                                <ShoppingCartOutlined />
+                        </Badge>
+                    </Mbtn>
+                    <Mbtn>
+                        <CompareIcon  />
+                    </Mbtn>
             </Right>
+            {cartOpen  && <CartBox />}
         </Wrapper>
     </Container>
   )
