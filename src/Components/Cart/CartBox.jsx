@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import {data} from "../../data"
 import { DeleteOutline } from "@mui/icons-material"
+import Button from '@mui/material/Button';
 
 
 const Container = styled.div`
@@ -8,78 +9,140 @@ const Container = styled.div`
     position: absolute;
     right: 120px;
     top: 50px;
+    z-index: 999;
+    -webkit-box-shadow: 1px 1px 7px -5px #0171b6;
+   box-shadow: 1px 1px 7px -5px #0171b6;
+
+   width: 460px;
 `
 
 const Cart = styled.div`
-   padding: 30px;
+   padding: 20px;
 `
 
 const Title = styled.h1`
-
+  margin-bottom: 30px;
+  color: #0171b6;
+  font-weight: 600;
+  font-size: 20px;
 `
 const Item = styled.div`
-
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 10px;
+  height: 100px;
+  width: 100%;
 `
+const ImageContainer = styled.div`
+    height: 60px;
+    width: 80px;
+    cursor: pointer;
+    overflow: hidden;
+`
+
 const Image = styled.img`
-    width: 50px;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
 `
 const Info = styled.div`
-
+  padding: 10px;
+  width: 100%;
 `
 
-const Price = styled.div`
-
+const Name = styled.h1`
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 `
+
+const Price = styled.h1`
+  font-size: 14px;
+  font-weight: 500;
+`
+
 const Desc = styled.p`
-
+  color: #aaaaaa;
+  margin-bottom: 10px;
+  font-size: 14px;
 `
-const DeleteBtn = styled.div`
-  color: red;
+
+const DelBtn = styled(Button)`
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
 `
 
 const Total = styled.div`
-
-`
-const Checkout = styled.button`
-
+  display: flex;
+  justify-content: center;
+  font-weight: 400;
+  font-size: 14px;
+  padding: 10px 0px;
 `
 
 const Span = styled.span`
+  color: red;
+  font-size: 12px;
+`
 
+const Actions = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 5px;
+
+    &:hover ${Span} {
+      cursor: pointer;
+    }
+`
+
+const HR = styled.hr`
 `
 
 
 
 const CartBox = () => {
-
+  const pata = [data[0], data[1]];
   return (
     <Container>
           <Cart>
             <Title>
                 My Cart
             </Title>
-            {data?.map( (item) => ( 
+            {pata?.map( (item) => ( 
                 <Item key={item.id}>
-                    <Image src={item.img}/>
+                    <ImageContainer>
+                      <Image src={item.img} />
+                    </ImageContainer> 
                     <Info>
-                      <Title> {item.title} </Title>
-                      <Desc> {item.desc?.substring(0, 100)} </Desc>
+                      <Name> {item.title} </Name>
+                      <Desc> {item.desc?.substring(0, 50)} </Desc>
                       <Price> 1 x NPR {item.price} </Price>
                     </Info>
 
-                    <DeleteBtn>
-                      <DeleteOutline />
-                    </DeleteBtn>
+
+                    <DelBtn   size="small" variant="text">
+                      <DeleteOutline color="error" />
+                    </DelBtn>
                 </Item>
              ) )}
 
              <Total>
-              <Span> SUBTOTAL </Span>
-              <Span>NPR 500  </Span>
+              <p> SUBTOTAL </p>
+              <p>NPR 500  </p>
              </Total>
 
-             <Checkout> CHECKOUT </Checkout>
-             <Span>Empty Cart</Span>
+              <Actions>
+                <Button  color="error" size="small" variant="text"> Empty Cart </Button>
+                 <Button size="small" variant="contained"> Checkout </Button>
+              </Actions>
           </Cart>
           
     </Container>

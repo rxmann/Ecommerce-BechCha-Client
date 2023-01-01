@@ -3,8 +3,8 @@ const data = [
       id: 0,
       img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/G24F2.png?raw=true",
       title: "Gigabyte G24F-2 180hz (OC)",
-      desc: "One and Only Piece here!",
-      price: 36000
+      desc: "asdd ad adas dsd sadas sa dsdasdsdsad d ads dasdasdsadasdasdsadsada.,da sdsadasda,,dasdasdasd",
+      price: 3600
     },
       {
         id: 2,
