@@ -8,7 +8,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 import { Link, useNavigate } from 'react-router-dom';
-import CartBox from './Cart/CartBox';
+import CartBox from '../Carts/CartBox';
 
 const Container = styled.div`
     position: sticky;

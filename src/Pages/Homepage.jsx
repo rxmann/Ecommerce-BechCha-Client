@@ -1,8 +1,8 @@
-import Announcement from "../Components/Announcement"
+import Announcement from "../Components/SubComponents/Announcement"
 import FeaturedSlider from "../Components/FeaturedSlider"
 import Categories from "../Components/Category/Categories"
 import styled from "styled-components"
-import Newsletter from "../Components/Newsletter"
+import Newsletter from "../Components/SubComponents/Newsletter"
 import TopSales from "../Components/TopSales"
 
 

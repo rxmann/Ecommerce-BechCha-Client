@@ -84,12 +84,14 @@ const Total = styled.div`
   font-weight: 400;
   font-size: 14px;
   padding: 10px 0px;
+  gap: 20px;
 `
 
 const Span = styled.span`
-  color: red;
-  font-size: 12px;
+  color: green;
+  font-size: 14px;
 `
+
 
 const Actions = styled.div`
     width: 100%;
@@ -97,13 +99,6 @@ const Actions = styled.div`
     align-items: center;
     justify-content: space-between;
     padding-top: 5px;
-
-    &:hover ${Span} {
-      cursor: pointer;
-    }
-`
-
-const HR = styled.hr`
 `
 
 
@@ -135,8 +130,8 @@ const CartBox = () => {
              ) )}
 
              <Total>
-              <p> SUBTOTAL </p>
-              <p>NPR 500  </p>
+              <Span> SUBTOTAL </Span>
+              <Span>NPR 500  </Span>
              </Total>
 
               <Actions>
