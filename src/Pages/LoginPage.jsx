@@ -29,7 +29,7 @@ const Card = styled.div`
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     display: flex;
     width: 50%;
-    height: 80%;
+    height: 70%;
     border-radius: 10px;
     background-color: white;
     overflow: hidden;
@@ -125,7 +125,6 @@ const LoginPage = () => {
                 email,
                 password
             })
-            console.log(response);
             navigate("/");
         }
         catch (err) {
