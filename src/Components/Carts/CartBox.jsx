@@ -123,8 +123,8 @@ const CartBox = () => {
                     </Info>
 
 
-                    <DelBtn   size="small" variant="text">
-                      <DeleteOutline color="error" />
+                    <DelBtn  size="small" variant="text" color="error">
+                      <DeleteOutline  />
                     </DelBtn>
                 </Item>
              ) )}
