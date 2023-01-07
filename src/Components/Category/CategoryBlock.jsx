@@ -89,7 +89,7 @@ const OneCategory = ( {category} ) => {
     <Container >
         <Wrapper >
           <Image src={category.img}/>
-          <Name> {category.title} </Name>
+          <Name> {category.name} </Name>
         </Wrapper>
         <Button onClick={()=>navigate("/products/1")}> SHOP NOW </Button>
     

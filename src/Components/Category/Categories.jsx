@@ -1,12 +1,14 @@
 import styled from 'styled-components'
 import OneCategory from './CategoryBlock'
-
+import { publicRequest } from '../../requestMethods/requestMethods';
 import { Navigation, Autoplay } from "swiper";
 
 // Import Swiper styles
 import "swiper/css/bundle";
 import "swiper/css/autoplay"
+
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useEffect, useState } from 'react';
 
 const Container = styled.div`
     padding: 10px 50px;
@@ -45,62 +47,29 @@ const Span = styled.span`
 
 const Categories = () => {
 
-    const CategoriesList = [
-        {
-            id: 0,
-            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/G24F2.png?raw=true",
-            title: "Monitors",
-            category: "monitor"
-        },
-        {
-            id: 1,
-            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
-            title: "Keyboards",
-            category: "keyboard"
-        },
-        {
-            id: 2,
-            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/G24F2.png?raw=true",
-            title: "House Appliances",
-            category: "monitor"
-        },
-        {
-            id: 3,
-            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
-            title: "Gaming Accessories",
-            category: "keyboard"
-        },
-        {
-            id: 4,
-            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
-            title: "Keyboards",
-            category: "keyboard"
-        },
-        {
-            id: 5,
-            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
-            title: "Keyboards",
-            category: "keyboard"
-        },
-        {
-            id: 6,
-            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
-            title: "Keyboards",
-            category: "keyboard"
-        },
-        {
-            id: 7,
-            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
-            title: "Keyboards",
-            category: "keyboard"
-        },
-        {
-            id: 8,
-            img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
-            title: "Keyboards",
-            category: "keyboard"
+
+    const [CategoriesList, setCategoriesList] = useState(null);
+
+    useEffect( ()=> {
+        const getCategoriesAll = async () => {
+            try {
+                const response = await publicRequest.get("/categories");
+                setCategoriesList(response.data)
+
+                CategoriesList.categories.map(item => {
+                    console.log(item);
+                })
+            }
+            catch (err) {
+                
+            }
         }
-    ];
+        getCategoriesAll();  
+    }, [2]);
+
+    
+
+
 
     return (
 
@@ -132,9 +101,9 @@ const Categories = () => {
                 effect =  {'slide'}
             >
                 <List>
-                    {CategoriesList.map((each) => (
-                        <SwiperSlide key={each.id}>
-                            <OneCategory category={each} key={each.id} />
+                    {CategoriesList?.categories.map((each) => (
+                        <SwiperSlide key={each._id}>
+                            <OneCategory category={each} key={each._id} />
                         </SwiperSlide>
                     ))}
                 </List>
