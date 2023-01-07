@@ -110,15 +110,17 @@ const LoginPage = () => {
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
         try {
+            console.log(email, password);
             const response = await publicRequest.post("/users/login", {
                 email,
                 password
             })
+            console.log(response.data);
             navigate("/");
         }
         catch (err) {
             setError("Unable to Login. Please Try again");
-            console.log(err);
+            console.error(err);
         }
 
     }
