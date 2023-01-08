@@ -48,16 +48,16 @@ const Wrapper = styled.div`
     padding: 50px;
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 20px;
     justify-content: center;
 `
 const H1 = styled.h1`
-    font-weight: 500;
+    font-weight: 400;
 `
 const Form = styled.form`
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
 `
 
 const Btn = styled.button`
@@ -86,7 +86,6 @@ const Logo = styled.img`
     width: 120px;
     cursor: pointer;
     text-decoration: none;
-    border-bottom: 1px solid #aaaaaa;
 `
 
 

@@ -50,24 +50,20 @@ const Categories = () => {
 
     const [CategoriesList, setCategoriesList] = useState(null);
 
-    useEffect( ()=> {
+    useEffect(() => {
         const getCategoriesAll = async () => {
             try {
                 const response = await publicRequest.get("/categories");
                 setCategoriesList(response.data)
-
-                CategoriesList.categories.map(item => {
-                    console.log(item);
-                })
             }
             catch (err) {
-                
+
             }
         }
-        getCategoriesAll();  
+        getCategoriesAll();
     }, [2]);
 
-    
+
 
 
 
@@ -88,7 +84,7 @@ const Categories = () => {
 
             <Swiper
                 modules={[Navigation, Autoplay]}
-                autoplay= {{
+                autoplay={{
                     delay: 2000,
                     disableOnInteraction: false,
                     pauseOnMouseEnter: true,
@@ -96,14 +92,13 @@ const Categories = () => {
                 spaceBetween={1}
                 navigation
                 slidesPerView={4}
-                loop={true}
                 pagination={{ clickable: true }}
-                effect =  {'slide'}
+                effect={'slide'}
             >
-                <List>
-                    {CategoriesList?.categories.map((each) => (
+                <List >
+                    {CategoriesList?.categories?.map((each) => (
                         <SwiperSlide key={each._id}>
-                            <OneCategory category={each} key={each._id} />
+                            <OneCategory category={each} />
                         </SwiperSlide>
                     ))}
                 </List>

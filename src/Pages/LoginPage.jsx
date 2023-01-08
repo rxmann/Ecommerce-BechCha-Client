@@ -46,16 +46,16 @@ const Wrappper = styled.div`
     padding: 50px;
     display: flex;
     flex-direction: column;
-    gap: 50px;
     justify-content: center;
+    gap: 20px;
 `
 const H1 = styled.h1`
-    font-weight: 500;
+    font-weight: 400;
 `
 const Form = styled.form`
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
 `
 
 const Btn = styled.button`
@@ -86,7 +86,6 @@ const Logo = styled.img`
     width: 120px;
     cursor: pointer;
     text-decoration: none;
-    border-bottom: 1px solid #aaaaaa;
 `
 
 
@@ -110,7 +109,10 @@ const LoginPage = () => {
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
         try {
-            console.log(email, password);
+
+            if (email === null || password === null){
+                throw new Error("Email and Password field cannot be empty.")
+            }
             const response = await publicRequest.post("/users/login", {
                 email,
                 password
@@ -119,8 +121,7 @@ const LoginPage = () => {
             navigate("/");
         }
         catch (err) {
-            setError("Unable to Login. Please Try again");
-            console.error(err);
+            setError("The credentials do not match!");
         }
 
     }

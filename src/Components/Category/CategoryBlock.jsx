@@ -4,7 +4,6 @@ import styled from 'styled-components'
 
 
 const Wrapper = styled.div`
-  flex: 1;
   display: flex;
   align-items: center;
   gap: 20px;
@@ -35,10 +34,9 @@ const Button = styled.button`
 
 
 const Container = styled.div`
-  padding: 10px 20px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   margin: 20px;
   padding: 10px 20px;
@@ -69,15 +67,14 @@ const Image = styled.img`
   background: url(${props => props.img}) center;
   overflow: hidden;
   background-size: cover;
-
 `
 
 
 const Name = styled.h3`
-  font-size: 18px;
-  flex: 4;
+  font-size: 14px;
+  flex: 9;
   color: #0171b6;
-  font-weight: 400;
+  font-weight: 600;
 `
 
 
