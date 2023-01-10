@@ -48,13 +48,15 @@ const Span = styled.span`
 const Categories = () => {
 
 
-    const [CategoriesList, setCategoriesList] = useState(null);
+    const [CategoriesList, setCategoriesList] = useState([]);
 
     useEffect(() => {
         const getCategoriesAll = async () => {
             try {
                 const response = await publicRequest.get("/categories");
-                setCategoriesList(response.data)
+                const resData = response.data.CategoryList;
+                console.log(resData);
+                setCategoriesList(resData)
             }
             catch (err) {
 
@@ -96,7 +98,7 @@ const Categories = () => {
                 effect={'slide'}
             >
                 <List >
-                    {CategoriesList?.categories?.map((each) => (
+                    {CategoriesList?.map((each) => (
                         <SwiperSlide key={each._id}>
                             <OneCategory category={each} />
                         </SwiperSlide>

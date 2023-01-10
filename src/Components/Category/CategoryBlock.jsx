@@ -88,7 +88,7 @@ const OneCategory = ( {category} ) => {
           <Image src={category.img}/>
           <Name> {category.name} </Name>
         </Wrapper>
-        <Button onClick={()=>navigate("/products/1")}> SHOP NOW </Button>
+        <Button onClick={()=>navigate(`/products/${category._id}`)}> SHOP NOW </Button>
     
     </Container>
   )
