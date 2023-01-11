@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { toast } from "react-toastify";
 
 
 
@@ -112,10 +113,16 @@ const RegisterPage = () => {
                 email,
                 password
             })
-            console.log("Log In successful");
+            toast.success("User registered successfully!",{
+                position: "top-right"
+            } )
             navigate("/login");
         }
         catch (err) {
+            toast.error(err.response.data, {
+                position: "top-right",
+                theme: "colored"
+            })
             console.log(err.response.data);
         }
 

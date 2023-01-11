@@ -26,6 +26,8 @@ const Wrapper = styled.div`
 
 const App = () => {
 
+
+
   const Layout = () => {
     return (
       <Wrapper>
@@ -39,6 +41,10 @@ const App = () => {
 
 
   const router = createBrowserRouter([
+    {
+      path: "*",
+      element: <EmptyView />
+    },
     {
       path: "/",
       element: <Layout />,
@@ -55,21 +61,16 @@ const App = () => {
           path: "/product/:id",
           element: <SingleProductPage />,
         },
+        {
+          path: "/login",
+          element: <LoginPage />
+        },
+        {
+          path: "/register",
+          element: <RegisterPage />
+        },
       ],
-    },
-    {
-      path: "/login",
-      element: <LoginPage />
-    },
-    {
-      path: "/register",
-      element: <RegisterPage />
-    },
-    {
-      path: "*",
-      element: <EmptyView />
     }
-    
   ])
 
 
