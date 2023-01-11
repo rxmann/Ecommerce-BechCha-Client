@@ -75,15 +75,6 @@ const Btn = styled.button`
     }
 `
 
-const SpanMessage = styled.div`
-    background-color: red;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 0px;
-`
-
 const Logo = styled.img`
     width: 120px;
     cursor: pointer;
@@ -101,8 +92,6 @@ const RegisterPage = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
-
-    const [error, setError] = useState("");
 
     const navigate = useNavigate();
 
@@ -128,7 +117,6 @@ const RegisterPage = () => {
         }
         catch (err) {
             console.log(err.response.data);
-            setError(err.response.data)
         }
 
     }
@@ -231,8 +219,7 @@ const RegisterPage = () => {
                                 required={true}
                             />
                         </FormCtrl>
-                        {/* ///////////////// */}
-                        {error ? <SpanMessage> {error} </SpanMessage> : ""}
+
                         <Button
                             size="large"
                             variant="contained"

@@ -78,15 +78,6 @@ const Btn = styled.button`
     }
 `
 
-const SpanMessage = styled.div`
-    background-color: red;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-`
-
 const Logo = styled.img`
     width: 120px;
     cursor: pointer;
