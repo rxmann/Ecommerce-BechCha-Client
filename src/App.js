@@ -8,6 +8,9 @@ import ProductsPage from "./Pages/ProductsPage"
 import EmptyView from "./Components/EmptyView/EmptyView"
 import SingleProductPage from "./Pages/SingleProductPage"
 import styled from "styled-components"
+import { ToastContainer } from 'react-toastify';
+
+
 
 const Wrapper = styled.div`
 `
@@ -29,6 +32,7 @@ const App = () => {
         <Navbar />
         <Outlet />
         <Footer />
+        <ToastContainer />
       </Wrapper>
     );
   };

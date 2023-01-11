@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import TextField from '@mui/material/TextField';
+import LockIcon from '@mui/icons-material/Lock';
 import Button from '@mui/material/Button';
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -13,6 +13,10 @@ import {
 } from "@mui/material";
 
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import MailIcon from '@mui/icons-material/Mail';
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -43,11 +47,12 @@ const Span = styled.span`
 
 const Wrappper = styled.div`
     flex: 2;
-    padding: 50px;
+    width: 90%;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 20px;
+    justify-content: center;
 `
 const H1 = styled.h1`
     font-weight: 400;
@@ -118,10 +123,22 @@ const LoginPage = () => {
                 password
             })
             console.log(response.data);
+            toast.success(`Logged in successfully.`, {
+                position: "top-right",
+                theme: "colored"
+            })
+            toast.info(`Welcome to BechCha ${response.data.username.toUpperCase()}`, {
+                position: "top-center",
+                theme: "colored"
+            })
             navigate("/");
         }
         catch (err) {
-            setError("The credentials do not match!");
+            console.log(err.response);
+            toast.error(err.response.data, {
+                position: "top-right",
+                theme: "colored"
+            })
         }
 
     }
@@ -138,25 +155,44 @@ const LoginPage = () => {
                 <Wrappper>
                     <H1> Login </H1>
                     <Form >
-                        <TextField
-                            id="outlined-password-input"
-                            label="Email"
-                            type="Email"
-                            value={email}
-                            onChange={(e) => { setEmail(e.target.value) }}
-                            required
-                        />
 
-                        <FormControl >
+
+                    <FormControl>
+                            <InputLabel> Email </InputLabel>
+                            <OutlinedInput
+                                value={email}
+                                onChange={(e) => { setEmail(e.target.value) }}
+                                required
+                                label="Email"
+                                type="email"
+                                startAdornment={
+                                    <InputAdornment position="start">
+                                        <IconButton  >
+                                            <MailIcon />
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                            />
+                        </FormControl>
+
+                        {/* ////////////////// */}
+                        <FormControl>
                             <InputLabel> Password </InputLabel>
                             <OutlinedInput
                                 value={password}
                                 onChange={(e) => { setPassword(e.target.value) }}
                                 type={showPassword ? 'text' : 'password'}
+                                startAdornment={
+                                    <InputAdornment position="start">
+                                        <IconButton  >
+                                            <LockIcon />
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
                                 endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton onClick={handleClickShowPassword} >
-                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            {showPassword ? <Visibility /> : <VisibilityOff />}
                                         </IconButton>
                                     </InputAdornment>
                                 }
@@ -165,7 +201,6 @@ const LoginPage = () => {
                             />
                         </FormControl>
 
-                        {error ? <SpanMessage> {error} </SpanMessage> : ""}
                         <Button onClick={handleSubmitLogin} size="large" variant="contained"> Login </Button>
 
                         <Span> Don't have an account yet? </Span>

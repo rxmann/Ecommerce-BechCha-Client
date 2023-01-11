@@ -1,10 +1,11 @@
 import styled from "styled-components"
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { publicRequest } from "../requestMethods/requestMethods";
-
+import PersonIcon from '@mui/icons-material/Person';
+import MailIcon from '@mui/icons-material/Mail';
+import LockIcon from '@mui/icons-material/Lock';
 
 import {
     FormControl,
@@ -45,7 +46,8 @@ const Span = styled.span`
 
 const Wrapper = styled.div`
     flex: 2;
-    padding: 50px;
+    width: 90%;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -88,6 +90,9 @@ const Logo = styled.img`
     text-decoration: none;
 `
 
+const FormCtrl = styled(FormControl)`
+`
+
 
 
 const RegisterPage = () => {
@@ -123,7 +128,7 @@ const RegisterPage = () => {
         }
         catch (err) {
             console.log(err.response.data);
-            setError(err.response.data.Error[0].message)
+            setError(err.response.data)
         }
 
     }
@@ -132,35 +137,64 @@ const RegisterPage = () => {
         <Container>
             <Card>
 
-            <Link to="/"> 
-                <Logo src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true' />
-            </Link>
+                <Link to="/">
+                    <Logo src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true' />
+                </Link>
 
 
                 <Wrapper>
                     <H1> Register </H1>
                     <Form >
-                        <TextField
-                            value={username}
-                            onChange={e => setUsername(e.target.value)}
-                            required
-                            label="Username"
-                            type="text"
-                        />
-                        <TextField
-                            value={email}
-                            onChange={(e) => { setEmail(e.target.value) }}
-                            required
-                            label="Email"
-                            type="email"
-                        />
+                        <FormCtrl>
+                            <InputLabel> Username </InputLabel>
+                            <OutlinedInput
+                                value={username}
+                                onChange={e => setUsername(e.target.value)}
+                                required
+                                label="Username"
+                                type="text"
+                                startAdornment={
+                                    <InputAdornment position="start">
+                                        <IconButton  >
+                                            <PersonIcon />
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                            />
+                        </FormCtrl>
+
+                        <FormCtrl>
+                            <InputLabel> Email </InputLabel>
+                            <OutlinedInput
+                                value={email}
+                                onChange={(e) => { setEmail(e.target.value) }}
+                                required
+                                label="Email"
+                                type="email"
+                                startAdornment={
+                                    <InputAdornment position="start">
+                                        <IconButton  >
+                                            <MailIcon />
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                            />
+                        </FormCtrl>
+
                         {/* ////////////////// */}
-                        <FormControl>
+                        <FormCtrl>
                             <InputLabel> Password </InputLabel>
                             <OutlinedInput
                                 value={password}
                                 onChange={(e) => { setPassword(e.target.value) }}
                                 type={showPassword ? 'text' : 'password'}
+                                startAdornment={
+                                    <InputAdornment position="start">
+                                         <IconButton  >
+                                            <LockIcon />
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
                                 endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton onClick={handleClickShowPassword} >
@@ -171,14 +205,21 @@ const RegisterPage = () => {
                                 label="Password"
                                 required={true}
                             />
-                        </FormControl>
+                        </FormCtrl>
                         {/* ////////////////// */}
-                        <FormControl>
+                        <FormCtrl>
                             <InputLabel>Confirm Password </InputLabel>
                             <OutlinedInput
                                 value={confirmPassword}
                                 onChange={(e) => { setConfirmPassword(e.target.value) }}
                                 type={showPassword ? 'text' : 'password'}
+                                startAdornment={
+                                    <InputAdornment position="start">
+                                       <IconButton  >
+                                            <LockIcon />
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
                                 endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton onClick={handleClickShowPassword} >
@@ -189,7 +230,7 @@ const RegisterPage = () => {
                                 label="Confirm Password"
                                 required={true}
                             />
-                        </FormControl>
+                        </FormCtrl>
                         {/* ///////////////// */}
                         {error ? <SpanMessage> {error} </SpanMessage> : ""}
                         <Button
