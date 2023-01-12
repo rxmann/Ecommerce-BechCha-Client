@@ -9,6 +9,7 @@ import EmptyView from "./Components/EmptyView/EmptyView"
 import SingleProductPage from "./Pages/SingleProductPage"
 import styled from "styled-components"
 import { ToastContainer } from 'react-toastify';
+import ProfilePage from "./Pages/ProfilePage"
 
 
 
@@ -34,7 +35,6 @@ const App = () => {
         <Navbar />
         <Outlet />
         <Footer />
-        <ToastContainer />
       </Wrapper>
     );
   };
@@ -62,22 +62,30 @@ const App = () => {
           element: <SingleProductPage />,
         },
         {
-          path: "/login",
-          element: <LoginPage />
-        },
-        {
-          path: "/register",
-          element: <RegisterPage />
+          path: "/profile",
+          element: <ProfilePage />
         },
       ],
-    }
+    },
+    {
+      path: "/login",
+      element: <LoginPage />
+    },
+    {
+      path: "/register",
+      element: <RegisterPage />
+    }, 
+    
   ])
 
 
 
 
   return (
+    <>
     <RouterProvider router={router} />
+    <ToastContainer />
+    </>
   )
 }
 
