@@ -10,7 +10,7 @@ import SingleProductPage from "./Pages/SingleProductPage"
 import styled from "styled-components"
 import { ToastContainer } from 'react-toastify';
 import ProfilePage from "./Pages/ProfilePage"
-
+import VerifyOTP from "./Components/VerifyOTPpage"
 
 
 const Wrapper = styled.div`
@@ -74,7 +74,11 @@ const App = () => {
     {
       path: "/register",
       element: <RegisterPage />
-    }, 
+    },
+    {
+      path: "/verify-registration",
+      element: <VerifyOTP />
+    }
     
   ])
 

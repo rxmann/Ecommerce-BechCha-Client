@@ -87,7 +87,7 @@ const Logo = styled.img`
 
 
 
-const LoginPage = () => {
+const VerifyOTP= () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate();
@@ -131,7 +131,6 @@ const LoginPage = () => {
     return (
         <Container>
             <Card>
-
                 <Link to="/">
                     <Logo src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true' />
                 </Link>
@@ -202,4 +201,4 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage
+export default VerifyOTP

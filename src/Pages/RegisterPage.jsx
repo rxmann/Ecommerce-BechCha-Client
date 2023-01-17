@@ -139,7 +139,7 @@ const RegisterPage = () => {
 
                 <Wrapper>
                     <H1> Register </H1>
-                    <Form >
+                    <Form  onSubmit={handleSubmitRegister} >
                         <FormCtrl>
                             <InputLabel> Username </InputLabel>
                             <OutlinedInput
@@ -228,11 +228,11 @@ const RegisterPage = () => {
                         </FormCtrl>
 
                         <Button
+                            type="submit"
                             size="large"
-                            variant="contained"
-                            onClick={handleSubmitRegister}
-                        >
-                            Register </Button>
+                            variant="contained">
+                                    Register 
+                        </Button>
 
 
                         <Span> Already have an account? </Span>
