@@ -109,7 +109,7 @@ const RegisterPage = () => {
     const handleSubmitRegister = async (e) => {
         e.preventDefault();
         try {
-            await publicRequest.post("/users/register", {
+            const response = await publicRequest.post("/users/register", {
                 username,
                 email,
                 password
@@ -118,16 +118,16 @@ const RegisterPage = () => {
                 position: "top-center",
                 theme: "colored"
             } )
-            navigate("/verify-registration");
+            console.log(response.data.user._id);
+            navigate("/verify-registration",  { state: { userId: response.data.user._id } } );
         }
         catch (err) {
-            console.log(err);
             toast.error(err?.response?.data, {
                 position: "top-right",
                 theme: "colored"
             })
         }
-
+ 
     }
 
     return (

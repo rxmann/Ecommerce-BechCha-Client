@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import Button from '@mui/material/Button';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { publicRequest } from "../requestMethods/requestMethods";
 import {
@@ -87,18 +87,38 @@ const Fade = styled.p`
     font-size: 14px;
 `
 
-const VerifyOTP= () => {
-    const [password, setPassword] = useState("")
+const VerifyOTP = () => {
+
+    const location = useLocation();
+    const userId = location.state.userId;
+    const [otp, setOTP] = useState("")
     const navigate = useNavigate();
 
 
 
-    const handleSubmitLogin = async (e) => {
+    const handleVerifyOTP = async (e) => {
         e.preventDefault();
-        toast.success("User registration completed!", {
-            position: "top-center",
-            theme: "colored",
-        })
+
+        try {
+
+            const response = await publicRequest.post("/users/verifyOTP", { userId, otp: otp.toString() })
+
+            if (response.data.status === "VERIFIED") {
+
+                toast.success("User registration completed!", {
+                    position: "top-center",
+                    theme: "colored",
+                })
+
+                navigate("/login");
+            }
+            else {
+                throw new Error("Verification failed. Try again!")
+            }
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
 
     return (
@@ -114,17 +134,17 @@ const VerifyOTP= () => {
                     <H1> Verify OTP </H1>
 
                     <Fade > Enter the 4 digit OTP sent to your email address </Fade>
-                    <Form  onSubmit={handleSubmitLogin}>
+                    <Form onSubmit={handleVerifyOTP}>
                         <FormControl>
                             <InputLabel> OTP </InputLabel>
                             <OutlinedInput
                                 inputProps={{ maxLength: 4 }}
-                                value={password}
-                                onChange={(e) => { setPassword(e.target.value) }}
+                                value={otp}
+                                onChange={(e) => { setOTP(e.target.value) }}
                                 type="text"
                                 label="OTP"
                                 required={true}
-                                sx={{letterSpacing: "10px"}}
+                                sx={{ letterSpacing: "10px" }}
                             />
                         </FormControl>
 
@@ -136,7 +156,7 @@ const VerifyOTP= () => {
                             onClick={() => navigate("/register")}>
                             Resend
                         </Btn>
-                   </Form>
+                    </Form>
                 </Wrappper>
 
             </Card>
