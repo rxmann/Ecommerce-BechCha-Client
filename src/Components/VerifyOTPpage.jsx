@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import LockIcon from '@mui/icons-material/Lock';
 import Button from '@mui/material/Button';
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -7,14 +6,8 @@ import { publicRequest } from "../requestMethods/requestMethods";
 import {
     FormControl,
     InputLabel,
-    IconButton,
     OutlinedInput,
-    InputAdornment
 } from "@mui/material";
-
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import MailIcon from '@mui/icons-material/Mail';
-
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -43,6 +36,7 @@ const Card = styled.div`
 const Span = styled.span`
     font-size: 14px;
     color: #0171b6;
+    margin-top: 40px;
 `
 
 const Wrappper = styled.div`
@@ -55,7 +49,10 @@ const Wrappper = styled.div`
     justify-content: center;
 `
 const H1 = styled.h1`
-    font-weight: 400;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 const Form = styled.form`
     display: flex;
@@ -82,50 +79,26 @@ const Logo = styled.img`
     width: 120px;
     cursor: pointer;
     text-decoration: none;
+    margin-bottom: 30px;
 `
 
-
-
+const Fade = styled.p`
+    font-weight: 100;
+    font-size: 14px;
+`
 
 const VerifyOTP= () => {
-    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate();
-    // for password box (visibility, toogle, functions)
-    const [showPassword, setShowPassword] = useState(false);
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
 
 
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
-        try {
-
-            if (email === null || password === null){
-                throw new Error("Email and Password field cannot be empty.")
-            }
-            const response = await publicRequest.post("/users/login", {
-                email,
-                password
-            })
-            console.log(response.data);
-            toast.success(`Logged in successfully.`, {
-                position: "top-right",
-                theme: "colored"
-            })
-            toast.info(`Welcome to BechCha ${response.data.username.toUpperCase()}`, {
-                position: "top-center",
-                theme: "colored"
-            })
-            navigate("/");
-        }
-        catch (err) {
-            console.log(err.response);
-            toast.error(err.response.data, {
-                position: "top-right",
-                theme: "colored"
-            })
-        }
-
+        toast.success("User registration completed!", {
+            position: "top-center",
+            theme: "colored",
+        })
     }
 
     return (
@@ -135,63 +108,33 @@ const VerifyOTP= () => {
                     <Logo src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true' />
                 </Link>
 
+                <Fade color="green"> We are happy to connect with you! </Fade>
 
                 <Wrappper>
-                    <H1> Login </H1>
+                    <H1> Verify OTP </H1>
+
+                    <Fade > Enter the 4 digit OTP sent to your email address </Fade>
                     <Form  onSubmit={handleSubmitLogin}>
-
-
-                    <FormControl>
-                            <InputLabel> Email </InputLabel>
-                            <OutlinedInput
-                                value={email}
-                                onChange={(e) => { setEmail(e.target.value) }}
-                                required
-                                label="Email"
-                                type="email"
-                                startAdornment={
-                                    <InputAdornment position="start">
-                                        <IconButton  >
-                                            <MailIcon />
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                            />
-                        </FormControl>
-
-                        {/* ////////////////// */}
                         <FormControl>
-                            <InputLabel> Password </InputLabel>
+                            <InputLabel> OTP </InputLabel>
                             <OutlinedInput
+                                inputProps={{ maxLength: 4 }}
                                 value={password}
                                 onChange={(e) => { setPassword(e.target.value) }}
-                                type={showPassword ? 'text' : 'password'}
-                                startAdornment={
-                                    <InputAdornment position="start">
-                                        <IconButton  >
-                                            <LockIcon />
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton onClick={handleClickShowPassword} >
-                                            {showPassword ? <Visibility /> : <VisibilityOff />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                                label="Password"
+                                type="text"
+                                label="OTP"
                                 required={true}
+                                sx={{letterSpacing: "10px"}}
                             />
                         </FormControl>
 
-                        <Button type="submit" size="large" variant="contained"> Login </Button>
+                        <Button type="submit" size="large" variant="contained"> verify </Button>
 
-                        <Span> Don't have an account yet? </Span>
+                        <Span> Resend otp mail? </Span>
 
                         <Btn
                             onClick={() => navigate("/register")}>
-                            Register
+                            Resend
                         </Btn>
                    </Form>
                 </Wrappper>

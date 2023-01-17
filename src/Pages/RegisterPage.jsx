@@ -80,6 +80,7 @@ const Logo = styled.img`
     width: 120px;
     cursor: pointer;
     text-decoration: none;
+    margin-bottom: 30px;
 `
 
 const FormCtrl = styled(FormControl)`
@@ -113,17 +114,18 @@ const RegisterPage = () => {
                 email,
                 password
             })
-            toast.success("User registered successfully!",{
-                position: "top-right"
+            toast.success("Please verify through Email for complete registration!",{
+                position: "top-center",
+                theme: "colored"
             } )
-            navigate("/login");
+            navigate("/verify-registration");
         }
         catch (err) {
-            toast.error(err.response.data, {
+            console.log(err);
+            toast.error(err?.response?.data, {
                 position: "top-right",
                 theme: "colored"
             })
-            console.log(err.response.data);
         }
 
     }

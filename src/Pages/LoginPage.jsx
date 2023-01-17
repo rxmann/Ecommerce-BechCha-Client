@@ -82,6 +82,7 @@ const Logo = styled.img`
     width: 120px;
     cursor: pointer;
     text-decoration: none;
+    margin-bottom: 30px;
 `
 
 
