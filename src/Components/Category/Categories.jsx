@@ -63,15 +63,11 @@ const Categories = () => {
             }
         }
         getCategoriesAll();
-    }, [2]);
-
-
+    }, []);
 
 
 
     return (
-
-
         <Container >
 
             <Display>

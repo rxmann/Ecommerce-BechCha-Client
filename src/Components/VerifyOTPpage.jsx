@@ -117,7 +117,11 @@ const VerifyOTP = () => {
             }
         }
         catch (err) {
-            console.log(err);
+            console.log(err.response);
+            toast.error(err.response.data, {
+                position: "top-center",
+                theme: "colored"
+            })
         }
     }
 

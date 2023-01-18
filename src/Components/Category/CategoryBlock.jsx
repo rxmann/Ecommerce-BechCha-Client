@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-
+import { publicRequest } from "../../requestMethods/requestMethods";
 
 
 const Wrapper = styled.div`
@@ -78,18 +79,22 @@ const Name = styled.h3`
 `
 
 
-const OneCategory = ( {category} ) => {
+const OneCategory = ({ category }) => {
 
   const navigate = useNavigate();
+  const binaryString = Array.from(new Uint8Array(category.display.data), byte => String.fromCharCode(byte)).join("");
+  const theImage = btoa(binaryString);
+
+  
 
   return (
     <Container >
-        <Wrapper >
-          <Image src={category.img}/>
-          <Name> {category.name} </Name>
-        </Wrapper>
-        <Button onClick={()=>navigate(`/products/${category._id}`)}> SHOP NOW </Button>
-    
+      <Wrapper >
+        <Image src={`data:image/png;base64, ${theImage}`} />
+        <Name> {category.name} </Name>
+      </Wrapper>
+      <Button onClick={() => navigate(`/products/${category._id}`)}> SHOP NOW </Button>
+
     </Container>
   )
 }
