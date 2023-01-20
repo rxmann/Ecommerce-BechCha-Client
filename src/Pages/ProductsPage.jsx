@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
 import ProductList from "../Components/Products/ProductList"
+import { publicRequest } from "../requestMethods/requestMethods"
 
 
 const Products = styled.div`
@@ -55,12 +56,34 @@ const Image = styled.img`
 
 const ProductsPage = () => {
 
-  const catId = parseInt(useParams().id)
-
   const [maxPrice, setMaxPrice] = useState(100000);
   const [sort, setSort] = useState(null);
+  const [catId, setCatId] = useState(useParams().id);
+
 
   const imgUrl = "https://dlcdnwebimgs.asus.com/gain/9F8C42DB-36CE-4003-95E1-94E92594127F/fwebp";
+
+
+  useEffect(async() => {
+    imgUrl = await publicRequest.get(`/product/${catId}`);
+  }, [catId])
+
+
+  useEffect(() => {
+    const getCategoriesAll = async () => {
+        try {
+            const response = await publicRequest.get(`/products?category=${catId}`);
+            const resData = response.data;
+            console.log(resData);
+        }
+        catch (err) {
+        }
+    }
+    getCategoriesAll();
+}, [catId]);
+
+
+
 
   return (
     <Products>

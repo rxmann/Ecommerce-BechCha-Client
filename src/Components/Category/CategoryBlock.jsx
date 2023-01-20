@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { publicRequest } from "../../requestMethods/requestMethods";
 
 
 const Wrapper = styled.div`
