@@ -63,9 +63,8 @@ const Container = styled.div`
 
 
 const Image = styled.img`
-  flex: 1;
-  width: 90%;
-  background: url(${props => props.img}) center;
+  flex: 2;
+  width: 100%;
   overflow: hidden;
   background-size: cover;
 `
