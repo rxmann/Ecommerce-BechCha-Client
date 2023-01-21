@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
 import styled from "styled-components"
 import ProductList from "../Components/Products/ProductList"
 import { publicRequest } from "../requestMethods/requestMethods"
@@ -46,10 +46,9 @@ const Label = styled.label`
 
 const Image = styled.img`
   width: 100%;
-  height: 300px;
+  height: 250px;
   object-fit: cover;
   margin-bottom: 50px;
-  cursor: pointer;
 `
 
 
@@ -58,21 +57,31 @@ const ProductsPage = () => {
 
   const [maxPrice, setMaxPrice] = useState(100000);
   const [sort, setSort] = useState(null);
-  const [catId, setCatId] = useState(useParams().id);
+  const [CategoryImage, setCategoryImage] = useState();
+
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
 
 
-  const imgUrl = "https://dlcdnwebimgs.asus.com/gain/9F8C42DB-36CE-4003-95E1-94E92594127F/fwebp";
+  // get category display image
+  useEffect(() => {
 
+    async function getCatImage () {
+      const response = await publicRequest.get(`/categories/${id}`);
+      const catDisplay = response.data.category.display;
+      const binaryString = Array.from(new Uint8Array(catDisplay.data), byte => String.fromCharCode(byte)).join("");
+      setCategoryImage(btoa(binaryString));
+    } 
 
-  useEffect(async() => {
-    imgUrl = await publicRequest.get(`/product/${catId}`);
-  }, [catId])
+    getCatImage();
+    
+  }, [id])
 
 
   useEffect(() => {
     const getCategoriesAll = async () => {
         try {
-            const response = await publicRequest.get(`/products?category=${catId}`);
+            const response = await publicRequest.get(`/products?category=${id}`);
             const resData = response.data;
             console.log(resData);
         }
@@ -80,7 +89,7 @@ const ProductsPage = () => {
         }
     }
     getCategoriesAll();
-}, [catId]);
+}, [id]);
 
 
 
@@ -144,9 +153,9 @@ const ProductsPage = () => {
 
       <Right>
 
-        <Image src={imgUrl} alt={"category image"} />
+        <Image src={`data:image/png;base64,${CategoryImage}`} />
 
-        <ProductList catId={catId} maxPrice={maxPrice} sort={sort} />
+        <ProductList maxPrice={maxPrice} sort={sort} />
 
       </Right>
 
