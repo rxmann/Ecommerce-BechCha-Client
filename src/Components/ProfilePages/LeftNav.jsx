@@ -3,8 +3,7 @@ import styled from "styled-components"
 
 
 const Container = styled.div`
-    flex: 1;
-    background-color: #f5f7f8;
+    flex: 2;
     height: 400px;
 
 `
@@ -20,9 +19,10 @@ const OptionItem = styled.div`
   cursor: pointer;
 `
 
-const Item = styled.h1`
+const Item = styled.h3`
   color: #0171b6;
-  font-weight: 400;
+  font-weight: 300;
+  margin-bottom: 10px;
 `
 
 const LeftNav = () => {

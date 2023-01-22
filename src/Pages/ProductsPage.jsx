@@ -77,7 +77,7 @@ const ProductsPage = () => {
     
   }, [id])
 
-
+// get all products base don category
   useEffect(() => {
     const getCategoriesAll = async () => {
         try {
