@@ -1,19 +1,21 @@
 import styled from "styled-components"
-import LeftNav from "../Components/ProfilePages/LeftNav"
+import ProfileNav from "../Components/ProfilePages/ProfileNav"
 import ProfileDisplay from "../Components/ProfilePages/ProfileDisplay"
-import RightDisplay from "../Components/ProfilePages/RightDisplay"
+import RightDisplay from "../Components/ProfilePages/Details"
 
 
 
 const Container = styled.div`
-  margin: 50px;
   display: flex;
+  flex-direction: column;
+  background-color: #f5f7f8;
+
 `
 
 const ProfilePage = () => {
   return (
     <Container>
-        <LeftNav />
+        <ProfileNav />
         <RightDisplay Component={ProfileDisplay}/>
     </Container>
   )

@@ -3,14 +3,12 @@ import styled from "styled-components"
 
 
 const Container = styled.div`
-  flex: 5;
-  background-color: #aaaaaa;
   display: flex;
   align-items: center;
   justify-content: center;
 `
 
-const RightDisplay = ({Component}) => {
+const Details = ({Component}) => {
   return (
     <Container>
       <Component />
@@ -18,4 +16,4 @@ const RightDisplay = ({Component}) => {
   )
 }
 
-export default RightDisplay
+export default Details
