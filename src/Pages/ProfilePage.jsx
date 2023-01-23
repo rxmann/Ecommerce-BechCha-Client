@@ -2,6 +2,7 @@ import styled from "styled-components"
 import ProfileNav from "../Components/ProfilePages/ProfileNav"
 import ProfileDisplay from "../Components/ProfilePages/ProfileDisplay"
 import RightDisplay from "../Components/ProfilePages/Details"
+import { useState } from "react"
 
 
 
@@ -12,11 +13,39 @@ const Container = styled.div`
 
 `
 
+const Wrapper = styled.div`
+  
+`
+
 const ProfilePage = () => {
+
+  const titles = [{
+    id: "profile",
+    title: "Profile"
+  }, {
+    id: "order",
+    title: "Order"
+  }, {
+    id: "account",
+    title: "Account"
+  }];
+
+  const [active, setActive] = useState("profile")
+
   return (
     <Container>
-        <ProfileNav />
-        <RightDisplay Component={ProfileDisplay}/>
+      <Wrapper>
+
+        {titles.map((each) => (
+          <ProfileNav
+            id={each.id}
+            title={each.title}
+            active={active === each.id}
+            setActive={setActive}
+          />
+        ))}
+      </Wrapper>
+      <RightDisplay Component={ProfileDisplay} />
     </Container>
   )
 }
