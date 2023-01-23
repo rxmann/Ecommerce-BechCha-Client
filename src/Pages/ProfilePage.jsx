@@ -38,6 +38,7 @@ const ProfilePage = () => {
 
         {titles.map((each) => (
           <ProfileNav
+            key={each.id}
             id={each.id}
             title={each.title}
             active={active === each.id}
