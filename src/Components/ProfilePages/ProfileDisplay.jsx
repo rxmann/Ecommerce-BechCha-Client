@@ -18,11 +18,11 @@ padding: 20px;
 const ProfileDisplay = () => {
     return (
         <Card>
-            <ProfileImage>
+            {/* <ProfileImage>
 
-            </ProfileImage>
+            </ProfileImage> */}
 
-            
+
         </Card>
     )
 }
