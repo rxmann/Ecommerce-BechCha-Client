@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import TextField from '@mui/material/TextField';
-import { Avatar, Button, FormControl, Input, InputLabel } from "@mui/material";
+import { Avatar, Button, FormControl } from "@mui/material";
 
 const Card = styled.div`
     margin: 20px 50px;
@@ -12,40 +12,44 @@ const Card = styled.div`
 `
 const Form = styled.form`
     display: flex;
+    flex-direction: column;
     padding: 50px;
     gap: 30px;
 `
 const FormItem = styled.div`
-    
+    display: flex;
+    align-items: center;
+    gap: 50px;
+`
+
+const Label = styled.label`
+    width: 150px;
 `
 
 const ProfileDisplay = () => {
     return (
         <Card>
             <Form>
+                <FormItem>
+                    <Avatar alt="Rxman" src="" sx={{ width: 100, height: 100 }} />
+                </FormItem>
 
-            <FormControl>
-                <Avatar alt="Rxman" src="" sx={{ width: 100, height: 100 }}/>
-            </FormControl>
+                <FormItem>
+                    <Label>Username</Label>
+                    <TextField variant="standard" />
 
-            <FormControl>
-                <label>Username</label>
-                <TextField fullWidth />
-
-                <label>Email</label>
-                <TextField fullWidth />
-
-                <label>Address</label>
-                <TextField fullWidth />
-
-                <label>Phone Number</label>
-                <TextField fullWidth />
-
-                <Button fullWidth variant="contained">Update</Button>
-            </FormControl>
-                
+                    <Label>Email</Label>
+                    <TextField variant="standard" />
+                </FormItem>
+                <FormItem>
+                    <Label>Address</Label>
+                    <TextField variant="standard" />
+                    <Label>Phone Number</Label>
+                    <TextField variant="standard" />
+                </FormItem>
+                <Button variant="contained">Update</Button>
             </Form>
-           
+
 
         </Card>
     )

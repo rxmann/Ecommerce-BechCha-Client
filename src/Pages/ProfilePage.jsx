@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import ProfileNav from "../Components/ProfilePages/ProfileNav"
+import ProfileNav from "../Components/ProfilePages/ProfileNavItem"
 import ProfileDisplay from "../Components/ProfilePages/ProfileDisplay"
 import RightDisplay from "../Components/ProfilePages/Details"
 import { useState } from "react"
@@ -14,6 +14,8 @@ const Container = styled.div`
 `
 
 const Wrapper = styled.div`
+  margin: 0px 50px;
+  height: 60px;
   display: flex;
 `
 
