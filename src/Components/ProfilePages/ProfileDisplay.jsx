@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import TextField from '@mui/material/TextField';
-import { Avatar, Button, FormControl } from "@mui/material";
+import { Avatar, Button, IconButton } from "@mui/material";
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
 const Card = styled.div`
     margin: 20px 50px;
@@ -8,7 +9,6 @@ const Card = styled.div`
     border-radius: 10px;
     background-color: white;
     overflow: hidden;
-    width: 100%;
 `
 const Form = styled.form`
     display: flex;
@@ -19,11 +19,11 @@ const Form = styled.form`
 const FormItem = styled.div`
     display: flex;
     align-items: center;
-    gap: 50px;
+    gap: 40px;
 `
 
 const Label = styled.label`
-    width: 150px;
+    width: 300px;
 `
 
 const ProfileDisplay = () => {
@@ -32,22 +32,38 @@ const ProfileDisplay = () => {
             <Form>
                 <FormItem>
                     <Avatar alt="Rxman" src="" sx={{ width: 100, height: 100 }} />
+                    <IconButton color="primary" aria-label="upload picture" component="label">
+                        <input hidden accept="image/*" type="file" />
+                        <AddPhotoAlternateIcon />
+                    </IconButton>
                 </FormItem>
 
                 <FormItem>
                     <Label>Username</Label>
-                    <TextField variant="standard" />
-
+                    <TextField fullWidth type={"text"} variant="standard" required />
+                </FormItem>
+                <FormItem>
                     <Label>Email</Label>
-                    <TextField variant="standard" />
+                    <TextField fullWidth type={"email"} variant="standard" required />
                 </FormItem>
                 <FormItem>
                     <Label>Address</Label>
-                    <TextField variant="standard" />
-                    <Label>Phone Number</Label>
-                    <TextField variant="standard" />
+                    <TextField fullWidth type={"text"} variant="standard" required />
                 </FormItem>
-                <Button variant="contained">Update</Button>
+                <FormItem>
+                    <Label>Phone Number</Label>
+                    <TextField fullWidth
+                        InputProps={{
+                            inputProps: {
+                                inputMode: "numeric",
+                                pattern: `[0-9]{10}`
+                            }
+                        }}
+                        variant="standard"
+                        required
+                    />
+                </FormItem>
+                <Button type="submit" variant="contained">Update</Button>
             </Form>
 
 
