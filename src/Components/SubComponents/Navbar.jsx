@@ -136,7 +136,7 @@ const Navbar = () => {
             
             <Right> 
                     <Span>NP</Span>
-                    <Mbtn onClick={()=>navigate("/register")} >
+                    <Mbtn onClick={()=>navigate("/profile")} >
                         <AccountCircleIcon />
                     </Mbtn>
                     <Mbtn onClick={() => setCartOpen(!cartOpen)}>
