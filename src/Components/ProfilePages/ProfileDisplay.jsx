@@ -1,6 +1,5 @@
 import styled from "styled-components"
-import TextField from '@mui/material/TextField';
-import { Avatar, Button, IconButton } from "@mui/material";
+import { Avatar, Button, IconButton, TextField } from "@mui/material";
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
 const Card = styled.div`
@@ -9,13 +8,22 @@ const Card = styled.div`
     border-radius: 10px;
     background-color: white;
     overflow: hidden;
-`
+    width: 100%;
+    display: flex;
+    `
 const Form = styled.form`
+    flex: 1;
+    background-color: aliceblue;
     display: flex;
     flex-direction: column;
     padding: 50px;
     gap: 30px;
 `
+
+const DispalyImage = styled.div`
+    flex: 1;
+`
+
 const FormItem = styled.div`
     display: flex;
     align-items: center;
@@ -23,10 +31,40 @@ const FormItem = styled.div`
 `
 
 const Label = styled.label`
-    width: 300px;
+    flex: 1;
+`
+
+const TextInput = styled(TextField)`
+    flex: 2;
+    color: gray;
 `
 
 const ProfileDisplay = () => {
+
+    const InputData = [{
+        type: "text",
+        label: "Username",
+        defaultValue: "rxman"
+    }, {
+        type: "email",
+        label: "Email",
+        defaultValue: "rxman@gmail.com"
+    }, {
+        type: "text",
+        label: "Address",
+        defaultValue: "Mandikhatar, Kathmandu"
+    }, {
+        type: "tel",
+        label: "Phone Number",
+        defaultValue: 9999999999,
+        pattern: {
+            inputProps: {
+                inputMode: "numeric",
+                pattern: `[0-9]{10}`
+            }
+        }
+    }]
+
     return (
         <Card>
             <Form>
@@ -38,33 +76,24 @@ const ProfileDisplay = () => {
                     </IconButton>
                 </FormItem>
 
-                <FormItem>
-                    <Label>Username</Label>
-                    <TextField fullWidth type={"text"} variant="standard" required />
-                </FormItem>
-                <FormItem>
-                    <Label>Email</Label>
-                    <TextField fullWidth type={"email"} variant="standard" required />
-                </FormItem>
-                <FormItem>
-                    <Label>Address</Label>
-                    <TextField fullWidth type={"text"} variant="standard" required />
-                </FormItem>
-                <FormItem>
-                    <Label>Phone Number</Label>
-                    <TextField fullWidth
-                        InputProps={{
-                            inputProps: {
-                                inputMode: "numeric",
-                                pattern: `[0-9]{10}`
-                            }
-                        }}
-                        variant="standard"
-                        required
-                    />
-                </FormItem>
-                <Button type="submit" variant="contained">Update</Button>
+                {InputData.map((input) => (
+
+                    <FormItem>
+                        <Label> {input.label} </Label> 
+                        <TextInput 
+                            required
+                            variant="filled"
+                            type={input.type}
+                            defaultValue={input.defaultValue}
+                            InputProps={input.pattern}
+                        />
+                    </FormItem>
+                ))}
+
+                    <Button type="submit" variant="contained">Update</Button>
             </Form>
+
+            <DispalyImage></DispalyImage>
 
 
         </Card>
