@@ -38,6 +38,7 @@ const ProfilePage = () => {
   }];
 
   const [active, setActive] = useState("profile")
+  
 
   return (
     <Container>
@@ -53,7 +54,10 @@ const ProfilePage = () => {
           />
         ))}
       </Wrapper>
-      <Details componentName={active}/>
+      <Details 
+        active={active}
+        setactive={setActive}
+      />
     </Container>
   )
 }

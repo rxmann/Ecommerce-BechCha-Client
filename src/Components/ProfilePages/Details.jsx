@@ -1,4 +1,9 @@
+import { useEffect } from "react"
+import { useState } from "react"
 import styled from "styled-components"
+import Account from "./Account"
+import Orders from "./Orders"
+import ProfileDisplay from "./ProfileDisplay"
 
 
 
@@ -8,20 +13,18 @@ const Container = styled.div`
   justify-content: center;
 `
 
-const Details = ({componentName}) => {
+const Details = ({active, setActive}) => {
 
-  switch(componentName) {
-    case "profile":
-      setComponent(ProfileDisplay)
-    case "order":
-      setComponent(Orders)
-    case "account":
-      setComponent(Account)
+  const components = {
+    'profile': <ProfileDisplay />,
+    'order': <Orders />,
+    'account': <Account />
   }
+
 
   return (
     <Container>
-      
+      {components[active]}
     </Container>
   )
 }
