@@ -82,7 +82,7 @@ const ProfileDisplay = () => {
 
                 {InputData.map((input) => (
 
-                    <FormItem>
+                    <FormItem key={input.label}>
                         <Label> {input.label} </Label> 
                         <TextInput 
                             required

@@ -1,10 +1,10 @@
 import styled from "styled-components"
-import ProfileNav from "../Components/ProfilePages/ProfileNavItem"
 import ProfileDisplay from "../Components/ProfilePages/ProfileDisplay"
 import Orders from "../Components/ProfilePages/Orders"
 import Account from "../Components/ProfilePages/Account"
-import RightDisplay from "../Components/ProfilePages/Details"
+import Details from "../Components/ProfilePages/Details"
 import { useState } from "react"
+import ProfileNavItem from "../Components/ProfilePages/ProfileNavItem"
 import { useEffect } from "react"
 
 
@@ -38,28 +38,13 @@ const ProfilePage = () => {
   }];
 
   const [active, setActive] = useState("profile")
-  const [component, setComponent] = useState(ProfileDisplay)
-
-  useEffect(() => {
-    switch(active) {
-      case "profile":
-        setComponent(ProfileDisplay)
-      case "orders":
-        setComponent(Orders)
-      case "account":
-        setComponent(Account)
-    }
-    console.log(active);
-  }, [active])
-
-
 
   return (
     <Container>
       <Wrapper>
 
         {titles.map((each) => (
-          <ProfileNav
+          <ProfileNavItem
             key={each.id}
             id={each.id}
             title={each.title}
@@ -68,9 +53,7 @@ const ProfilePage = () => {
           />
         ))}
       </Wrapper>
-      <RightDisplay Component={component}
-
-        />
+      <Details componentName={active}/>
     </Container>
   )
 }

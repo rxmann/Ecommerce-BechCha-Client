@@ -5,10 +5,11 @@ const Card = styled.div`
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     border-radius: 10px;
     background-color: white;
-    overflow: hidden;
     width: 100%;
     height: 600px;
     display: flex;
+    align-items: center;
+    justify-content: center;
 `
 
 const Orders = () => {
@@ -16,7 +17,7 @@ const Orders = () => {
 
     return (
         <Card>
-
+            No orders recorded.
         </Card>
     )
 }

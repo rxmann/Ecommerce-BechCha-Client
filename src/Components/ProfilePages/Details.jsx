@@ -8,10 +8,20 @@ const Container = styled.div`
   justify-content: center;
 `
 
-const Details = ({Component}) => {
+const Details = ({componentName}) => {
+
+  switch(componentName) {
+    case "profile":
+      setComponent(ProfileDisplay)
+    case "order":
+      setComponent(Orders)
+    case "account":
+      setComponent(Account)
+  }
+
   return (
     <Container>
-      <Component />
+      
     </Container>
   )
 }
