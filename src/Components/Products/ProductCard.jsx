@@ -17,14 +17,16 @@ const Container = styled.div`
   }
 
 `
+const ImageContainer = styled.div`
+  flex: 4;
+  width: 100%;
+  height: 100px;
+`
 
 const Image = styled.img`
-  flex: 4;
   background-color: #f5f7f8;
   overflow: hidden;
   object-fit: contain;
-  width: 100%;
-  height: 100%;
   cursor: pointer;
   transition: transform .3s ease;
   transform: scale(0.8);
@@ -78,7 +80,10 @@ const ProductCard = ({ data }) => {
 
   return (
     <Container >
+      <ImageContainer>
       <Image onClick={() => navigate("/product/:id")} src={data.img} />
+      </ImageContainer>
+
       <Wrapper>
         <Title> {data.title} </Title>
       </Wrapper>

@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { data } from '../data'
 import ProductCard from './Products/ProductCard'
+import {publicRequest} from "../requestMethods/requestMethods"
 
 const Container = styled.div`
     padding: 10px 50px;
@@ -21,6 +22,23 @@ const Wrapper = styled.div`
 `
 
 const TopSales = () => {
+    const [data, setData] = useState()
+
+    useEffect(() => {
+        const getTopSold = async () => {
+            try {
+                const response = await publicRequest.get("/products")
+                setData(response.data.products)
+                console.log(data);
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
+
+        getTopSold();
+    })
+
   return (
     <Container>
         <Title>
@@ -28,9 +46,10 @@ const TopSales = () => {
         </Title>
 
         <Wrapper>
-            { data.map(element => (
-                <ProductCard data={element} key={element.id} />
-            )) }
+            {data?.length > 0 ?  
+                data?.map(element => (
+                    <ProductCard data={element} key={element._id} /> ))
+            : "Failed retrieving products!"  }
         </Wrapper>
     </Container>
   )
