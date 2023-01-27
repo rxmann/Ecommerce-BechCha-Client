@@ -3,7 +3,8 @@ import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
-  max-width: 200px;
+  width: 200px;
+  height: 300px;
   padding: 10px;
   background-color: #ffffff;
   display: flex;
@@ -20,7 +21,7 @@ const Container = styled.div`
 const ImageContainer = styled.div`
   flex: 4;
   width: 100%;
-  height: 100px;
+  height: 100%;
 `
 
 const Image = styled.img`
@@ -78,10 +79,14 @@ const ProductCard = ({ data }) => {
 
   const navigate = useNavigate();
 
+  const image = data.images[0];
+  const binaryString = Array.from(new Uint8Array(image), byte => String.fromCharCode(byte)).join("");
+  
+
   return (
     <Container >
       <ImageContainer>
-      <Image onClick={() => navigate("/product/:id")} src={data.img} />
+      <Image onClick={() => navigate("/product/:id")} src={`data:image/png;base64, ${binaryString}`} />
       </ImageContainer>
 
       <Wrapper>

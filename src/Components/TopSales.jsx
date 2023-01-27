@@ -29,7 +29,6 @@ const TopSales = () => {
             try {
                 const response = await publicRequest.get("/products")
                 setData(response.data.products)
-                console.log(data);
             }
             catch (err) {
                 console.log(err);
@@ -37,7 +36,7 @@ const TopSales = () => {
         }
 
         getTopSold();
-    })
+    }, [])
 
   return (
     <Container>
