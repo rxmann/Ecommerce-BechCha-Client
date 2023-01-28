@@ -20,14 +20,16 @@ const Container = styled.div`
 `
 const ImageContainer = styled.div`
   flex: 4;
-  width: 100%;
-  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #f5f7f8;
 `
 
 const Image = styled.img`
-  background-color: #f5f7f8;
-  overflow: hidden;
-  object-fit: contain;
+  height: 100%;
+  width: 100%;
   cursor: pointer;
   transition: transform .3s ease;
   transform: scale(0.8);
@@ -78,11 +80,7 @@ const AddBtn = styled(AddBoxOutlinedIcon)`
 const ProductCard = ({ data }) => {
 
   const navigate = useNavigate();
-
-  const image = data.images;
-  console.log(image);
-  const binaryString = Array.from(new Uint8Array(image), byte => String.fromCharCode(byte)).join("");
-  
+  const image = data.images[0];
 
   return (
     <Container >
