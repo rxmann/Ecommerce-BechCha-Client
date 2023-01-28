@@ -29,7 +29,12 @@ const Button = styled.button`
     color: white;
   }
 `
-
+const Name = styled.h3`
+  font-size: 14px;
+  flex: 9;
+  color: #0171b6;
+  font-weight: 600;
+`
 
 
 const Container = styled.div`
@@ -50,11 +55,15 @@ const Container = styled.div`
   &:hover {
     transition: transform .2s ease-in-out;
     transform: scale(1.1, 1.1);
+
   }
 
   &:hover ${Button} {
     opacity: 100;
     transition: transform .2s ease;
+  }
+  &:hover ${Name} {
+    opacity: 0;
   }
 `
 
@@ -65,14 +74,6 @@ const Image = styled.img`
   width: 100%;
   overflow: hidden;
   background-size: cover;
-`
-
-
-const Name = styled.h3`
-  font-size: 14px;
-  flex: 9;
-  color: #0171b6;
-  font-weight: 600;
 `
 
 
