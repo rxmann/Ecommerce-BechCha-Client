@@ -1,9 +1,11 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import styled from "styled-components"
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import BalanceIcon from '@mui/icons-material/Balance';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DescriptionTable from "../Components/DescriptionTable/DescriptionTable";
+import { useParams } from "react-router-dom";
+import { publicRequest } from "../requestMethods/requestMethods";
 
 const Container = styled.div`
   display: flex;
@@ -118,80 +120,89 @@ const Span = styled.span`
     margin: 0px;
 `
 
+const LoadingScreen = styled.div`
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
 
 const SingleProductPage = () => {
-  const [imageSelected, setImageSelected] = useState(0);
+  const id = useParams().id;
 
   const [quantity, setQuantity] = useState(1);
+  const [product, setProduct] = useState(null);
+  const [images, setImages] = useState();
+  const [imageSelected, setImageSelected] = useState();
 
-  const Images = [
-    "https://dlcdnwebimgs.asus.com/files/media/4AFB9B01-9AB0-47C6-B84F-EC4D0A1476CB/v1/img/kv_pd.png",
-    "https://dlcdnwebimgs.asus.com/files/media/4AFB9B01-9AB0-47C6-B84F-EC4D0A1476CB/v1/img/ports_pd.png"
-    ,    "https://dlcdnwebimgs.asus.com/files/media/4AFB9B01-9AB0-47C6-B84F-EC4D0A1476CB/v1/img/kv_pd.png",
-    "https://dlcdnwebimgs.asus.com/files/media/4AFB9B01-9AB0-47C6-B84F-EC4D0A1476CB/v1/img/ports_pd.png"
-  ]
-
-  return (
-    <Container>
-
-        <Wrapper>
-            <Left>
-                <ImageContainer>
-                  <SmallImage src={Images[0]} 
-                            onClick={e => {
-                              setImageSelected(0); 
-                            }} />
-                  <SmallImage  src={Images[1]} 
-                    onClick={e => {
-                      setImageSelected(1);
-                    }} />
-                    <SmallImage  src={Images[2]} 
-                    onClick={e => {
-                      setImageSelected(2);
-                    }} />
-                </ImageContainer>
-
-                <MainImageContainer> 
-                  <BigImage src={Images[imageSelected]} />
-                </MainImageContainer>
-            </Left>
+  useEffect(() => {
+    const getOneProduct = async () => {
+      const response = await publicRequest.get(`/products/${id}`);
+      setProduct(response.data)
+      setImages(response.data.images)
+    }
+    getOneProduct();
+  }, [id])
 
 
-            <Right>
-              <TitleWrapper>
-                    <Title> Asus Gaming Monitor (390 hz) </Title>
-                    <Span >Product ID: #076598712191723234143</Span>
-              </TitleWrapper>
-                    <Price> RS 35000</Price>
-                    <Description > Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis pariatur officiis commodi iusto laudantium placeat obcaecati nemo veritatis nesciunt voluptas ad beatae eum, distinctio cum voluptatem hic illo dolorem quae harum voluptatibus accusantium fugiat labore iure! Vero similique distinctio architecto est natus nobis ipsum atque laborum, dolores dolore hic praesentium! </Description>
-                    
-                    <QuantityDiv> 
-                      <Button onClick={e => { 
-                        if (quantity > 1 ) 
-                        setQuantity(quantity-1) 
-                      }} 
-                      > - </Button>
-                        {quantity}
-                      <Button onClick={e => setQuantity(quantity+1) } > + </Button>
-                      </QuantityDiv>
-
-                      <AddToCart>
-                        <AddShoppingCartIcon /> ADD TO CART
-                      </AddToCart>
-                      
-                      <QuickLinks>
-                        <Links> <FavoriteIcon /> ADD TO WISHLIST </Links>
-                        <Links> <BalanceIcon /> ADD TO COMPARE </Links>
-                      </QuickLinks>
-            </Right>
-
-        </Wrapper>
 
 
-        <DescriptionTable/>
 
-        
-      </Container>
+  return ( 
+    <>
+    {product ?
+     <Container>
+     <Wrapper>
+       <Left>
+         <ImageContainer>
+           {product.images?.map( image => (
+             <SmallImage key={image} src={`data:image/png;base64, ${image}`} />
+           ))}
+         </ImageContainer>
+
+         <MainImageContainer>
+           <BigImage src={`data:image/png;base64, ${images[0]}`} />
+         </MainImageContainer>
+       </Left>
+
+
+       <Right>
+         <TitleWrapper>
+           <Title> {product.title} </Title>
+           <Span >Product ID: {product._id}</Span>
+         </TitleWrapper>
+         <Price> RS {product.price} </Price>
+         <Description > {product.description}</Description>
+         <p style={{ color: "red" }}> Stock: {product.quantity} </p>
+         <QuantityDiv>
+           <Button onClick={e => {
+             if (quantity > 1)
+             setQuantity(quantity - 1)
+           }}
+           > - </Button>
+           {quantity}
+           <Button onClick={e => setQuantity(quantity + 1)} > + </Button>
+         </QuantityDiv>
+
+         <AddToCart>
+           <AddShoppingCartIcon /> ADD TO CART
+         </AddToCart>
+
+         <QuickLinks>
+           <Links> <FavoriteIcon /> ADD TO WISHLIST </Links>
+           <Links> <BalanceIcon /> ADD TO COMPARE </Links>
+         </QuickLinks>
+       </Right>
+
+     </Wrapper>
+     <DescriptionTable />
+   </Container>
+
+   : <LoadingScreen> Loading product ... </LoadingScreen>
+    }
+    
+    </>
   )
 }
 

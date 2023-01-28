@@ -85,7 +85,7 @@ const ProductCard = ({ data }) => {
   return (
     <Container >
       <ImageContainer>
-      <Image onClick={() => navigate("/product/:id")} src={`data:image/png;base64, ${image}`} />
+      <Image onClick={() => navigate(`/product/${data._id}`)} src={`data:image/png;base64, ${image}`} />
       </ImageContainer>
 
       <Wrapper>
