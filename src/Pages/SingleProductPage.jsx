@@ -67,7 +67,7 @@ const Price = styled.span`
 
 const Description = styled.p`
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 250;
   text-align: justify;
 `
 
@@ -115,9 +115,10 @@ const Links = styled.div`
 `
 
 const Span = styled.span`
-    font-size: 12px;
+    font-size: 10px;
     color: #aaaaaa;
     margin: 0px;
+    font-weight: 600;
 `
 
 const LoadingScreen = styled.div`
