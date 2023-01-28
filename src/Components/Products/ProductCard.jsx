@@ -79,14 +79,15 @@ const ProductCard = ({ data }) => {
 
   const navigate = useNavigate();
 
-  const image = data.images[0];
+  const image = data.images;
+  console.log(image);
   const binaryString = Array.from(new Uint8Array(image), byte => String.fromCharCode(byte)).join("");
   
 
   return (
     <Container >
       <ImageContainer>
-      <Image onClick={() => navigate("/product/:id")} src={`data:image/png;base64, ${binaryString}`} />
+      <Image onClick={() => navigate("/product/:id")} src={`data:image/png;base64, ${image}`} />
       </ImageContainer>
 
       <Wrapper>
