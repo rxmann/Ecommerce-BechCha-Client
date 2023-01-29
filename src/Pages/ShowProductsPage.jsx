@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useLocation} from "react-router-dom"
+import { useParams} from "react-router-dom"
 import styled from "styled-components"
 import ProductList from "../Components/Products/ProductList"
 import { publicRequest } from "../requestMethods/requestMethods"
@@ -55,43 +55,26 @@ const Image = styled.img`
 
 const ProductsPage = () => {
 
-  const [maxPrice, setMaxPrice] = useState(100000);
+  const [limitPrice, setLimitPrice] = useState(100000);
   const [sort, setSort] = useState(null);
   const [CategoryImage, setCategoryImage] = useState();
-
-  const location = useLocation();
-  const id = location.pathname.split("/")[2];
+  const [Category, setCategory] = useState();
+  const id = useParams().id;
 
 
   // get category display image
   useEffect(() => {
-
     async function getCatImage () {
       const response = await publicRequest.get(`/categories/${id}`);
       const catDisplay = response.data.category.display;
       const binaryString = Array.from(new Uint8Array(catDisplay.data), byte => String.fromCharCode(byte)).join("");
       setCategoryImage(btoa(binaryString));
+      setCategory(response.data.category);
     } 
 
     getCatImage();
     
   }, [id])
-
-// get all products base don category
-  useEffect(() => {
-    const getCategoriesAll = async () => {
-        try {
-            const response = await publicRequest.get(`/products?category=${id}`);
-            const resData = response.data;
-            console.log(resData);
-        }
-        catch (err) {
-        }
-    }
-    getCategoriesAll();
-}, [id]);
-
-
 
 
   return (
@@ -103,19 +86,8 @@ const ProductsPage = () => {
           <FilterHeading> Category </FilterHeading>
           <InputItem>
               <Input type={'checkbox'} id={1} value={1} />
-              <Label htmlFor="1" > Keyboards </Label>
+              <Label htmlFor="1" > {Category?.children} </Label>
           </InputItem>
-
-          <InputItem>
-              <Input type={'checkbox'} id={2} value={2} />
-              <Label htmlFor="2" > Monitors </Label>
-          </InputItem>
-
-          <InputItem>
-              <Input type={'checkbox'} id={3} value={3} />
-              <Label htmlFor="3" > Headphones </Label>
-          </InputItem>
-
         </FilterItem>
         {/* *********************************************************************** */}
         <FilterItem>
@@ -123,8 +95,8 @@ const ProductsPage = () => {
           <FilterHeading> Price </FilterHeading>
           <InputItem>
               <span>0</span>
-              <Input type={"range"} min={0} max={100000} onChange={e => setMaxPrice(e.target.value)}/>
-              <span>{maxPrice}</span>
+              <Input type={"range"} min={0} max={100000} onChange={e => setLimitPrice(e.target.value)}/>
+              <span>{limitPrice}</span>
           </InputItem>
 
 
@@ -155,7 +127,7 @@ const ProductsPage = () => {
 
         <Image src={`data:image/png;base64,${CategoryImage}`} />
 
-        <ProductList maxPrice={maxPrice} sort={sort} />
+        <ProductList limitPrice={limitPrice} sort={sort} id={id} />
 
       </Right>
 

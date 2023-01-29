@@ -30,7 +30,7 @@ const ImageContainer = styled.div`
 `
 
 const MainImageContainer = styled.div`
-  flex: 6;
+  flex: 5;
 `
 const SmallImage = styled.img`
   width: 100%;
@@ -44,6 +44,7 @@ const BigImage = styled.img`
   width: 100%;
   height: 600px;
   object-fit: contain;
+  padding: 20px;
 `
 
 
