@@ -6,8 +6,18 @@ import ProductCard from "./ProductCard";
 
 const Container = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 `
+
+
+const LoadingScreen = styled.div`
+  height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
 
 const ProductList = ({id, sort, limitPrice}) => {
   const [data, setData] = useState();
@@ -28,9 +38,12 @@ const ProductList = ({id, sort, limitPrice}) => {
 
   return (
     <Container>
-        {data?.map((product) => (
+        {data?.length > 0 ? 
+        data.map((product) => (
           <ProductCard data={product} key={product._id} />
-        ))}
+        ))
+      : <LoadingScreen> No products found </LoadingScreen>
+      }
     </Container>
   )
 }
