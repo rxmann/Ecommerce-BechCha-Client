@@ -4,7 +4,7 @@ import RegisterPage from "./Pages/RegisterPage"
 import {createBrowserRouter, RouterProvider, Outlet } from "react-router-dom"
 import Navbar from "./Components/SubComponents/Navbar"
 import Footer from "./Components/SubComponents/Footer"
-import ProductsPage from "./Pages/ProductsPage"
+import ShowProductsPage from "./Pages/ShowProductsPage"
 import EmptyView from "./Components/EmptyView/EmptyView"
 import SingleProductPage from "./Pages/SingleProductPage"
 import styled from "styled-components"
@@ -55,7 +55,7 @@ const App = () => {
         },
         {
           path: "/products/:id",
-          element: <ProductsPage />,
+          element: <ShowProductsPage />,
         },
         {
           path: "/product/:id",

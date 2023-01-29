@@ -10,6 +10,7 @@ import { publicRequest } from "../requestMethods/requestMethods";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: #f5f7f8;
 `
 const Wrapper = styled.div`
   margin: 10px 50px; 
@@ -34,9 +35,10 @@ const MainImageContainer = styled.div`
 const SmallImage = styled.img`
   width: 100%;
   height: 120px;
+  padding: 10px;
   object-fit: contain;
   cursor: pointer;
-  margin-bottom: 10px;
+  border: ${(props) => (props.selected === true? "#0171b6" : "white" )} 1px solid;
 `
 const BigImage = styled.img`
   width: 100%;
@@ -66,7 +68,7 @@ const Price = styled.span`
 `
 
 const Description = styled.p`
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 300;
   text-align: justify;
 `
@@ -134,21 +136,29 @@ const SingleProductPage = () => {
 
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState(null);
-  const [images, setImages] = useState();
   const [imageSelected, setImageSelected] = useState();
-
+  
   useEffect(() => {
     const getOneProduct = async () => {
-      const response = await publicRequest.get(`/products/${id}`);
-      setProduct(response.data)
-      setImages(response.data.images)
+      try {
+        const response = await publicRequest.get(`/products/${id}`);
+        setProduct(response.data)
+      }
+      catch (err) { console.log(err) };
     }
     getOneProduct();
   }, [id])
-
-
-
-
+  
+  
+  const handleQuantity = (option, qunatity, maxQuantity) => {
+    if (option === "dec") {
+      if (quantity > 1) setQuantity(quantity - 1);
+    }
+    else if (option === "inc") {
+      if (quantity < maxQuantity) setQuantity(quantity + 1)
+    }
+  }
+  
 
   return ( 
     <>
@@ -158,12 +168,15 @@ const SingleProductPage = () => {
        <Left>
          <ImageContainer>
            {product.images?.map( image => (
-             <SmallImage key={image} src={`data:image/png;base64, ${image}`} />
+             <SmallImage key={image} 
+                        selected={image === imageSelected}
+                        onClick = {() => {setImageSelected(image)}}
+                        src={`data:image/png;base64, ${image}`} />
            ))}
          </ImageContainer>
 
          <MainImageContainer>
-           <BigImage src={`data:image/png;base64, ${images[0]}`} />
+           <BigImage src={`data:image/png;base64, ${imageSelected || product.images[0]}`} />
          </MainImageContainer>
        </Left>
 
@@ -177,13 +190,9 @@ const SingleProductPage = () => {
          <Description > {product.description}</Description>
          <p style={{ color: "red" }}> Stock: {product.quantity} </p>
          <QuantityDiv>
-           <Button onClick={e => {
-             if (quantity > 1)
-             setQuantity(quantity - 1)
-           }}
-           > - </Button>
+           <Button onClick={()=>handleQuantity("dec", quantity, product.quantity)}> - </Button>
            {quantity}
-           <Button onClick={e => setQuantity(quantity + 1)} > + </Button>
+           <Button onClick={()=>handleQuantity("inc", quantity, product.quantity)} > + </Button>
          </QuantityDiv>
 
          <AddToCart>

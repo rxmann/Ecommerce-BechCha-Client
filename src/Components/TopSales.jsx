@@ -20,6 +20,12 @@ const Wrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
 `
+const LoadingScreen = styled.div`
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 
 const TopSales = () => {
     const [data, setData] = useState()
@@ -48,7 +54,8 @@ const TopSales = () => {
             {data?.length > 0 ?  
                 data?.map(element => (
                     <ProductCard data={element} key={element._id} /> ))
-            : "Failed retrieving products!"  }
+            : <LoadingScreen> Retrieving products... </LoadingScreen>
+            }
         </Wrapper>
     </Container>
   )

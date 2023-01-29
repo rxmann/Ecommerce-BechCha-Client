@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useLocation, useParams } from "react-router-dom"
+import { useLocation} from "react-router-dom"
 import styled from "styled-components"
 import ProductList from "../Components/Products/ProductList"
 import { publicRequest } from "../requestMethods/requestMethods"
