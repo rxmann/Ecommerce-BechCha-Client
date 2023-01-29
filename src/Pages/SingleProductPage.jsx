@@ -66,8 +66,8 @@ const Price = styled.span`
 `
 
 const Description = styled.p`
-  font-size: 16px;
-  font-weight: 250;
+  font-size: 12px;
+  font-weight: 300;
   text-align: justify;
 `
 
