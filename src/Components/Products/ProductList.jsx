@@ -6,8 +6,6 @@ import ProductCard from "./ProductCard";
 
 const Container = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
 `
 
 
@@ -21,15 +19,19 @@ const LoadingScreen = styled.div`
 
 const ProductList = ({id, sort, limitPrice}) => {
   const [data, setData] = useState();
+  const [loading, setLoading] = useState(true)
+
   useEffect(() => {
     const getProductsOfCategory = async () => {
       try {
+        setLoading(true)
         const response = await publicRequest.get(`/products?category=${id}&sort=${sort}&limitprice=${limitPrice}`)
         setData(response.data.products)
-        console.log(response.data.products);
+        setLoading(false)
       }
       catch (err) {
         console.log(err);
+        setLoading(false);
       }
     }
     getProductsOfCategory();
@@ -38,12 +40,13 @@ const ProductList = ({id, sort, limitPrice}) => {
 
   return (
     <Container>
-        {data?.length > 0 ? 
-        data.map((product) => (
-          <ProductCard data={product} key={product._id} />
-        ))
-      : <LoadingScreen> No products found </LoadingScreen>
-      }
+ {loading ? <LoadingScreen> Refreshing products </LoadingScreen> : 
+      data.map((product) => (
+        <ProductCard data={product} key={product._id} />
+      ))
+    
+    }
+      
     </Container>
   )
 }
