@@ -74,19 +74,25 @@ const ProductsPage = () => {
   const [limitPrice, setLimitPrice] = useState(100000);
   const [sort, setSort] = useState(null);
   const [CategoryImage, setCategoryImage] = useState();
+
   const [Category, setCategory] = useState();
   const id = useParams().id;
 
 
   // get category display image
   useEffect(() => {
-    async function getCatImage() {
-      const response = await publicRequest.get(`/categories/${id}`);
-      console.log(response.data);
-      const catDisplay = response.data.category.display;
-      const binaryString = Array.from(new Uint8Array(catDisplay.data), byte => String.fromCharCode(byte)).join("");
-      setCategoryImage(btoa(binaryString));
-      setCategory(response.data.category);
+    const getCatImage = async () => {
+      try {
+        const response = await publicRequest.get(`/categories/${id}`);
+        const catDisplay = response.data.category.display;
+        setCategoryImage(btoa(catDisplay));
+        setCategory(response.data.category);
+        console.log(response.data);
+      }
+      catch (err) {
+        console.log(err);
+      }
+
     }
 
     getCatImage();
@@ -142,7 +148,7 @@ const ProductsPage = () => {
 
       <Right>
         <ImageContainer>
-          <Image src={`data:image/png;base64,${CategoryImage}`} />
+          {Category && <Image src={`data:image/png;base64,${CategoryImage}`} />}
         </ImageContainer>
 
         <ProductList limitPrice={limitPrice} sort={sort} id={id} />
