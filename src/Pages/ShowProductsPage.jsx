@@ -14,6 +14,7 @@ const Products = styled.div`
 
 const Left = styled.div`
   flex: 1;
+  padding: 30px 10px;
   position: sticky;
   height: 100%;
   width: 100%;
@@ -74,8 +75,10 @@ const ProductsPage = () => {
   const [limitPrice, setLimitPrice] = useState(100000);
   const [sort, setSort] = useState(null);
   const [CategoryImage, setCategoryImage] = useState();
-
+  // Children for client children for api
   const [Category, setCategory] = useState();
+  const [Children, setChildren] = useState();
+
   const id = useParams().id;
 
 
@@ -84,10 +87,12 @@ const ProductsPage = () => {
     const getCatImage = async () => {
       try {
         const response = await publicRequest.get(`/categories/${id}`);
-        const catDisplay = response.data.category.display;
+        const { category, children } = response.data;
+        const catDisplay = category.display;
         setCategoryImage(btoa(catDisplay));
-        setCategory(response.data.category);
-        console.log(response.data);
+        setCategory(category);
+        setChildren(children);
+        console.log(children);
       }
       catch (err) {
         console.log(err);
@@ -104,14 +109,20 @@ const ProductsPage = () => {
     <Products>
       <Left>
         {/* *********************************************************************** */}
-        <FilterItem>
 
-          <FilterHeading> Category </FilterHeading>
-          <InputItem>
-            <Input type={'checkbox'} id={1} value={1} />
-            <Label htmlFor="1" > {Category?.children} </Label>
-          </InputItem>
-        </FilterItem>
+        {Children?.length > 0 &&
+        Children.map((filter) => (
+          <FilterItem key={filter._id}>
+            <FilterHeading> Category </FilterHeading>
+            <InputItem>
+              <Input type={'checkbox'} id={1} value={1} />
+              <Label htmlFor="1" > {filter.name} </Label>
+            </InputItem>
+          </FilterItem>
+        ))
+          
+        }
+
         {/* *********************************************************************** */}
         <FilterItem>
 
