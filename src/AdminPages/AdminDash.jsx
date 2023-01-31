@@ -1,14 +1,15 @@
 import Sidebar from '../AdminComponents/Sidebar/Sidebar'
-import Navbar from '../Components/SubComponents/Navbar'
+import Navbar from '../Components/Layout/Navbar'
 import styled from "styled-components"
 
 const Container = styled.div`
   display: flex;
 `
-
-const Others = styled.div`
-  flex: 4;
+const RightDisplay = styled.div`
+  flex: 5;
 `
+
+
 
 const AdminDash = () => {
   return (
@@ -16,9 +17,10 @@ const AdminDash = () => {
     <Navbar />
     <Container>
       <Sidebar />
-      <Others>
-        others
-      </Others>
+      <RightDisplay >
+
+      </RightDisplay>
+
     </Container>
    </>
   )
