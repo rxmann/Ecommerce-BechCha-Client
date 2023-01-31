@@ -11,6 +11,7 @@ import styled from "styled-components"
 import { ToastContainer } from 'react-toastify';
 import ProfilePage from "./Pages/ProfilePage"
 import VerifyOTP from "./Components/VerifyOTPpage"
+import AdminDash from "./AdminPages/AdminDash"
 
 
 const Wrapper = styled.div`
@@ -26,8 +27,6 @@ const Wrapper = styled.div`
 
 
 const App = () => {
-
-
 
   const Layout = () => {
     return (
@@ -46,7 +45,7 @@ const App = () => {
       element: <EmptyView />
     },
     {
-      path: "/",
+      path: "",
       element: <Layout />,
       children: [
         {
@@ -68,6 +67,10 @@ const App = () => {
       ],
     },
     {
+      path: "admindash",
+      element: <AdminDash />
+    },
+    {
       path: "/login",
       element: <LoginPage />
     },
@@ -81,7 +84,6 @@ const App = () => {
     }
     
   ])
-
 
 
 
