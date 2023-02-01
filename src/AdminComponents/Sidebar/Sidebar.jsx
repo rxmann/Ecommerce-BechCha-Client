@@ -21,7 +21,7 @@ const SidebarMenu = styled.div`
 const SidebarTitle = styled.h3`
     font-size: 14px;
     color: #0171b6;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 `
 
 const SidebarList = styled.ul`
