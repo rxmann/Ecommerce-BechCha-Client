@@ -13,7 +13,7 @@ const Container = styled.div`
     overflow: hidden;
     max-height: 200px;
     background-color: #f5f7f8;
-    border-top: 1px solid #aaaaaa;
+    margin-top: 50px;
 `
 
 const LeftDiv = styled.div`

@@ -1,12 +1,11 @@
 import Sidebar from '../AdminComponents/Sidebar/Sidebar'
 import Navbar from '../Components/Layout/Navbar'
 import styled from "styled-components"
+import AdminHome from './AdminHome'
 
 const Container = styled.div`
   display: flex;
-`
-const RightDisplay = styled.div`
-  flex: 5;
+  font-family: 'Nunito', sans-serif;
 `
 
 
@@ -17,10 +16,7 @@ const AdminDash = () => {
     <Navbar />
     <Container>
       <Sidebar />
-      <RightDisplay >
-
-      </RightDisplay>
-
+      <AdminHome />
     </Container>
    </>
   )

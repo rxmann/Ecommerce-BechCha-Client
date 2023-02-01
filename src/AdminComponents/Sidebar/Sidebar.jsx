@@ -7,8 +7,6 @@ const Container = styled.div`
     height: calc(100vh - 70px);
     position: sticky;
     top: 70px;
-    display: flex;
-    background-color: #f5f7f8;
 `
 
 const SidebarWrapper = styled.div`
@@ -23,26 +21,29 @@ const SidebarMenu = styled.div`
 const SidebarTitle = styled.h3`
     font-size: 14px;
     color: #0171b6;
+    margin-bottom: 5px;
 `
 
 const SidebarList = styled.ul`
     list-style: none;
-    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
 `
 
 const SidebarListItem = styled.li`
     padding: 5px 10px;
     cursor: pointer;
-    font-size: 16px;
-    border-radius: 10px;
     display: flex;
+    font-size: 16px;
     align-items: center;
+
 
     &:hover {
         background-color: #e2f5ff;
     }
 `
-
 
 
 const Sidebar = () => {
@@ -55,47 +56,15 @@ const Sidebar = () => {
                     <SidebarTitle> Dashboard </SidebarTitle>
                     <SidebarList>
                         <SidebarListItem className="menuActive">
-                            <LineStyle fontSize="small" /> Home
+                            <LineStyle className="iconMUI"/>  Home
                         </SidebarListItem>
 
                         <SidebarListItem>
-                            <Timeline fontSize="small" /> Analytics
+                        <Timeline  className="iconMUI"/>  Analytics
                         </SidebarListItem>
 
                         <SidebarListItem>
-                            <TrendingUp fontSize="small" /> Sales
-                        </SidebarListItem>
-                    </SidebarList>
-                </SidebarMenu>
-                <SidebarMenu>
-                    <SidebarTitle> User </SidebarTitle>
-                    <SidebarList>
-                        <SidebarListItem className="menuActive">
-                            <LineStyle fontSize="small" /> Home
-                        </SidebarListItem>
-
-                        <SidebarListItem>
-                            <Timeline fontSize="small" /> Analytics
-                        </SidebarListItem>
-
-                        <SidebarListItem>
-                            <TrendingUp fontSize="small" /> Sales
-                        </SidebarListItem>
-                    </SidebarList>
-                </SidebarMenu>
-                <SidebarMenu>
-                    <SidebarTitle> Product </SidebarTitle>
-                    <SidebarList>
-                        <SidebarListItem className="menuActive">
-                            <LineStyle fontSize="small" /> Home
-                        </SidebarListItem>
-
-                        <SidebarListItem>
-                            <Timeline fontSize="small" /> Analytics
-                        </SidebarListItem>
-
-                        <SidebarListItem>
-                            <TrendingUp fontSize="small" /> Sales
+                         <TrendingUp className="iconMUI" />  Sales
                         </SidebarListItem>
                     </SidebarList>
                 </SidebarMenu>
