@@ -4,12 +4,13 @@ import styled from "styled-components"
 const Container = styled.div`
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    margin-top: 10px;
+    /* justify-content: space-between; */
 `
 
 const FeaturedItem = styled.div`
     flex: 1;
-    /* max-width: 300px; */
+    /* max-width: 250px; */
     margin: 0px 20px;
     padding: 30px;
     border-radius: 10px;

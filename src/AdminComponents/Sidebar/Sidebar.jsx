@@ -5,8 +5,10 @@ import "../support.css"
 const Container = styled.div`
     flex: 1;
     height: calc(100vh - 70px);
+    max-width: 250px;
     position: sticky;
     top: 70px;
+    background-color: #f5f7f8;
 `
 
 const SidebarWrapper = styled.div`
@@ -20,7 +22,6 @@ const SidebarMenu = styled.div`
 
 const SidebarTitle = styled.h3`
     font-size: 14px;
-    color: #0171b6;
     margin-bottom: 10px;
 `
 
