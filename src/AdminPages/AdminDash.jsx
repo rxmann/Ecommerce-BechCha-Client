@@ -5,6 +5,7 @@ import AdminHome from './AdminHome'
 
 const Container = styled.div`
   display: flex;
+  margin-top: 10px;
   font-family: 'Nunito', sans-serif;
 `
 

@@ -24,6 +24,7 @@ const Wrapper = styled.div`
 // #333333
 // #aaaaaa
 // #0076CE
+// box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 
 
 const App = () => {
