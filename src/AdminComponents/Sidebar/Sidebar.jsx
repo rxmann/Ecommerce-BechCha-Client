@@ -61,7 +61,7 @@ const Sidebar = () => {
             title: "MAIN",
             options: [{
                 name: "Dashboard",
-                icon: (<Dashboard />),
+                icon: (<Dashboard className="iconMUI" />),
                 selected: selected
             }],
         },
@@ -69,7 +69,7 @@ const Sidebar = () => {
             title: "CONTROLS",
             options: [{
                 name: "Users",
-                icon: (<PersonOutline />),
+                icon: (<PersonOutline className="iconMUI" />),
                 selected: selected
             }],
         },
@@ -77,11 +77,11 @@ const Sidebar = () => {
             title: "PRODUCTS",
             options: [{
                 name: "Products",
-                icon: (<Store />),
+                icon: (<Store  className="iconMUI"/>),
                 selected: selected
             }, {
                 name: "Categories",
-                icon: (<Category />),
+                icon: (<Category  className="iconMUI"/>),
                 selected: selected
             }],
         },
@@ -89,17 +89,17 @@ const Sidebar = () => {
             title: "SERVICES",
             options: [{
                 name: "Orders",
-                icon: (<CreditCard />),
+                icon: (<CreditCard className="iconMUI"/>),
                 selected: selected
             },
             {
                 name: "Delivery",
-                icon: (<LocalShipping />),
+                icon: (<LocalShipping  className="iconMUI"/>),
                 selected: selected
             },
             {
                 name: "Notification",
-                icon: (<NotificationsNone />),
+                icon: (<NotificationsNone  className="iconMUI"/>),
                 selected: selected
             }],
         },
@@ -107,17 +107,17 @@ const Sidebar = () => {
             title: "USER",
             options: [{
                 name: "Profile",
-                icon: (<AccountCircleOutlined />),
+                icon: (<AccountCircleOutlined className="iconMUI" />),
                 selected: selected
             },
             {
                 name: "Settings",
-                icon: (<SettingsApplications />),
+                icon: (<SettingsApplications className="iconMUI"/>),
                 selected: selected
             },
             {
                 name: "Logout",
-                icon: (<ExitToApp />),
+                icon: (<ExitToApp className="iconMUI"/>),
                 selected: selected
             }],
         },
@@ -133,7 +133,7 @@ const Sidebar = () => {
                             <SidebarMenu>
                                 <SidebarTitle > {menu.title} </SidebarTitle>
                                 {menu.options.map( (child) => (
-                                    <SidebarListItem className="iconMUI"> 
+                                    <SidebarListItem > 
                                         {child.icon}
                                         {child.name} 
                                     </SidebarListItem>
