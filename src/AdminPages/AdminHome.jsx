@@ -1,6 +1,6 @@
 import styled from "styled-components"
-import Chart from "../AdminComponents/Chart/Chart"
-import FeaturedInfo from "../AdminComponents/FeaturedInfo/FeaturedInfo"
+import Chart from "../AdminComponents/Chart"
+import FeaturedInfo from "../AdminComponents/FeaturedInfo"
 
 const Container = styled.div`
     flex: 5;

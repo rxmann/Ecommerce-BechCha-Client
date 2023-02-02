@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import { PersonOutline, CreditCard, Store, SettingsApplications, Dashboard, LocalShipping, Category, AccountCircleOutlined, ExitToApp, NotificationsNone } from "@mui/icons-material"
-import "../support.css"
 import { useState } from "react"
 
 const Container = styled.div`
@@ -36,6 +35,12 @@ const SidebarList = styled.ul`
 
 `
 
+const Icon = styled.div`
+    margin-right: 10px;
+    color: #0171b6;
+    font-size: 14px !important;
+`
+
 const SidebarListItem = styled.li`
     padding: 5px 10px;
     cursor: pointer;
@@ -57,13 +62,18 @@ const SidebarListItemSelected = styled.li`
     display: flex;
     font-size: 14px;
     align-items: center;
-    color: #ffffff;
+    color: #ffffff !important;
     background-color: #0171b6;
+
+    ${Icon} {
+       color: white; 
+    }
 `
 
 const Wrapper = styled.div`
 
 `
+
 
 
 const Sidebar = () => {
@@ -140,12 +150,16 @@ const Sidebar = () => {
                                 <Wrapper onClick={() => setSelected(child.name)}>
                                     {child.name !== selected ?
                                         <SidebarListItem >
+                                            <Icon>
                                             {child.icon}
+                                            </Icon>
                                             {child.name}
                                         </SidebarListItem>
                                         : 
                                         <SidebarListItemSelected >
+                                            <Icon>
                                             {child.icon}
+                                            </Icon>
                                             {child.name}
                                         </SidebarListItemSelected>
                                     }

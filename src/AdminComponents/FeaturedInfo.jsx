@@ -10,7 +10,6 @@ const Container = styled.div`
 
 const FeaturedItem = styled.div`
     flex: 1;
-    /* max-width: 250px; */
     margin: 0px 20px;
     padding: 30px;
     border-radius: 10px;
