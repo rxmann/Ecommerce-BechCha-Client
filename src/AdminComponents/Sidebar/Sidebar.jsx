@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {  PersonOutline, CreditCard, Store, SettingsApplications, Dashboard, LocalShipping, Category, AccountCircleOutlined, ExitToApp, NotificationsNone } from "@mui/icons-material"
+import { PersonOutline, CreditCard, Store, SettingsApplications, Dashboard, LocalShipping, Category, AccountCircleOutlined, ExitToApp, NotificationsNone } from "@mui/icons-material"
 import "../support.css"
 import { useState } from "react"
 
@@ -51,10 +51,24 @@ const SidebarListItem = styled.li`
     }
 `
 
+const SidebarListItemSelected = styled.li`
+    padding: 5px 10px;
+    cursor: pointer;
+    display: flex;
+    font-size: 14px;
+    align-items: center;
+    color: #ffffff;
+    background-color: #0171b6;
+`
+
+const Wrapper = styled.div`
+
+`
+
 
 const Sidebar = () => {
 
-    const [selected, setSelected] = useState("");
+    const [selected, setSelected] = useState("Dashboard");
 
     const data = [
         {
@@ -62,7 +76,6 @@ const Sidebar = () => {
             options: [{
                 name: "Dashboard",
                 icon: (<Dashboard className="iconMUI" />),
-                selected: selected
             }],
         },
         {
@@ -70,37 +83,31 @@ const Sidebar = () => {
             options: [{
                 name: "Users",
                 icon: (<PersonOutline className="iconMUI" />),
-                selected: selected
             }],
         },
         {
             title: "PRODUCTS",
             options: [{
                 name: "Products",
-                icon: (<Store  className="iconMUI"/>),
-                selected: selected
+                icon: (<Store className="iconMUI" />),
             }, {
                 name: "Categories",
-                icon: (<Category  className="iconMUI"/>),
-                selected: selected
+                icon: (<Category className="iconMUI" />),
             }],
         },
         {
             title: "SERVICES",
             options: [{
                 name: "Orders",
-                icon: (<CreditCard className="iconMUI"/>),
-                selected: selected
+                icon: (<CreditCard className="iconMUI" />),
             },
             {
                 name: "Delivery",
-                icon: (<LocalShipping  className="iconMUI"/>),
-                selected: selected
+                icon: (<LocalShipping className="iconMUI" />),
             },
             {
                 name: "Notification",
-                icon: (<NotificationsNone  className="iconMUI"/>),
-                selected: selected
+                icon: (<NotificationsNone className="iconMUI" />),
             }],
         },
         {
@@ -108,17 +115,14 @@ const Sidebar = () => {
             options: [{
                 name: "Profile",
                 icon: (<AccountCircleOutlined className="iconMUI" />),
-                selected: selected
             },
             {
                 name: "Settings",
-                icon: (<SettingsApplications className="iconMUI"/>),
-                selected: selected
+                icon: (<SettingsApplications className="iconMUI" />),
             },
             {
                 name: "Logout",
-                icon: (<ExitToApp className="iconMUI"/>),
-                selected: selected
+                icon: (<ExitToApp className="iconMUI" />),
             }],
         },
     ]
@@ -129,17 +133,27 @@ const Sidebar = () => {
             <SidebarWrapper>
 
                 <SidebarList>
-                        {data.map( (menu) =>  (
-                            <SidebarMenu>
-                                <SidebarTitle > {menu.title} </SidebarTitle>
-                                {menu.options.map( (child) => (
-                                    <SidebarListItem > 
-                                        {child.icon}
-                                        {child.name} 
-                                    </SidebarListItem>
-                                ))} 
-                            </SidebarMenu>
-                        ))}
+                    {data.map((menu) => (
+                        <SidebarMenu>
+                            <SidebarTitle > {menu.title} </SidebarTitle>
+                            {menu.options.map((child) => (
+                                <Wrapper onClick={() => setSelected(child.name)}>
+                                    {child.name !== selected ?
+                                        <SidebarListItem >
+                                            {child.icon}
+                                            {child.name}
+                                        </SidebarListItem>
+                                        : 
+                                        <SidebarListItemSelected >
+                                            {child.icon}
+                                            {child.name}
+                                        </SidebarListItemSelected>
+                                    }
+                                </Wrapper>
+
+                            ))}
+                        </SidebarMenu>
+                    ))}
                 </SidebarList>
             </SidebarWrapper>
         </Container>
