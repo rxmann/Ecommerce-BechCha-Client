@@ -1,9 +1,5 @@
-.menuActive {
-    background-color:  #0171b6;
-    color: white;
-}
-
 .iconMUI {
-    font-size: 20px !important;
+    font-size: 18px !important;
     margin-right: 5px;
+    color: #0171b6;
 }
