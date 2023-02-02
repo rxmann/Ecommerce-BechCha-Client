@@ -6,6 +6,7 @@ import Topbar from '../AdminComponents/Topbar'
 const Container = styled.div`
   display: flex;
   font-family: 'Nunito', sans-serif;
+  padding: 0px 50px;
 `
 
 

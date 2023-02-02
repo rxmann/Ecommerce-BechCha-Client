@@ -12,7 +12,7 @@ const Container = styled.div`
 `
 
 const SidebarWrapper = styled.div`
-   padding: 20px;
+    padding: 20px 20px 20px 0px;
    color: #555;
 `
 
