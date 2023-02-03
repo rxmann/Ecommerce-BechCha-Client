@@ -1,27 +1,28 @@
 import styled from "styled-components"
 import Chart from "../AdminComponents/Chart"
-import Featured from "../AdminComponents/Featured"
 import Widget from "../AdminComponents/Widget"
+import { userData } from "../data"
 
 const Container = styled.div`
-    flex: 5;
+    flex: 4;
     background-color: #f5f7f8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 `
 
 const FeaturedInfo = styled.div`
-    width: 100%;
+    width: 96%;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     margin-top: 10px;
-    padding: 20px;
+`
+const Charts = styled.div`
+  width: 100%;
 `
 
-const Charts = styled.div`
-  display: flex;
-  gap: 20px;
-  padding: 5px 20px;
-`
 
 const AdminHome = () => {
   return (
@@ -34,8 +35,7 @@ const AdminHome = () => {
       </FeaturedInfo>
 
       <Charts>
-        <Featured />
-        <Chart />
+        <Chart title={"Sales Analytics"} data={userData} grid  dataKey={"Active User"}/>
       </Charts>
 
     </Container>

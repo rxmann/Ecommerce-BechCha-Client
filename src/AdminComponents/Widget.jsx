@@ -9,7 +9,6 @@ const Container = styled.div`
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
     height: 100px;
-    max-width: 320px;
     display: flex;
     justify-content: space-between;
 `
