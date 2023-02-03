@@ -4,8 +4,6 @@ import {AccountCircle, ChatBubbleOutlineOutlined, DarkModeOutlined, Notification
 const Container = styled.div`
     width: 100%;
     height: 70px;
-    background-color: white;
-    z-index: 999;
     box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);
     position: sticky;
     top: 0;

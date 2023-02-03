@@ -8,7 +8,6 @@ const Container = styled.div`
     max-width: 250px;
     position: sticky;
     top: 70px;
-    border-right: 0.5px solid #f5f7f8;
 `
 
 const SidebarWrapper = styled.div`
@@ -129,10 +128,6 @@ const Sidebar = () => {
             {
                 name: "Settings",
                 icon: (<SettingsApplications className="iconMUI" />),
-            },
-            {
-                name: "Logout",
-                icon: (<ExitToApp className="iconMUI" />),
             }],
         },
     ]

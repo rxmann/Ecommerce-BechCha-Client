@@ -1,26 +1,27 @@
 import styled from "styled-components"
 import Chart from "../AdminComponents/Chart"
-import Widget from "../AdminComponents/Widget"
+import NewUserWidget from "../AdminComponents/Widgets/NewUserWidget"
+import OrderWidget from "../AdminComponents/Widgets/OrderWidget"
+import Widget from "../AdminComponents/Widgets/Widget"
 import { userData } from "../data"
 
 const Container = styled.div`
     flex: 4;
     background-color: #f5f7f8;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 10px;
     width: 100%;
 `
 
 const FeaturedInfo = styled.div`
-    width: 96%;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     margin-top: 10px;
 `
-const Charts = styled.div`
-  width: 100%;
+
+const HomeWidgets = styled.div`
+  display: flex;
+  margin: 20px;
 `
 
 
@@ -34,10 +35,12 @@ const AdminHome = () => {
         <Widget type="BALANCE" />
       </FeaturedInfo>
 
-      <Charts>
-        <Chart title={"Sales Analytics"} data={userData} grid  dataKey={"Active User"}/>
-      </Charts>
+      <Chart title={"Sales Analytics"} data={userData} grid dataKey={"Active User"} />
 
+      <HomeWidgets>
+        <NewUserWidget />
+        <OrderWidget />
+      </HomeWidgets>
     </Container>
   )
 }
