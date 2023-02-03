@@ -1,9 +1,7 @@
 import styled from "styled-components"
 
 const Container = styled.div`
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-    margin: 20px;
-    padding: 20px;
+    flex: 5;
 `
 
 const Title = styled.div`
@@ -14,7 +12,7 @@ const Title = styled.div`
 const Chart = () => {
   return (
     <Container>
-        <Title> Sales Analytics </Title>
+        <Title> Chart </Title>
 
     </Container>
   )
