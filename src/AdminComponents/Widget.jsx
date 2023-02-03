@@ -57,7 +57,7 @@ const Icon = styled.button`
     cursor: pointer;
     border: none;
     color: ${props => props.color && props.color};
-    background-color: ${props => props.background && props.background };
+    background-color: ${props => props.background && props.background};
 `
 
 const Widget = ({ type }) => {
@@ -75,8 +75,8 @@ const Widget = ({ type }) => {
                 link: "View all users",
                 icon: (<PersonOutline />),
                 theme: {
-                    color: "white",
-                    background: "#aaaaaa"
+                    color: "crimson",
+                    background: "rgba(255, 0, 0, 0.2)",
                 }
             }
             break;
@@ -87,8 +87,8 @@ const Widget = ({ type }) => {
                 link: "View all orders",
                 icon: (<ShoppingCart />),
                 theme: {
-                    color: "white",
-                    background: "#aaaaaa"
+                    background: "rgba(45, 34, 201, 0.2)",
+                    color: "#0171b6",
                 }
             }
             break;
@@ -99,8 +99,8 @@ const Widget = ({ type }) => {
                 link: "View net earning",
                 icon: (<MonetizationOnOutlined />),
                 theme: {
-                    color: "white",
-                    background: "#aaaaaa"
+                    background: "rgba(0, 128, 0, 0.2)",
+                    color: "green"
                 }
             }
             break;
@@ -111,8 +111,8 @@ const Widget = ({ type }) => {
                 link: "View details",
                 icon: (<AccountBalanceWallet />),
                 theme: {
-                    color: "white",
-                    background: "#aaaaaa"
+                    background: "rgba(218, 165, 32, 0.2)",
+                    color: "goldenrod",
                 }
             }
             break;
@@ -130,8 +130,8 @@ const Widget = ({ type }) => {
             </Left>
 
             <Right>
-                <Percentage positive={percent>0 && true}>
-                  {percent > 0 ? <KeyboardArrowUp /> : <KeyboardArrowDown /> } {percent}
+                <Percentage positive={percent > 0 && true}>
+                    {percent > 0 ? <KeyboardArrowUp /> : <KeyboardArrowDown />} {percent}
                 </Percentage>
                 <Icon color={data.theme.color} background={data.theme.background}>
                     {data.icon}
