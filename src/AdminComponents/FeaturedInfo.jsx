@@ -1,51 +1,61 @@
-import { ArrowDownward, ArrowUpward } from "@mui/icons-material"
+import { KeyboardArrowDown, KeyboardArrowUp, PersonOutline } from "@mui/icons-material"
 import styled from "styled-components"
 
 const Container = styled.div`
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
     margin-top: 10px;
-    /* justify-content: space-between; */
+    background-color: white;
+    padding: 20px;
 `
 
-const FeaturedItem = styled.div`
+const Widget = styled.div`
     flex: 1;
-    margin: 0px 20px;
-    padding: 30px;
+    padding: 20px;
     border-radius: 10px;
-    cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    height: 100px;
+    max-width: 320px;
+    display: flex;
+    justify-content: space-between;
+`
+
+const Left = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `
 
 const Title = styled.span`
-    font-size: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    color: gray;
+`
+
+const Counter = styled.span`
+    font-size: 24px;
     font-weight: 400;
 `
 
-const PriceWrapper = styled.div`
-    margin: 10px 0px;
-    display: flex;
-    align-items: center;
-`
-const Price = styled.span`
-    font-size: 24px;
-    font-weight: 600;
+const Link = styled.span`
+    font-size: 12px;
+    border-bottom: 1px solid gray;
+    width: max-content;
 `
 
-const Rate = styled.span`
+
+const Right = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+`
+const Percentage = styled.div`
     display: flex;
     align-items: center;
-    margin-left: 20px;
-`
-const SubTitle = styled.span`
-    font-size: 15px;
-    color: #aaaaaa;
-`
-
-const Icon = styled.div`
     font-size: 14px;
-    margin-left: 5px;
-    color: ${props => props.negative ? "red" : "green"};
+    color: ${props => props.positive ? "green" : "red"};
 `
 
 
@@ -53,34 +63,41 @@ const Icon = styled.div`
 const FeaturedInfo = () => {
   return (
     <Container>
-        <FeaturedItem>
-            <Title> Revenue </Title>
-            <PriceWrapper> 
-                <Price> RS 2,000 </Price>
-                <Rate> + 17.7 <Icon > <ArrowUpward /> </Icon>  </Rate>
-            </PriceWrapper>
-            <SubTitle> Compared to last month </SubTitle>
-        </FeaturedItem>
+        <Widget >
+                <Left>
+                    <Title> USERS </Title>
+                    <Counter> 128 </Counter>
+                    <Link> View all users </Link>
+                </Left>
 
-        <FeaturedItem>
-            <Title> Sales </Title>
-            <PriceWrapper> 
-                <Price> RS 20,000 </Price>
-                <Rate> + 20 <Icon> <ArrowUpward /> </Icon>  </Rate>
-            </PriceWrapper>
-            <SubTitle> Compared to last month </SubTitle>
-        </FeaturedItem>
+                <Right>
+                    <Percentage positive> 
+                        <KeyboardArrowUp /> 20% 
+                    </Percentage>
+                    <PersonOutline />
+                </Right>
+        </Widget>
 
 
-        <FeaturedItem>
-            <Title> Cost </Title>
-            <PriceWrapper> 
-                <Price> RS 15,000 </Price>
-                <Rate> + 15 <Icon negative> <ArrowDownward /> </Icon> </Rate>
-            </PriceWrapper>
-            <SubTitle> Compared to last month </SubTitle>
-        </FeaturedItem>
+        <Widget >
+                <Left>
+                    <Title> Sales </Title>
+                    <Counter> 8 </Counter>
+                    <Link> View all sales</Link>
+                </Left>
 
+                <Right>
+                    <Percentage negative> 
+                        <KeyboardArrowDown /> 20% 
+                    </Percentage>
+                    <PersonOutline />
+                </Right>
+        </Widget>
+
+
+        <Widget >
+      
+        </Widget>
     </Container>
   )
 }

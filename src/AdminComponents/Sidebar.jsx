@@ -144,10 +144,10 @@ const Sidebar = () => {
 
                 <SidebarList>
                     {data.map((menu) => (
-                        <SidebarMenu>
+                        <SidebarMenu key={menu.title}>
                             <SidebarTitle > {menu.title} </SidebarTitle>
                             {menu.options.map((child) => (
-                                <Wrapper onClick={() => setSelected(child.name)}>
+                                <Wrapper  key={child.name} onClick={() => setSelected(child.name)}>
                                     {child.name !== selected ?
                                         <SidebarListItem >
                                             <Icon>
