@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { PersonOutline, CreditCard, Store, SettingsApplications, Dashboard, LocalShipping, Category, AccountCircleOutlined, ExitToApp, NotificationsNone } from "@mui/icons-material"
+import { PersonOutline, CreditCard, Store, SettingsApplications, Dashboard, LocalShipping, Category, AccountCircleOutlined, NotificationsNone } from "@mui/icons-material"
 import { useState } from "react"
 
 const Container = styled.div`
@@ -8,6 +8,8 @@ const Container = styled.div`
     max-width: 250px;
     position: sticky;
     top: 70px;
+    background-color: white;
+    z-index: 4;
 `
 
 const SidebarWrapper = styled.div`

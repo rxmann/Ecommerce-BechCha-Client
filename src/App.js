@@ -1,7 +1,7 @@
 import Homepage from "./Pages/Homepage"
 import LoginPage from "./Pages/LoginPage"
 import RegisterPage from "./Pages/RegisterPage"
-import {createBrowserRouter, RouterProvider, Outlet } from "react-router-dom"
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom"
 import Navbar from "./Components/Layout/Navbar"
 import Footer from "./Components/Layout/Footer"
 import ShowProductsPage from "./Pages/ShowProductsPage"
@@ -11,10 +11,17 @@ import styled from "styled-components"
 import { ToastContainer } from 'react-toastify';
 import ProfilePage from "./Pages/ProfilePage"
 import VerifyOTP from "./Components/VerifyOTPpage"
-import AdminDash from "./AdminPages/AdminDash"
+import Topbar from "./AdminComponents/Topbar"
+import Sidebar from "./AdminComponents/Sidebar"
+import AdminHome from "./AdminPages/AdminHome"
 
 
 const Wrapper = styled.div`
+`
+const Contents = styled.div`
+  display: flex;
+  font-family: 'Nunito', sans-serif;
+  padding: 0px 50px;
 `
 
 // COLORS
@@ -35,6 +42,18 @@ const App = () => {
         <Navbar />
         <Outlet />
         <Footer />
+      </Wrapper>
+    );
+  };
+
+  const AdminLayout = () => {
+    return (
+      <Wrapper >
+        <Topbar />
+        <Contents>
+          <Sidebar />
+          <Outlet />
+        </Contents>
       </Wrapper>
     );
   };
@@ -68,8 +87,14 @@ const App = () => {
       ],
     },
     {
-      path: "admindash",
-      element: <AdminDash />
+      path: "/admin",
+      element: <AdminLayout />,
+      children: [
+        {
+          path: "/admin/dashboard",
+          element: <AdminHome />
+        }
+      ]
     },
     {
       path: "/login",
@@ -83,7 +108,7 @@ const App = () => {
       path: "/verify-registration",
       element: <VerifyOTP />
     }
-    
+
   ])
 
 
@@ -92,8 +117,8 @@ const App = () => {
 
   return (
     <>
-    <RouterProvider router={router} />
-    <ToastContainer />
+      <RouterProvider router={router} />
+      <ToastContainer />
     </>
   )
 }

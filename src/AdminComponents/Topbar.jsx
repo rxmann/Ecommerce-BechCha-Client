@@ -7,6 +7,8 @@ const Container = styled.div`
     box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);
     position: sticky;
     top: 0;
+    background-color: white;
+    z-index: 3;
 `
 
 const Wrapper = styled.div`

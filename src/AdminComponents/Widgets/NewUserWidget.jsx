@@ -25,7 +25,6 @@ const Item = styled.li`
     justify-content: space-between;
     align-items: center;
     margin: 20px 0px;
-    gap: 10px;
 `
 const Image = styled.img`
     width: 40px;
@@ -40,7 +39,7 @@ const User = styled.div`
 
 
 const Name = styled.span`
-    font-weight: 600;
+    font-weight: 500;
 `
     
 const Profession =  styled.span`
