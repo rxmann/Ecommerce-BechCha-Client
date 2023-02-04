@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { PersonOutline, CreditCard, Store, SettingsApplications, Dashboard, LocalShipping, Category, AccountCircleOutlined, NotificationsNone } from "@mui/icons-material"
 import { useState } from "react"
+import {  useLocation, useNavigate } from "react-router-dom";
 
 const Container = styled.div`
     flex: 1;
@@ -9,7 +10,8 @@ const Container = styled.div`
     position: sticky;
     top: 70px;
     background-color: white;
-    z-index: 4;
+    z-index: 2;
+    border-right: 0.3px solid #f0e8e87d;
 `
 
 const SidebarWrapper = styled.div`
@@ -78,8 +80,9 @@ const Wrapper = styled.div`
 
 
 const Sidebar = () => {
-
-    const [selected, setSelected] = useState("Dashboard");
+    const location = useLocation();
+    const [selected, setSelected] = useState(location.pathname);
+    const navigate = useNavigate();
 
     const data = [
         {
@@ -87,6 +90,7 @@ const Sidebar = () => {
             options: [{
                 name: "Dashboard",
                 icon: (<Dashboard className="iconMUI" />),
+                goto: "/admin/dashboard"
             }],
         },
         {
@@ -94,6 +98,7 @@ const Sidebar = () => {
             options: [{
                 name: "Users",
                 icon: (<PersonOutline className="iconMUI" />),
+                goto: "/admin/userslist"
             }],
         },
         {
@@ -101,9 +106,11 @@ const Sidebar = () => {
             options: [{
                 name: "Products",
                 icon: (<Store className="iconMUI" />),
+                goto: ""
             }, {
                 name: "Categories",
                 icon: (<Category className="iconMUI" />),
+                goto: ""
             }],
         },
         {
@@ -111,14 +118,17 @@ const Sidebar = () => {
             options: [{
                 name: "Orders",
                 icon: (<CreditCard className="iconMUI" />),
+                goto: ""
             },
             {
                 name: "Delivery",
                 icon: (<LocalShipping className="iconMUI" />),
+                goto: ""
             },
             {
                 name: "Notification",
                 icon: (<NotificationsNone className="iconMUI" />),
+                goto: ""
             }],
         },
         {
@@ -126,10 +136,12 @@ const Sidebar = () => {
             options: [{
                 name: "Profile",
                 icon: (<AccountCircleOutlined className="iconMUI" />),
+                goto: ""
             },
             {
                 name: "Settings",
                 icon: (<SettingsApplications className="iconMUI" />),
+                goto: ""
             }],
         },
     ]
@@ -144,8 +156,11 @@ const Sidebar = () => {
                         <SidebarMenu key={menu.title}>
                             <SidebarTitle > {menu.title} </SidebarTitle>
                             {menu.options.map((child) => (
-                                <Wrapper  key={child.name} onClick={() => setSelected(child.name)}>
-                                    {child.name !== selected ?
+                                <Wrapper  key={child.name} onClick={() => { 
+                                                                setSelected(child.goto)
+                                                                navigate(child.goto)
+                                                            }}>
+                                    {child.goto !== selected ?
                                         <SidebarListItem >
                                             <Icon>
                                             {child.icon}
@@ -153,7 +168,7 @@ const Sidebar = () => {
                                             {child.name}
                                         </SidebarListItem>
                                         : 
-                                        <SidebarListItemSelected >
+                                        <SidebarListItemSelected  >
                                             <Icon>
                                             {child.icon}
                                             </Icon>

@@ -6,9 +6,8 @@ import Widget from "../AdminComponents/Widgets/Widget"
 import { userData } from "../data"
 
 const Container = styled.div`
-    flex: 4;
+    flex: 5;
     background-color: #f5f7f8;
-    padding: 10px;
     width: 100%;
     font-family: 'Nunito', sans-serif;
 `
@@ -41,8 +40,8 @@ const AdminHome = () => {
       <Chart title={"Sales Analytics"} data={userData} grid dataKey={"Active User"} />
 
       <HomeWidgets>
-        <NewUserWidget />
         <OrderWidget />
+        <NewUserWidget />
       </HomeWidgets>
     </Container>
   )
