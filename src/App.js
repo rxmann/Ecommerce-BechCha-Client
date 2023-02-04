@@ -11,9 +11,10 @@ import styled from "styled-components"
 import { ToastContainer } from 'react-toastify';
 import ProfilePage from "./Pages/ProfilePage"
 import VerifyOTP from "./Components/VerifyOTPpage"
-import Topbar from "./AdminComponents/Topbar"
-import Sidebar from "./AdminComponents/Sidebar"
+import Topbar from "./AdminComponents/CommonLayouts/Topbar"
+import Sidebar from "./AdminComponents/CommonLayouts/Sidebar"
 import AdminHome from "./AdminPages/AdminHome"
+import UserList from "./AdminPages/UsersList"
 
 
 const Wrapper = styled.div`
@@ -93,6 +94,10 @@ const App = () => {
         {
           path: "/admin/dashboard",
           element: <AdminHome />
+        },
+        {
+          path: "/admin/userslist",
+          element: <UserList />
         }
       ]
     },
