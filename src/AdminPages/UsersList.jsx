@@ -57,7 +57,7 @@ const ActionCell = styled.div`
   align-items: center;
   gap: 15px;
 `
-const ViewButton = styled.div`
+const ViewButton = styled(Button)`
   padding: 2px 5px;
   border-radius: 5px;
   cursor: pointer;
@@ -91,9 +91,8 @@ const UsersList = () => {
         <DataGrid
           rows={userRows}
           columns={userColumns.concat(actionColumn)}
-          pageSize={8}
           checkboxSelection
-          rowsPerPageOptions={[3]}
+          rowsPerPageOptions={[10]}
           />
       </Wrapper>
     </Container>
