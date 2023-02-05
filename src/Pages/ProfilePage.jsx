@@ -1,11 +1,9 @@
 import styled from "styled-components"
 import ProfileDisplay from "../Components/ProfilePages/ProfileDisplay"
 import Orders from "../Components/ProfilePages/Orders"
-import Account from "../Components/ProfilePages/Account"
 import Details from "../Components/ProfilePages/Details"
 import { useState } from "react"
 import ProfileNavItem from "../Components/ProfilePages/ProfileNavItem"
-import { useEffect } from "react"
 
 
 

@@ -1,5 +1,3 @@
-import { useEffect } from "react"
-import { useState } from "react"
 import styled from "styled-components"
 import Account from "./Account"
 import Orders from "./Orders"
@@ -13,7 +11,7 @@ const Container = styled.div`
   justify-content: center;
 `
 
-const Details = ({active, setActive}) => {
+const Details = ({active}) => {
 
   const components = {
     'profile': <ProfileDisplay />,

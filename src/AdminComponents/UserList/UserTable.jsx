@@ -9,7 +9,7 @@ const Container = styled.div`
 const UserTable = () => {
   return (
     <Container>
-
+          
     </Container>
   )
 }

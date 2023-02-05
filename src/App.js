@@ -14,7 +14,7 @@ import VerifyOTP from "./Components/VerifyOTPpage"
 import Topbar from "./AdminComponents/CommonLayouts/Topbar"
 import Sidebar from "./AdminComponents/CommonLayouts/Sidebar"
 import AdminHome from "./AdminPages/AdminHome"
-import UserList from "./AdminPages/UsersList"
+import UserList from "./AdminPages/UsersTab"
 
 
 const Wrapper = styled.div`

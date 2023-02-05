@@ -65,20 +65,26 @@ const ViewButton = styled(Button)`
   border: 1px solid #0171b6;
 `
 
+const DelBtn = styled(Button)`
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+`
+
 const UsersList = () => {
 
   const actionColumn = [
     {
       field: "actions",
       headerName: "Actions",
-      width: 200,
+      flex: 2,
       renderCell: () => {
         return (
           <ActionCell>
           <ViewButton> View </ViewButton>
-          <Button size="small" variant="text" color="error">
-            <DeleteOutline />
-          </Button>
+          <DelBtn  size="small" variant="text" color="error">
+                      <DeleteOutline  />
+          </DelBtn>
         </ActionCell>   
         )
       }
@@ -92,7 +98,8 @@ const UsersList = () => {
           rows={userRows}
           columns={userColumns.concat(actionColumn)}
           checkboxSelection
-          rowsPerPageOptions={[10]}
+          pageSize={5}
+          rowsPerPageOptions={[5]}
           />
       </Wrapper>
     </Container>
