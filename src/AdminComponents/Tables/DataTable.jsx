@@ -3,6 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { userColumns, userRows } from '../../data';  
 import { Button} from '@mui/material';
 import { DeleteOutline } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 
 const Container = styled.div`
@@ -71,7 +72,7 @@ const DelBtn = styled(Button)`
 `
 
 const DataTable = () => {
-
+  const navigate = useNavigate();
   const actionColumn = [
     {
       field: "actions",
@@ -80,7 +81,7 @@ const DataTable = () => {
       renderCell: () => {
         return (
           <ActionCell>
-          <ViewButton> View </ViewButton>
+          <ViewButton onClick={() => navigate("/admin/user/123")}> View </ViewButton>
           <DelBtn  size="small" variant="text" color="error">
                       <DeleteOutline  />
           </DelBtn>
@@ -96,9 +97,9 @@ const DataTable = () => {
         <DataGrid
           rows={userRows}
           columns={userColumns.concat(actionColumn)}
-          checkboxSelection
-          pageSize={5}
+          pageSize={9}
           rowsPerPageOptions={[5]}
+          checkboxSelection
           />
       </Wrapper>
     </Container>
