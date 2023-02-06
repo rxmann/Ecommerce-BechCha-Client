@@ -1,5 +1,7 @@
 import styled from "styled-components"
 import {AccountCircle, ChatBubbleOutlineOutlined, DarkModeOutlined, NotificationsNone } from "@mui/icons-material"
+import { useNavigate } from "react-router-dom"
+
 
 const Container = styled.div`
     width: 100%;
@@ -59,11 +61,15 @@ const SpanBadge = styled.span`
 
 
 const Topbar = () => {
+
+    const navigate = useNavigate();
   return (
     <Container>
         <Wrapper>
-            <Left> 
-                <Logo src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true'/>
+            <Left > 
+                <Logo
+                    onClick={() => navigate("/admin/dashboard")} 
+                    src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true'/>
             </Left>
             <Right>
                 <IconContainer>

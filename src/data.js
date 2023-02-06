@@ -1,4 +1,4 @@
-import {StatusCell, Profile, StatusButton } from "./AdminPages/UsersTab"
+import {StatusCell, Profile, StatusButton } from "./AdminComponents/UserList/UsersList"
 
 export const data = [
     {
