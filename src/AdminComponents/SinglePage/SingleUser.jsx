@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import ProfileDisplay from "../../Components/ProfilePages/ProfileDisplay"
+import OrderWidget from "../Widgets/OrderWidget"
 
 const Container = styled.div`
     flex: 5;
@@ -12,8 +13,8 @@ const Container = styled.div`
 `
 
 const Title = styled.h2`
-    font-weight: 600;
-    font-size: 18px;
+     font-size: 24px;
+    font-weight: 500;
     color: gray;
 `
 
@@ -30,6 +31,7 @@ const SingleUser = () => {
         <User>
            <ProfileDisplay />
         </User>
+        <OrderWidget />
     </Container>
   )
 }
