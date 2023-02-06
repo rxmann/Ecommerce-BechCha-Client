@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { PersonOutline, CreditCard, Store, SettingsApplications, Dashboard, LocalShipping, Category, AccountCircleOutlined, NotificationsNone } from "@mui/icons-material"
-import { useState } from "react"
-import {  useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react"
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Container = styled.div`
     flex: 1;
@@ -84,6 +84,11 @@ const Sidebar = () => {
     const [selected, setSelected] = useState(location.pathname);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        setSelected(location.pathname)
+    }, [location.pathname]);
+
+
     const data = [
         {
             title: "MAIN",
@@ -106,11 +111,11 @@ const Sidebar = () => {
             options: [{
                 name: "Products",
                 icon: (<Store className="iconMUI" />),
-                goto: ""
+                goto: "/admin/productslist"
             }, {
                 name: "Categories",
                 icon: (<Category className="iconMUI" />),
-                goto: ""
+                goto: "/admin/categorieslist"
             }],
         },
         {
@@ -118,7 +123,7 @@ const Sidebar = () => {
             options: [{
                 name: "Orders",
                 icon: (<CreditCard className="iconMUI" />),
-                goto: ""
+                goto: "/admin/orderslist"
             },
             {
                 name: "Delivery",
@@ -156,21 +161,21 @@ const Sidebar = () => {
                         <SidebarMenu key={menu.title}>
                             <SidebarTitle > {menu.title} </SidebarTitle>
                             {menu.options.map((child) => (
-                                <Wrapper  key={child.name} onClick={() => { 
-                                                                setSelected(child.goto)
-                                                                navigate(child.goto)
-                                                            }}>
+                                <Wrapper key={child.name} onClick={() => {
+                                    setSelected(child.goto)
+                                    navigate(child.goto)
+                                }}>
                                     {child.goto !== selected ?
                                         <SidebarListItem >
                                             <Icon>
-                                            {child.icon}
+                                                {child.icon}
                                             </Icon>
                                             {child.name}
                                         </SidebarListItem>
-                                        : 
+                                        :
                                         <SidebarListItemSelected  >
                                             <Icon>
-                                            {child.icon}
+                                                {child.icon}
                                             </Icon>
                                             {child.name}
                                         </SidebarListItemSelected>

@@ -70,7 +70,7 @@ const DelBtn = styled(Button)`
   height: 100%;
 `
 
-const UsersList = () => {
+const DataTable = () => {
 
   const actionColumn = [
     {
@@ -105,4 +105,4 @@ const UsersList = () => {
   )
 }
 
-export default UsersList
+export default DataTable

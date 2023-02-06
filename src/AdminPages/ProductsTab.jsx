@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import styled from 'styled-components'
-import UsersList from '../AdminComponents/Tables/DataTable';
+import DataTable from '../AdminComponents/Tables/DataTable';
 
 
 const Container = styled.div`
@@ -28,22 +28,22 @@ const Title = styled.h3`
 `
 
 const AddButton = styled(Button)`
-  text-transform: unset !important;
+    text-transform: unset !important;
 `
 
 
 
-const UsersTab = () => {
+const ProductsTab = () => {
 
   return (
     <Container>
       <Wrapper>
-        <Title> Customers List </Title>
-        <AddButton size='small' variant='contained'> Add user </AddButton>
+        <Title> Products List </Title>
+        <AddButton size='small' variant='contained'> Add Product </AddButton>
       </Wrapper>
-      <UsersList />
+      <DataTable />
     </Container>
   )
 }
 
-export default UsersTab
+export default ProductsTab

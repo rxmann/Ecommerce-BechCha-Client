@@ -14,7 +14,8 @@ import VerifyOTP from "./Components/VerifyOTPpage"
 import Topbar from "./AdminComponents/CommonLayouts/Topbar"
 import Sidebar from "./AdminComponents/CommonLayouts/Sidebar"
 import AdminHome from "./AdminPages/AdminHome"
-import UserList from "./AdminPages/UsersTab"
+import UsersTab from "./AdminPages/UsersTab"
+import ProductsTab from "./AdminPages/ProductsTab"
 
 
 const Wrapper = styled.div`
@@ -97,7 +98,11 @@ const App = () => {
         },
         {
           path: "/admin/userslist",
-          element: <UserList />
+          element: <UsersTab />
+        },
+        {
+          path: "/admin/productslist",
+          element: <ProductsTab />
         }
       ]
     },
