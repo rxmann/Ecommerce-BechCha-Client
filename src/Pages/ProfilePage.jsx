@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import ProfileDisplay from "../Components/ProfilePages/ProfileDisplay"
 import Orders from "../Components/ProfilePages/Orders"
-import Details from "../Components/ProfilePages/Details"
+import DisplayProfileComponent from "../Components/ProfilePages/DisplayProfileComponent"
 import { useState } from "react"
 import ProfileNavItem from "../Components/ProfilePages/ProfileNavItem"
 
@@ -11,11 +11,11 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #f5f7f8;
-
+  width: 100%;
 `
 
 const Wrapper = styled.div`
-  margin: 0px 50px;
+  margin: 20px 50px;
   height: 60px;
   display: flex;
 `
@@ -41,7 +41,6 @@ const ProfilePage = () => {
   return (
     <Container>
       <Wrapper>
-
         {titles.map((each) => (
           <ProfileNavItem
             key={each.id}
@@ -52,7 +51,7 @@ const ProfilePage = () => {
           />
         ))}
       </Wrapper>
-      <Details 
+      <DisplayProfileComponent 
         active={active}
         setactive={setActive}
       />

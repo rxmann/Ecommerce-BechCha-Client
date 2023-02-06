@@ -16,7 +16,7 @@ import Sidebar from "./AdminComponents/CommonLayouts/Sidebar"
 import AdminHome from "./AdminPages/AdminHome"
 import UsersTab from "./AdminPages/UsersTab"
 import ProductsTab from "./AdminPages/ProductsTab"
-import SinglePage from "./AdminComponents/SinglePage"
+import SingleUser from "./AdminComponents/SinglePage/SingleUser"
 
 
 const Wrapper = styled.div`
@@ -107,7 +107,7 @@ const App = () => {
         },
         {
           path: "/admin/user/:id",
-          element: <SinglePage />
+          element: <SingleUser />
         }
       ]
     },

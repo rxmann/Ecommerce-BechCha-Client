@@ -24,7 +24,7 @@ const ImageContainer = styled.div`
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background-color: #f5f7f8;
+  background-color: #ffffff;
 `
 
 const Image = styled.img`

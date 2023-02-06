@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import { NavLink } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -25,13 +24,11 @@ const Button = styled.button`
     color: white;
     cursor: pointer;
   }
-
-  &:hover(NavLink) {
-    color: white;
-  }
 `
 
 const EmptyView = () => {
+  
+
   const img = "https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?w=2000";
 
   return (
@@ -40,12 +37,9 @@ const EmptyView = () => {
         Error ! This page does not exist
       </Wrapper>
       <Image src={img} />
-      <NavLink to="/" >
-        <Button>
+        <Button onClick={ () => window.history.back() }>
           GO BACK
         </Button>
-      </NavLink>
-
     </Container>
   )
 }
