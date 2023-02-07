@@ -7,7 +7,6 @@ import { userData } from "../data"
 
 const Container = styled.div`
     flex: 5;
-    background-color: #f5f7f8;
     width: 100%;
     font-family: 'Nunito', sans-serif;
     padding: 20px;

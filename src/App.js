@@ -25,7 +25,8 @@ const Wrapper = styled.div`
 const Contents = styled.div`
   display: flex;
   font-family: 'Nunito', sans-serif;
-  padding: 0px 50px;
+  padding-right: 50px;
+  background-color: #f5f7f8;
 `
 
 // COLORS
@@ -35,7 +36,10 @@ const Contents = styled.div`
 // #333333
 // #aaaaaa
 // #0076CE
+// light
 // box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+// dense
+// box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px; 
 
 
 const App = () => {

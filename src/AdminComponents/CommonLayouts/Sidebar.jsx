@@ -10,13 +10,18 @@ const Container = styled.div`
     position: sticky;
     top: 70px;
     background-color: white;
-    z-index: 2;
+    z-index: 3;
     border-right: 0.3px solid #f0e8e87d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 20px;
+    box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);
 `
 
 const SidebarWrapper = styled.div`
     padding: 20px 20px 20px 0px;
-   color: #555;
+    color: #555;
 `
 
 const SidebarMenu = styled.div`

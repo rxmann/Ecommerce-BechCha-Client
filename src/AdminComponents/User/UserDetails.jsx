@@ -5,7 +5,6 @@ import OrderWidget from "../Widgets/OrderWidget"
 const Container = styled.div`
     flex: 5;
     padding: 20px;
-    background-color: #f5f7f8;
     display: flex;
     flex-direction: column;
     width: 100%;

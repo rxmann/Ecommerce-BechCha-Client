@@ -40,6 +40,8 @@ const FormItem = styled.div`
 
 const Label = styled.label`
     flex: 1;
+    font-weight: 500;
+    color: gray;
 `
 
 const TextInput = styled(TextField)`

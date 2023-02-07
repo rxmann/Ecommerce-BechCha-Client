@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import {AccountCircle, ChatBubbleOutlineOutlined, DarkModeOutlined, NotificationsNone } from "@mui/icons-material"
-import { Link, useNavigate } from "react-router-dom"
+import { Link} from "react-router-dom"
 
 
 const Container = styled.div`
@@ -9,8 +9,8 @@ const Container = styled.div`
     box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);
     position: sticky;
     top: 0;
-    background-color: white;
     z-index: 3;
+    background-color: white;
 `
 
 const Wrapper = styled.div`
