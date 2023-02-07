@@ -80,19 +80,19 @@ const Image = styled.img`
 const OneCategory = ({ category }) => {
 
   const navigate = useNavigate();
-  const binaryString = Array.from(new Uint8Array(category.display.data), byte => String.fromCharCode(byte)).join("");
-  const theImage = btoa(binaryString);
+  // const binaryString = Array.from(new Uint8Array(category.display), byte => String.fromCharCode(byte)).join("");
+  // const theImage = btoa(binaryString);
+  // console.log(category.display)
 
   
 
   return (
     <Container >
       <Wrapper >
-        <Image src={`data:image/png;base64, ${theImage}`} />
+        <Image src={`data:image/png;base64, ${btoa(category.display)}`} />
         <Name> {category.name} </Name>
       </Wrapper>
       <Button onClick={() => navigate(`/products/${category._id}`)}> SHOP NOW </Button>
-
     </Container>
   )
 }
