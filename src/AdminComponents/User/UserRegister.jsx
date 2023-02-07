@@ -29,20 +29,22 @@ const FormDiv = styled.div`
 `
 
 const FormItem = styled.div`
-    width: 45%;
+    width: 40%;
     display: flex;
     margin: 30px 50px 0px 0px; 
     align-items: center;
-`
-
-const Label = styled.label`
-    flex: 1;
+    font-size: 14px;
     font-weight: 500;
     color: gray;
 `
 
+const Label = styled.label`
+    flex: 1;
+    
+`
+
 const TextInput = styled(TextField)`
-    flex: 2;
+    flex: 1;
     color: gray;
 `
 
