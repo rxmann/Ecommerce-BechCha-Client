@@ -138,7 +138,7 @@ const App = () => {
       element: <RegisterPage />
     },
     {
-      path: "/verify-registration",
+      path: "/verify-registration/:id",
       element: <VerifyOTP />
     }
 

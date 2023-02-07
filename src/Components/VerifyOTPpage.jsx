@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import Button from '@mui/material/Button';
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { publicRequest } from "../requestMethods/requestMethods";
 import {
@@ -89,8 +89,8 @@ const Fade = styled.p`
 
 const VerifyOTP = () => {
 
-    const location = useLocation();
-    const userId = location.state?.userId;
+    const userId = useParams().id;
+
     const [otp, setOTP] = useState("")
     const navigate = useNavigate();
 

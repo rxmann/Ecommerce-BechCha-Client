@@ -118,8 +118,7 @@ const RegisterPage = () => {
                 position: "top-center",
                 theme: "colored"
             } )
-            console.log(response.data.user._id);
-            navigate("/verify-registration",  { state: { userId: response.data.user._id } } );
+            navigate("/login",  { state: { userId: response.data.user._id } } );
         }
         catch (err) {
             toast.error(err?.response?.data, {

@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import LockIcon from '@mui/icons-material/Lock';
 import Button from '@mui/material/Button';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { publicRequest } from "../requestMethods/requestMethods";
 import {
@@ -85,10 +85,18 @@ const Logo = styled.img`
     margin-bottom: 30px;
 `
 
+const LinkItem = styled.a`
+    cursor: pointer;
+`
+
 
 
 
 const LoginPage = () => {
+
+    const location = useLocation();
+    const userId = location.state?.userId;
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate();
@@ -100,20 +108,11 @@ const LoginPage = () => {
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
         try {
-
-            if (email === null || password === null){
-                throw new Error("Email and Password field cannot be empty.")
-            }
             const response = await publicRequest.post("/users/login", {
                 email,
                 password
             })
-            console.log(response.data);
-            toast.success(`Logged in successfully.`, {
-                position: "top-right",
-                theme: "colored"
-            })
-            toast.info(`Welcome to BechCha ${response.data.username.toUpperCase()}`, {
+            toast.success(`Welcome to BechCha ${response.data.username.toUpperCase()}`, {
                 position: "top-center",
                 theme: "colored"
             })
@@ -140,10 +139,8 @@ const LoginPage = () => {
 
                 <Wrappper>
                     <H1> Login </H1>
-                    <Form  onSubmit={handleSubmitLogin}>
-
-
-                    <FormControl>
+                    <Form onSubmit={handleSubmitLogin}>
+                        <FormControl>
                             <InputLabel> Email </InputLabel>
                             <OutlinedInput
                                 value={email}
@@ -187,7 +184,9 @@ const LoginPage = () => {
                             />
                         </FormControl>
 
+                        <LinkItem> forgot password? </LinkItem>
                         <Button type="submit" size="large" variant="contained"> Login </Button>
+                        <LinkItem href={`/verify-registration/${userId}`} > Verify account </LinkItem>
 
                         <Span> Don't have an account yet? </Span>
 
@@ -195,7 +194,7 @@ const LoginPage = () => {
                             onClick={() => navigate("/register")}>
                             Register
                         </Btn>
-                   </Form>
+                    </Form>
                 </Wrappper>
 
             </Card>

@@ -5,6 +5,7 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
+import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 
 const Card = styled.div`
     display: flex;
@@ -105,14 +106,11 @@ const ProfileDisplay = () => {
         }
     }]
 
-    const Rightdisplay = "https://img.freepik.com/free-photo/wooden-symbol-shopping-cart-online-shopping-concept_1387-883.jpg?w=1380&t=st=1674658539~exp=1674659139~hmac=c96a59e31c9a67c01e2f8a43b9760855aad6c1fee18d29ee3a395f16740e353c";
-
-
     return (
         <Card>
             
             <UserProfile>
-                <Avatar alt="Rxman" src={Rightdisplay} sx={{ width: 100, height: 100 }} />
+                <Avatar alt="Rxman" src={""} sx={{ width: 100, height: 100 }} />
                 <UsernameWrapper> @rxmxn <VerifiedIcon color="primary" /> </UsernameWrapper>
                 <UserInfo>
                     <ItemTitle> Account Details </ItemTitle>
@@ -128,6 +126,10 @@ const ProfileDisplay = () => {
                         <SmartphoneIcon /> 
                         <Data> +977 8789898987 </Data> 
                     </Item> 
+                    <Item>
+                        <PermContactCalendarIcon />
+                        <Data> 2002 / 02 / 12 </Data>
+                    </Item>
                     <ItemTitle> Joined monday, 23rd January </ItemTitle>
                 </UserInfo>
             </UserProfile>
@@ -135,7 +137,7 @@ const ProfileDisplay = () => {
             
             <Form>
                 <FormItem>
-                    <Avatar alt="Rxman" src={Rightdisplay} sx={{ width: 100, height: 100 }} />
+                    <Avatar alt="Rxman" src={""} sx={{ width: 100, height: 100 }} />
                     <IconButton color="primary" aria-label="upload picture" component="label">
                         <input hidden accept="image/*" type="file" />
                         <AddPhotoAlternateIcon />
