@@ -18,6 +18,7 @@ import UsersTab from "./AdminPages/UsersTab"
 import ProductsTab from "./AdminPages/ProductsTab"
 import UserDetails from "./AdminComponents/User/UserDetails"
 import UserRegister from "./AdminComponents/User/UserRegister"
+import ProductDetails from "./AdminComponents/Product/ProductDetails"
 
 
 const Wrapper = styled.div`
@@ -116,6 +117,14 @@ const App = () => {
         },
         {
           path: "/admin/user/register",
+          element: <UserRegister />
+        },
+        {
+          path: "/admin/product/:id",
+          element: <ProductDetails />
+        },
+        {
+          path: "/admin/product/add",
           element: <UserRegister />
         }
       ]
