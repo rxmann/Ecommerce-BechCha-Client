@@ -103,7 +103,7 @@ const Sidebar = () => {
             options: [{
                 name: "Users",
                 icon: (<PersonOutline className="iconMUI" />),
-                goto: "/admin/userslist"
+                goto: "/admin/users/list"
             }],
         },
         {
@@ -111,11 +111,11 @@ const Sidebar = () => {
             options: [{
                 name: "Products",
                 icon: (<Store className="iconMUI" />),
-                goto: "/admin/productslist"
+                goto: "/admin/products/list"
             }, {
                 name: "Categories",
                 icon: (<Category className="iconMUI" />),
-                goto: "/admin/categorieslist"
+                goto: "/admin/categories/list"
             }],
         },
         {
@@ -123,7 +123,7 @@ const Sidebar = () => {
             options: [{
                 name: "Orders",
                 icon: (<CreditCard className="iconMUI" />),
-                goto: "/admin/orderslist"
+                goto: "/admin/orders/list"
             },
             {
                 name: "Delivery",

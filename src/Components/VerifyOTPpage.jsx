@@ -90,7 +90,7 @@ const Fade = styled.p`
 const VerifyOTP = () => {
 
     const location = useLocation();
-    const userId = location.state.userId;
+    const userId = location.state?.userId;
     const [otp, setOTP] = useState("")
     const navigate = useNavigate();
 

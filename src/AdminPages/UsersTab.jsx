@@ -1,4 +1,5 @@
 import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import UsersList from '../AdminComponents/Tables/DataTable';
 
@@ -39,7 +40,9 @@ const UsersTab = () => {
     <Container>
       <Wrapper>
         <Title> Customers List </Title>
-        <AddButton size='small' variant='contained'> Add user </AddButton>
+        <Link to="/admin/user/register">
+          <AddButton variant='contained'> Add user </AddButton>
+        </Link>
       </Wrapper>
       <UsersList />
     </Container>

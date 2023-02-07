@@ -10,6 +10,7 @@ const Container = styled.div`
     background-color: #f5f7f8;
     width: 100%;
     font-family: 'Nunito', sans-serif;
+    padding: 20px;
 `
 
 const FeaturedInfo = styled.div`
@@ -17,13 +18,11 @@ const FeaturedInfo = styled.div`
     flex-wrap: wrap;
     gap: 20px;
     margin-top: 10px;
-    padding: 20px;
 `
 
 const HomeWidgets = styled.div`
   display: flex;
   gap: 10px;
-  padding: 20px;
 `
 
 

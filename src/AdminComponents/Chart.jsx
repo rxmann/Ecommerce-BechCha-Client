@@ -3,7 +3,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 
 const Container = styled.div`
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-    margin: 20px;
+    margin: 20px 0px;
     padding: 20px;
     background-color: #ffffff;
     display: flex;

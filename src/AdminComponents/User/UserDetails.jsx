@@ -24,7 +24,7 @@ const User = styled.div`
 `
 
 
-const SingleUser = () => {
+const UserDetails = () => {
   return (
     <Container> 
         <Title> User Profile </Title>
@@ -36,4 +36,4 @@ const SingleUser = () => {
   )
 }
 
-export default SingleUser
+export default UserDetails

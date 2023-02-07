@@ -81,7 +81,7 @@ const DataTable = () => {
       renderCell: () => {
         return (
           <ActionCell>
-          <ViewButton onClick={() => navigate("/admin/user/123")}> View </ViewButton>
+          <ViewButton onClick={() => navigate("/admin/user/" + 2123)}> View </ViewButton>
           <DelBtn  size="small" variant="text" color="error">
                       <DeleteOutline  />
           </DelBtn>
