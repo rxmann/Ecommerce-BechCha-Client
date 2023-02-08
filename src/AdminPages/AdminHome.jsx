@@ -8,15 +8,19 @@ import { userData } from "../data"
 const Container = styled.div`
     flex: 5;
     width: 100%;
-    font-family: 'Nunito', sans-serif;
     padding: 20px;
 `
+
 
 const FeaturedInfo = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     margin-top: 10px;
+`
+
+const ChartContainer = styled.div`
+    margin: 20px 0px;
 `
 
 const HomeWidgets = styled.div`
@@ -35,7 +39,9 @@ const AdminHome = () => {
         <Widget type="BALANCE" />
       </FeaturedInfo>
 
-      <Chart title={"Sales Analytics"} data={userData} grid dataKey={"Active User"} />
+      <ChartContainer>
+        <Chart title={"Sales Analytics"} data={userData} grid dataKey={"Active User"} />
+      </ChartContainer>
 
       <HomeWidgets>
         <OrderWidget />

@@ -24,9 +24,9 @@ const Wrapper = styled.div`
 `
 
 const Title = styled.h1`
-  color: gray;
-  font-weight: 600;
-  font-size: 16px;
+  font-size: 24px;
+    font-weight: 500;
+    color: gray;
 `
 
 const AddButton = styled(Button)`
