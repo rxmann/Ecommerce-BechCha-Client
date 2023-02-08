@@ -122,8 +122,8 @@ const UserRegister = () => {
                         ))}
                         <FormItem>
                             <Label> Gender </Label>
-                            <RadioGroup row >
-                                <FormControlLabel value="male" control={<Radio />} label="Male" />
+                            <RadioGroup row sx={{flex: "1"}}>
+                                <FormControlLabel value="male" control={<Radio  />} label="Male" />
                                 <FormControlLabel value="female" control={<Radio />} label="Female" />
                                 <FormControlLabel value="other" control={<Radio />} label="Other" />
                             </RadioGroup>
@@ -131,8 +131,8 @@ const UserRegister = () => {
 
                         <FormItem>
                             <Label> User Role </Label>
-                            <Select  value={userType} onChange={(e) => setUserType(e.target.value)}>
-                                <MenuItem value="customer" > Customer </MenuItem>
+                            <Select flex={1} autoWidth value={userType} onChange={(e) => setUserType(e.target.value)}>
+                                <MenuItem  value="customer" > Customer </MenuItem>
                                 <MenuItem value="admin" > Admin </MenuItem>
                             </Select>
                         </FormItem>
