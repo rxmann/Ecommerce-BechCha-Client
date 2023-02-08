@@ -24,7 +24,7 @@ const Wrapper = styled.div`
     padding: 20px;
 `
 
-const Title = styled.h3`
+const Title = styled.h1`
    font-size: 24px;
     font-weight: 500;
     color: gray;
