@@ -1,7 +1,8 @@
 import styled from "styled-components"
 import Chart from "../Chart"
 import { productData } from "../../data"
-import { Avatar } from "@mui/material"
+import { Avatar} from "@mui/material";
+import ProductUpdate from "./ProductUpdate";
 
 const Container = styled.div`
     flex: 5;
@@ -84,60 +85,65 @@ const Data = styled.span`
 
 const ProductChart = styled.div`
     height: 100%;
+    padding: 20px;
 `
+
 
 
 
 const BottomWrapper = styled.div`
-  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 `
 const ProductDetails = () => {
+
   return (
     <Container>
       <Title> Product Profile </Title>
       <TopWrapper>
-      <Left>
-        <ProductChart>
-          <Chart title={"Sale Analytics"} data={productData} dataKey={"Sales"} />
-        </ProductChart>
+        <Left>
+          <ProductChart>
+            <Chart title={"Sale Analytics"} data={productData} dataKey={"Sales"} />
+          </ProductChart>
         </Left>
 
         <Right>
 
-        <ProductCard>
-          <ItemTitle> Product Info </ItemTitle>
-          <ProductNameWrap>
-            <Avatar alt="Rxman" src={""} sx={{ width: 60, height: 60 }} />
-            <Data> Apple  </Data>
-          </ProductNameWrap>
-          <ProductInfo>
-            
-            <Item>
-              <Label>Id</Label>
-              <Data> 0971231123213123 </Data>
-            </Item>
-            <Item>
-              <Label>Sales</Label>
-              <Data> 1500 </Data>
-            </Item>
-            <Item>
-              <Label> InStock</Label>
-              <Data>30 </Data>
-            </Item>
-            <Item>
-              <Label> Current Price</Label>
-              <Data>200 </Data>
-            </Item>
-          </ProductInfo>
-        </ProductCard>
+          <ProductCard>
+            <ItemTitle> Product Info </ItemTitle>
+            <ProductNameWrap>
+              <Avatar alt="Rxman" src={""} sx={{ width: 60, height: 60 }} />
+              <Data> Apple  </Data>
+            </ProductNameWrap>
+            <ProductInfo>
+
+              <Item>
+                <Label>Id</Label>
+                <Data> 0971231123213123 </Data>
+              </Item>
+              <Item>
+                <Label>Sales</Label>
+                <Data> 1500 </Data>
+              </Item>
+              <Item>
+                <Label> InStock</Label>
+                <Data>30 </Data>
+              </Item>
+              <Item>
+                <Label> Current Price</Label>
+                <Data>200 </Data>
+              </Item>
+            </ProductInfo>
+          </ProductCard>
         </Right>
-        
+
       </TopWrapper>
 
 
       <BottomWrapper>
-        
+          <ProductUpdate />
       </BottomWrapper>
+
     </Container>
   )
 }
