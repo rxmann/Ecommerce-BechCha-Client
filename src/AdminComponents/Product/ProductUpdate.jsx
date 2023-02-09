@@ -3,7 +3,6 @@ import { useState } from "react";
 import ProductForm from "./ProductForm";
 
 const Container = styled.div`
-    padding: 30px;
     display: flex;
     gap: 20px;
 `
@@ -44,7 +43,7 @@ const ProductUpdate = () => {
     const [imageSelected, setImageSelected] = useState(images[0]);
     return (
         <Container>
-
+            
             <Left>
                 <MainImageContainer>
                     <BigImage src={`${imageSelected}`} />
@@ -61,7 +60,7 @@ const ProductUpdate = () => {
             </Left>
 
             <Right>
-                <ProductForm />
+                <ProductForm  FormType={"edit"}/>
             </Right>
            
         </Container>

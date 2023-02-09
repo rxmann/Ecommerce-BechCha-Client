@@ -1,6 +1,6 @@
 import { DeleteOutline } from '@mui/icons-material';
 import { Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import DataTable from '../AdminComponents/Tables/DataTable';
 import { productRows, productColumns } from '../data';
@@ -80,7 +80,9 @@ const ProductsTab = () => {
     <Container>
       <Wrapper>
         <Title> Products List </Title>
-        <AddButton  variant='contained'> Add Product </AddButton>
+        <Link to={"/admin/product/add"} >
+          <AddButton  variant='contained'> Add Product </AddButton>
+        </Link>
       </Wrapper>
       <DataTable rows={productRows} columns={productColumns.concat(actionColumn)} />
     </Container>

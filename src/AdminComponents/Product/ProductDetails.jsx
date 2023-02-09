@@ -94,6 +94,7 @@ const ProductChart = styled.div`
 const BottomWrapper = styled.div`
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  padding: 20px;
 `
 const ProductDetails = () => {
 
@@ -141,6 +142,7 @@ const ProductDetails = () => {
 
 
       <BottomWrapper>
+        <Title style={{marginBottom: "30px"}}> Edit product </Title>
           <ProductUpdate />
       </BottomWrapper>
 

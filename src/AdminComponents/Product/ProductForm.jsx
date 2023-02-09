@@ -7,8 +7,9 @@ import ClearIcon from '@mui/icons-material/Clear';
 
 
 const Form = styled.form`
-    flex: 3;
     padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    background-color: white;
 `
 
 const FormWrapper = styled.div`
@@ -95,7 +96,7 @@ const DelBtn = styled.div`
     cursor: pointer;
 `
 
-const ProductForm = () => {
+const ProductForm = ({setData, FormType}) => {
 
     const editor = useRef(null);
     const [content, setContent] = useState();
@@ -132,7 +133,7 @@ const ProductForm = () => {
         <FormOptions>
             <FormItem >
                 <Label> Name </Label>
-                <TextInput size="small" required variant="outlined" type="text" defaultValue={"Apple Apple"} />
+                <TextInput size="small" required variant="outlined" type="text"  />
             </FormItem>
 
             <FormItem >
@@ -147,12 +148,12 @@ const ProductForm = () => {
 
             <FormItem >
                 <Label>Price</Label>
-                <TextInput size="small" required variant="outlined" type={"number"} defaultValue={90000} />
+                <TextInput size="small" required variant="outlined" type={"number"} />
             </FormItem>
 
             <FormItem >
                 <Label> Stock </Label>
-                <TextInput size="small" defaultValue={12} required variant="outlined" type={"number"} />
+                <TextInput size="small" required variant="outlined" type={"number"} />
             </FormItem>
 
             <FormDesc style={{ flexShrink: 4 }}>
