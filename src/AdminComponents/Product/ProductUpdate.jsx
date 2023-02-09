@@ -7,7 +7,7 @@ import { useRef } from "react";
 const Container = styled.div`
     padding: 30px;
     display: flex;
-    gap: 50px;
+    gap: 20px;
 `
 
 const ProdImageContainer = styled.div`
@@ -20,7 +20,8 @@ const ProdImage = styled.img`
 `
 
 const Form = styled.form`
-    flex: 4;
+    flex: 2;
+    padding: 20px;
 `
 
 
@@ -30,9 +31,9 @@ const FormWrapper = styled.div`
 `
 
 const FormOptions =styled.div`
-     display: flex;
+    display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px;
 `
 
 const FormItem = styled.div`
@@ -43,10 +44,15 @@ const FormItem = styled.div`
     gap: 20px;
 `
 const FormDesc = styled.div`
+    width: 100%;
     margin-bottom: 20px;
     display: flex;
     align-items: center;
     gap: 20px;
+`
+
+const DescWrap = styled.div`
+    flex: 3;
 `
 
 const Label = styled.span`
@@ -104,24 +110,23 @@ const ProductUpdate = () => {
                         <Label> Stock </Label>
                         <TextInput size="small" defaultValue={12} required variant="outlined" type={"number"}/>
                     </FormItem>
-                </FormOptions>
 
-                <FormDesc style={{flexShrink: 4}}>
+                    <FormDesc style={{flexShrink: 4}}>
                         <Label> Description </Label>
-                        <JoditEditor
-                                ref={editor}
-                                value={content}
-                                config={config}
-                                tabIndex={1} // tabIndex of textarea
-                                onBlur={newContent => setContent(newContent)}
-                            />
-                </FormDesc>
+                        <DescWrap>
+                            <JoditEditor
+                                    ref={editor}
+                                    value={content}
+                                    config={config}
+                                    tabIndex={1} // tabIndex of textarea
+                                    onBlur={newContent => setContent(newContent)}
+                                />
+                        </DescWrap>
+                    </FormDesc>
 
+                </FormOptions>
                 </FormWrapper>
-
-
-                <Button type="submit" sx={{ width: "250px", height: "60px" }} variant="contained">Update</Button>
-                {content}
+                <Button type="submit" fullWidth variant="contained">Update</Button>
             </Form>
         </Container>
     )
