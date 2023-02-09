@@ -96,49 +96,79 @@ const DelBtn = styled.div`
     cursor: pointer;
 `
 
-const ProductForm = ({setData, FormType}) => {
+const ProductForm = ({FormType}) => {
 
-    const editor = useRef(null);
-    const [content, setContent] = useState();
+    const [values, setValues] = useState({
+        title: "",
+        category: "",
+        price: "",
+        quantity: "",
+        description: "",
+        images: [],
+    });
+
+    const [selection, setSelection] = useState("");
+    const [content, setContent] = useState("");
+
+    const editor = useRef();
     const config = {
         buttons: ["bold", "italic", "underline", "link", "unlink", "source"],
         readonly: false,
         toolbarAdaptive: false,
         height: 150
     }
-    const [category, setCategory] = useState("Gaming");
-    const [images, setImages] = useState(null);
-
 
     const handleImages = (e) => {
         e.preventDefault();
-        const selection = e.target.files;
-        const imageArr = Array.from(selection)
+        const selected = e.target.files;
+        const imageArr = Array.from(selected)
         
         const imageURLArr = imageArr.map((imgFile) => {
             return URL.createObjectURL(imgFile)
         })
-
-        setImages(imageURLArr);
+        setSelection(imageURLArr)
     }
 
     const handleDelete = (data) => {
-        setImages(images.filter( img => img !== data ) )
+        const imageArray = selection;
+        const newImageArray = imageArray.filter((img) => img !== data)
+        setSelection(newImageArray)
     }
 
+    const handleChange = (e) => {
+        e.preventDefault();
+        setValues({ ...values, [e.target.name]: e.target.value });
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setValues({...values, "images": selection, "description": content})
+        console.log(values);
+    }
+
+    console.log(values);
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
     <FormWrapper>
         <FormOptions>
             <FormItem >
                 <Label> Name </Label>
-                <TextInput size="small" required variant="outlined" type="text"  />
+                <TextInput 
+                        name="title" 
+                        value={values["title"]}
+                        onChange={handleChange}  
+                        size="small" required variant="outlined" type="text"  />
             </FormItem>
 
             <FormItem >
                 <Label>Category</Label>
-                <Select sx={{ flex: "2" }} value={category} onChange={(e) => setCategory(e.target.value)}>
+                <Select 
+                    name="category" 
+                    sx={{ flex: "2" }} 
+                    value={values["category"]} 
+                    required
+                    onChange={handleChange}>
                     <MenuItem value=""> <em>None</em> </MenuItem>
                     <MenuItem value={"Home Appliances"}>Home Appliances</MenuItem>
                     <MenuItem value={"Office Appliances"}>Office Appliances</MenuItem>
@@ -148,12 +178,19 @@ const ProductForm = ({setData, FormType}) => {
 
             <FormItem >
                 <Label>Price</Label>
-                <TextInput size="small" required variant="outlined" type={"number"} />
+                <TextInput 
+                    name="price" 
+                    value={values["price"]}
+                    onChange={handleChange}
+                    size="small" required variant="outlined" type={"number"} />
             </FormItem>
 
             <FormItem >
-                <Label> Stock </Label>
-                <TextInput size="small" required variant="outlined" type={"number"} />
+                <Label> Quantity </Label>
+                <TextInput 
+                    name="quantity" 
+                    onChange={handleChange}
+                    size="small" required variant="outlined" type={"number"} />
             </FormItem>
 
             <FormDesc style={{ flexShrink: 4 }}>
@@ -161,10 +198,9 @@ const ProductForm = ({setData, FormType}) => {
                 <DescWrap>
                     <JoditEditor
                         ref={editor}
-                        value={content}
                         config={config}
-                        tabIndex={1} // tabIndex of textarea
-                        onBlur={newContent => setContent(newContent)}
+                        value={content}
+                        onBlur={con => setContent(con)}
                     />
                 </DescWrap>
             </FormDesc>
@@ -177,6 +213,7 @@ const ProductForm = ({setData, FormType}) => {
                         <UploadIcon />
                         3 images
                         <input 
+                            name="images"
                             hidden 
                             type="file" 
                             multiple 
@@ -184,8 +221,8 @@ const ProductForm = ({setData, FormType}) => {
                             accept='image/*' />
                     </UploadB>
                     <ImgContainer>
-                        {images && 
-                            images.map(image => (
+                        {selection && 
+                            selection.map(image => (
                                 <SmallImage key={image} >
                                     <Image src={image} />
                                     <DelBtn onClick={() => handleDelete(image)}> <ClearIcon color='error'  /> </DelBtn>
@@ -198,7 +235,7 @@ const ProductForm = ({setData, FormType}) => {
 
         </FormOptions>
     </FormWrapper>
-    <Button type="submit" fullWidth variant="contained">Update</Button>
+    <Button type="submit" fullWidth variant="contained"> {FormType} </Button>
 </Form>
   )
 }

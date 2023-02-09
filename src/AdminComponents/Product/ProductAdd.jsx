@@ -21,12 +21,11 @@ const Title = styled.h1`
 
 const ProductAdd = () => {
 
-    const [Data, setData] = useState(null);
-
+    const [Data, setData] = useState();
   return (
    <Container>
     <Title> Add product </Title>
-        <ProductForm FormType={"add"} setData={setData}/>
+        <ProductForm FormType={"add"} setData={setData} data={Data}/>
    </Container>
   )
 }

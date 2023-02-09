@@ -37,6 +37,11 @@ const BigImage = styled.img`
 
 const ProductUpdate = () => {
 
+
+    const [Data, setData] = useState(null);
+
+    
+
     let images = [];
     images[0] = "https://img.freepik.com/premium-vector/social-media-post-design-ecommerce-product-marketing_528542-192.jpg?w=2000"
     images[1] = "https://media.wired.com/photos/627bfd36a4fb038463303e27/master/pass/Sony-WH-1000MX5-Gear.jpg";
@@ -60,7 +65,7 @@ const ProductUpdate = () => {
             </Left>
 
             <Right>
-                <ProductForm  FormType={"edit"}/>
+                <ProductForm  FormType={"edit"} data={Data} setData={setData} />
             </Right>
            
         </Container>
