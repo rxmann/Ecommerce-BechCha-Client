@@ -138,7 +138,7 @@ const ProfileDisplay = () => {
             <Form>
                 <FormItem>
                     <Avatar alt="Rxman" src={""} sx={{ width: 100, height: 100 }} />
-                    <IconButton color="primary" aria-label="upload picture" component="label">
+                    <IconButton color="primary" >
                         <input hidden accept="image/*" type="file" />
                         <AddPhotoAlternateIcon />
                     </IconButton>
