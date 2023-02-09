@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import Button from '@mui/material/Button';
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { publicRequest } from "../requestMethods/requestMethods";
 import {

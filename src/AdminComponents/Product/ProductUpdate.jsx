@@ -1,6 +1,8 @@
 import styled from "styled-components"
-import { Button, MenuItem, Select, TextareaAutosize, TextField } from "@mui/material";
+import { Button, MenuItem, Select, TextField } from "@mui/material";
 import { useState } from "react";
+import JoditEditor from "jodit-react";
+import { useRef } from "react";
 
 const Container = styled.div`
     padding: 30px;
@@ -40,6 +42,12 @@ const FormItem = styled.div`
     align-items: center;
     gap: 20px;
 `
+const FormDesc = styled.div`
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+`
 
 const Label = styled.span`
   flex: 1;
@@ -53,7 +61,14 @@ const TextInput = styled(TextField)`
 const ProductUpdate = () => {
 
     const image = "https://img.freepik.com/premium-vector/social-media-post-design-ecommerce-product-marketing_528542-192.jpg?w=2000"
-
+    
+    const editor = useRef(null);
+	const [content, setContent] = useState("");
+    const config = {
+        buttons: ["bold", "italic", "underline", "link", "unlink", "source"],
+        readonly: false,
+        toolbarAdaptive: false
+    }
     const [category, setCategory] = useState("Gaming");
 
     return (
@@ -89,17 +104,24 @@ const ProductUpdate = () => {
                         <Label> Stock </Label>
                         <TextInput size="small" defaultValue={12} required variant="outlined" type={"number"}/>
                     </FormItem>
-
-                    <FormItem  style={{flexShrink: 4}}>
-                        <Label> Description </Label>
-                        <TextareaAutosize required variant="outlined" />
-                    </FormItem>
-
                 </FormOptions>
+
+                <FormDesc style={{flexShrink: 4}}>
+                        <Label> Description </Label>
+                        <JoditEditor
+                                ref={editor}
+                                value={content}
+                                config={config}
+                                tabIndex={1} // tabIndex of textarea
+                                onBlur={newContent => setContent(newContent)}
+                            />
+                </FormDesc>
 
                 </FormWrapper>
 
+
                 <Button type="submit" sx={{ width: "250px", height: "60px" }} variant="contained">Update</Button>
+                {content}
             </Form>
         </Container>
     )
