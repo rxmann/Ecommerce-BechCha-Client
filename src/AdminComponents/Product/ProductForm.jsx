@@ -120,19 +120,14 @@ const ProductForm = ({FormType}) => {
 
     const handleImages = (e) => {
         e.preventDefault();
-        const selected = e.target.files;
-        const imageArr = Array.from(selected)
-        
-        const imageURLArr = imageArr.map((imgFile) => {
-            return URL.createObjectURL(imgFile)
-        })
-        setSelection(imageURLArr)
+        const selected = Array.from(e.target.files);
+        setValues({...values, "images": selected} )
     }
 
     const handleDelete = (data) => {
-        const imageArray = selection;
-        const newImageArray = imageArray.filter((img) => img !== data)
-        setSelection(newImageArray)
+        const imageArray = values["images"];
+        const newImageArray = imageArray.filter((image) => image !== data)
+        setValues({...values, "images": newImageArray} )
     }
 
     const handleChange = (e) => {
@@ -142,11 +137,9 @@ const ProductForm = ({FormType}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setValues({...values, "images": selection, "description": content})
+        setValues({...values, "description": content})
         console.log(values);
     }
-
-    console.log(values);
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -200,7 +193,7 @@ const ProductForm = ({FormType}) => {
                         ref={editor}
                         config={config}
                         value={content}
-                        onBlur={con => setContent(con)}
+                        onBlur={con => setValues({...values, "description": con})}
                     />
                 </DescWrap>
             </FormDesc>
@@ -221,10 +214,10 @@ const ProductForm = ({FormType}) => {
                             accept='image/*' />
                     </UploadB>
                     <ImgContainer>
-                        {selection && 
-                            selection.map(image => (
-                                <SmallImage key={image} >
-                                    <Image src={image} />
+                        {values["images"] && 
+                            values["images"] .map(image => (
+                                <SmallImage key={image.name} >
+                                    <Image src={URL.createObjectURL(image)} />
                                     <DelBtn onClick={() => handleDelete(image)}> <ClearIcon color='error'  /> </DelBtn>
                                 </SmallImage>
                             )) 
