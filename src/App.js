@@ -34,11 +34,6 @@ const Contents = styled.div`
 `
 
 // COLORS
-// #F5F7F8
-// #0171B6
-// #FFFFFF
-// #333333
-// #aaaaaa
 // #0076CE
 // light
 // box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;

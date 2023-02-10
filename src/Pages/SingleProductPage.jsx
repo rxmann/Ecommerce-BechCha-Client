@@ -6,6 +6,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import DescriptionTable from "../Components/DescriptionTable/DescriptionTable";
 import { useParams } from "react-router-dom";
 import { publicRequest } from "../requestMethods/requestMethods";
+import { addProduct } from "../Redux/cartSlice";
+import { useDispatch } from "react-redux"
 
 const Container = styled.div`
   display: flex;
@@ -135,6 +137,7 @@ const LoadingScreen = styled.div`
 const SingleProductPage = () => {
   const id = useParams().id;
 
+  const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState(null);
   const [imageSelected, setImageSelected] = useState();
@@ -160,6 +163,11 @@ const SingleProductPage = () => {
     }
   }
   
+
+  const handleAddToCart = () => {
+    console.log("Click add to cart!");
+    dispatch(addProduct({ ...product, quantity}));
+  }
 
   return ( 
     <>
@@ -196,7 +204,7 @@ const SingleProductPage = () => {
            <Button onClick={()=>handleQuantity("inc", product.quantity)} > + </Button>
          </QuantityDiv>
 
-         <AddToCart>
+         <AddToCart onClick={handleAddToCart}>
            <AddShoppingCartIcon /> ADD TO CART
          </AddToCart>
 

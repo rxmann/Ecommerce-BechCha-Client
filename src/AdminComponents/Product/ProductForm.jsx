@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Button, MenuItem, Select, TextField } from "@mui/material";
 import JoditEditor from "jodit-react";
-import { useRef, useState  } from "react";
+import { useState  } from "react";
 import UploadIcon from '@mui/icons-material/Upload';
 import ClearIcon from '@mui/icons-material/Clear';
 
@@ -230,7 +230,7 @@ const ProductForm = ({FormType}) => {
                     </UploadB>
                     <ImgContainer>
                         {values["images"] && 
-                            values["images"] .map(image => (
+                            values["images"].map(image => (
                                 <SmallImage key={image.name} >
                                     <Image src={URL.createObjectURL(image)} />
                                     <DelBtn onClick={() => handleDelete(image)}> <ClearIcon color='error'  /> </DelBtn>

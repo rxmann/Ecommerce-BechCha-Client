@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useSelector } from "react-redux";
 
 
 const Container = styled.div`
@@ -15,6 +16,7 @@ const Wrapper = styled.div`
 const CartWrapper = styled.div`
     flex: 4;
     background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 `
 
 const TitleWrapper = styled.div`
@@ -48,7 +50,6 @@ const ItemTitle = styled.div`
     font-weight: 500;
     font-size: 16px;
     color: white;
-    width: 100%;
 `
 
 const CartItems = styled.div`
@@ -64,7 +65,7 @@ const Item = styled.span`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
+    gap: 30px;
 `
 
 const ProductImage = styled.img`
@@ -86,16 +87,17 @@ const ButtonQ = styled.button`
   justify-content: center;
   align-items: center;
   border: none;
+  background-color: #f5f7f8;
 `
 
 const SummaryWrapper = styled.div`
     flex: 1;
-    background-color: white;
     padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 70px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px; 
 `
 
 const TotalText = styled.span`
@@ -117,6 +119,8 @@ const Total = styled.h3`
 
 const CartPage = () => {
 
+    const cart = useSelector(state => state.cart);
+
 
     const [quantity, setQuantity] = useState(1);
 
@@ -124,6 +128,7 @@ const CartPage = () => {
 
         if (option === "dec") {
             if (quantity > 1) setQuantity(quantity - 1);
+            
         }
         else if (option === "inc") {
             console.log("click")
@@ -143,35 +148,33 @@ const CartPage = () => {
                     </TitleWrapper>
                     <Cart>
                         <CartHeading>
-                            <ItemTitle flex={1}> Id </ItemTitle>
                             <ItemTitle flex={2}> Product  </ItemTitle>
                             <ItemTitle flex={1}> Quantity  </ItemTitle>
                             <ItemTitle flex={1}> Price  </ItemTitle>
                             <ItemTitle flex={1}> Sum  </ItemTitle>
-                            <ItemTitle flex={0.5}> Action </ItemTitle>
+                            <ItemTitle flex={0.3}> Action </ItemTitle>
                         </CartHeading>
 
-                        <CartItems>
-                            <Item flex={1}>
-                                <Item > 123123123123213 </Item>
-                            </Item>
+                        {cart.products.map((product) => (
+                            <CartItems>
                             <Item flex={2}>
                                <Item>
-                                    <ProductImage src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoNS83B_1ORePE6SzH2BHGKZvgB6zIBIX0KNcdtXF0&s"} />
-                                    <Item>Apple</Item>
+                                    <ProductImage src={`data:image/png;base64, ${product.images[0]}`} />
+                                    <Item>{product.title}</Item>
                                </Item>
                             </Item>
                             <Item flex={1}>
                                 <QuantityDiv>
                                     <ButtonQ onClick={() => handleQuantity("dec", 10)}> - </ButtonQ>
-                                    {quantity}
+                                    {product.quantity}
                                     <ButtonQ onClick={() => handleQuantity("inc", 10)} > + </ButtonQ>
                                 </QuantityDiv>
                             </Item>
-                            <Item flex={1}> RS 1200 </Item>
-                            <Item flex={1}> RS 1200 </Item>
-                            <Item flex={0.5}> <Button> <DeleteIcon color={"error"} /> </Button> </Item>
+                            <Item flex={1}> {product.price} </Item>
+                            <Item flex={1}> {product.quantity * product.price} </Item>
+                            <Item flex={0.3}> <Button> <DeleteIcon color={"error"} /> </Button> </Item>
                         </CartItems>
+                        ))}
 
                     </Cart>
                 </CartWrapper>
@@ -183,19 +186,19 @@ const CartPage = () => {
                         <Title> Order Summary</Title>
                         <Item>
                             <TotalText> Sub Total </TotalText>
-                            <Price > NPR 1200 </Price>
+                            <Price > {cart.total} </Price>
                         </Item>
 
                         <Item>
                             <TotalText> Delivery </TotalText>
-                            <Price > NPR 120 </Price>
+                            <Price > 100 </Price>
                         </Item>
                     </Cart>
 
                     <Cart>
                         <Item>
                             <Total> Total </Total>
-                            <Total> NPR 1200 </Total>
+                            <Total> NPR {cart.total + 100 }  </Total>
                         </Item>
                         <Button variant="contained"> Checkout </Button>
                     </Cart>

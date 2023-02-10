@@ -98,11 +98,11 @@ const Mbtn = styled.div`
 
 const Navbar = () => {
 
+    const quantity = useSelector(state => state.cart.quantity)
     const navigate = useNavigate();
     const [search, setSearch] = useState("");
-    const name = useSelector(state => state.user.name)
 
-
+    
   return (
     <Container>
         <Wrapper >
@@ -135,14 +135,11 @@ const Navbar = () => {
                 <Mbtn>
                     <Span>NP</Span>
                 </Mbtn>
-                <Mbtn>
-                    <Span>{name}</Span> 
-                </Mbtn>
                 <Mbtn onClick={()=>navigate("/profile")} >
                     <AccountCircleIcon /> 
                 </Mbtn>
                 <Mbtn onClick={() => navigate("/cart/me")}>
-                    <Badge badgeContent={4}  > 
+                    <Badge badgeContent={quantity}  > 
                             <ShoppingCartOutlined />
                     </Badge>
                 </Mbtn>
