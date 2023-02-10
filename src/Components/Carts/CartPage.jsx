@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useState } from "react";
 import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 const Container = styled.div`
     margin: 10px 30px;
@@ -146,6 +148,7 @@ const CartPage = () => {
                             <ItemTitle flex={1}> Quantity  </ItemTitle>
                             <ItemTitle flex={1}> Price  </ItemTitle>
                             <ItemTitle flex={1}> Sum  </ItemTitle>
+                            <ItemTitle flex={0.5}> Action </ItemTitle>
                         </CartHeading>
 
                         <CartItems>
@@ -167,52 +170,9 @@ const CartPage = () => {
                             </Item>
                             <Item flex={1}> RS 1200 </Item>
                             <Item flex={1}> RS 1200 </Item>
+                            <Item flex={0.5}> <Button> <DeleteIcon color={"error"} /> </Button> </Item>
                         </CartItems>
 
-
-
-                        <CartItems>
-                            <Item flex={1}>
-                                <Item > 123123123123213 </Item>
-                            </Item>
-                            <Item flex={2}>
-                               <Item>
-                                    <ProductImage src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoNS83B_1ORePE6SzH2BHGKZvgB6zIBIX0KNcdtXF0&s"} />
-                                    <Item>Apple</Item>
-                               </Item>
-                            </Item>
-                            <Item flex={1}>
-                                <QuantityDiv>
-                                    <ButtonQ onClick={() => handleQuantity("dec", 10)}> - </ButtonQ>
-                                    {quantity}
-                                    <ButtonQ onClick={() => handleQuantity("inc", 10)} > + </ButtonQ>
-                                </QuantityDiv>
-                            </Item>
-                            <Item flex={1}> RS 1200 </Item>
-                            <Item flex={1}> RS 1200 </Item>
-                        </CartItems>
-
-                        <CartItems>
-                            <Item flex={1}>
-                                <Item > 123123123123213 </Item>
-                            </Item>
-                            <Item flex={2}>
-                               <Item>
-                                    <ProductImage src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoNS83B_1ORePE6SzH2BHGKZvgB6zIBIX0KNcdtXF0&s"} />
-                                    <Item>Apple</Item>
-                               </Item>
-                            </Item>
-                            <Item flex={1}>
-                                <QuantityDiv>
-                                    <ButtonQ onClick={() => handleQuantity("dec", 10)}> - </ButtonQ>
-                                    {quantity}
-                                    <ButtonQ onClick={() => handleQuantity("inc", 10)} > + </ButtonQ>
-                                </QuantityDiv>
-                            </Item>
-                            <Item flex={1}> RS 1200 </Item>
-                            <Item flex={1}> RS 1200 </Item>
-                        </CartItems>
-                        
                     </Cart>
                 </CartWrapper>
 
