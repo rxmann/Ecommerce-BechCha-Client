@@ -5,6 +5,8 @@ import { useRef, useState  } from "react";
 import UploadIcon from '@mui/icons-material/Upload';
 import ClearIcon from '@mui/icons-material/Clear';
 
+import {publicRequest} from "../../requestMethods/requestMethods"
+
 
 const Form = styled.form`
     padding: 20px;
@@ -107,10 +109,6 @@ const ProductForm = ({FormType}) => {
         images: [],
     });
 
-    const [selection, setSelection] = useState("");
-    const [content, setContent] = useState("");
-
-    const editor = useRef();
     const config = {
         buttons: ["bold", "italic", "underline", "link", "unlink", "source"],
         readonly: false,
@@ -135,12 +133,30 @@ const ProductForm = ({FormType}) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setValues({...values, "description": content})
-        console.log(values);
+
+        const formData = new FormData();
+        formData.append("title", values.title);
+        formData.append("category", "63b945c7eee85ec57531dd36");
+        formData.append("price", values.price);
+        formData.append("quantity", values.quantity);
+        formData.append("description", values.description);
+        values.images.forEach((image) => {
+            formData.append(`prodImage`, image);
+        });
+
+        try {
+            const response = await publicRequest.post("/products/", formData)
+            console.log(response)
+        }
+        catch (err) {
+            console.log(err)
+        }
+                            
     }
 
+    console.log(values)
   return (
     <Form onSubmit={handleSubmit}>
     <FormWrapper>
@@ -190,9 +206,8 @@ const ProductForm = ({FormType}) => {
                 <Label> Description </Label>
                 <DescWrap>
                     <JoditEditor
-                        ref={editor}
                         config={config}
-                        value={content}
+                        value={values["description"]}
                         onBlur={con => setValues({...values, "description": con})}
                     />
                 </DescWrap>
