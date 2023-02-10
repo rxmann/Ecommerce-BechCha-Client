@@ -20,9 +20,11 @@ import UserDetails from "./AdminComponents/User/UserDetails"
 import UserRegister from "./AdminComponents/User/UserRegister"
 import ProductDetails from "./AdminComponents/Product/ProductDetails"
 import ProductAdd from "./AdminComponents/Product/ProductAdd"
+import CartPage from "./Components/Carts/CartPage"
 
 
 const Wrapper = styled.div`
+  background-color: #f5f7f8;
 `
 const Contents = styled.div`
   display: flex;
@@ -93,6 +95,10 @@ const App = () => {
         {
           path: "/profile",
           element: <ProfilePage />
+        },
+        {
+          path: "/cart/me",
+          element: <CartPage />
         },
       ],
     },

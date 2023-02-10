@@ -10,10 +10,10 @@ import { Link } from 'react-router-dom';
 
 const Container = styled.div`
     display: flex;
-    overflow: hidden;
     max-height: 200px;
-    background-color: #f5f7f8;
     margin-top: 50px;
+    background-color: #ffffff;
+    z-index: 5;
 `
 
 const LeftDiv = styled.div`

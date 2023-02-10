@@ -151,7 +151,7 @@ const SingleProductPage = () => {
   }, [id])
   
   
-  const handleQuantity = (option, qunatity, maxQuantity) => {
+  const handleQuantity = (option, maxQuantity) => {
     if (option === "dec") {
       if (quantity > 1) setQuantity(quantity - 1);
     }
@@ -191,9 +191,9 @@ const SingleProductPage = () => {
          <Description > {product.description}</Description>
          <p style={{ color: "red" }}> Stock: {product.quantity} </p>
          <QuantityDiv>
-           <Button onClick={()=>handleQuantity("dec", quantity, product.quantity)}> - </Button>
+           <Button onClick={()=>handleQuantity("dec",  product.quantity)}> - </Button>
            {quantity}
-           <Button onClick={()=>handleQuantity("inc", quantity, product.quantity)} > + </Button>
+           <Button onClick={()=>handleQuantity("inc", product.quantity)} > + </Button>
          </QuantityDiv>
 
          <AddToCart>

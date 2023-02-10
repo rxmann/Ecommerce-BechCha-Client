@@ -139,7 +139,12 @@ const Navbar = () => {
                     <Mbtn onClick={()=>navigate("/profile")} >
                         <AccountCircleIcon />
                     </Mbtn>
-                    <Mbtn onClick={() => setCartOpen(!cartOpen)}>
+                    {/* <Mbtn onClick={() => setCartOpen(!cartOpen)}>
+                        <Badge badgeContent={4}  > 
+                                <ShoppingCartOutlined />
+                        </Badge>
+                    </Mbtn> */}
+                      <Mbtn onClick={() => navigate("/cart/me")}>
                         <Badge badgeContent={4}  > 
                                 <ShoppingCartOutlined />
                         </Badge>
