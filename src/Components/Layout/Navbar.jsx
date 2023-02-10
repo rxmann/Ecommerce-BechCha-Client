@@ -8,7 +8,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 import { Link, useNavigate } from 'react-router-dom';
-import CartBox from '../Carts/CartBox';
+import { useSelector } from 'react-redux';
 
 const Container = styled.div`
     position: sticky;
@@ -89,10 +89,9 @@ const Span = styled.span`
 `
 
 const Mbtn = styled.div`
-    width: 30px;
-    margin-left: 30px;
     cursor: pointer;
     color: #0171b6;
+    margin-left: 30px;
 `
 
 
@@ -100,10 +99,8 @@ const Mbtn = styled.div`
 const Navbar = () => {
 
     const navigate = useNavigate();
-
     const [search, setSearch] = useState("");
-
-    const [cartOpen, setCartOpen] = useState(false);
+    const name = useSelector(state => state.user.name)
 
 
   return (
@@ -135,26 +132,25 @@ const Navbar = () => {
 
             
             <Right> 
+                <Mbtn>
                     <Span>NP</Span>
-                    <Mbtn onClick={()=>navigate("/profile")} >
-                        <AccountCircleIcon />
-                    </Mbtn>
-                    {/* <Mbtn onClick={() => setCartOpen(!cartOpen)}>
-                        <Badge badgeContent={4}  > 
-                                <ShoppingCartOutlined />
-                        </Badge>
-                    </Mbtn> */}
-                      <Mbtn onClick={() => navigate("/cart/me")}>
-                        <Badge badgeContent={4}  > 
-                                <ShoppingCartOutlined />
-                        </Badge>
-                    </Mbtn>
-                    <Mbtn>
-                        <CompareIcon  />
-                    </Mbtn>
+                </Mbtn>
+                <Mbtn>
+                    <Span>{name}</Span> 
+                </Mbtn>
+                <Mbtn onClick={()=>navigate("/profile")} >
+                    <AccountCircleIcon /> 
+                </Mbtn>
+                <Mbtn onClick={() => navigate("/cart/me")}>
+                    <Badge badgeContent={4}  > 
+                            <ShoppingCartOutlined />
+                    </Badge>
+                </Mbtn>
+                <Mbtn>
+                    <CompareIcon  />
+                </Mbtn>
             </Right>
         </Wrapper>
-        {cartOpen  && <CartBox />}
     </Container>
   )
 }

@@ -112,6 +112,9 @@ const LoginPage = () => {
                 email,
                 password
             })
+            
+            
+
             toast.success(`Welcome to BechCha ${response.data.username.toUpperCase()}`, {
                 position: "top-center",
                 theme: "colored"
