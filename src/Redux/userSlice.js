@@ -10,7 +10,6 @@ export const userSlice = createSlice({
     },
     reducers: {
         reqStart: (state) => {
-            state.errorMessage = "";
             state.isFetching = true;
         },
         loginSuccess: (state, action) => {
@@ -18,9 +17,9 @@ export const userSlice = createSlice({
             state.currentUser = action.payload;
         },
         reqFailure: (state, action) => {
-            state.errorMessage = action.payload;
             state.isFetching = false;
             state.error = true;
+            state.errorMessage = action.payload;
         },
         registerSuccess: (state, action) => {
             state.isFetching = false;

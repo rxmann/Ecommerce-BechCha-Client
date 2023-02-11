@@ -89,7 +89,7 @@ const FormCtrl = styled(FormControl)`
 const RegisterPage = () => {
 
     const dispatch = useDispatch();
-    const { isFetching, error, errorMessage } = useSelector(state => state.user);
+    const { currentUser: userState, isFetching, error, errorMessage } = useSelector(state => state.user);
 
     const [formData, setFormData] = useState({
         username: "",
@@ -120,22 +120,22 @@ const RegisterPage = () => {
     }
 
     useEffect(() => {
-        if (!error && !isFetching && errorMessage !== "") {
+        if (error && !isFetching && errorMessage.length > 0) {
+            toast.error(`${errorMessage}`, {
+                position: "top-center",
+                theme: "colored"
+            })
+        }
+        else  if (!error && !isFetching && errorMessage === "" && userState !== null) {
             toast.success("Registration successful!", {
                 position: "top-center",
                 theme: "colored"
             })
             navigate("/login");
         }
-        else if (error && !isFetching && errorMessage.length > 0) {
-            toast.error(`${errorMessage}`, {
-                position: "top-center",
-                theme: "colored"
-            })
-            navigate("/register");
-        }
-    }, [error, isFetching])
+    }, [isFetching, userState])
 
+    
     return (
         <Container>
             <Card>

@@ -89,8 +89,6 @@ const Fade = styled.p`
 `
 
 const VerifyOTP = () => {
-
-    const userId = Cookies.get('currentUserId');
     const currentEmail = Cookies.get('currentUserEmail');
 
     const [otp, setOTP] = useState("")
@@ -103,11 +101,11 @@ const VerifyOTP = () => {
 
         try {
 
-            const response = await publicRequest.post("/users/verifyOTP", { userId, otp: otp.toString() })
+            const response = await publicRequest.post("/users/verifyOTP", { email, otp: otp.toString() })
 
             if (response.data.status === "VERIFIED") {
 
-                toast.success("User registration completed!", {
+                toast.success("User verification completed!", {
                     position: "top-center",
                     theme: "colored",
                 })
