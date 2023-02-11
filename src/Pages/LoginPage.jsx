@@ -15,6 +15,9 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import MailIcon from '@mui/icons-material/Mail';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingButton from "@mui/lab/LoadingButton";
+import { useSelector } from "react-redux";
+import Cookies from "js-cookie";
 
 
 
@@ -91,6 +94,8 @@ const LinkItem = styled.a`
 
 const LoginPage = () => {
 
+    const { isFetching, error } = useSelector(state => state.user);
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate();
@@ -105,7 +110,6 @@ const LoginPage = () => {
                 email,
                 password
             })
-            
 
             toast.success(`Welcome to BechCha ${response.data.username.toUpperCase()}`, {
                 position: "top-center",
@@ -177,11 +181,22 @@ const LoginPage = () => {
                         </FormControl>
 
                         <LinkItem> forgot password? </LinkItem>
-                        <Button type="submit" size="large" variant="contained"> Login </Button>
+                        
+
+                        <LoadingButton
+                                loading={isFetching}
+                                type="submit"
+                                size="large"
+                                variant="contained"
+                            >
+                                Login
+                            </LoadingButton> 
+
+
                         <LinkItem href={`/verify-registration`} > Verify account </LinkItem>
 
                         <Span> Don't have an account yet? </Span>
-
+                            
                         <Btn
                             onClick={() => navigate("/register")}>
                             Register

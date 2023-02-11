@@ -6,39 +6,34 @@ import { publicRequest } from "../requestMethods/requestMethods"
 
 
 const Products = styled.div`
-  padding: 30px 50px;
   display: flex;
   background-color: #f5f7f8;
-  gap: 50px;
 `
 
 const Left = styled.div`
   flex: 1;
-  padding: 30px 10px;
   position: sticky;
-  height: 100%;
-  width: 100%;
-  top: 100px;
+  top: 70px;
+  max-width: 250px;
+  padding: 20px 50px;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  gap: 40px;
 `
 
-
-
 const FilterItem = styled.div`
-  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `
 
 const FilterHeading = styled.h2`
   font-weight: 400;
-  margin-bottom: 20px;
 `
 
 const InputItem = styled.div`
-  margin-bottom: 10px;
+  
 `
 
 const Input = styled.input`
@@ -48,14 +43,15 @@ const Label = styled.label`
   margin-left: 10px;
 `
 const Right = styled.div`
-  flex: 4;
+  flex: 5;
   display: flex;
   flex-direction: column;
+  padding: 0px 50px;
 `
 
 const ImageContainer = styled.div`
+  height: 30vh;
   width: 100%;
-  height: 280px;
  background-color: #aaaaaa;
   margin-bottom: 50px;
   box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
@@ -64,7 +60,7 @@ const ImageContainer = styled.div`
 const Image = styled.img`
   width: 100%;
   height: 100%;
-   overflow: hidden;
+  overflow: hidden;
   object-fit: cover;
 `
 

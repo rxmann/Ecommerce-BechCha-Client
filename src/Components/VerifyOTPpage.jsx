@@ -10,8 +10,7 @@ import {
 } from "@mui/material";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import { useSelector } from "react-redux"
+import Cookies from 'js-cookie';
 
 
 
@@ -91,10 +90,12 @@ const Fade = styled.p`
 
 const VerifyOTP = () => {
 
-    const userId = useSelector(state => state.user.currentUser?._id)
-    console.log(userId);
+    const userId = Cookies.get('currentUserId');
+    const currentEmail = Cookies.get('currentUserEmail');
 
     const [otp, setOTP] = useState("")
+    const [email, setEmail] = useState(currentEmail);
+
     const navigate = useNavigate();
 
     const handleVerifyOTP = async (e) => {
@@ -140,6 +141,18 @@ const VerifyOTP = () => {
 
                     <Fade > Enter the 4 digit OTP sent to your email address </Fade>
                     <Form onSubmit={handleVerifyOTP}>
+                        
+                        <FormControl>
+                            <InputLabel> Email </InputLabel>
+                            <OutlinedInput
+                                value={email}
+                                onChange={(e) => { setEmail(e.target.value) }}
+                                type="text"
+                                label="Email"
+                                required={true}
+                            />
+                        </FormControl>
+
                         <FormControl>
                             <InputLabel> OTP </InputLabel>
                             <OutlinedInput

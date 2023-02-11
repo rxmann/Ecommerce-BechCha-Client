@@ -1,12 +1,10 @@
 import styled from "styled-components"
-import Button from '@mui/material/Button';
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { publicRequest } from "../requestMethods/requestMethods";
 import PersonIcon from '@mui/icons-material/Person';
 import MailIcon from '@mui/icons-material/Mail';
 import LockIcon from '@mui/icons-material/Lock';
-
+import LoadingButton from '@mui/lab/LoadingButton';
 import {
     FormControl,
     InputLabel,
@@ -14,11 +12,11 @@ import {
     OutlinedInput,
     InputAdornment,
 } from "@mui/material";
-
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { toast } from "react-toastify";
-
-
+import { useDispatch, useSelector } from "react-redux"
+import { register } from "../Redux/apiCalls";
+import { useEffect } from "react";
 
 
 const Container = styled.div`
@@ -89,6 +87,10 @@ const FormCtrl = styled(FormControl)`
 
 
 const RegisterPage = () => {
+
+    const dispatch = useDispatch();
+    const { isFetching, error, errorMessage } = useSelector(state => state.user);
+
     const [formData, setFormData] = useState({
         username: "",
         email: "",
@@ -97,7 +99,6 @@ const RegisterPage = () => {
     })
 
     const navigate = useNavigate();
-    // for password box (visibility, toogle, functions)
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -106,34 +107,34 @@ const RegisterPage = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
-
-
-
     const handleSubmitRegister = async (e) => {
         e.preventDefault();
-        try {
-            const response = await publicRequest.post("/users/register", {
-                username: formData.username,
-                email: formData.email,
-                password: formData.password
-            })
-            
-            toast.success("Please verify through Email for complete registration!", {
+        const user = {
+            username: formData.username,
+            email: formData.email,
+            password: formData.password,
+            dob: formData.dob
+        }
+
+        await register(dispatch, user);
+    }
+
+    useEffect(() => {
+        if (!error && !isFetching && errorMessage !== "") {
+            toast.success("Registration successful!", {
                 position: "top-center",
                 theme: "colored"
             })
             navigate("/login");
         }
-        catch (err) {
-            toast.error(err?.response?.data, {
-                position: "top-right",
+        else if (error && !isFetching && errorMessage.length > 0) {
+            toast.error(`${errorMessage}`, {
+                position: "top-center",
                 theme: "colored"
             })
+            navigate("/register");
         }
-
-    }
-
-    console.log(formData);
+    }, [error, isFetching])
 
     return (
         <Container>
@@ -210,26 +211,28 @@ const RegisterPage = () => {
                             />
                         </FormCtrl>
                         <FormCtrl>
-                        <InputLabel> Date of Birth </InputLabel>
-                                <OutlinedInput
-                                    name="dob"
-                                    onChange={handleChange}
-                                    type="date"
-                                    label="DATE OF BIRTH"
-                                    startAdornment={
-                                        <InputAdornment position="start">
-                                          <LockIcon />
-                                        </InputAdornment>
-                                      }
-                                />
+                            <InputLabel> Date of Birth </InputLabel>
+                            <OutlinedInput
+                                name="dob"
+                                onChange={handleChange}
+                                type="date"
+                                label="DATE OF BIRTH"
+                                startAdornment={
+                                    <InputAdornment position="start">
+                                        <LockIcon />
+                                    </InputAdornment>
+                                }
+                            />
                         </FormCtrl>
-
-                        <Button
-                            type="submit"
-                            size="large"
-                            variant="contained">
-                            Register
-                        </Button>
+                            
+                            <LoadingButton
+                                loading={isFetching}
+                                type="submit"
+                                size="large"
+                                variant="contained"
+                            >
+                                Register
+                            </LoadingButton> 
 
 
                         <Span> Already have an account? </Span>
