@@ -12,7 +12,7 @@ import {
     InputLabel,
     IconButton,
     OutlinedInput,
-    InputAdornment
+    InputAdornment,
 } from "@mui/material";
 
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -89,36 +89,40 @@ const FormCtrl = styled(FormControl)`
 
 
 const RegisterPage = () => {
-
-    const [username, setUsername] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [confirmPassword, setConfirmPassword] = useState("")
+    const [formData, setFormData] = useState({
+        username: "",
+        email: "",
+        password: "",
+        dob: "",
+    })
 
     const navigate = useNavigate();
-
-
-
-
     // for password box (visibility, toogle, functions)
     const [showPassword, setShowPassword] = useState(false);
-
     const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
+
+
 
 
     const handleSubmitRegister = async (e) => {
         e.preventDefault();
         try {
             const response = await publicRequest.post("/users/register", {
-                username,
-                email,
-                password
+                username: formData.username,
+                email: formData.email,
+                password: formData.password
             })
-            toast.success("Please verify through Email for complete registration!",{
+            
+            toast.success("Please verify through Email for complete registration!", {
                 position: "top-center",
                 theme: "colored"
-            } )
-            navigate("/login",  { state: { userId: response.data.user._id } } );
+            })
+            navigate("/login");
         }
         catch (err) {
             toast.error(err?.response?.data, {
@@ -126,8 +130,10 @@ const RegisterPage = () => {
                 theme: "colored"
             })
         }
- 
+
     }
+
+    console.log(formData);
 
     return (
         <Container>
@@ -136,16 +142,15 @@ const RegisterPage = () => {
                 <Link to="/">
                     <Logo src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true' />
                 </Link>
-
-
                 <Wrapper>
                     <H1> Register </H1>
-                    <Form  onSubmit={handleSubmitRegister} >
+                    <Form onSubmit={handleSubmitRegister} >
                         <FormCtrl>
                             <InputLabel> Username </InputLabel>
                             <OutlinedInput
-                                value={username}
-                                onChange={e => setUsername(e.target.value)}
+                                name="username"
+                                value={formData.username}
+                                onChange={handleChange}
                                 required
                                 label="Username"
                                 type="text"
@@ -162,8 +167,9 @@ const RegisterPage = () => {
                         <FormCtrl>
                             <InputLabel> Email </InputLabel>
                             <OutlinedInput
-                                value={email}
-                                onChange={(e) => { setEmail(e.target.value) }}
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
                                 required
                                 label="Email"
                                 type="email"
@@ -181,12 +187,13 @@ const RegisterPage = () => {
                         <FormCtrl>
                             <InputLabel> Password </InputLabel>
                             <OutlinedInput
-                                value={password}
-                                onChange={(e) => { setPassword(e.target.value) }}
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
                                 type={showPassword ? 'text' : 'password'}
                                 startAdornment={
                                     <InputAdornment position="start">
-                                         <IconButton  >
+                                        <IconButton  >
                                             <LockIcon />
                                         </IconButton>
                                     </InputAdornment>
@@ -202,37 +209,26 @@ const RegisterPage = () => {
                                 required={true}
                             />
                         </FormCtrl>
-                        {/* ////////////////// */}
                         <FormCtrl>
-                            <InputLabel>Confirm Password </InputLabel>
-                            <OutlinedInput
-                                value={confirmPassword}
-                                onChange={(e) => { setConfirmPassword(e.target.value) }}
-                                type={showPassword ? 'text' : 'password'}
-                                startAdornment={
-                                    <InputAdornment position="start">
-                                       <IconButton  >
-                                            <LockIcon />
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton onClick={handleClickShowPassword} >
-                                            {showPassword ? <Visibility /> : <VisibilityOff />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                                label="Confirm Password"
-                                required={true}
-                            />
+                        <InputLabel> Date of Birth </InputLabel>
+                                <OutlinedInput
+                                    name="dob"
+                                    onChange={handleChange}
+                                    type="date"
+                                    label="DATE OF BIRTH"
+                                    startAdornment={
+                                        <InputAdornment position="start">
+                                          <LockIcon />
+                                        </InputAdornment>
+                                      }
+                                />
                         </FormCtrl>
 
                         <Button
                             type="submit"
                             size="large"
                             variant="contained">
-                                    Register 
+                            Register
                         </Button>
 
 

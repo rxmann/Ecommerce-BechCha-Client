@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import Button from '@mui/material/Button';
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { publicRequest } from "../requestMethods/requestMethods";
 import {
@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import { useSelector } from "react-redux"
 
 
 
@@ -89,12 +91,11 @@ const Fade = styled.p`
 
 const VerifyOTP = () => {
 
-    const userId = useParams().id;
+    const userId = useSelector(state => state.user.currentUser?._id)
+    console.log(userId);
 
     const [otp, setOTP] = useState("")
     const navigate = useNavigate();
-
-
 
     const handleVerifyOTP = async (e) => {
         e.preventDefault();

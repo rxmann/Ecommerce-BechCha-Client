@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import LockIcon from '@mui/icons-material/Lock';
 import Button from '@mui/material/Button';
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { publicRequest } from "../requestMethods/requestMethods";
 import {
@@ -11,13 +11,10 @@ import {
     OutlinedInput,
     InputAdornment
 } from "@mui/material";
-
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import MailIcon from '@mui/icons-material/Mail';
-
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 
 
 
@@ -94,13 +91,9 @@ const LinkItem = styled.a`
 
 const LoginPage = () => {
 
-    const location = useLocation();
-    const userId = location.state?.userId;
-
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate();
-    // for password box (visibility, toogle, functions)
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -112,7 +105,6 @@ const LoginPage = () => {
                 email,
                 password
             })
-            
             
 
             toast.success(`Welcome to BechCha ${response.data.username.toUpperCase()}`, {
@@ -134,12 +126,9 @@ const LoginPage = () => {
     return (
         <Container>
             <Card>
-
                 <Link to="/">
                     <Logo src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true' />
                 </Link>
-
-
                 <Wrappper>
                     <H1> Login </H1>
                     <Form onSubmit={handleSubmitLogin}>
@@ -189,7 +178,7 @@ const LoginPage = () => {
 
                         <LinkItem> forgot password? </LinkItem>
                         <Button type="submit" size="large" variant="contained"> Login </Button>
-                        <LinkItem href={`/verify-registration/${userId}`} > Verify account </LinkItem>
+                        <LinkItem href={`/verify-registration`} > Verify account </LinkItem>
 
                         <Span> Don't have an account yet? </Span>
 
