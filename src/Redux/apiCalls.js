@@ -1,14 +1,13 @@
 import { publicRequest } from "../requestMethods/requestMethods";
-import { registerSuccess, reqFailure, reqStart } from "./userSlice";
+import { loginSuccess, registerSuccess, reqFailure, reqStart } from "./userSlice";
 import Cookies from "js-cookie";
 
 
-export const register = async (dispatch, userPayload) => {
+export const registerUser = async (dispatch, userPayload) => {
     dispatch(reqStart());
     try {
         const response = await publicRequest.post("/users/register", userPayload)
         const user = response.data.user;
-        Cookies.set(`currentUserId`, `${user._id}`, {expires: 60 * 60 })
         Cookies.set(`currentUserEmail`, `${user.email}`, {expires: 60 * 60 })
         dispatch(registerSuccess(user))
     }
@@ -18,12 +17,15 @@ export const register = async (dispatch, userPayload) => {
 }
 
 
-export const login = async (dispatch, user) => {
+export const loginUser = async (dispatch, user) => {
+    dispatch(reqStart);
     try {
         const response = await publicRequest.post("/users/login", user)
+        dispatch(loginSuccess(response.data));
+        console.log(response.data);
     }
     catch (err) {
-
+        dispatch(reqFailure);
     }
 
 }

@@ -15,7 +15,7 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux"
-import { register } from "../Redux/apiCalls";
+import { registerUser } from "../Redux/apiCalls";
 import { useEffect } from "react";
 
 
@@ -88,6 +88,7 @@ const FormCtrl = styled(FormControl)`
 
 const RegisterPage = () => {
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { currentUser: userState, isFetching, error, errorMessage } = useSelector(state => state.user);
 
@@ -96,9 +97,8 @@ const RegisterPage = () => {
         email: "",
         password: "",
         dob: "",
+        
     })
-
-    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -109,14 +109,7 @@ const RegisterPage = () => {
 
     const handleSubmitRegister = async (e) => {
         e.preventDefault();
-        const user = {
-            username: formData.username,
-            email: formData.email,
-            password: formData.password,
-            dob: formData.dob
-        }
-
-        await register(dispatch, user);
+        await registerUser(dispatch, formData);
     }
 
     useEffect(() => {
@@ -133,7 +126,14 @@ const RegisterPage = () => {
             })
             navigate("/login");
         }
-    }, [errorMessage, isFetching])
+    }, [handleSubmitRegister])
+
+    useEffect(() => {
+        const checkLogin = () => {
+            if (userState) navigate("/");
+        }
+        checkLogin();
+    }, [userState])
 
     
     return (

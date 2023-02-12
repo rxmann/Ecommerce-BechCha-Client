@@ -11,6 +11,7 @@ import {
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
+import { useSelector } from "react-redux";
 
 
 
@@ -89,12 +90,15 @@ const Fade = styled.p`
 `
 
 const VerifyOTP = () => {
+
+    const navigate = useNavigate();
+    const { currentUser } = useSelector( state => state.user );
+
+    
     const currentEmail = Cookies.get('currentUserEmail');
 
     const [otp, setOTP] = useState("")
     const [email, setEmail] = useState(currentEmail);
-
-    const navigate = useNavigate();
 
     const handleVerifyOTP = async (e) => {
         e.preventDefault();

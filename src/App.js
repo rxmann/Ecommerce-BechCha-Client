@@ -42,7 +42,6 @@ const Contents = styled.div`
 
 
 const App = () => {
-
   const Layout = () => {
     return (
       <Wrapper>
@@ -133,15 +132,15 @@ const App = () => {
     },
     {
       path: "/login",
-      element: <LoginPage />
+      element: (<LoginPage />)
     },
     {
       path: "/register",
-      element: <RegisterPage />
+      element: (<RegisterPage />) 
     },
     {
       path: "/verify-registration",
-      element: <VerifyOTP />
+      element: (<VerifyOTP />)
     }
 
   ])

@@ -1,8 +1,8 @@
 import styled from "styled-components"
 import LockIcon from '@mui/icons-material/Lock';
 import Button from '@mui/material/Button';
-import { Link,useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods/requestMethods";
 import {
     FormControl,
@@ -16,8 +16,9 @@ import MailIcon from '@mui/icons-material/Mail';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingButton from "@mui/lab/LoadingButton";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
+import { login, loginUser } from "../Redux/apiCalls";
 
 
 
@@ -93,39 +94,50 @@ const LinkItem = styled.a`
 
 
 const LoginPage = () => {
-
-    const { isFetching, error } = useSelector(state => state.user);
-
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { isFetching, error, currentUser } = useSelector(state => state.user);
+    const [formData, setFormData] = useState({
+        email: "",
+        password: "",
+    })
+
+
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
 
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
+
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
-        try {
-            const response = await publicRequest.post("/users/login", {
-                email,
-                password
-            })
+        await loginUser(dispatch, formData);
 
-            toast.success(`Welcome to BechCha ${response.data.username.toUpperCase()}`, {
-                position: "top-center",
-                theme: "colored"
-            })
-            navigate("/");
-        }
-        catch (err) {
-            console.log(err.response);
-            toast.error(err.response.data, {
-                position: "top-right",
-                theme: "colored"
-            })
-        }
-
+        // try {
+        //     toast.success(`Welcome to BechCha ${currentUser.username.toUpperCase()}`, {
+        //         position: "top-center",
+        //         theme: "colored"
+        //     })
+        //     navigate("/");
+        // }
+        // catch (err) {
+        //     console.log(err.response);
+        //     toast.error(err.response.data, {
+        //         position: "top-right",
+        //         theme: "colored"
+        //     })
+        // }
     }
+
+
+    useEffect(() => {
+        const checkLogin = () => {
+            if (currentUser) navigate("/");
+        }
+        checkLogin();
+    }, [currentUser])
 
     return (
         <Container>
@@ -139,8 +151,9 @@ const LoginPage = () => {
                         <FormControl>
                             <InputLabel> Email </InputLabel>
                             <OutlinedInput
-                                value={email}
-                                onChange={(e) => { setEmail(e.target.value) }}
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
                                 required
                                 label="Email"
                                 type="email"
@@ -158,8 +171,9 @@ const LoginPage = () => {
                         <FormControl>
                             <InputLabel> Password </InputLabel>
                             <OutlinedInput
-                                value={password}
-                                onChange={(e) => { setPassword(e.target.value) }}
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
                                 type={showPassword ? 'text' : 'password'}
                                 startAdornment={
                                     <InputAdornment position="start">
@@ -181,22 +195,22 @@ const LoginPage = () => {
                         </FormControl>
 
                         <LinkItem> forgot password? </LinkItem>
-                        
+
 
                         <LoadingButton
-                                loading={isFetching}
-                                type="submit"
-                                size="large"
-                                variant="contained"
-                            >
-                                Login
-                            </LoadingButton> 
+                            loading={isFetching}
+                            type="submit"
+                            size="large"
+                            variant="contained"
+                        >
+                            Login
+                        </LoadingButton>
 
 
                         <LinkItem href={`/verify-registration`} > Verify account </LinkItem>
 
                         <Span> Don't have an account yet? </Span>
-                            
+
                         <Btn
                             onClick={() => navigate("/register")}>
                             Register
