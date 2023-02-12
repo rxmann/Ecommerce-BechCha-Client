@@ -133,7 +133,7 @@ const RegisterPage = () => {
             })
             navigate("/login");
         }
-    }, [isFetching, userState])
+    }, [errorMessage, isFetching])
 
     
     return (
