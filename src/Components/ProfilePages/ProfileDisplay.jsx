@@ -16,7 +16,7 @@ const Card = styled.div`
 const UserProfile = styled.div`
     flex: 1;
     border-radius: 10px;
-    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,7 +30,7 @@ const Form = styled.form`
     gap: 30px;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 `
 
 const FormItem = styled.div`

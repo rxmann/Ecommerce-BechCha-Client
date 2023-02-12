@@ -7,7 +7,6 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Link } from 'react-router-dom';
 
-
 const Container = styled.div`
     display: flex;
     max-height: 200px;
@@ -82,6 +81,10 @@ const ListItems = styled.li`
     }
 `
 
+const Linkd = styled(Link)`
+    text-decoration: none;
+`
+
 const RightDiv = styled.div`
     flex: 1;
     padding: 20px 50px;
@@ -106,50 +109,50 @@ const Logo = styled.img`
 
 
 const Footer = () => {
-  return (
-    <Container>
-      
-      <LeftDiv>
-      <Link to="/"> 
-                <Logo src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true' />
-        </Link>
-          <Description> Shop with Bech-cha Online  </Description>
-          <MediaContainer>
-            <MediaIcon color="3b5999" > <FacebookIcon /> </MediaIcon>
-            <MediaIcon color="bc2a8d" > <InstagramIcon /> </MediaIcon>
-            <MediaIcon color="00acee" > <TwitterIcon /> </MediaIcon>
-            <MediaIcon color="3b5999" > <EmailIcon /> </MediaIcon>
-          </MediaContainer>
-      </LeftDiv>
+    return (
+        <Container>
 
-      <MidDiv>
-          <Title> Useful Links </Title>
-          <List>
-                <ListItems> Cart </ListItems>
-                <ListItems> My Account </ListItems>
-                <ListItems> Wishlist </ListItems>
-                <ListItems> Order Tracking </ListItems>
-                <ListItems> Terms </ListItems>
-            </List>
-      </MidDiv>
-    
-    
-      <RightDiv >
-        <Title>Contacts</Title>
-            <ContactItem>
-               <LocationOnIcon  style={{marginRight: "10px", color: 'crimson'}} /> Mandikhatar, Kathmandu
-            </ContactItem>
-            <ContactItem>
-                <PhoneIcon style={{marginRight: "10px", color: 'darkslateblue'}}/> +977 9848564099, 01 4438592
-            </ContactItem>
-            <ContactItem>
-                <EmailIcon style={{marginRight: "10px" , color: 'dodgerblue'}}/> bechchaonline@gmail.com
-            </ContactItem>
-            <Payment src = "" />
-      </RightDiv>
+            <LeftDiv>
+                <Link to="/">
+                    <Logo src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true' />
+                </Link>
+                <Description> Shop with Bech-cha Online  </Description>
+                <MediaContainer>
+                    <MediaIcon color="3b5999" > <FacebookIcon /> </MediaIcon>
+                    <MediaIcon color="bc2a8d" > <InstagramIcon /> </MediaIcon>
+                    <MediaIcon color="00acee" > <TwitterIcon /> </MediaIcon>
+                    <MediaIcon color="3b5999" > <EmailIcon /> </MediaIcon>
+                </MediaContainer>
+            </LeftDiv>
 
-    </Container>
-  )
+            <MidDiv>
+                <Title> Useful Links </Title>
+                <List>
+                    <ListItems > <Linkd to={"/profile/cart/me"}>  Cart  </Linkd> </ListItems>
+                    <ListItems > <Linkd to={"/profile"}> My Account </Linkd></ListItems>
+                    <ListItems ><Linkd to={"/profile/wishlist"}> Wishlist</Linkd>  </ListItems>
+                    <ListItems > <Linkd to={"/profile/orders/me"}> Order Tracking </Linkd></ListItems>
+                    <ListItems ><Linkd to={"/profile"}> Terms </Linkd></ListItems>
+                </List>
+            </MidDiv>
+
+
+            <RightDiv >
+                <Title>Contacts</Title>
+                <ContactItem>
+                    <LocationOnIcon style={{ marginRight: "10px", color: 'crimson' }} /> Mandikhatar, Kathmandu
+                </ContactItem>
+                <ContactItem>
+                    <PhoneIcon style={{ marginRight: "10px", color: 'darkslateblue' }} /> +977 9848564099, 01 4438592
+                </ContactItem>
+                <ContactItem>
+                    <EmailIcon style={{ marginRight: "10px", color: 'dodgerblue' }} /> bechchaonline@gmail.com
+                </ContactItem>
+                <Payment src="" />
+            </RightDiv>
+
+        </Container>
+    )
 }
 
 export default Footer

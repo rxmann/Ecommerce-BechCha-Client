@@ -3,12 +3,11 @@ import SendIcon from '@mui/icons-material/Send';
 
 const Container = styled.div`
   margin: 10px 50px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10px;
-  height: 20vh;
   background-color: #9cb2e0;
 `
 const Title = styled.h1`

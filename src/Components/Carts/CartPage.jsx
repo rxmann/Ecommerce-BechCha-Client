@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 
 const Container = styled.div`
-    margin: 10px 30px;
+    
 `
 const Wrapper = styled.div`
     display: flex;
@@ -97,6 +97,7 @@ const SummaryWrapper = styled.div`
     flex-direction: column;
     justify-content: space-between;
     gap: 70px;
+    background-color: white;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px; 
 `
 

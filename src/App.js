@@ -21,6 +21,8 @@ import UserRegister from "./AdminComponents/User/UserRegister"
 import ProductDetails from "./AdminComponents/Product/ProductDetails"
 import ProductAdd from "./AdminComponents/Product/ProductAdd"
 import CartPage from "./Components/Carts/CartPage"
+import ProfileDisplay from "./Components/ProfilePages/ProfileDisplay"
+import Orders from "./Components/ProfilePages/Orders"
 
 
 const Wrapper = styled.div`
@@ -33,9 +35,10 @@ const Contents = styled.div`
   background-color: #f5f7f8;
 `
 
-// COLORS
-// #0076CE
-// light
+const ProfileWrapper = styled.div`
+  padding: 10px 50px;
+`
+
 // box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 // dense
 // box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px; 
@@ -65,6 +68,18 @@ const App = () => {
   };
 
 
+  const ProfileLayout = () => {
+    return (
+      <Wrapper>
+        <ProfilePage />
+        <ProfileWrapper>
+          <Outlet />
+        </ProfileWrapper>
+      </Wrapper>
+    )
+  }
+
+
   const router = createBrowserRouter([
     {
       path: "*",
@@ -88,11 +103,21 @@ const App = () => {
         },
         {
           path: "/profile",
-          element: <ProfilePage />
-        },
-        {
-          path: "/cart/me",
-          element: <CartPage />
+          element: <ProfileLayout />,
+          children: [
+            {
+              path: "/profile/me",
+              element: <ProfileDisplay />
+            },
+            {
+              path: "/profile/cart/me",
+              element: <CartPage />
+            },
+            {
+              path: "/profile/orders/me",
+              element: <Orders />
+            },
+          ]
         },
       ],
     },
