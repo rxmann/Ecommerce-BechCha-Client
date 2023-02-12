@@ -165,7 +165,6 @@ const ProductPage = () => {
   
 
   const handleAddToCart = () => {
-    console.log("Click add to cart!");
     dispatch(addProduct({ ...product, quantity}));
   }
 

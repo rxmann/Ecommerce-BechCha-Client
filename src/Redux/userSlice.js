@@ -6,27 +6,43 @@ export const userSlice = createSlice({
         currentUser: null,
         isFetching: false,
         error: false,
-        errorMessage: "",
         isSignedIn: false,
+        accessToken: null,
     },
     reducers: {
-        reqStart: (state) => {
+        registerStart: (state) => {
             state.isFetching = true;
             state.error = false;
-            state.errorMessage = "";
         },
-        reqFailure: (state, action) => {
+        registerFailure: (state) => {
             state.isFetching = false;
             state.error = true;
-            state.errorMessage = action.payload;
         },
-        registerSuccess: (state) => {
+        registerSuccess: (state, action) => {
             state.isFetching = false;
+            state.currentUser = action.payload;
+        },
+        loginStart: (state) => {
+            state.isFetching = true;
+            state.error = false;
+        },
+        loginFailure: (state) => {
+            state.isFetching = false;
+            state.error = true;
         },
         loginSuccess: (state, action) => {
             state.isFetching = false;
             state.currentUser = action.payload;
             state.isSignedIn = true;
+            state.accessToken = action.payload.accessToken;
+        },
+        updateStart: (state) => {
+            state.isFetching = true;
+            state.error = false;
+        },
+        updateFailure: (state) => {
+            state.isFetching = false;
+            state.error = true;
         },
         updateSuccess: (state, action) => {
             state.isFetching = false;
@@ -35,5 +51,8 @@ export const userSlice = createSlice({
     }
 })
 
-export const { reqStart, reqFailure, registerSuccess, loginSuccess, updateSuccess } = userSlice.actions;
+export const { registerStart, registerFailure, registerSuccess, 
+                loginStart, loginFailure, loginSuccess,
+                updateStart, updateFailure, updateSuccess } = userSlice.actions;
+                
 export default userSlice.reducer;

@@ -74,12 +74,10 @@ const ProfileDisplay = () => {
     
     
     const [reset, setReset] = useState(true);
-    const [profileImage, setProfileImage] = useState(currentUser?.profile)
+    const [profileImage, setProfileImage] = useState("")
 
 
     const {username, address, contacts, profile} = currentUser;
-
-    console.log(username);
 
     const [formData, setFormData] = useState({
         username: username,
@@ -115,7 +113,7 @@ const ProfileDisplay = () => {
     const handleImage = (e) => {
         const image = e.target.files[0];
         setFormData({ ...formData, "profile": image })
-        setProfileImage(URL.createObjectURL(image))
+        setProfileImage(image)
     }
 
 
@@ -127,7 +125,7 @@ const ProfileDisplay = () => {
         user.append("address", formData.address);
         user.append("contacts", parseInt(formData.contacts));
         user.append(`profile`, formData.profile);
-
+        console.log(user.profile);
         await updateUser(dispatch, user, currentUser._id);
 
     }
@@ -155,6 +153,8 @@ const ProfileDisplay = () => {
         }
     }]
 
+    
+
     return (
         <Card>
 
@@ -162,7 +162,7 @@ const ProfileDisplay = () => {
 
             <Form onSubmit={handleUpdate}>
                 <FormItem>
-                    <Avatar alt="Rxman" src={profileImage} sx={{ width: 100, height: 100 }} />
+                    <Avatar  src={`data:image/png;base64, ${profile}`} sx={{ width: 100, height: 100 }} />
                     <UploadB>
                         <AddPhotoAlternateIcon />
                         Add Profile
@@ -173,6 +173,8 @@ const ProfileDisplay = () => {
                             onChange={handleImage}
                             accept='image/*' />
                     </UploadB>
+
+                    {profileImage && <Avatar  src={URL.createObjectURL(profileImage)} sx={{ width: 100, height: 100 }} /> }
                 </FormItem>
 
                 {InputData.map((input) => (
