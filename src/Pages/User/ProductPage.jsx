@@ -3,10 +3,10 @@ import styled from "styled-components"
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import BalanceIcon from '@mui/icons-material/Balance';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import DescriptionTable from "../Components/DescriptionTable/DescriptionTable";
+import DescriptionTable from "../../Components/User/DescriptionTable/DescriptionTable";
 import { useParams } from "react-router-dom";
-import { publicRequest } from "../requestMethods/requestMethods";
-import { addProduct } from "../Redux/cartSlice";
+import { publicRequest } from "../../requestMethods/requestMethods";
+import { addProduct } from "../../Redux/cartSlice";
 import { useDispatch } from "react-redux"
 
 const Container = styled.div`
@@ -134,7 +134,7 @@ const LoadingScreen = styled.div`
 `
 
 
-const SingleProductPage = () => {
+const ProductPage = () => {
   const id = useParams().id;
 
   const dispatch = useDispatch();
@@ -225,4 +225,4 @@ const SingleProductPage = () => {
   )
 }
 
-export default SingleProductPage
+export default ProductPage

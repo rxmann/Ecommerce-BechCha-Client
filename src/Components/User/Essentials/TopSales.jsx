@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import ProductCard from './Products/ProductCard'
-import {publicRequest} from "../requestMethods/requestMethods"
+import ProductCard from '../Products/ProductCard'
+import {publicRequest} from "../../../requestMethods/requestMethods"
 
 const Container = styled.div`
     padding: 10px 50px;

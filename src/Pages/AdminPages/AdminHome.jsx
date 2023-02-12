@@ -1,9 +1,9 @@
 import styled from "styled-components"
-import Chart from "../AdminComponents/Chart"
-import NewUserWidget from "../AdminComponents/Widgets/NewUserWidget"
-import OrderWidget from "../AdminComponents/Widgets/OrderWidget"
-import Widget from "../AdminComponents/Widgets/Widget"
-import { userData } from "../data"
+import Chart from "../../Components/AdminComponents/Chart"
+import NewUserWidget from "../../Components/AdminComponents/Widgets/NewUserWidget"
+import OrderWidget from "../../Components/AdminComponents/Widgets/OrderWidget"
+import Widget from "../../Components/AdminComponents/Widgets/Widget"
+import { userData } from "../../data"
 
 const Container = styled.div`
     flex: 5;

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
-import ProductList from "../Components/Products/ProductList"
-import { publicRequest } from "../requestMethods/requestMethods"
+import ProductList from "../../Components/User/Products/ProductList"
+import { publicRequest } from "../../requestMethods/requestMethods"
 
 
 const Products = styled.div`

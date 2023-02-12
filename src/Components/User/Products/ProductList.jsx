@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components"
-import { publicRequest } from "../../requestMethods/requestMethods";
+import { publicRequest } from "../../../requestMethods/requestMethods";
 import ProductCard from "./ProductCard";
 
 

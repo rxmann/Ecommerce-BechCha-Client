@@ -2,8 +2,8 @@ import { DeleteOutline } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
-import DataTable from '../AdminComponents/Tables/DataTable';
-import { productRows, productColumns } from '../data';
+import DataTable from '../../Components/AdminComponents/Tables/DataTable';
+import { productRows, productColumns } from "../../data";
 
 const Container = styled.div`
     flex: 5;

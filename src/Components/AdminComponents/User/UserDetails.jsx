@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import ProfileDisplay from "../../Components/ProfilePages/ProfileDisplay"
+import ProfileDisplay from "../../User/ProfilePages/ProfileDisplay"
 import OrderWidget from "../Widgets/OrderWidget"
 
 const Container = styled.div`

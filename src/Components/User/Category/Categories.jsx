@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import OneCategory from './CategoryBlock'
-import { publicRequest } from '../../requestMethods/requestMethods';
+import { publicRequest } from '../../../requestMethods/requestMethods';
 import { Navigation, Autoplay } from "swiper";
 
 // Import Swiper styles

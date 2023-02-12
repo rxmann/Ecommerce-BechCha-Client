@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import Chart from "../Chart"
-import { productData } from "../../data"
+import { productData } from "../../../data"
 import { Avatar} from "@mui/material";
 import ProductUpdate from "./ProductUpdate";
 

@@ -1,4 +1,4 @@
-import {StatusCell, Profile, StatusButton } from "./AdminComponents/Tables/DataTable"
+import {StatusCell, Profile, StatusButton } from "./Components/AdminComponents/Tables/DataTable"
 
 export const data = [
     {

@@ -5,7 +5,7 @@ import { useState  } from "react";
 import UploadIcon from '@mui/icons-material/Upload';
 import ClearIcon from '@mui/icons-material/Clear';
 
-import {publicRequest} from "../../requestMethods/requestMethods"
+import {publicRequest} from "../../../requestMethods/requestMethods"
 
 
 const Form = styled.form`

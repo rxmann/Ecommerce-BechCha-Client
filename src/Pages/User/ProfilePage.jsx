@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
 const Container = styled.div`
@@ -43,8 +43,10 @@ const ItemSelected = styled.div`
 
 const ProfilePage = () => {
 
+  const path = useLocation().pathname;
+  console.log(path);
   const navigate = useNavigate();
-  const [selected, setSelected] = useState("/profile/me");
+  const [selected, setSelected] = useState(path);
 
   const navItems = [
     {
@@ -75,7 +77,7 @@ const ProfilePage = () => {
       navigate(selected);
     }
     changeLayout();
-  }, [selected])
+  }, [selected, navigate])
 
 
   return (

@@ -1,9 +1,9 @@
-import Announcement from "../Components/Layout/Announcement"
-import FeaturedSlider from "../Components/FeaturedSlider"
-import Categories from "../Components/Category/Categories"
+import Announcement from "../../Components/User/Layout/Announcement"
+import FeaturedSlider from "../../Components/User/Essentials/FeaturedSlider"
+import Categories from "../../Components/User/Category/Categories"
 import styled from "styled-components"
-import Newsletter from "../Components/Layout/Newsletter"
-import TopSales from "../Components/TopSales"
+import Newsletter from "../../Components/User/Layout/Newsletter"
+import TopSales from "../../Components/User/Essentials/TopSales"
 
 
 

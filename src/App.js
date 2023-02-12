@@ -1,28 +1,42 @@
-import Homepage from "./Pages/Homepage"
-import LoginPage from "./Pages/LoginPage"
-import RegisterPage from "./Pages/RegisterPage"
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom"
-import Navbar from "./Components/Layout/Navbar"
-import Footer from "./Components/Layout/Footer"
-import ShowProductsPage from "./Pages/ShowProductsPage"
-import EmptyView from "./Components/EmptyView/EmptyView"
-import SingleProductPage from "./Pages/SingleProductPage"
+
+// User
+import Navbar from "./Components/User/Layout/Navbar"
+import Footer from "./Components/User/Layout/Footer"
+import Homepage from "./Pages/User/Homepage"
+import ShowProductsPage from "./Pages/User/ShowProductsPage"
+import ProductPage from "./Pages/User/ProductPage"
+import ProfilePage from "./Pages/User/ProfilePage"
+import EmptyView from "./Components/User/EmptyView/EmptyView"
+// Auth
+import LoginPage from "./Pages/Auth/LoginPage"
+import RegisterPage from "./Pages/Auth/RegisterPage"
+import VerifyOTP from "./Pages/Auth/VerifyOTPpage"
+// Admin
+import Topbar from "./Components/AdminComponents/CommonLayouts/Topbar"
+import Sidebar from "./Components/AdminComponents/CommonLayouts//Sidebar"
+import AdminHome from "./Pages/AdminPages/AdminHome"
+import UsersTab from "./Pages/AdminPages/UsersTab"
+import ProductsTab from "./Pages/AdminPages/ProductsTab"
+
+import UserDetails from "./Components/AdminComponents/User/UserDetails"
+import UserRegister from "./Components/AdminComponents/User/UserRegister"
+import ProductDetails from "./Components/AdminComponents/Product/ProductDetails"
+import ProductAdd from "./Components/AdminComponents/Product/ProductAdd"
+
 import styled from "styled-components"
 import { ToastContainer } from 'react-toastify';
-import ProfilePage from "./Pages/ProfilePage"
-import VerifyOTP from "./Pages/VerifyOTPpage"
-import Topbar from "./AdminComponents/CommonLayouts/Topbar"
-import Sidebar from "./AdminComponents/CommonLayouts/Sidebar"
-import AdminHome from "./AdminPages/AdminHome"
-import UsersTab from "./AdminPages/UsersTab"
-import ProductsTab from "./AdminPages/ProductsTab"
-import UserDetails from "./AdminComponents/User/UserDetails"
-import UserRegister from "./AdminComponents/User/UserRegister"
-import ProductDetails from "./AdminComponents/Product/ProductDetails"
-import ProductAdd from "./AdminComponents/Product/ProductAdd"
-import CartPage from "./Components/Carts/CartPage"
-import ProfileDisplay from "./Components/ProfilePages/ProfileDisplay"
-import Orders from "./Components/ProfilePages/Orders"
+
+
+
+
+
+
+
+
+import CartPage from "./Components/User/Carts/CartPage"
+import ProfileDisplay from "./Components/User/ProfilePages/ProfileDisplay"
+import Orders from "./Components/User/ProfilePages/Orders"
 
 
 const Wrapper = styled.div`
@@ -99,7 +113,7 @@ const App = () => {
         },
         {
           path: "/product/:id",
-          element: <SingleProductPage />,
+          element: <ProductPage />,
         },
         {
           path: "/profile",
