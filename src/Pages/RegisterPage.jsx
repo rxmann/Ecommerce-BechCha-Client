@@ -13,7 +13,6 @@ import {
     InputAdornment,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux"
 import { registerUser } from "../Redux/apiCalls";
 import { useEffect } from "react";
@@ -90,7 +89,7 @@ const RegisterPage = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { currentUser: userState, isFetching, error, errorMessage } = useSelector(state => state.user);
+    const { currentUser: userState, isFetching } = useSelector(state => state.user);
 
     const [formData, setFormData] = useState({
         username: "",
@@ -113,27 +112,11 @@ const RegisterPage = () => {
     }
 
     useEffect(() => {
-        if (error && !isFetching && errorMessage.length > 0) {
-            toast.error(`${errorMessage}`, {
-                position: "top-center",
-                theme: "colored"
-            })
-        }
-        else  if (!error && !isFetching && errorMessage === "" && userState !== null) {
-            toast.success("Registration successful!", {
-                position: "top-center",
-                theme: "colored"
-            })
-            navigate("/login");
-        }
-    }, [handleSubmitRegister])
-
-    useEffect(() => {
         const checkLogin = () => {
             if (userState) navigate("/");
         }
         checkLogin();
-    }, [userState])
+    }, [userState, navigate])
 
     
     return (

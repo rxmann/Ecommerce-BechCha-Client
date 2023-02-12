@@ -1,9 +1,7 @@
 import styled from "styled-components"
 import LockIcon from '@mui/icons-material/Lock';
-import Button from '@mui/material/Button';
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { publicRequest } from "../requestMethods/requestMethods";
 import {
     FormControl,
     InputLabel,
@@ -13,12 +11,12 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import MailIcon from '@mui/icons-material/Mail';
-import { toast } from 'react-toastify';
+
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useDispatch, useSelector } from "react-redux";
-import Cookies from "js-cookie";
-import { login, loginUser } from "../Redux/apiCalls";
+
+import { loginUser } from "../Redux/apiCalls";
 
 
 
@@ -96,7 +94,7 @@ const LinkItem = styled.a`
 const LoginPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { isFetching, error, currentUser } = useSelector(state => state.user);
+    const { isFetching, currentUser } = useSelector(state => state.user);
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -114,21 +112,6 @@ const LoginPage = () => {
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
         await loginUser(dispatch, formData);
-
-        // try {
-        //     toast.success(`Welcome to BechCha ${currentUser.username.toUpperCase()}`, {
-        //         position: "top-center",
-        //         theme: "colored"
-        //     })
-        //     navigate("/");
-        // }
-        // catch (err) {
-        //     console.log(err.response);
-        //     toast.error(err.response.data, {
-        //         position: "top-right",
-        //         theme: "colored"
-        //     })
-        // }
     }
 
 
@@ -137,7 +120,7 @@ const LoginPage = () => {
             if (currentUser) navigate("/");
         }
         checkLogin();
-    }, [currentUser])
+    }, [currentUser, navigate])
 
     return (
         <Container>

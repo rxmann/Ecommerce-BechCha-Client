@@ -10,7 +10,7 @@ import SingleProductPage from "./Pages/SingleProductPage"
 import styled from "styled-components"
 import { ToastContainer } from 'react-toastify';
 import ProfilePage from "./Pages/ProfilePage"
-import VerifyOTP from "./Components/VerifyOTPpage"
+import VerifyOTP from "./Pages/VerifyOTPpage"
 import Topbar from "./AdminComponents/CommonLayouts/Topbar"
 import Sidebar from "./AdminComponents/CommonLayouts/Sidebar"
 import AdminHome from "./AdminPages/AdminHome"
