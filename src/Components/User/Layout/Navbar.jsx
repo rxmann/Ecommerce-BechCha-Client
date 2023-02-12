@@ -109,7 +109,7 @@ const Navbar = () => {
     
     const handleProfile = () => {
         if (currentUser) {
-            navigate("/profile/me");
+            navigate("/profile");
         }
         else {
             navigate("/login");

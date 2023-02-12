@@ -100,6 +100,8 @@ const VerifyOTP = () => {
         try {
             const response = await publicRequest.post("/users/verifyOTP", { email, otp: otp.toString() })
 
+            console.log(response.data);
+
             if (response.data.status === "VERIFIED") {
 
                 toast.success("User verification completed!", {

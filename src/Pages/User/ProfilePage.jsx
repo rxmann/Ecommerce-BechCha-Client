@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import { useSelector } from "react-redux"
 
 const Container = styled.div`
   margin: 20px 50px;
@@ -43,15 +44,17 @@ const ItemSelected = styled.div`
 
 const ProfilePage = () => {
 
+  const { currentUser } = useSelector(state => state.user);
+
   const path = useLocation().pathname;
-  console.log(path);
   const navigate = useNavigate();
+
   const [selected, setSelected] = useState(path);
 
   const navItems = [
     {
       title: "Profile",
-      goto: "/profile/me"
+      goto: "/profile"
     },
     {
       title: "Cart",
@@ -74,17 +77,20 @@ const ProfilePage = () => {
 
   useEffect(() => {
     const changeLayout = () => {
-      navigate(selected);
+      if (currentUser === null) navigate("/");
+      else {
+        navigate(selected);
+      }
     }
     changeLayout();
-  }, [selected, navigate])
+  }, [selected, currentUser, navigate])
 
 
   return (
     <Container>
       <Wrapper>
           {navItems.map((item) => (
-            item.goto !== selected ?
+            item.goto !== path ?
             <Item key={item.title} onClick={() => handleNavigate(item)} > {item.title} </Item>
             : <ItemSelected key={item.title} onClick={ () => handleNavigate(item)} >  {item.title} </ItemSelected>
           ))}

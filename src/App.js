@@ -120,7 +120,7 @@ const App = () => {
           element: <ProfileLayout />,
           children: [
             {
-              path: "/profile/me",
+              path: "/profile",
               element: <ProfileDisplay />
             },
             {

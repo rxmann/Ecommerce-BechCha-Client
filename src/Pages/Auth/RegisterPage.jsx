@@ -89,7 +89,7 @@ const RegisterPage = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { currentUser: userState, isFetching } = useSelector(state => state.user);
+    const { currentUser: userState, isFetching, errorMessage } = useSelector(state => state.user);
 
     const [formData, setFormData] = useState({
         username: "",

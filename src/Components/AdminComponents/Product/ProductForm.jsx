@@ -147,8 +147,9 @@ const ProductForm = ({FormType}) => {
         });
 
         try {
-            const response = await publicRequest.post("/products/", formData)
-            console.log(response)
+            console.log(formData);
+            // const response = await publicRequest.post("/products/", formData)
+            // console.log(response)
         }
         catch (err) {
             console.log(err)
@@ -156,7 +157,6 @@ const ProductForm = ({FormType}) => {
                             
     }
 
-    console.log(values)
   return (
     <Form onSubmit={handleSubmit}>
     <FormWrapper>

@@ -157,7 +157,7 @@ const CartPage = () => {
                         </CartHeading>
 
                         {cart.products.map((product) => (
-                            <CartItems>
+                            <CartItems key={product._id}>
                             <Item flex={2}>
                                <Item>
                                     <ProductImage src={`data:image/png;base64, ${product.images[0]}`} />
