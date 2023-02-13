@@ -143,10 +143,10 @@ const App = () => {
           path: "/admin/dashboard",
           element: <AdminHome />
         },
-        {
-          path: "/admin/users/list",
-          element: <UsersTab />
-        },
+        // {
+        //   path: "/admin/users/list",
+        //   element: <UsersTab />
+        // },
         {
           path: "/admin/products/list",
           element: <ProductsTab />

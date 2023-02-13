@@ -80,12 +80,12 @@ const AddBtn = styled(AddBoxOutlinedIcon)`
 const ProductCard = ({ data }) => {
 
   const navigate = useNavigate();
-  const image = data.images[0];
+  const image = data.images[0].url;
 
   return (
     <Container >
       <ImageContainer>
-      <Image onClick={() => navigate(`/product/${data._id}`)} src={`data:image/png;base64, ${image}`} />
+      <Image onClick={() => navigate(`/product/${data._id}`)} src={image} />
       </ImageContainer>
 
       <Wrapper>

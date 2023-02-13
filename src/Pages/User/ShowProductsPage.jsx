@@ -75,49 +75,59 @@ const ProductsPage = () => {
   const [Category, setCategory] = useState();
   const [Children, setChildren] = useState();
 
-  const id = useParams().id;
+  const paramId = useParams().id;
+
+  const [selectedValues, setSelectedValues] = useState([paramId]);
 
 
   // get category display image
   useEffect(() => {
     const getCatImage = async () => {
       try {
-        const response = await publicRequest.get(`/categories/${id}`);
+        const response = await publicRequest.get(`/categories/${paramId}`);
         const { category, children } = response.data;
-        const catDisplay = category.display;
-        setCategoryImage(btoa(catDisplay));
+        const ids = children.map((child) => child._id)
+        setSelectedValues(ids);
+        setCategoryImage(category.image.url);
         setCategory(category);
         setChildren(children);
-        console.log(children);
       }
       catch (err) {
-        console.log(err);
+        console.log(err); 
       }
 
     }
 
     getCatImage();
 
-  }, [id])
+  }, [paramId])
 
+// id change event
+  const handleChange = (event) => {
+    const { id, checked } = event.target;
+  
+    if (checked) {
+      setSelectedValues([...selectedValues, id]);
+    } else {
+      setSelectedValues(selectedValues.filter((value) => value !== id));
+    }
+  };
 
   return (
     <Products>
       <Left>
-        {/* *********************************************************************** */}
 
+        {Children?.length >  0 && <FilterHeading> Category </FilterHeading>}
+        <FilterItem >
         {Children?.length > 0 &&
         Children.map((filter) => (
-          <FilterItem key={filter._id}>
-            <FilterHeading> Category </FilterHeading>
-            <InputItem>
-              <Input type={'checkbox'} id={1} value={1} />
-              <Label htmlFor="1" > {filter.name} </Label>
-            </InputItem>
-          </FilterItem>
+          <InputItem key={filter._id}>
+          <Input type="checkbox" id={filter._id} value={filter._id} onChange={handleChange} checked={selectedValues.includes(filter._id)} />
+          <Label htmlFor={filter._id}>{filter.name}</Label>
+        </InputItem>
         ))
-          
-        }
+      }
+      </FilterItem>
 
         {/* *********************************************************************** */}
         <FilterItem>
@@ -155,10 +165,10 @@ const ProductsPage = () => {
 
       <Right>
         <ImageContainer>
-          {Category && <Image src={`data:image/png;base64,${CategoryImage}`} />}
+          {Category && <Image src={CategoryImage} />}
         </ImageContainer>
 
-        <ProductList limitPrice={limitPrice} sort={sort} id={id} />
+        <ProductList limitPrice={limitPrice} sort={sort} subIds={selectedValues} />
 
       </Right>
 

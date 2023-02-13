@@ -176,15 +176,15 @@ const ProductPage = () => {
        <Left>
          <ImageContainer>
            {product.images?.map( image => (
-             <SmallImage key={image} 
-                        selected={image === imageSelected}
-                        onClick = {() => {setImageSelected(image)}}
-                        src={`data:image/png;base64, ${image}`} />
+             <SmallImage key={image.public_id} 
+                        selected={image.url === imageSelected}
+                        onClick = {() => {setImageSelected(image.url)}}
+                        src={image.url} />
            ))}
          </ImageContainer>
 
          <MainImageContainer>
-           <BigImage src={`data:image/png;base64, ${imageSelected || product.images[0]}`} />
+           <BigImage src={imageSelected || product.images[0].url} />
          </MainImageContainer>
        </Left>
 

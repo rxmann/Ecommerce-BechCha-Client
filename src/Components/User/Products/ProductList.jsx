@@ -17,7 +17,7 @@ const LoadingScreen = styled.div`
 `
 
 
-const ProductList = ({id, sort, limitPrice}) => {
+const ProductList = ({id, sort, limitPrice, subIds }) => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true)
 
@@ -25,7 +25,7 @@ const ProductList = ({id, sort, limitPrice}) => {
     const getProductsOfCategory = async () => {
       try {
         setLoading(true)
-        const response = await publicRequest.get(`/products?category=${id}&sort=${sort}&limitprice=${limitPrice}`)
+        const response = await publicRequest.get(`/products?sort=${sort}&limitprice=${limitPrice}&subIds=${subIds}`)
         setData(response.data.products)
         setLoading(false)
       }
@@ -35,13 +35,14 @@ const ProductList = ({id, sort, limitPrice}) => {
       }
     }
     getProductsOfCategory();
-  }, [id, sort, limitPrice])
+  }, [id, sort, limitPrice, subIds])
 
 
   return (
     <Container>
- {loading ? <LoadingScreen> Refreshing products </LoadingScreen> : 
-      data.map((product) => (
+    
+    {loading ? <LoadingScreen> Refreshing products </LoadingScreen> : 
+      data?.map((product) => (
         <ProductCard data={product} key={product._id} />
       ))
     
