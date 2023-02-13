@@ -4,6 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import DataTable from '../../Components/AdminComponents/Tables/DataTable';
 import { productRows, productColumns } from "../../data";
+import { useDispatch } from "react-redux"
+import { getAllProducts } from '../../Redux/apiCalls';
+import { useEffect } from 'react';
+
 
 const Container = styled.div`
     flex: 5;
@@ -51,14 +55,86 @@ const DelBtn = styled(Button)`
   justify-content: flex-end;
   height: 100%;
 `
+export const StatusCell = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`
+export const Profile = styled.img`
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 50%;
+`
 
+export const StatusButton = ({type}) => {
+  let color, background;
+  switch (type) {
+    case "pending":
+      color = "info"
+      background = "#ebf1fe"
+      break;
+    case "active":
+      color = "success"
+      background = "#e5faf2"
+      break;
+    case "passive":
+      color = "error"
+      background = "#fff0f1"
+      break;
+    default: 
+      color = "warning"
+      background = ""
+      break;
+  }
+  return <Button size={"small"} color={color} sx={{background: background}} type={type}> {type} </Button>  
+}
 
 
 const ProductsTab = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const actionColumn = [
+  useEffect(() => {
+    getAllProducts(dispatch)
+  }, [dispatch])
+
+  const actionColumn =  [
+    { field: "_id", headerName: "ID", width: 70 },
+    {
+      field: "user",
+      headerName: "User",
+      flex: 2,
+      renderCell: (params) => {
+        return (
+          <StatusCell >
+            <Profile  src={params.row.img} alt="avatar" />
+            {params.row.username}
+          </StatusCell>
+        )
+      },
+    },
+    {
+      field: "email",
+      headerName: "Email",
+      flex: 2,
+    },
+    {
+      field: "age",
+      headerName: "Age",
+      flex: 1,
+    },
+    {
+      field: "status",
+      headerName: "Status",
+      flex: 2,
+      renderCell: (params) => {
+        return (
+          <StatusButton type={params.row.status} />
+        );
+      },
+    },
     {
       field: "actions",
       headerName: "Actions",
@@ -84,7 +160,7 @@ const ProductsTab = () => {
           <AddButton  variant='contained'> Add Product </AddButton>
         </Link>
       </Wrapper>
-      <DataTable rows={productRows} columns={productColumns.concat(actionColumn)} />
+      <DataTable rows={productRows} columns={actionColumn} />
     </Container>
   )
 }

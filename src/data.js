@@ -111,44 +111,6 @@ export const data = [
     },
   ];
 
-
-
-  export const userColumns = [
-    { field: "id", headerName: "ID", width: 70 },
-    {
-      field: "user",
-      headerName: "User",
-      flex: 2,
-      renderCell: (params) => {
-        return (
-          <StatusCell >
-            <Profile  src={params.row.img} alt="avatar" />
-            {params.row.username}
-          </StatusCell>
-        )
-      },
-    },
-    {
-      field: "email",
-      headerName: "Email",
-      flex: 2,
-    },
-    {
-      field: "age",
-      headerName: "Age",
-      flex: 1,
-    },
-    {
-      field: "status",
-      headerName: "Status",
-      flex: 2,
-      renderCell: (params) => {
-        return (
-          <StatusButton type={params.row.status} />
-        );
-      },
-    },
-  ];
   
   //temporary data
   export const userRows = [

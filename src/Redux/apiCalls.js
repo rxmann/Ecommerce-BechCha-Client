@@ -1,6 +1,7 @@
 import { publicRequest, userRequest } from "../requestMethods/requestMethods";
 import { loginFailure, loginStart, loginSuccess, registerFailure, registerStart, registerSuccess, updateFailure, updateStart, updateSuccess } from "./userSlice";
 import Cookies from "js-cookie";
+import { getProductsFailure, getProductsStart, getProductsSucess } from "./productSlice";
 
 
 export const registerUser = async (dispatch, userPayload) => {
@@ -40,5 +41,19 @@ export const updateUser = async (dispatch, user, id) => {
     catch (err) {
         console.log(err);
         dispatch(updateFailure(err.response))
+    }
+}
+
+
+export const getAllProducts = async (dispatch) => {
+    dispatch(getProductsStart)
+    try {
+        const response = await publicRequest.get("/products");
+        console.log("Get all products data: ", response.data);
+        dispatch(getProductsSucess(response.data));
+    }
+    catch (err) {
+        console.log(err);
+        dispatch(getProductsFailure);
     }
 }
