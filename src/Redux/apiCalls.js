@@ -13,7 +13,8 @@ export const registerUser = async (dispatch, userPayload) => {
         dispatch(registerSuccess(user))
     }
     catch (err) {
-        dispatch(registerFailure(err.response.data));
+        console.log(err.response);
+        dispatch(registerFailure(err.reponse?.data));
     }
 }
 
@@ -35,6 +36,7 @@ export const updateUser = async (dispatch, user, id) => {
     dispatch(updateStart());
     try {
         const response = await userRequest.patch(`/users/${id}`, user);
+        console.log(response.data);
         dispatch(updateSuccess(response.data));
     }
     catch (err) {

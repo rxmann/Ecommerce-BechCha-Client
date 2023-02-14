@@ -20,6 +20,7 @@ export const userSlice = createSlice({
         },
         registerSuccess: (state, action) => {
             state.isFetching = false;
+            state.isSignedIn = false;
             state.currentUser = action.payload;
         },
         loginStart: (state) => {

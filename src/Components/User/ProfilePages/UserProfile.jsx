@@ -65,7 +65,7 @@ const UserProfile = () => {
   return (
     <Container>
         <Profile>
-        <Avatar src={currentUser.image} sx={{ width: 100, height: 100 }} />
+        <Avatar src={currentUser?.image} sx={{ width: 100, height: 100 }} />
                 <UsernameWrapper> @{currentUser.username} <VerifiedIcon color="primary" /> </UsernameWrapper>
                 <UserInfo>
                     <ItemTitle> Account Details </ItemTitle>

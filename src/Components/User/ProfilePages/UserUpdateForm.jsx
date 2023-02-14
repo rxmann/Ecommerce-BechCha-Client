@@ -6,6 +6,7 @@ import { Avatar, Button, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { current } from "@reduxjs/toolkit";
 
 const Form = styled.form`
     flex: 2;
@@ -91,6 +92,7 @@ const UserUpdateForm = () => {
             const imaged = e.target.files[0];
             setFormData({ ...formData, "image": imaged })
             setProfileImage(URL.createObjectURL(imaged))
+            console.log(profileImage);
         }
     
     
