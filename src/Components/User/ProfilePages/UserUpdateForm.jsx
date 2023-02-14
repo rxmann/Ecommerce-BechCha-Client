@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { current } from "@reduxjs/toolkit";
+import { useNavigate } from "react-router-dom";
 
 const Form = styled.form`
     flex: 2;
@@ -47,71 +48,77 @@ const UploadB = styled.label`
 
 
 const UserUpdateForm = () => {
-    const dispatch = useDispatch();
-    const { currentUser, isFetching } = useSelector(state => state.user)
 
+    const navigate = useNavigate(); 
+    const dispatch = useDispatch();
+    const { currentUser, isFetching, isSignedIn } = useSelector(state => state.user)
     const [reset, setReset] = useState(true);
     const [profileImage, setProfileImage] = useState("")
 
-
-    const {username, address, contacts } = currentUser;
+    // check user login status
+    useEffect(() => {
+        const checkLogin = () => {
+          if (!isSignedIn || currentUser === null) {
+            navigate("/login");
+          }
+        }
+        checkLogin();
+    }, [isSignedIn, navigate]);
 
     const [formData, setFormData] = useState(
         {
-            username: username,
-            address: address,
-            contacts: contacts,
+            username: currentUser?.username,
+            address: currentUser?.address,
+            contacts: currentUser?.contacts,
             image: null,
         }
     )
 
     /// resetting default values
-    useEffect   (() => {
+    useEffect(() => {
         const resetValues = () => {
             setFormData({
-                username: username,
-                address: address,
-                contacts: contacts,
+                username: currentUser?.username,
+                address: currentUser?.address,
+                contacts: currentUser?.contacts,
                 image: null,
             })
         }
         resetValues();
-        }, [reset])
+    }, [reset, navigate])
+
+    
+
+    // handling changes in input fields
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
+
+    // image upload change handle
+    const handleImage = (e) => {
+        const imaged = e.target.files[0];
+        setFormData({ ...formData, "image": imaged })
+        setProfileImage(URL.createObjectURL(imaged))
+        console.log(profileImage);
+    }
 
 
-
-        // handling changes in input fields
-        const handleChange = (e) => {
-            setFormData({ ...formData, [e.target.name]: e.target.value })
-        }
-        
-        // console.log(formData);
-    
-        // image upload change handle
-        const handleImage = (e) => {
-            const imaged = e.target.files[0];
-            setFormData({ ...formData, "image": imaged })
-            setProfileImage(URL.createObjectURL(imaged))
-            console.log(profileImage);
-        }
-    
-    
-        // submit updates user
-        const handleUpdate = async (e) => {
-            e.preventDefault();
-            const user = new FormData();
-            user.append("username", formData.username);
-            user.append("address", formData.address);
-            user.append("contacts", parseInt(formData.contacts));
-           if (profileImage) {
+    // submit updates user
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+        const user = new FormData();
+        user.append("username", formData.username);
+        user.append("address", formData.address);
+        user.append("contacts", parseInt(formData.contacts));
+        if (profileImage) {
             user.append(`image`, formData.image);
-           }
-
-            await updateUser(dispatch, user, currentUser._id);
-            setProfileImage("");
         }
 
-    
+        await updateUser(dispatch, user, currentUser._id);
+        setProfileImage("");
+    }
+
+
     const InputData = [{
         name: "username",
         type: "text",
@@ -137,51 +144,51 @@ const UserUpdateForm = () => {
 
 
 
-  return (
-    <Form onSubmit={handleUpdate}>
-                    <FormItem>
-                        <Avatar  src={currentUser.image} sx={{ width: 100, height: 100 }} />
-                        <UploadB>
-                            <AddPhotoAlternateIcon />
-                            Add Profile
-                            <input
-                                name="image"
-                                hidden
-                                type="file"
-                                onChange={handleImage}
-                                accept='image/*' />
-                        </UploadB>
+    return (
+        <Form onSubmit={handleUpdate}>
+            <FormItem>
+                <Avatar src={currentUser?.image} sx={{ width: 100, height: 100 }} />
+                <UploadB>
+                    <AddPhotoAlternateIcon />
+                    Add Profile
+                    <input
+                        name="image"
+                        hidden
+                        type="file"
+                        onChange={handleImage}
+                        accept='image/*' />
+                </UploadB>
 
-                        {profileImage && <Avatar  src={profileImage} sx={{ width: 100, height: 100 }} /> }
-                    </FormItem>
+                {profileImage && <Avatar src={profileImage} sx={{ width: 100, height: 100 }} />}
+            </FormItem>
 
-                    {InputData.map((input) => (
-                        
-                        <FormItem key={input.label}>
-                            <Label> {input.label} </Label>
-                            <TextInput
-                                name={input.name}
-                                required
-                                variant="standard"
-                                type={input.type}
-                                value={input.defaultValue}
-                                onChange={handleChange}
-                                InputProps={input.pattern ? input.pattern.inputProps : null}
-                                />
-                        </FormItem>
-                    ))}
-                    <Button color="error" onClick={() => setReset(!reset)} > Reset </Button>
+            {InputData.map((input) => (
 
-                    <LoadingButton
-                            loading={isFetching}
-                            type="submit"
-                            size="large"
-                            variant="contained"
-                        >
-                           Update
-                        </LoadingButton>
-                </Form>
-  )
+                <FormItem key={input.label}>
+                    <Label> {input.label} </Label>
+                    <TextInput
+                        name={input.name}
+                        required
+                        variant="standard"
+                        type={input.type}
+                        value={input.defaultValue}
+                        onChange={handleChange}
+                        InputProps={input.pattern ? input.pattern.inputProps : null}
+                    />
+                </FormItem>
+            ))}
+            <Button color="error" onClick={() => setReset(!reset)} > Reset </Button>
+
+            <LoadingButton
+                loading={isFetching}
+                type="submit"
+                size="large"
+                variant="contained"
+            >
+                Update
+            </LoadingButton>
+        </Form>
+    )
 }
 
 export default UserUpdateForm

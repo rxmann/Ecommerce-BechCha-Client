@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserUpdateForm from "./UserUpdateForm";
 import { LogoutUser } from "../../../Redux/apiCalls";
+import Cookies from "js-cookie";
 
 
 const Container =styled.div`
@@ -37,19 +38,21 @@ const ProfileDisplay = () => {
     const { isSignedIn, currentUser } = useSelector(state => state.user)
 
 
+    // check user login status
     useEffect(() => {
-        const redirect = () => {
-            if (!isSignedIn) {
-                navigate("/")
-            }
+        const checkLogin = () => {
+          if (!isSignedIn || !currentUser) {
+            navigate("/login");
+          }
         }
-        redirect();
-    }, [currentUser, isSignedIn, navigate])
+        checkLogin();
+      }, [isSignedIn, navigate]);
+
 
 
     const handleLogout = (e) => {
         e.preventDefault();
-        LogoutUser(dispatch);
+        LogoutUser(dispatch, currentUser._id);
     }
 
     return (

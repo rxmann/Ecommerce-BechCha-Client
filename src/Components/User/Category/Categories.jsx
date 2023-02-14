@@ -53,7 +53,7 @@ const Categories = () => {
     useEffect(() => {
         const getCategoriesAll = async () => {
             try {
-                const response = await publicRequest.get("/categories");
+                const response = await publicRequest.get("/categories?child=none");
                 const resData = response.data.CategoryList;
                 console.log(resData);
                 setCategoriesList(resData)

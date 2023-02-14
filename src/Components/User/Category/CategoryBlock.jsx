@@ -77,14 +77,14 @@ const Image = styled.img`
 `
 
 
-const OneCategory = ({ category }) => {
+const CategoryBlock = ({ category }) => {
 
   const navigate = useNavigate();
 
   return (
     <Container >
       <Wrapper >
-        <Image src={category.image.url} />
+        <Image src={category.image} />
         <Name> {category.name} </Name>
       </Wrapper>
       <Button onClick={() => navigate(`/products/${category._id}`)}> SHOP NOW </Button>
@@ -92,4 +92,4 @@ const OneCategory = ({ category }) => {
   )
 }
 
-export default OneCategory
+export default CategoryBlock

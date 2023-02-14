@@ -7,6 +7,8 @@ import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import { Avatar } from "@mui/material";
 import { useSelector } from 'react-redux';
 import moment from 'moment';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 const Container =styled.div`
@@ -57,33 +59,48 @@ const UsernameWrapper = styled.span`
 
 const UserProfile = () => {
 
-    const { currentUser } = useSelector(state => state.user)
+    const { currentUser, isSignedIn } = useSelector(state => state.user)
+    const navigate = useNavigate();
+    // check user login status
+    useEffect(() => {
+        const checkLogin = () => {
+          if (!isSignedIn) {
+            navigate("/login");
+          }
+        }
+        checkLogin();
+      }, [isSignedIn, navigate]);
 
-    const date = moment(currentUser.createdAt);
+
+    const date = moment(currentUser?.createdAt);
     const formattedDate = date.format('MMM D, YYYY');
+
+
+    
+
 
   return (
     <Container>
         <Profile>
         <Avatar src={currentUser?.image} sx={{ width: 100, height: 100 }} />
-                <UsernameWrapper> @{currentUser.username} <VerifiedIcon color="primary" /> </UsernameWrapper>
+                <UsernameWrapper> @{currentUser?.username} <VerifiedIcon color="primary" /> </UsernameWrapper>
                 <UserInfo>
                     <ItemTitle> Account Details </ItemTitle>
                     <Item> 
                         <EmailIcon /> 
-                        <Data> {currentUser.email} </Data> 
+                        <Data> {currentUser?.email} </Data> 
                     </Item> 
                     <Item> 
                         <LocationCityIcon /> 
-                        <Data> {currentUser.address} </Data> 
+                        <Data> {currentUser?.address} </Data> 
                     </Item> 
                     <Item> 
                         <SmartphoneIcon /> 
-                        <Data> {currentUser.contacts} </Data> 
+                        <Data> {currentUser?.contacts} </Data> 
                     </Item> 
                     <Item>
                         <PermContactCalendarIcon />
-                        <Data> {currentUser.dob} </Data>
+                        <Data> {currentUser?.dob} </Data>
                     </Item>
                     <ItemTitle> Joined {formattedDate} </ItemTitle>
                 </UserInfo>

@@ -25,7 +25,7 @@ export const userSlice = createSlice({
         },
         loginSuccess: (state, action) => {
             state.isFetching = false;
-            state.currentUser = action.payload;
+            state.currentUser = action.payload.user;
             state.isSignedIn = true;
             state.accessToken = action.payload.accessToken;
         },

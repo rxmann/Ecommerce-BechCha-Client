@@ -110,7 +110,7 @@ const Navbar = () => {
             navigate("/login");
           }
         else {
-            navigate("/profile");
+            navigate("/profile/me");
         }
     }
     return (

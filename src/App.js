@@ -38,6 +38,7 @@ import CartPage from "./Components/User/Carts/CartPage"
 import ProfileDisplay from "./Components/User/ProfilePages/ProfileDisplay"
 import Orders from "./Components/User/ProfilePages/Orders"
 import { useSelector } from "react-redux"
+import { useEffect } from "react"
 
 
 const Wrapper = styled.div`
@@ -87,9 +88,14 @@ const App = () => {
     const navigate = useNavigate();
     const { isSignedIn, currentUser } = useSelector(state => state.user)
 
-    if (!isSignedIn || !currentUser) {
-      navigate("/login");
-    }
+    useEffect(() => {
+      const checkLogin = () => {
+        if (!isSignedIn) {
+          navigate("/login");
+        }
+      }
+      checkLogin();
+    }, [isSignedIn, navigate]);
 
     return (
       <Wrapper>
@@ -128,7 +134,7 @@ const App = () => {
           element: <ProfileLayout />,
           children: [
             {
-              path: "/profile",
+              path: "/profile/me",
               element: <ProfileDisplay />
             },
             {

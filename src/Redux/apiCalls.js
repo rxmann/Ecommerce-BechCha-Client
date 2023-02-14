@@ -1,15 +1,25 @@
 import { publicRequest, userRequest } from "../requestMethods/requestMethods";
 import { loginSuccess, logoutSuccess, registerSuccess, requestFailure, requestStart,  updateSuccess } from "./userSlice";
-import Cookies from "js-cookie";
 import { getProductsFailure, getProductsStart, getProductsSucess } from "./productSlice";
+import Cookies from "js-cookie";
 
+// set refresh token in cookie
+// set refresh token in cookie
+const cookieOptions = {
+    sameSite: "None",
+    expires: new Date(
+        Date.now() + 30 * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true,
+    secure: true
+};
 
 export const registerUser = async (dispatch, userPayload) => {
     dispatch(requestStart());
     try {
         const response = await publicRequest.post("/users/register", userPayload)
         const user = response.data.user;
-        Cookies.set(`currentUserEmail`, `${user.email}`, {expires: 15 * 60 })
+        Cookies.set(`currentUserEmail`, `${user.email}`, cookieOptions);
         dispatch(registerSuccess(user))
     }
     catch (err) {
@@ -44,10 +54,10 @@ export const updateUser = async (dispatch, user, id) => {
     }
 }
 
-export const LogoutUser = (dispatch) => {
+export const LogoutUser = async (dispatch, id) => {
     dispatch(requestStart());
     try {
-        console.log("Success");
+        await userRequest.delete(`/users/logout/${id}`);
         dispatch(logoutSuccess());
     }
     catch (err) {
