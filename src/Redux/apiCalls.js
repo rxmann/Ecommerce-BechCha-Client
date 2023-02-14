@@ -1,11 +1,11 @@
 import { publicRequest, userRequest } from "../requestMethods/requestMethods";
-import { loginFailure, loginStart, loginSuccess, logoutFailure, logoutStart, logoutSuccess, registerFailure, registerStart, registerSuccess, updateFailure, updateStart, updateSuccess } from "./userSlice";
+import { loginSuccess, logoutSuccess, registerSuccess, requestFailure, requestStart,  updateSuccess } from "./userSlice";
 import Cookies from "js-cookie";
 import { getProductsFailure, getProductsStart, getProductsSucess } from "./productSlice";
 
 
 export const registerUser = async (dispatch, userPayload) => {
-    dispatch(registerStart());
+    dispatch(requestStart());
     try {
         const response = await publicRequest.post("/users/register", userPayload)
         const user = response.data.user;
@@ -14,46 +14,45 @@ export const registerUser = async (dispatch, userPayload) => {
     }
     catch (err) {
         console.log(err.response);
-        dispatch(registerFailure(err.reponse?.data));
+        dispatch(requestFailure(err.reponse?.data));
     }
 }
 
 
 export const loginUser = async (dispatch, user) => {
-    dispatch(loginStart());
+    dispatch(requestStart());
     try {
         const response = await publicRequest.post("/users/login", user)
         dispatch(loginSuccess(response.data));
     }
     catch (err) {
-        dispatch(loginFailure(err.response.data));
+        dispatch(requestFailure(err.reponse?.data));
     }
 
 }
 
 
 export const updateUser = async (dispatch, user, id) => {
-    dispatch(updateStart());
+    dispatch(requestStart());
     try {
         const response = await userRequest.patch(`/users/${id}`, user);
-        console.log(response.data);
         dispatch(updateSuccess(response.data));
     }
     catch (err) {
         console.log(err.message);
-        dispatch(updateFailure(err.response))
+        dispatch(requestFailure(err.reponse?.data));
     }
 }
 
 export const LogoutUser = (dispatch) => {
-    dispatch(logoutStart());
+    dispatch(requestStart());
     try {
         console.log("Success");
         dispatch(logoutSuccess());
     }
     catch (err) {
         console.log(err);
-        dispatch(logoutFailure());
+        dispatch(requestFailure(err.reponse?.data));
     }
 }
 
