@@ -93,7 +93,7 @@ const LinkItem = styled.a`
 const LoginPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { isFetching, currentUser } = useSelector(state => state.user);
+    const { isFetching, currentUser, isSignedIn } = useSelector(state => state.user);
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -116,10 +116,15 @@ const LoginPage = () => {
 
     useEffect(() => {
         const checkLogin = () => {
-            if (currentUser) navigate("/");
+            if (currentUser?.isAdmin && isSignedIn) {
+                navigate("/admin/dash");
+            }
+            else if (isSignedIn) {
+                navigate("/")
+            }
         }
         checkLogin();
-    }, [currentUser, navigate])
+    }, [currentUser, navigate, isSignedIn])
 
     return (
         <Container>

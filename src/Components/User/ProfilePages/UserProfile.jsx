@@ -62,13 +62,10 @@ const UserProfile = () => {
     const date = moment(currentUser.createdAt);
     const formattedDate = date.format('MMM D, YYYY');
 
-
-
-
   return (
     <Container>
         <Profile>
-        <Avatar src={`data:image/png;base64, ${currentUser.profile}`} sx={{ width: 100, height: 100 }} />
+        <Avatar src={currentUser.image} sx={{ width: 100, height: 100 }} />
                 <UsernameWrapper> @{currentUser.username} <VerifiedIcon color="primary" /> </UsernameWrapper>
                 <UserInfo>
                     <ItemTitle> Account Details </ItemTitle>

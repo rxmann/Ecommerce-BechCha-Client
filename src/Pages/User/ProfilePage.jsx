@@ -42,6 +42,8 @@ const ItemSelected = styled.div`
     color: #0171b6;
 `
 
+
+
 const ProfilePage = () => {
 
   const { currentUser } = useSelector(state => state.user);
@@ -94,7 +96,7 @@ const ProfilePage = () => {
             <Item key={item.title} onClick={() => handleNavigate(item)} > {item.title} </Item>
             : <ItemSelected key={item.title} onClick={ () => handleNavigate(item)} >  {item.title} </ItemSelected>
           ))}
-      </Wrapper>
+      </Wrapper>  
     </Container>
   )
 }

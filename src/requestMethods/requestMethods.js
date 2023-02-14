@@ -9,6 +9,7 @@ const getAccessToken = () => {
 }
 
 const accessToken = getAccessToken();
+console.log("Access token from store:", accessToken);
 
 export const publicRequest = axios.create({
     baseURL: BASE_URL,
@@ -18,8 +19,8 @@ export const publicRequest = axios.create({
 export const userRequest = axios.create({
     baseURL: BASE_URL,
     headers: {
-        authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'multipart/form-data',
+        authorization: `Bearer ${getAccessToken()}`,
     }
 });
     

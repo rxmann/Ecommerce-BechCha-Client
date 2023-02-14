@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom"
+import { createBrowserRouter, RouterProvider, Outlet, useNavigate } from "react-router-dom"
 
 // User
 import Navbar from "./Components/User/Layout/Navbar"
@@ -37,6 +37,7 @@ import { ToastContainer } from 'react-toastify';
 import CartPage from "./Components/User/Carts/CartPage"
 import ProfileDisplay from "./Components/User/ProfilePages/ProfileDisplay"
 import Orders from "./Components/User/ProfilePages/Orders"
+import { useSelector } from "react-redux"
 
 
 const Wrapper = styled.div`
@@ -83,6 +84,13 @@ const App = () => {
 
 
   const ProfileLayout = () => {
+    const navigate = useNavigate();
+    const { isSignedIn, currentUser } = useSelector(state => state.user)
+
+    if (!isSignedIn || !currentUser) {
+      navigate("/login");
+    }
+
     return (
       <Wrapper>
         <ProfilePage />

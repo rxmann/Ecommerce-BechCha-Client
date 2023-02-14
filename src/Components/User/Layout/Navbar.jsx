@@ -98,9 +98,7 @@ const Mbtn = styled.div`
 
 const Navbar = () => {
 
-    
-
-    const { currentUser } = useSelector(state => state.user);
+    const { currentUser, isSignedIn } = useSelector(state => state.user);
 
     const quantity = useSelector(state => state.cart.quantity)
     const navigate = useNavigate();
@@ -108,11 +106,11 @@ const Navbar = () => {
 
     
     const handleProfile = () => {
-        if (currentUser) {
-            navigate("/profile");
-        }
-        else {
+        if (!isSignedIn || !currentUser) {
             navigate("/login");
+          }
+        else {
+            navigate("/profile");
         }
     }
     return (

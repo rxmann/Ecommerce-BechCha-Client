@@ -20,7 +20,6 @@ const Wrapper = styled.div`
 `
 
 const Homepage = () => {
-
   return (
     <Container>
       <Wrapper>

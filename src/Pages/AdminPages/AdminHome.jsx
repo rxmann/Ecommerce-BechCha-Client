@@ -1,3 +1,6 @@
+import { useEffect } from "react"
+import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import Chart from "../../Components/AdminComponents/Chart"
 import NewUserWidget from "../../Components/AdminComponents/Widgets/NewUserWidget"
@@ -30,6 +33,18 @@ const HomeWidgets = styled.div`
 
 
 const AdminHome = () => {
+  const navigate = useNavigate();
+  const { currentUser, isSignedIn } = useSelector(state => state.user)
+
+  console.log(currentUser.isAdmin, isSignedIn);
+
+  useEffect(() => {
+    if (!currentUser.isAdmin || !isSignedIn) {
+      navigate("/");
+    }
+  }, [currentUser, isSignedIn, navigate])
+
+
   return (
     <Container>
       <FeaturedInfo >
