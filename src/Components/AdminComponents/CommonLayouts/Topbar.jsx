@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import {AccountCircle, ChatBubbleOutlineOutlined, DarkModeOutlined, NotificationsNone } from "@mui/icons-material"
-import { Link} from "react-router-dom"
+import { Link, useNavigate} from "react-router-dom"
+import { useSelector } from "react-redux"
 
 
 const Container = styled.div`
@@ -61,6 +62,20 @@ const SpanBadge = styled.span`
 
 
 const Topbar = () => {
+
+    const navigate = useNavigate();
+    const { currentUser, isSignedIn } = useSelector(state => state.user);
+
+    const handleProfile = () => {
+        if (!isSignedIn || !currentUser) {
+            navigate("/login");
+          }
+        else {
+            navigate(`/profile/${currentUser._id}`);
+        }
+    }
+
+
   return (
     <Container>
         <Wrapper>
@@ -71,7 +86,7 @@ const Topbar = () => {
                 </Link>
             </Left>
             <Right>
-                <IconContainer>
+                {/* <IconContainer>
                     <DarkModeOutlined />
                 </IconContainer>
                 <IconContainer>
@@ -81,8 +96,8 @@ const Topbar = () => {
                 <IconContainer>
                     <NotificationsNone />
                     <SpanBadge> 2 </SpanBadge>
-                </IconContainer>
-                <IconContainer>
+                </IconContainer> */}
+                <IconContainer onClick={handleProfile}>
                     <AccountCircle />
                 </IconContainer>
             </Right>

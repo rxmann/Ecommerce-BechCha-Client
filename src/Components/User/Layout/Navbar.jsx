@@ -144,7 +144,7 @@ const Navbar = () => {
             
             <Right> 
                 <Mbtn>
-                    {currentUser?.isAdmin && <DashboardIcon />}
+                    {currentUser?.isAdmin && <DashboardIcon  onClick={() => navigate("/admin/dashboard")} />}
                 </Mbtn>
                 <Mbtn>
                     <Span>NP</Span>

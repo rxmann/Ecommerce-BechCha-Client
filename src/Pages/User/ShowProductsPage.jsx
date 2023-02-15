@@ -79,7 +79,6 @@ const ProductsPage = () => {
 
   const [selectedValues, setSelectedValues] = useState([paramId]);
 
-
   // get category display image
   useEffect(() => {
     const getCatImage = async () => {
@@ -87,6 +86,7 @@ const ProductsPage = () => {
         const response = await publicRequest.get(`/categories/${paramId}`);
         const { category, children } = response.data;
         const ids = children.map((child) => child._id)
+        ids.push(paramId);
         setSelectedValues(ids);
         setCategoryImage(category.image.url);
         setCategory(category);

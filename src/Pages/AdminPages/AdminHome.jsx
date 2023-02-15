@@ -7,7 +7,7 @@ import Chart from "../../Components/AdminComponents/Chart"
 import NewUserWidget from "../../Components/AdminComponents/Widgets/NewUserWidget"
 import OrderWidget from "../../Components/AdminComponents/Widgets/OrderWidget"
 import Widget from "../../Components/AdminComponents/Widgets/Widget"
-import { userData } from "../../data"
+import months from 'months';
 import { userRequest } from "../../requestMethods/requestMethods"
 
 const Container = styled.div`
@@ -45,6 +45,8 @@ const AdminHome = () => {
   }, [currentUser, isSignedIn, navigate])
 
 
+
+  // orders data
   const [ orders, setOrders ] = useState([]);
 
   useEffect(() => {
@@ -54,19 +56,42 @@ const AdminHome = () => {
       }
       getOrders();
   }, [])
-  
 
+
+  // users data for chart
+  const [ userData, setUserData ] = useState([]);
+
+  useEffect(() => {
+      const getUsersData = async () => {
+          const response = await userRequest.get("/users/stats");
+          setUserData([]);
+          response.data.map((each) => {
+            setUserData( (old) => [
+              ...old,
+              {
+                name: months[each._id - 1],
+                "Users": each.total,
+              }
+            ])
+          })
+      }
+      getUsersData();
+      console.log(userData);
+  }, [])
+
+  
+  
   return (
     <Container>
       <FeaturedInfo >
         <Widget type="USERS" />
-        <Widget type="ORDERS" />
+        {/* <Widget type="ORDERS" />
         <Widget type="EARNINGS" />
-        <Widget type="BALANCE" />
+        <Widget type="BALANCE" /> */}
       </FeaturedInfo>
 
       <ChartContainer>
-        <Chart title={"Sales Analytics"} data={userData} grid dataKey={"Active User"} />
+        <Chart title={"Sales Analytics"} data={userData} grid dataKey={"Users"} />
       </ChartContainer>
 
       <HomeWidgets>

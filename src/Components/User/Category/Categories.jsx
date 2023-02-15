@@ -55,7 +55,6 @@ const Categories = () => {
             try {
                 const response = await publicRequest.get("/categories?child=none");
                 const resData = response.data.CategoryList;
-                console.log(resData);
                 setCategoriesList(resData)
             }
             catch (err) {

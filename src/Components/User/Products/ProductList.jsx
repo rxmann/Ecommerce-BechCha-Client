@@ -19,7 +19,7 @@ const LoadingScreen = styled.div`
 
 const ProductList = ({id, sort, limitPrice, subIds }) => {
   const [data, setData] = useState();
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getProductsOfCategory = async () => {
