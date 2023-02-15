@@ -117,7 +117,7 @@ const LoginPage = () => {
     useEffect(() => {
         const checkLogin = () => {
             if (currentUser?.isAdmin && isSignedIn) {
-                navigate("/admin/dash");
+                navigate("/admin/dashboard");
             }
             else if (isSignedIn) {
                 navigate("/")

@@ -117,7 +117,7 @@ const ProductsPage = () => {
     <Products>
       <Left>
 
-        {Children?.length >  0 && <FilterHeading> Category </FilterHeading>}
+        {Children?.length >  0 && <FilterHeading> {Category.name} </FilterHeading>}
         <FilterItem >
         {Children?.length > 0 &&
         Children.map((filter) => (
