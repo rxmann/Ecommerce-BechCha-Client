@@ -56,7 +56,7 @@ const ProfilePage = () => {
   const navItems = [
     {
       title: "Profile",
-      goto: "/profile/me"
+      goto: `/profile/${currentUser?._id}`
     },
     {
       title: "Cart",

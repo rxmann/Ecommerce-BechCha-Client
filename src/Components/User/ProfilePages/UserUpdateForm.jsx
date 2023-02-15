@@ -3,10 +3,9 @@ import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { useState } from "react";
 import { updateUser } from "../../../Redux/apiCalls";
 import { Avatar, Button, TextField } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { useEffect } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { current } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 
 const Form = styled.form`
@@ -47,45 +46,12 @@ const UploadB = styled.label`
 `
 
 
-const UserUpdateForm = () => {
+const UserUpdateForm = ({currentUser, isFetching}) => {
 
     const navigate = useNavigate(); 
     const dispatch = useDispatch();
-    const { currentUser, isFetching, isSignedIn } = useSelector(state => state.user)
     const [reset, setReset] = useState(true);
     const [profileImage, setProfileImage] = useState("")
-
-    // check user login status
-    useEffect(() => {
-        const checkLogin = () => {
-          if (!isSignedIn || currentUser === null) {
-            navigate("/login");
-          }
-        }
-        checkLogin();
-    }, [isSignedIn, navigate]);
-
-    const [formData, setFormData] = useState(
-        {
-            username: currentUser?.username,
-            address: currentUser?.address,
-            contacts: currentUser?.contacts,
-            image: null,
-        }
-    )
-
-    /// resetting default values
-    useEffect(() => {
-        const resetValues = () => {
-            setFormData({
-                username: currentUser?.username,
-                address: currentUser?.address,
-                contacts: currentUser?.contacts,
-                image: null,
-            })
-        }
-        resetValues();
-    }, [reset, navigate])
 
     
 
@@ -99,7 +65,6 @@ const UserUpdateForm = () => {
         const imaged = e.target.files[0];
         setFormData({ ...formData, "image": imaged })
         setProfileImage(URL.createObjectURL(imaged))
-        console.log(profileImage);
     }
 
 
@@ -119,21 +84,45 @@ const UserUpdateForm = () => {
     }
 
 
+
+    const [formData, setFormData] = useState(
+        {
+            username: currentUser?.username,
+            address: currentUser?.address,
+            contacts: currentUser?.contacts,
+            image: "",
+        }
+    )
+
+    /// resetting default values
+    useEffect(() => {
+        const resetValues = () => {
+            setFormData({
+                username: currentUser?.username,
+                address: currentUser?.address,
+                contacts: currentUser?.contacts,
+                image: "",
+            })
+        }
+        resetValues();
+    }, [reset, navigate, currentUser])
+
+
     const InputData = [{
         name: "username",
         type: "text",
         label: "Username",
-        defaultValue: formData?.username
+        value: formData?.username
     }, {
         name: "address",
         type: "text",
         label: "Address",
-        defaultValue: formData?.address
+        value: formData?.address
     }, {
         name: "contacts",
         type: "tel",
         label: "Phone Number",
-        defaultValue: formData?.contacts,
+        value: formData?.contacts,
         pattern: {
             inputProps: {
                 inputMode: "numeric",
@@ -171,8 +160,8 @@ const UserUpdateForm = () => {
                         required
                         variant="standard"
                         type={input.type}
-                        value={input.defaultValue}
-                        onChange={handleChange}
+                        value={input.value && input.value}
+                        onChange={() => handleChange}
                         InputProps={input.pattern ? input.pattern.inputProps : null}
                     />
                 </FormItem>

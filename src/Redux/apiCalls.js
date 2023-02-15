@@ -49,7 +49,7 @@ export const updateUser = async (dispatch, user, id) => {
         dispatch(updateSuccess(response.data));
     }
     catch (err) {
-        console.log(err.message);
+        console.log(err);
         dispatch(requestFailure(err.reponse?.data));
     }
 }

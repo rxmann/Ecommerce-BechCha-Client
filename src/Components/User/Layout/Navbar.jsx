@@ -7,8 +7,10 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+
 
 const Container = styled.div`
     position: sticky;
@@ -99,7 +101,6 @@ const Mbtn = styled.div`
 const Navbar = () => {
 
     const { currentUser, isSignedIn } = useSelector(state => state.user);
-
     const quantity = useSelector(state => state.cart.quantity)
     const navigate = useNavigate();
     const [search, setSearch] = useState("");
@@ -110,7 +111,7 @@ const Navbar = () => {
             navigate("/login");
           }
         else {
-            navigate("/profile/me");
+            navigate(`/profile/${currentUser._id}`);
         }
     }
     return (
@@ -142,6 +143,9 @@ const Navbar = () => {
 
             
             <Right> 
+                <Mbtn>
+                    {currentUser?.isAdmin && <DashboardIcon />}
+                </Mbtn>
                 <Mbtn>
                     <Span>NP</Span>
                 </Mbtn>

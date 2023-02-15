@@ -1,5 +1,8 @@
 import styled from "styled-components"
 import { Visibility} from "@mui/icons-material"
+import { userRequest } from "../../../requestMethods/requestMethods"
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
     flex: 1;
@@ -28,7 +31,7 @@ const Item = styled.li`
 `
 const Image = styled.img`
     width: 40px;
-    font: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: cover;
 `
@@ -42,7 +45,7 @@ const Name = styled.span`
     font-weight: 500;
 `
     
-const Profession =  styled.span`
+const Infor =  styled.span`
     font-weight: 300;
 `
 
@@ -61,66 +64,33 @@ const Button = styled.button`
 
 
 const NewUserWidget = () => {
+
+    const navigate = useNavigate();
+    const [ users, setUsers ] = useState([]);
+
+    useEffect(() => {
+        const getUsers = async () => {
+            const response = await userRequest.get("/users/find?new=true");
+            setUsers(response.data)
+        }
+        getUsers();
+    }, [])
+
+
   return (
     <Container>
         <Title> New Members </Title>
         <List>
-            <Item>
-                <Image src={"https://zoro.to/images/zoro-min.png"} />
-                <User>
-                    <Name> Roronoa Zoro </Name>
-                    <Profession> Sword Master </Profession>
-                </User>
-                <Button> <Visibility/> View  </Button>
-            </Item>
-
-            <Item>
-                <Image src={"https://zoro.to/images/zoro-min.png"} />
-                <User>
-                    <Name> Roronoa Zoro </Name>
-                    <Profession> Sword Master </Profession>
-                </User>
-                <Button> <Visibility/> View  </Button>
-            </Item>
-
-            <Item>
-                <Image src={"https://zoro.to/images/zoro-min.png"} />
-                <User>
-                    <Name> Roronoa Zoro </Name>
-                    <Profession> Sword Master </Profession>
-                </User>
-                <Button> <Visibility/> View  </Button>
-            </Item>
-
-            <Item>
-                <Image src={"https://zoro.to/images/zoro-min.png"} />
-                <User>
-                    <Name> Roronoa Zoro </Name>
-                    <Profession> Sword Master </Profession>
-                </User>
-                <Button> <Visibility/> View  </Button>
-            </Item>
-
-            <Item>
-                <Image src={"https://zoro.to/images/zoro-min.png"} />
-                <User>
-                    <Name> Roronoa Zoro </Name>
-                    <Profession> Sword Master </Profession>
-                </User>
-                <Button> <Visibility/> View  </Button>
-            </Item>
-
-            <Item>
-                <Image src={"https://zoro.to/images/zoro-min.png"} />
-                <User>
-                    <Name> Roronoa Zoro </Name>
-                    <Profession> Sword Master </Profession>
-                </User>
-                <Button> <Visibility/> View  </Button>
-            </Item>
-
-
-            
+           {users.map( (user) => (
+             <Item key={user._id}>
+             <Image src={user.image} />
+             <User>
+                 <Name> {user.username} </Name>
+                 <Infor> {user.email} </Infor>
+             </User>
+             <Button onClick={() => navigate(`/admin/user/${user._id}`)} > <Visibility/> View  </Button>
+         </Item>
+           ))}
         </List>
     </Container>
   )

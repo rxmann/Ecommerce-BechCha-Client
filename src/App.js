@@ -134,7 +134,7 @@ const App = () => {
           element: <ProfileLayout />,
           children: [
             {
-              path: "/profile/me",
+              path: "/profile/:id",
               element: <ProfileDisplay />
             },
             {

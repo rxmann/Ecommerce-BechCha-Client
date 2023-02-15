@@ -1,5 +1,7 @@
 import styled from "styled-components"
 import Button from '@mui/material/Button';
+const moment = require("moment")
+
 
 const Container = styled.div`
     flex: 2;
@@ -48,7 +50,7 @@ const Status = styled.td`
 
 const Image = styled.img`
     width: 40px;
-    font: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: cover;
 `
@@ -58,8 +60,8 @@ const Name = styled.span`
 `
 
 
-const OrderWidget = () => {
-
+const OrderWidget = ({orders}) => {
+  
   const StatusButton = ({ type }) => {
     let color, background;
     switch (type) {
@@ -96,39 +98,21 @@ const OrderWidget = () => {
             <TableHead> Status </TableHead>
           </TableRow>
 
-          <TableRow>
+
+          {orders &&
+          orders.map((order) => (
+            <TableRow key={order.createdAt}>
             <User>
-              <Image src={"https://zoro.to/images/zoro-min.png"} />
-              <Name> Zoro Zuro </Name>
+              <Image src={order.userId.image} />
+              <Name> {order.userId.username} </Name>
             </User>
-
-            <Date> 2nd January 2023 </Date>
-            <Amount> RS 1200 </Amount>
-            <Status> <StatusButton type="Pending" /> </Status>
+  
+            <Date> { moment(order.createdAt).format('MMM D, YYYY') } </Date>
+            <Amount> RS {order.totalAmount} </Amount>
+            <Status> <StatusButton type={order.status} /> </Status>
           </TableRow>
-
-          <TableRow>
-            <User>
-              <Image src={"https://zoro.to/images/zoro-min.png"} />
-              <Name> Zoro Zuro </Name>
-            </User>
-
-            <Date> 2nd January 2023 </Date>
-            <Amount> RS 1200 </Amount>
-            <Status> <StatusButton type="Approved" /> </Status>
-          </TableRow>
-
-
-          <TableRow>
-            <User>
-              <Image src={"https://zoro.to/images/zoro-min.png"} />
-              <Name> Zoro Zuro </Name>
-            </User>
-
-            <Date> 2nd January 2023 </Date>
-            <Amount> RS 1200 </Amount>
-            <Status> <StatusButton type="Declined" /> </Status>
-          </TableRow>
+          ))
+        }
         </TableBody>
       </Table>
     </Container>

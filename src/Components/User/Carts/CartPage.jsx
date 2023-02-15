@@ -160,7 +160,7 @@ const CartPage = () => {
                             <CartItems key={product._id}>
                             <Item flex={2}>
                                <Item>
-                                    <ProductImage src={`data:image/png;base64, ${product.images[0]}`} />
+                                    <ProductImage src={product.images[0]?.url} />
                                     <Item>{product.title}</Item>
                                </Item>
                             </Item>

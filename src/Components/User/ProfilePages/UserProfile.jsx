@@ -5,7 +5,6 @@ import LocationCityIcon from '@mui/icons-material/LocationCity';
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import { Avatar } from "@mui/material";
-import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -57,33 +56,19 @@ const UsernameWrapper = styled.span`
 
 
 
-const UserProfile = () => {
-
-    const { currentUser, isSignedIn } = useSelector(state => state.user)
-    const navigate = useNavigate();
-    // check user login status
-    useEffect(() => {
-        const checkLogin = () => {
-          if (!isSignedIn) {
-            navigate("/login");
-          }
-        }
-        checkLogin();
-      }, [isSignedIn, navigate]);
-
+const UserProfile = ({currentUser}) => {
 
     const date = moment(currentUser?.createdAt);
     const formattedDate = date.format('MMM D, YYYY');
-
-
-    
-
 
   return (
     <Container>
         <Profile>
         <Avatar src={currentUser?.image} sx={{ width: 100, height: 100 }} />
-                <UsernameWrapper> @{currentUser?.username} <VerifiedIcon color="primary" /> </UsernameWrapper>
+                <UsernameWrapper> 
+                    @{currentUser?.username} 
+                    {currentUser?.isVerified && <VerifiedIcon color="primary" />  }
+                </UsernameWrapper>
                 <UserInfo>
                     <ItemTitle> Account Details </ItemTitle>
                     <Item> 

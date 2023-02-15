@@ -90,6 +90,7 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
   border: none;
+  background-color: #f5f7f8;
 `
 
 const AddToCart = styled.div`

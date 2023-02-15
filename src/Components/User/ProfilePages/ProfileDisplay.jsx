@@ -3,15 +3,17 @@ import { Button } from "@mui/material";
 import UserProfile from "./UserProfile";
 import {  useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import UserUpdateForm from "./UserUpdateForm";
 import { LogoutUser } from "../../../Redux/apiCalls";
-import Cookies from "js-cookie";
+import { useState } from "react";
+import { userRequest } from "../../../requestMethods/requestMethods";
 
 
 const Container =styled.div`
      display: flex;
      flex-direction: column;
+     width: 100%;
 `
 const Card = styled.div`
     display: flex;
@@ -33,15 +35,18 @@ const Bottom = styled.div`
 
 
 const ProfileDisplay = () => {
+
+    const userId = useParams().id;
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { isSignedIn, currentUser } = useSelector(state => state.user)
 
+    const [ user, setUser] = useState({});
 
     // check user login status
     useEffect(() => {
         const checkLogin = () => {
-          if (!isSignedIn || !currentUser) {
+          if (!isSignedIn) {
             navigate("/login");
           }
         }
@@ -49,6 +54,20 @@ const ProfileDisplay = () => {
       }, [isSignedIn, navigate]);
 
 
+
+      useEffect(() => {
+        const userD = async () => {
+            try {
+                const response = await userRequest.get(`/users/find/${userId}`)
+                setUser(response.data);
+            }
+            catch (er) {
+                console.log(er);
+            }
+        }
+        userD();
+      }, [userId]);
+      
 
     const handleLogout = (e) => {
         e.preventDefault();
@@ -58,13 +77,16 @@ const ProfileDisplay = () => {
     return (
         <Container>
             <Card>
-                <UserProfile />
-                <UserUpdateForm />
+                <UserUpdateForm currentUser={user}/>
+                <UserProfile currentUser={user}/>
             </Card>
 
-            <Bottom>
-                <Button variant="contained" color="error" onClick={handleLogout} > Logout </Button>
-            </Bottom>
+            {user._id === currentUser._id ?
+                <Bottom>
+                <Button variant="contained" color="error" onClick={handleLogout} > {user.username} Logout </Button>
+                </Bottom>
+                : ""
+            }
         </Container>
     )
 }
