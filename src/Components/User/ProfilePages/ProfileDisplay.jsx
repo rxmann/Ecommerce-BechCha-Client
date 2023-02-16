@@ -39,19 +39,19 @@ const ProfileDisplay = () => {
     const userId = useParams().id;
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { isSignedIn, currentUser } = useSelector(state => state.user)
+    const { isSignedIn, currentUser, isFetching } = useSelector(state => state.user)
 
     const [ user, setUser] = useState({});
 
     // check user login status
     useEffect(() => {
         const checkLogin = () => {
-          if (!isSignedIn) {
+          if (!isSignedIn || !userId) {
             navigate("/login");
           }
         }
         checkLogin();
-      }, [isSignedIn, navigate]);
+      }, [isSignedIn, navigate, userId, isFetching]);
 
 
 
@@ -66,7 +66,7 @@ const ProfileDisplay = () => {
             }
         }
         userD();
-      }, [userId]);
+      }, [userId, isFetching]);
       
 
     const handleLogout = (e) => {
@@ -77,11 +77,11 @@ const ProfileDisplay = () => {
     return (
         <Container>
             <Card>
-                <UserUpdateForm currentUser={user}/>
-                <UserProfile currentUser={user}/>
+                <UserUpdateForm user={user}/>
+                <UserProfile user={user}/>
             </Card>
 
-            {user._id === currentUser._id ?
+            {user?._id === currentUser?._id ?
                 <Bottom>
                 <Button variant="contained" color="error" onClick={handleLogout} > {user.username} Logout </Button>
                 </Bottom>

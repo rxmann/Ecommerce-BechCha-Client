@@ -46,18 +46,17 @@ const UploadB = styled.label`
 `
 
 
-const UserUpdateForm = ({currentUser, isFetching}) => {
+const UserUpdateForm = ({user, isFetching}) => {
 
     const navigate = useNavigate(); 
     const dispatch = useDispatch();
     const [reset, setReset] = useState(true);
     const [profileImage, setProfileImage] = useState("")
 
-    
-
     // handling changes in input fields
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
+        console.log(formData);
     }
 
     // image upload change handle
@@ -71,25 +70,23 @@ const UserUpdateForm = ({currentUser, isFetching}) => {
     // submit updates user
     const handleUpdate = async (e) => {
         e.preventDefault();
-        const user = new FormData();
-        user.append("username", formData.username);
-        user.append("address", formData.address);
-        user.append("contacts", parseInt(formData.contacts));
+        const userData = new FormData();
+        userData.append("username", formData.username);
+        userData.append("address", formData.address);
+        userData.append("contacts", parseInt(formData.contacts));
         if (profileImage) {
-            user.append(`image`, formData.image);
+            userData.append(`image`, formData.image);
         }
-
-        await updateUser(dispatch, user, currentUser._id);
+        await updateUser(dispatch, userData, user._id);
         setProfileImage("");
     }
 
-
-
+    
     const [formData, setFormData] = useState(
         {
-            username: currentUser?.username,
-            address: currentUser?.address,
-            contacts: currentUser?.contacts,
+            username: user?.username,
+            address: user?.address,
+            contacts: user?.contacts,
             image: "",
         }
     )
@@ -98,31 +95,31 @@ const UserUpdateForm = ({currentUser, isFetching}) => {
     useEffect(() => {
         const resetValues = () => {
             setFormData({
-                username: currentUser?.username,
-                address: currentUser?.address,
-                contacts: currentUser?.contacts,
+                username: user?.username,
+                address: user?.address,
+                contacts: user?.contacts,
                 image: "",
             })
         }
         resetValues();
-    }, [reset, navigate, currentUser])
+    }, [reset, navigate, user])
 
 
     const InputData = [{
         name: "username",
         type: "text",
         label: "Username",
-        value: formData?.username
+        defaultValue: formData?.username
     }, {
         name: "address",
         type: "text",
         label: "Address",
-        value: formData?.address
+        defaultValue: formData?.address
     }, {
         name: "contacts",
         type: "tel",
         label: "Phone Number",
-        value: formData?.contacts,
+        defaultValue: formData?.contacts,
         pattern: {
             inputProps: {
                 inputMode: "numeric",
@@ -136,7 +133,7 @@ const UserUpdateForm = ({currentUser, isFetching}) => {
     return (
         <Form onSubmit={handleUpdate}>
             <FormItem>
-                <Avatar src={currentUser?.image} sx={{ width: 100, height: 100 }} />
+                <Avatar src={user?.image} sx={{ width: 100, height: 100 }} />
                 <UploadB>
                     <AddPhotoAlternateIcon />
                     Add Profile
@@ -160,8 +157,8 @@ const UserUpdateForm = ({currentUser, isFetching}) => {
                         required
                         variant="standard"
                         type={input.type}
-                        value={input.value && input.value}
-                        onChange={() => handleChange}
+                        value={input.defaultValue}
+                        onChange={handleChange}
                         InputProps={input.pattern ? input.pattern.inputProps : null}
                     />
                 </FormItem>

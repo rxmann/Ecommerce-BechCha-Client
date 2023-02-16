@@ -45,49 +45,68 @@ const AdminHome = () => {
   }, [currentUser, isSignedIn, navigate])
 
 
+  // orders sales stats
+  // orders stats
+  const [ordersStats, setOrdersStats] = useState();
+  const [salesStats, setSalesStats] = useState({});
+  const [userStats, setUserStats] = useState({});
+  useEffect(() => {
+    const getSalesStats = async () => {
+      const response = await userRequest.get("/orders/sales/analytics");
+      setSalesStats(response.data);
+    }
+    const getOrdersStats = async () => {
+      const response = await userRequest.get("/orders/orders/analytics");
+      setOrdersStats(response.data);
+    }
+    const getUserStats = async () => {
+      const response = await userRequest.get("/orders/users/analytics");
+      setUserStats(response.data);
+    }
+    getOrdersStats();
+    getSalesStats();
+    getUserStats();
+  }, [])
+
 
   // orders data
-  const [ orders, setOrders ] = useState([]);
-
+  const [orders, setOrders] = useState([]);
   useEffect(() => {
-      const getOrders = async () => {
-          const response = await userRequest.get("/orders");
-          setOrders(response.data);
-      }
-      getOrders();
+    const getOrders = async () => {
+      const response = await userRequest.get("/orders");
+      setOrders(response.data);
+    }
+    getOrders();
   }, [])
 
 
   // users data for chart
-  const [ userData, setUserData ] = useState([]);
-
+  const [userData, setUserData] = useState([]);
   useEffect(() => {
-      const getUsersData = async () => {
-          const response = await userRequest.get("/users/stats");
-          setUserData([]);
-          response.data.map((each) => {
-            setUserData( (old) => [
-              ...old,
-              {
-                name: months[each._id - 1],
-                "Users": each.total,
-              }
-            ])
-          })
-      }
-      getUsersData();
-      console.log(userData);
+    const getUsersData = async () => {
+      const response = await userRequest.get("/users/stats");
+      setUserData([]);
+      response.data.map((each) => {
+        setUserData((old) => [
+          ...old,
+          {
+            name: months[each._id - 1],
+            "Users": each.total,
+          }
+        ])
+      })
+    }
+    getUsersData();
   }, [])
 
-  
-  
+
   return (
     <Container>
       <FeaturedInfo >
-        <Widget type="USERS" />
-        {/* <Widget type="ORDERS" />
-        <Widget type="EARNINGS" />
-        <Widget type="BALANCE" /> */}
+        <Widget type="EARNINGS" data={salesStats} />
+        <Widget type="ORDERS" data={ordersStats} />
+        <Widget type="USERS" data={userStats}/>
+        <Widget type="BALANCE" data={ordersStats} /> 
       </FeaturedInfo>
 
       <ChartContainer>
@@ -95,7 +114,7 @@ const AdminHome = () => {
       </ChartContainer>
 
       <HomeWidgets>
-        <OrderWidget  orders={orders} />
+        <OrderWidget orders={orders} />
         <NewUserWidget />
       </HomeWidgets>
     </Container>

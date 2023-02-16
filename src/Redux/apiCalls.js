@@ -47,9 +47,10 @@ export const updateUser = async (dispatch, user, id) => {
     try {
         const response = await userRequest.patch(`/users/${id}`, user);
         dispatch(updateSuccess(response.data));
+        console.log(response.data);
     }
     catch (err) {
-        console.log(err);
+        console.log(err.response);
         dispatch(requestFailure(err.reponse?.data));
     }
 }

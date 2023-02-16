@@ -20,21 +20,25 @@ const Left = styled.div`
 `
 
 const Title = styled.span`
-    font-weight: bold;
-    font-size: 14px;
+    font-weight: 500;
+    font-size: 18px;
     color: gray;
 `
 
 const Counter = styled.span`
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 400;
+`
+
+const Count = styled.span`
+    font-size: 14px;
+    font-weight: 400;
+    margin-left: 10px;
 `
 
 const Link = styled.span`
     font-size: 12px;
-    border-bottom: 1px solid gray;
     width: max-content;
-    cursor: pointer;
 `
 
 
@@ -46,7 +50,7 @@ const Right = styled.div`
 const Percentage = styled.div`
     display: flex;
     align-items: center;
-    font-size: 14px;
+    font-size: 16px;
     color: ${props => props.positive ? "green" : "red"};
 `
 const Icon = styled.button`
@@ -60,18 +64,46 @@ const Icon = styled.button`
     background-color: ${props => props.background && props.background};
 `
 
-const Widget = ({ type }) => {
-
-    let data;
-
-    const amount = 100;
-    const percent = 10;
+const Widget = ({ type, data }) => {
+    let widgetData;
 
     switch (type) {
+        case "EARNINGS":
+            widgetData = {
+                title: "EARNINGS",
+                isMoney: true,
+                amount: data?.totalSalesThisMonth,
+                prevData: data?.totalSalesLastMonth,
+                percent: data?.result,
+                icon: (<MonetizationOnOutlined />),
+                theme: {
+                    background: "rgba(0, 128, 0, 0.2)",
+                    color: "green"
+                }
+            }
+            break;
+        case "ORDERS":
+            widgetData = {
+                 title: "ORDERS",
+                isMoney: false,
+                link: "View all orders",
+                icon: (<ShoppingCart />),
+                amount: data?.ThisMonthCount,
+                prevData: data?.LastMonthCount,
+                percent: data?.orderCountDifference,
+                theme: {
+                    background: "rgba(45, 34, 201, 0.2)",
+                    color: "#0171b6",
+                }
+            }
+            break;
         case "USERS":
-            data = {
+            widgetData = {
                 title: "USERS",
                 isMoney: false,
+                amount: data?.ThisMonthCount,
+                prevData: data?.LastMonthCount,
+                percent: data?.userCountDifference,
                 link: "View all users",
                 icon: (<PersonOutline />),
                 theme: {
@@ -80,35 +112,13 @@ const Widget = ({ type }) => {
                 }
             }
             break;
-        case "ORDERS":
-            data = {
-                title: "ORDERS",
-                isMoney: true,
-                link: "View all orders",
-                icon: (<ShoppingCart />),
-                theme: {
-                    background: "rgba(45, 34, 201, 0.2)",
-                    color: "#0171b6",
-                }
-            }
-            break;
-        case "EARNINGS":
-            data = {
-                title: "EARNINGS",
-                isMoney: true,
-                link: "View net earning",
-                icon: (<MonetizationOnOutlined />),
-                theme: {
-                    background: "rgba(0, 128, 0, 0.2)",
-                    color: "green"
-                }
-            }
-            break;
         case "BALANCE":
-            data = {
+            widgetData = {
                 title: "BALANCE",
                 isMoney: true,
-                link: "View details",
+                amount: data?.orderAmountNow,
+                prevData: data?.orderAmountPrev,
+                percent: data?.orderAmountDifference,
                 icon: (<AccountBalanceWallet />),
                 theme: {
                     background: "rgba(218, 165, 32, 0.2)",
@@ -124,17 +134,16 @@ const Widget = ({ type }) => {
     return (
         <Container >
             <Left>
-                <Title> {data.title} </Title>
-                <Counter> {data.isMoney && "$"} {amount} </Counter>
-                <Link> {data.link} </Link>
+                <Title> {widgetData.title} </Title>
+                <Counter> {widgetData.isMoney ? "RS" : ""} {widgetData.amount} </Counter>
+                <Link> Compared to last month's <Count> {widgetData.isMoney ? "RS" : ""} {widgetData.prevData} </Count> </Link>
             </Left>
-
             <Right>
-                <Percentage positive={percent > 0 && true}>
-                    {percent > 0 ? <KeyboardArrowUp /> : <KeyboardArrowDown />} {percent}
+                <Percentage positive={widgetData.percent > 0 && true}>
+                    {widgetData.percent > 0 ? <KeyboardArrowUp /> : <KeyboardArrowDown />} {Math.round(widgetData.percent)}%
                 </Percentage>
-                <Icon color={data.theme.color} background={data.theme.background}>
-                    {data.icon}
+                <Icon color={widgetData.theme.color} background={widgetData.theme.background}>
+                    {widgetData.icon}
                 </Icon>
             </Right>
         </Container>

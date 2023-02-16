@@ -65,15 +65,15 @@ const OrderWidget = ({orders}) => {
   const StatusButton = ({ type }) => {
     let color, background;
     switch (type) {
-      case "Pending":
+      case "pending":
         color = "info"
         background = "#ebf1fe"
         break;
-      case "Approved":
+      case "delivered":
         color = "success"
         background = "#e5faf2"
         break;
-      case "Declined":
+      case "approved":
         color = "error"
         background = "#fff0f1"
         break;

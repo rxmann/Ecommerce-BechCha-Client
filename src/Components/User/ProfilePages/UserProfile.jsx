@@ -10,12 +10,11 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-const Container =styled.div`
-
-`    
+const Container = styled.div`
+    flex: 1;
+`
 
 const Profile = styled.div`
-    flex: 1;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
     display: flex;
@@ -56,42 +55,42 @@ const UsernameWrapper = styled.span`
 
 
 
-const UserProfile = ({currentUser}) => {
+const UserProfile = ({ user }) => {
 
-    const date = moment(currentUser?.createdAt);
+    const date = moment(user?.createdAt);
     const formattedDate = date.format('MMM D, YYYY');
 
-  return (
-    <Container>
-        <Profile>
-        <Avatar src={currentUser?.image} sx={{ width: 100, height: 100 }} />
-                <UsernameWrapper> 
-                    @{currentUser?.username} 
-                    {currentUser?.isVerified && <VerifiedIcon color="primary" />  }
+    return (
+        <Container>
+            <Profile>
+                <Avatar src={user?.image} sx={{ width: 100, height: 100 }} />
+                <UsernameWrapper>
+                    @{user?.username}
+                    {user?.isVerified && <VerifiedIcon color="primary" />}
                 </UsernameWrapper>
                 <UserInfo>
                     <ItemTitle> Account Details </ItemTitle>
-                    <Item> 
-                        <EmailIcon /> 
-                        <Data> {currentUser?.email} </Data> 
-                    </Item> 
-                    <Item> 
-                        <LocationCityIcon /> 
-                        <Data> {currentUser?.address} </Data> 
-                    </Item> 
-                    <Item> 
-                        <SmartphoneIcon /> 
-                        <Data> {currentUser?.contacts} </Data> 
-                    </Item> 
+                    <Item>
+                        <EmailIcon />
+                        <Data> {user?.email} </Data>
+                    </Item>
+                    <Item>
+                        <LocationCityIcon />
+                        <Data> {user?.address} </Data>
+                    </Item>
+                    <Item>
+                        <SmartphoneIcon />
+                        <Data> {user?.contacts} </Data>
+                    </Item>
                     <Item>
                         <PermContactCalendarIcon />
-                        <Data> {currentUser?.dob} </Data>
+                        <Data> {user?.dob} </Data>
                     </Item>
                     <ItemTitle> Joined {formattedDate} </ItemTitle>
                 </UserInfo>
             </Profile>
-    </Container>
-  )
+        </Container>
+    )
 }
 
 export default UserProfile
