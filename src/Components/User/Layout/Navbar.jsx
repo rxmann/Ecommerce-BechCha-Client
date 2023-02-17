@@ -3,7 +3,7 @@ import Badge from '@mui/material/Badge';
 import SearchIcon from '@mui/icons-material/Search';
 import { ShoppingCartOutlined } from '@mui/icons-material';
 import CompareIcon from '@mui/icons-material/Compare';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+    import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
@@ -159,7 +159,7 @@ const Navbar = () => {
                     <Span>NP</Span>
                 </Mbtn>
                 <Mbtn onClick={handleProfile} >
-                    { currentUser !== "" ?  <AccountCircleIcon /> : <ProfilePic src={currentUser.image}/> }
+                    { currentUser === null ?  <AccountCircleIcon /> : <ProfilePic src={currentUser.image}/> }
                 </Mbtn>
                 <Mbtn onClick={() => navigate(`/profile/cart/${currentUser._id}`)}>
                     <Badge badgeContent={quantity}  > 

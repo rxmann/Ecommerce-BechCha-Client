@@ -60,8 +60,9 @@ const DataTable = ({rows, columns}) => {
           rows={rows}
           columns={columns}
           pageSize={9}
+          getRowId={row => row._id}
           rowsPerPageOptions={[5]}
-          checkboxSelection
+          // checkboxSelection
           />
       </Wrapper>
     </Container>

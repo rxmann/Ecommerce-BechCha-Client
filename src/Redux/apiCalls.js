@@ -71,7 +71,6 @@ export const getAllProducts = async (dispatch) => {
     dispatch(getProductsStart)
     try {
         const response = await publicRequest.get("/products");
-        console.log("Get all products data: ", response.data);
         dispatch(getProductsSucess(response.data));
     }
     catch (err) {

@@ -110,7 +110,7 @@ const AdminHome = () => {
       </FeaturedInfo>
 
       <ChartContainer>
-        <Chart title={"Sales Analytics"} data={userData} grid dataKey={"Users"} />
+        <Chart title={"Users Analytics"} data={userData} grid dataKey={"Users"} />
       </ChartContainer>
 
       <HomeWidgets>

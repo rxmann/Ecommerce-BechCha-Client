@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import DataTable from '../../Components/AdminComponents/Tables/DataTable';
 import { productRows, productColumns } from "../../data";
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { getAllProducts } from '../../Redux/apiCalls';
 import { useEffect } from 'react';
 
@@ -68,26 +68,7 @@ export const Profile = styled.img`
 `
 
 export const StatusButton = ({type}) => {
-  let color, background;
-  switch (type) {
-    case "pending":
-      color = "info"
-      background = "#ebf1fe"
-      break;
-    case "active":
-      color = "success"
-      background = "#e5faf2"
-      break;
-    case "passive":
-      color = "error"
-      background = "#fff0f1"
-      break;
-    default: 
-      color = "warning"
-      background = ""
-      break;
-  }
-  return <Button size={"small"} color={color} sx={{background: background}} type={type}> {type} </Button>  
+  return <Button size={"small"} > {type} </Button>  
 }
 
 
@@ -95,54 +76,50 @@ const ProductsTab = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const {products} = useSelector(state => state.product)
   useEffect(() => {
     getAllProducts(dispatch)
+    console.log(products);
   }, [dispatch])
 
   const actionColumn =  [
-    { field: "_id", headerName: "ID", width: 70 },
+    { field: "_id", headerName: "ID", flex: 3},
     {
-      field: "user",
-      headerName: "User",
-      flex: 2,
+      field: "image",
+      headerName: "Product",
+      flex: 3,
       renderCell: (params) => {
         return (
           <StatusCell >
-            <Profile  src={params.row.img} alt="avatar" />
-            {params.row.username}
+            <Profile  src={params.row.images[0]?.url} />
+            {params.row.title}
           </StatusCell>
         )
       },
     },
     {
-      field: "email",
-      headerName: "Email",
-      flex: 2,
-    },
-    {
-      field: "age",
-      headerName: "Age",
+      field: "price",
+      headerName: "Price",
       flex: 1,
     },
     {
-      field: "status",
-      headerName: "Status",
-      flex: 2,
-      renderCell: (params) => {
-        return (
-          <StatusButton type={params.row.status} />
-        );
-      },
+      field: "category",
+      headerName: "Category",
+      flex: 3,
+    },
+    {
+      field: "quantity",
+      headerName: "Stock",
+      flex: 1,
     },
     {
       field: "actions",
       headerName: "Actions",
       flex: 2,
-      renderCell: () => {
+      renderCell: (params) => {
         return (
           <ActionCell>
-            <ViewButton onClick={() => navigate("/admin/product/" + 2123)}> View </ViewButton>
+            <ViewButton onClick={() => navigate(`/admin/product/${params.row._id}`)}> View </ViewButton>
             <DelBtn size="small" variant="text" color="error">
               <DeleteOutline />
             </DelBtn>
@@ -160,7 +137,10 @@ const ProductsTab = () => {
           <AddButton  variant='contained'> Add Product </AddButton>
         </Link>
       </Wrapper>
-      <DataTable rows={productRows} columns={actionColumn} />
+      <DataTable 
+          rows={products} 
+          columns={actionColumn} 
+      />
     </Container>
   )
 }

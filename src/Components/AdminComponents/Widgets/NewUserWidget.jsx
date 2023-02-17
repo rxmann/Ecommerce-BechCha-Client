@@ -3,6 +3,7 @@ import { Visibility} from "@mui/icons-material"
 import { userRequest } from "../../../requestMethods/requestMethods"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Container = styled.div`
     flex: 1;
@@ -83,13 +84,18 @@ const NewUserWidget = () => {
         <List>
            {users.map( (user) => (
              <Item key={user._id}>
-             <Image src={user.image} />
-             <User>
-                 <Name> {user.username} </Name>
-                 <Infor> {user.email} </Infor>
-             </User>
-             <Button onClick={() => navigate(`/admin/user/${user._id}`)} > <Visibility/> View  </Button>
-         </Item>
+                {user.image !== "" ? <Image src={user.image} /> : <AccountCircleIcon  sx={
+                    {
+                        width: '40px',
+                        height: '40px',
+                    }
+                } size="medium"/> }
+                <User>
+                    <Name> {user.username} </Name>
+                    <Infor> {user.email} </Infor>
+                </User>
+                <Button onClick={() => navigate(`/admin/user/${user._id}`)} > <Visibility/> View  </Button>
+            </Item>
            ))}
         </List>
     </Container>
