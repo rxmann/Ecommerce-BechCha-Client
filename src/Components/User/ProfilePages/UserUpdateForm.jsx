@@ -56,7 +56,6 @@ const UserUpdateForm = ({user, isFetching, isAdmin, email}) => {
     // handling changes in input fields
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
-        console.log(formData);
     }
 
     // image upload change handle

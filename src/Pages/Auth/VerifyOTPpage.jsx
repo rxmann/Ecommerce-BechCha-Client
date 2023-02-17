@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Cookies from 'js-cookie';
+import { useSelector } from "react-redux";
 
 
 
@@ -32,12 +32,6 @@ const Card = styled.div`
     background-color: white;
     overflow: hidden;
     padding: 20px;
-`
-
-const Span = styled.span`
-    font-size: 14px;
-    color: #0171b6;
-    margin-top: 40px;
 `
 
 const Wrappper = styled.div`
@@ -88,21 +82,25 @@ const Fade = styled.p`
     font-size: 14px;
 `
 
+const LinkItem = styled.a`
+    cursor: pointer;
+`
+
 const VerifyOTP = () => {
 
     const navigate = useNavigate();    
-    const currentEmail = Cookies.get('currentUserEmail');
+    const { currentUser } = useSelector(state => state.user);
     const [otp, setOTP] = useState("")
-    const [email, setEmail] = useState(currentEmail);
+    const [email, setEmail] = useState(currentUser.email);
 
     const handleVerifyOTP = async (e) => {
         e.preventDefault();
         try {
-            const response = await publicRequest.post("/users/verifyOTP", { email, otp: otp.toString() })
+            const response = await publicRequest.post("/users/verifyOTP", { userId: currentUser._id, email, otp: otp.toString() })
 
             console.log(response.data);
 
-            if (response.data.status === "VERIFIED") {
+            if (response?.data) {
 
                 toast.success("User verification completed!", {
                     position: "top-center",
@@ -124,6 +122,16 @@ const VerifyOTP = () => {
         }
     }
 
+    const handleResend = async () => {
+        try {
+            const response = await publicRequest.post("/users/resendOTP", { email, userId: currentUser._id  });
+            console.log(response);
+        }
+        catch (err) {
+            console.log(err.response.data);
+        }
+    }
+
     return (
         <Container>
             <Card>
@@ -136,7 +144,7 @@ const VerifyOTP = () => {
                 <Wrappper>
                     <H1> Verify OTP </H1>
 
-                    <Fade > Enter the 4 digit OTP sent to your email address </Fade>
+                    <Fade > Enter the 4 digit OTP sent to your email {email} </Fade>
                     <Form onSubmit={handleVerifyOTP}>
                         
                         <FormControl>
@@ -165,11 +173,11 @@ const VerifyOTP = () => {
 
                         <Button type="submit" size="large" variant="contained"> verify </Button>
 
-                        <Span> Resend otp mail? </Span>
+                        <LinkItem onClick={handleResend} > Resend OTP </LinkItem>
 
                         <Btn
                             onClick={() => navigate("/register")}>
-                            Resend
+                            Register
                         </Btn>
                     </Form>
                 </Wrappper>

@@ -159,7 +159,7 @@ const Navbar = () => {
                     <Span>NP</Span>
                 </Mbtn>
                 <Mbtn onClick={handleProfile} >
-                    { !currentUser ?  <AccountCircleIcon /> : <ProfilePic src={currentUser.image}/> }
+                    { currentUser !== "" ?  <AccountCircleIcon /> : <ProfilePic src={currentUser.image}/> }
                 </Mbtn>
                 <Mbtn onClick={() => navigate(`/profile/cart/${currentUser._id}`)}>
                     <Badge badgeContent={quantity}  > 

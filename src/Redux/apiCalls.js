@@ -1,25 +1,14 @@
 import { publicRequest, userRequest } from "../requestMethods/requestMethods";
 import { loginSuccess, logoutSuccess, registerSuccess, requestFailure, requestStart,  updateSuccess } from "./userSlice";
 import { getProductsFailure, getProductsStart, getProductsSucess } from "./productSlice";
-import Cookies from "js-cookie";
 
-// set refresh token in cookie
-// set refresh token in cookie
-const cookieOptions = {
-    sameSite: "None",
-    expires: new Date(
-        Date.now() + 30 * 24 * 60 * 60 * 1000
-    ),
-    httpOnly: true,
-    secure: true
-};
+
 
 export const registerUser = async (dispatch, userPayload) => {
     dispatch(requestStart());
     try {
         const response = await publicRequest.post("/users/register", userPayload)
         const user = response.data.user;
-        Cookies.set(`currentUserEmail`, `${user.email}`, cookieOptions);
         dispatch(registerSuccess(user))
     }
     catch (err) {

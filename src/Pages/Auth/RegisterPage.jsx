@@ -89,7 +89,16 @@ const RegisterPage = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { currentUser: userState, isFetching, errorMessage } = useSelector(state => state.user);
+    const { isSignedIn, currentUser: userState, isFetching } = useSelector(state => state.user);
+
+
+    useEffect(() => {
+        const checkLogin = () => {
+            if (isSignedIn) navigate("/");
+        }
+        checkLogin();
+    }, [userState, isSignedIn, navigate])
+
 
     const [formData, setFormData] = useState({
         username: "",
@@ -111,12 +120,7 @@ const RegisterPage = () => {
         await registerUser(dispatch, formData);
     }
 
-    useEffect(() => {
-        const checkLogin = () => {
-            if (userState) navigate("/");
-        }
-        checkLogin();
-    }, [userState, navigate])
+    
 
     
     return (
