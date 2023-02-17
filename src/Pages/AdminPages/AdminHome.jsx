@@ -70,7 +70,10 @@ const AdminHome = () => {
 
 
   // orders data
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState([{
+    name: "",
+    users: ""
+  }]);
   useEffect(() => {
     const getOrders = async () => {
       const response = await userRequest.get("/orders");
@@ -85,16 +88,14 @@ const AdminHome = () => {
   useEffect(() => {
     const getUsersData = async () => {
       const response = await userRequest.get("/users/stats");
-      setUserData([]);
-      response.data.map((each) => {
-        setUserData((old) => [
-          ...old,
-          {
-            name: months[each._id - 1],
-            "Users": each.total,
+      const userD = response?.data?.map((each) => {
+          const name =  months[each._id - 1];
+          const users =  each.total;
+          return {
+            name, users
           }
-        ])
       })
+      setUserData(userD);
     }
     getUsersData();
   }, [])
@@ -110,7 +111,7 @@ const AdminHome = () => {
       </FeaturedInfo>
 
       <ChartContainer>
-        <Chart title={"Users Analytics"} data={userData} grid dataKey={"Users"} />
+        <Chart title={"Users Analytics"} data={userData} grid  dataKey={"users"} />
       </ChartContainer>
 
       <HomeWidgets>

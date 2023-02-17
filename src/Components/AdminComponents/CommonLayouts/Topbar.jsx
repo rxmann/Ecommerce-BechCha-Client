@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {AccountCircle, ChatBubbleOutlineOutlined, DarkModeOutlined, NotificationsNone } from "@mui/icons-material"
+import {AccountCircle  } from "@mui/icons-material"
 import { Link, useNavigate} from "react-router-dom"
 import { useSelector } from "react-redux"
 
@@ -44,21 +44,6 @@ const IconContainer = styled.div`
     position: relative;
     margin-left: 20px;
 `
-
-const SpanBadge = styled.span`
-    position: absolute;
-    top: -5px;
-    right: 0px;
-    color: white;
-    background-color: red;
-    border-radius: 50%;
-    width: 15px;
-    height: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`
-
 
 
 const Topbar = () => {

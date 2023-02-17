@@ -3,7 +3,6 @@ import { Button } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import DataTable from '../../Components/AdminComponents/Tables/DataTable';
-import { productRows, productColumns } from "../../data";
 import { useDispatch, useSelector } from "react-redux"
 import { getAllProducts } from '../../Redux/apiCalls';
 import { useEffect } from 'react';
@@ -79,8 +78,7 @@ const ProductsTab = () => {
   const {products} = useSelector(state => state.product)
   useEffect(() => {
     getAllProducts(dispatch)
-    console.log(products);
-  }, [dispatch])
+  }, [dispatch ])
 
   const actionColumn =  [
     { field: "_id", headerName: "ID", flex: 3},

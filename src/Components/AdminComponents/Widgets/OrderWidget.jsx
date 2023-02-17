@@ -99,17 +99,16 @@ const OrderWidget = ({orders}) => {
           </TableRow>
 
 
-          {orders &&
-          orders.map((order) => (
-            <TableRow key={order.createdAt}>
-            <User>
-              <Image src={order.userId.image} />
-              <Name> {order.userId.username} </Name>
-            </User>
-  
-            <Date> { moment(order.createdAt).format('MMM D, YYYY') } </Date>
-            <Amount> RS {order.totalAmount} </Amount>
-            <Status> <StatusButton type={order.status} /> </Status>
+          {orders && orders.map((order) => (
+            <TableRow key={order?.updatedAt + Math.random()}>
+              <User>
+                <Image src={order.userId?.image} />
+                <Name> {order.userId?.username} </Name>
+              </User>
+    
+              <Date> { moment(order.createdAt).format('MMM D, YYYY') } </Date>
+              <Amount> RS {order.totalAmount} </Amount>
+              <Status> <StatusButton type={order.status} /> </Status>
           </TableRow>
           ))
         }

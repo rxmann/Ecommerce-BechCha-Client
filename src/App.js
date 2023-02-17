@@ -86,7 +86,7 @@ const App = () => {
 
   const ProfileLayout = () => {
     const navigate = useNavigate();
-    const { isSignedIn, currentUser } = useSelector(state => state.user)
+    const { isSignedIn  } = useSelector(state => state.user)
 
     useEffect(() => {
       const checkLogin = () => {
@@ -157,10 +157,10 @@ const App = () => {
           path: "/admin/dashboard",
           element: <AdminHome />
         },
-        // {
-        //   path: "/admin/users/list",
-        //   element: <UsersTab />
-        // },
+        {
+          path: "/admin/users/list",
+          element: <UsersTab />
+        },
         {
           path: "/admin/products/list",
           element: <ProductsTab />

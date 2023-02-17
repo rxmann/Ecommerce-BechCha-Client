@@ -6,8 +6,6 @@ import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import { Avatar } from "@mui/material";
 import moment from 'moment';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 
 const Container = styled.div`

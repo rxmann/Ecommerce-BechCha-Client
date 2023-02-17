@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import Chart from "../Chart"
-import { productData } from "../../../data"
 import { Avatar} from "@mui/material";
 import ProductUpdate from "./ProductUpdate";
 
@@ -104,7 +103,7 @@ const ProductDetails = () => {
       <TopWrapper>
         <Left>
           <ProductChart>
-            <Chart title={"Sale Analytics"} data={productData} dataKey={"Sales"} />
+            <Chart title={"Sale Analytics"} data={{}} dataKey={"Sales"} />
           </ProductChart>
         </Left>
 

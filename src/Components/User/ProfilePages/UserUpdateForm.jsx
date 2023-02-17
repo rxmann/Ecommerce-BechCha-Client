@@ -130,7 +130,7 @@ const UserUpdateForm = ({user, isFetching, isAdmin, email}) => {
         pattern: {
             inputProps: {
                 inputMode: "numeric",
-                pattern: '/\d{10}/'
+                pattern: "{10}"
             }
         }
     }]
