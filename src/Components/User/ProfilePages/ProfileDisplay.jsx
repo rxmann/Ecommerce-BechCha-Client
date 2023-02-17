@@ -77,7 +77,7 @@ const ProfileDisplay = () => {
     return (
         <Container>
             <Card>
-                <UserUpdateForm user={user}/>
+                <UserUpdateForm user={user} isAdmin={currentUser.isAdmin} email={currentUser.email}/>
                 <UserProfile user={user}/>
             </Card>
 

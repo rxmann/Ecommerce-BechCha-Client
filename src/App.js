@@ -138,11 +138,11 @@ const App = () => {
               element: <ProfileDisplay />
             },
             {
-              path: "/profile/cart/me",
+              path: "/profile/cart/:id",
               element: <CartPage />
             },
             {
-              path: "/profile/orders/me",
+              path: "/profile/orders/:id",
               element: <Orders />
             },
           ]

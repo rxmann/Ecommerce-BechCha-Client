@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { useState } from "react";
-import { updateUser } from "../../../Redux/apiCalls";
+import { updateUser, updateUserByAdmin } from "../../../Redux/apiCalls";
 import { Avatar, Button, TextField } from "@mui/material";
 import { useDispatch } from "react-redux"
 import { useEffect } from "react";
@@ -46,7 +46,7 @@ const UploadB = styled.label`
 `
 
 
-const UserUpdateForm = ({user, isFetching}) => {
+const UserUpdateForm = ({user, isFetching, isAdmin, email}) => {
 
     const navigate = useNavigate(); 
     const dispatch = useDispatch();
@@ -77,7 +77,15 @@ const UserUpdateForm = ({user, isFetching}) => {
         if (profileImage) {
             userData.append(`image`, formData.image);
         }
-        await updateUser(dispatch, userData, user._id);
+        if (!isAdmin) {
+            await updateUser(dispatch, userData, user._id);
+        }
+        else if (isAdmin && user.email === email) {
+            await updateUser(dispatch, userData, user._id);
+        }
+        else {
+            await updateUserByAdmin(dispatch, userData, user._id);
+        }
         setProfileImage("");
     }
 

@@ -10,23 +10,24 @@ import Button from '@mui/material/Button';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import { InputAdornment, OutlinedInput } from '@mui/material';
 
 
 const Container = styled.div`
     position: sticky;
     top: 0;
-    height: 70px;
     padding: 0px 50px;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     background-color: #ffffff;
     z-index: 999;
     box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);
+    height: 60px;
 `
 const Wrapper = styled.div`
     width: 100%;
+    height: 100%;
     color: #0171b6;
     display: flex;
     align-items: center;
@@ -47,35 +48,27 @@ const Logo = styled.img`
 
 const Middle = styled.div`
     flex: 1;
-    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 `
 
 const SearchContainer = styled.div`
-    border: 0.7px solid lightgray;
+    width: 70%;
     display: flex;
-    justify-content:center;
     align-items: center;
-    height: 100%; 
-`
-const Searchicon = styled(SearchIcon)`
-    font-size: larger;
-    border-right: 0.8px solid lightgray;
+    justify-content: center;
     padding: 10px;
+    gap: 5px;
 `
-const SearchBox = styled.input`
-    flex: 8;
-    border: none;
-    outline: none;
-    padding: 5px;
-    margin: 0px 10px;
-    font-size: 15px;
-    font-weight: 400;
+const SearchBox = styled(OutlinedInput)`
+    width: 100%;
 `
 
 const SearchButton = styled(Button)`
+    margin-right: 20px;
+`
+const Clear = styled(ClearIcon)`
     cursor: pointer;
     color: #0171b6;
 `
@@ -94,6 +87,17 @@ const Mbtn = styled.div`
     cursor: pointer;
     color: #0171b6;
     margin-left: 30px;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+`
+const ProfilePic = styled.img`
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
 `
 
 
@@ -125,19 +129,24 @@ const Navbar = () => {
 
             <Middle>
                 <SearchContainer>
-                    <Searchicon fontSize= "medium" />
-                    <SearchBox maxLength={30} onChange={(e) => setSearch(e.target.value) } name='search' value={search}/>
+                     <SearchBox
+                                size="small"
+                                maxLength={30} 
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value) } 
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        { search  && <Clear onClick={() => setSearch('')}  /> }
+                                    </InputAdornment>
+                                }
+                                startAdornment={
+                                    <InputAdornment position="start">
+                                       <SearchIcon color="info"/>
+                                    </InputAdornment>
+                                }
+                            />
+                    <SearchButton variant='contained'>Search</SearchButton>
                     
-                    
-                    { search === '' ? 
-                    <div style={{width: '20px', backgroundColor: 'red'}} ></div>
-                    : <ClearIcon onClick={() => setSearch('')} 
-                    style={{cursor: 'pointer', maxWidth: '20px'}} />
-                    }
-
-
-                    <SearchButton>Search</SearchButton>
-
                 </SearchContainer>
             </Middle>
 
@@ -150,9 +159,9 @@ const Navbar = () => {
                     <Span>NP</Span>
                 </Mbtn>
                 <Mbtn onClick={handleProfile} >
-                    <AccountCircleIcon /> 
+                    { !currentUser ?  <AccountCircleIcon /> : <ProfilePic src={currentUser.image}/> }
                 </Mbtn>
-                <Mbtn onClick={() => navigate("/profile/cart/me")}>
+                <Mbtn onClick={() => navigate(`/profile/cart/${currentUser._id}`)}>
                     <Badge badgeContent={quantity}  > 
                             <ShoppingCartOutlined />
                     </Badge>

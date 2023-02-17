@@ -18,6 +18,7 @@ export const publicRequest = axios.create({
 
 export const userRequest = axios.create({
     baseURL: BASE_URL,
+    withCredentials: true,
     headers: {
         'Content-Type': 'multipart/form-data',
         authorization: `Bearer ${getAccessToken()}`,

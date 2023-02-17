@@ -60,15 +60,15 @@ const ProfilePage = () => {
     },
     {
       title: "Cart",
-      goto: "/profile/cart/me"
+      goto: `/profile/cart/${currentUser?._id}`
     },
     {
       title: "Orders",
-      goto: "/profile/orders/me"
+      goto: `/profile/orders/${currentUser?._id}`
     },
     {
       title: "Account",
-      goto: "/profile/account/me"
+      goto: `/profile/account/${currentUser?._id}`
     }
   ]
 
