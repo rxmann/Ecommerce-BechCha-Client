@@ -7,7 +7,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import { InputAdornment, OutlinedInput } from '@mui/material';
@@ -47,7 +47,7 @@ const Logo = styled.img`
 `
 
 const Middle = styled.div`
-    flex: 1;
+    flex: 2;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -88,8 +88,8 @@ const Mbtn = styled.div`
     color: #0171b6;
     margin-left: 30px;
     overflow: hidden;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
 `
