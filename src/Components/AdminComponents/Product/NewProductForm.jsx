@@ -97,7 +97,7 @@ const DelBtn = styled.div`
     cursor: pointer;
 `
 
-const ProductForm = ({FormType}) => {
+const NewProductForm = ({FormType}) => {
 
     const [categories, setCategories] = useState([]);
 
@@ -252,4 +252,4 @@ const ProductForm = ({FormType}) => {
   )
 }
 
-export default ProductForm
+export default NewProductForm

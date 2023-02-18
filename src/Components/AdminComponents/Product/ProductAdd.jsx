@@ -1,7 +1,5 @@
-import { useState } from "react"
 import styled from "styled-components"
-import { userRequest } from "../../../requestMethods/requestMethods"
-import ProductForm from "./ProductForm"
+import NewProductForm from "./NewProductForm"
 
 
 const Container = styled.div`
@@ -25,7 +23,7 @@ const ProductAdd = () => {
   return (
    <Container>
     <Title> Add product </Title>
-        <ProductForm FormType={"add"}  />
+        <NewProductForm FormType={"add"}  />
    </Container>
   )
 }

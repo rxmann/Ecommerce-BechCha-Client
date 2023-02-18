@@ -114,7 +114,7 @@ export const editProductAdmin = async (values, id) => {
     });
 
     try {
-        const response = await userRequest.post(`/products/${id}`, formData, {headers : { "Content-Type": "multipart/form-data" }})
+        const response = await userRequest.put(`/products/${id}`, formData, {headers : { "Content-Type": "multipart/form-data" }})
         console.log(response.data);
     }
     catch (err) {

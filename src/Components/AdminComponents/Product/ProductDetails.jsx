@@ -117,6 +117,34 @@ const ProductDetails = () => {
     getProduct();
   }, []);
 
+
+  const getCatId = (id) => {
+    for (let i = 0; i < categories.length; i++) {
+        if (categories[i].id === id) {
+            return categories[i].name;
+        }
+    }
+    return null;
+}
+
+  const [categories, setCategories] = useState([]);
+
+    useEffect( () => {
+        const getAllCats = async () => {
+            const response = await publicRequest.get("/categories");
+            const categoryList = response.data.CategoryList;
+            const data = categoryList.map((cat) => {
+                return {
+                    id: cat._id,
+                    name: cat.name,
+                }
+            })
+            setCategories(data)
+        }
+        getAllCats();
+
+    }, [])
+
   return (
     <Container>
       <Title> Product Profile </Title>
@@ -153,6 +181,10 @@ const ProductDetails = () => {
                 <Label> Current Price</Label>
                 <Data> {data?.price}  </Data>
               </Item>
+              <Item>
+                <Label> Category </Label>
+                <Data> {getCatId(data?.category)}  </Data>
+              </Item>
             </ProductInfo>
           </ProductCard>
         </Right>
@@ -162,7 +194,7 @@ const ProductDetails = () => {
 
       <BottomWrapper>
         <Title style={{marginBottom: "30px"}}> Edit product </Title>
-          <ProductUpdate  prodDetails={data} />
+          <ProductUpdate  prodDetails={data}  categories={categories}/>
       </BottomWrapper>
 
     </Container>

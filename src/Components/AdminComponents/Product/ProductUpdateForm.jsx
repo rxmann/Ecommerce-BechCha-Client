@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { Button, MenuItem, Select, TextField } from "@mui/material";
+import { Button, MenuItem, OutlinedInput, Select, TextField } from "@mui/material";
 import JoditEditor from "jodit-react";
-import { useEffect, useState  } from "react";
+import { useEffect, useState } from "react";
 import UploadIcon from '@mui/icons-material/Upload';
 import ClearIcon from '@mui/icons-material/Clear';
 import { publicRequest } from "../../../requestMethods/requestMethods"
@@ -75,7 +75,7 @@ const Wrap = styled.div`
     justify-content: space-between;
 `
 
-const ImgContainer =styled.div`
+const ImgContainer = styled.div`
     display: flex;
 `
 
@@ -88,55 +88,38 @@ const Image = styled.img`
     object-fit: cover;
 `
 
-const ProductUpdateForm = ({FormType, prodDetails}) => {
+const DelBtn = styled.div`
+    position: absolute;
+   top:0;
+   right:0;
+    z-index:10;
+    border: none;
+    cursor: pointer;
+`
 
-    const [categories, setCategories] = useState([]);
+const ProductUpdateForm = ({ FormType, prodDetails, categories }) => {
 
-    useEffect( () => {
-        const getAllCats = async () => {
-            const response = await publicRequest.get("/categories");
-            const categoryList = response.data.CategoryList;
-            const data = categoryList.map((cat) => {
-                return {
-                    id: cat._id,
-                    name: cat.name,
-                }
-            })
-            setCategories(data)
-        }
-        getAllCats();
-
-    }, [FormType])
-
-
-
-    const [values, setValues] = useState();
+    const [values, setValues] = useState({
+        title: "",
+        category: "",
+        price: "",
+        quantity: "",
+        description: "",
+        images: [],
+    });
 
     useEffect(() => {
-        if (FormType === "add") {
-            setValues({ 
-                title: "", 
-                category: "", 
-                price: "", 
-                quantity: "", 
-                description: "", 
-                images: [] 
+        if (FormType === "edit") {
+            setValues({
+                title: prodDetails?.title,
+                category: prodDetails?.category,
+                price: prodDetails?.price,
+                quantity: prodDetails?.quantity,
+                description: prodDetails?.description,
+                images: [],
             })
         }
-        else {
-            setValues( { 
-                    title: prodDetails?.title, 
-                    category: "", 
-                    price: prodDetails?.price, 
-                    quantity: prodDetails?.quantity, 
-                    description: prodDetails?.description, 
-                    images: [],
-            })
-        }
-    
-    }, []);
-
-    console.log(values);
+    }, [prodDetails]);
 
     // description field JODIT
     const config = {
@@ -151,7 +134,7 @@ const ProductUpdateForm = ({FormType, prodDetails}) => {
     const handleImages = (e) => {
         e.preventDefault();
         const selected = Array.from(e.target.files);
-        setValues({...values, "images": selected} )
+        setValues({ ...values, "images": selected })
     }
 
 
@@ -159,7 +142,7 @@ const ProductUpdateForm = ({FormType, prodDetails}) => {
     const handleDelete = (data) => {
         const imageArray = values["images"];
         const newImageArray = imageArray.filter((image) => image !== data)
-        setValues({...values, "images": newImageArray} )
+        setValues({ ...values, "images": newImageArray })
     }
 
 
@@ -171,99 +154,106 @@ const ProductUpdateForm = ({FormType, prodDetails}) => {
 
 
     const handleSubmit = (e) => {
-        e.preventDefault();            
-        // editProductAdmin(values)
+        e.preventDefault();
+        editProductAdmin(values, prodDetails._id);
     }
 
-  return (
-    <Form onSubmit={handleSubmit}>
-    <FormWrapper>
-        <FormOptions>
-            <FormItem >
-                <Label> Name </Label>
-                <TextInput 
-                        name="title" 
-                        value={values?.title}
-                        onChange={handleChange}  
-                        size="small" required variant="outlined" type="text"  />
-            </FormItem>
+    return (
+        <Form onSubmit={handleSubmit}>
+            <FormWrapper>
+                <FormOptions>
+                    <FormItem >
+                        <Label> Name </Label>
+                        <TextInput
+                            required
+                            variant="standard"
+                            type={"text"}
+                            value={values?.title}
+                            onChange={handleChange}
+                        />
+                    </FormItem>
 
-            <FormItem >
-                <Label>Category</Label>
-                <Select 
-                    name="category" 
-                    sx={{ flex: "2" }} 
-                    value={values?.category} 
-                    required
-                    onChange={handleChange}>
-                    {categories.map( (category) => (
-                        <MenuItem value={category.id} key={category.id}> {category.name} </MenuItem>
-                    ))}
-                </Select>
-            </FormItem>
+                    <FormItem >
+                        <Label>Category</Label>
+                        <Select
+                            name="category"
+                            sx={{ flex: "2" }}
+                            required
+                            value={values?.category || ""}
+                            onChange={(e) => setValues({ ...values, category: e.target.value })}>
+                            {categories?.map((category) => (
+                                <MenuItem value={category.id} key={category.name}> {category.name} </MenuItem>
+                            ))}
+                        </Select>
+                    </FormItem>
 
-            <FormItem >
-                <Label>Price</Label>
-                <TextInput 
-                    name="price" 
-                    value={values?.price}
-                    onChange={handleChange}
-                    size="small" required variant="outlined" type={"number"} />
-            </FormItem>
+                    <FormItem >
+                        <Label>Price</Label>
+                        <TextInput
+                            name="price"
+                            value={values?.price}
+                            onChange={handleChange}
+                            size="small" required
+                            variant="standard"
+                            type={"number"} />
+                    </FormItem>
 
-            <FormItem >
-                <Label> Quantity </Label>
-                <TextInput 
-                    name="quantity"
-                    value = {values?.quantity}
-                    onChange={handleChange}
-                    size="small" required variant="outlined" type={"number"} />
-            </FormItem>
+                    <FormItem >
+                        <Label> Quantity </Label>
+                        <TextInput
+                            name="quantity"
+                            value={values?.quantity}
+                            onChange={handleChange}
+                            size="small"
+                            required
+                            variant="standard"
+                            type={"number"} />
+                    </FormItem>
 
-            <FormDesc style={{ flexShrink: 4 }}>
-                <Label> Description </Label>
-                <DescWrap>
-                    <JoditEditor
-                        config={config}
-                        value={values?.description}
-                        onBlur={con => setValues({...values, "description": con})}
-                    />
-                </DescWrap>
-            </FormDesc>
+                    <FormDesc style={{ flexShrink: 4 }}>
+                        <Label> Description </Label>
+                        <DescWrap>
+                            <JoditEditor
+                                config={config}
+                                value={values?.description}
+                                onBlur={con => setValues({ ...values, "description": con })}
+                            />
+                        </DescWrap>
+                    </FormDesc>
 
-            
-            <ImageUploadWrapper>
-                <Label>Images</Label>
-                <Wrap>
-                    <UploadB>
-                        <UploadIcon />
-                        3 images
-                        <input 
-                            name="images"
-                            hidden 
-                            type="file" 
-                            multiple 
-                            onChange={handleImages}
-                            accept='image/*' />
-                    </UploadB>
-                    {/* <ImgContainer>
-                        {values?.images && 
-                            values?.images.map(image => (
-                                <SmallImage key={image.name} >
-                                    <Image src={URL.createObjectURL(image)} />
-                                    <DelBtn onClick={() => handleDelete(image)}> <ClearIcon color='error'  /> </DelBtn>
-                                </SmallImage>
-                            )) 
-                        }
-                    </ImgContainer> */}
-                </Wrap>
-            </ImageUploadWrapper>
 
-        </FormOptions>
-    </FormWrapper>
-    <Button type="submit" fullWidth variant="contained"> {FormType} </Button>
-</Form>
-  )
+                    <ImageUploadWrapper>
+                        <Label>Images</Label>
+                        <Wrap>
+                            <UploadB>
+                                <UploadIcon />
+                                3 images
+                                <input
+                                    name="images"
+                                    hidden
+                                    type="file"
+                                    multiple
+                                    onChange={handleImages}
+                                    accept='image/*' />
+                            </UploadB>
+                            <ImgContainer>
+                                {values?.images &&
+                                    values?.images.map(image => (
+                                        <SmallImage key={image.name} >
+                                            <Image src={URL.createObjectURL(image)} />
+                                            <DelBtn onClick={() => handleDelete(image)}> <ClearIcon color='error' /> </DelBtn>
+                                        </SmallImage>
+                                    ))
+                                }
+                            </ImgContainer>
+                        </Wrap>
+                    </ImageUploadWrapper>
+
+                </FormOptions>
+            </FormWrapper>
+            <Button type="submit" fullWidth variant="contained"> {FormType} </Button>
+        </Form>
+    )
 }
 
 export default ProductUpdateForm
