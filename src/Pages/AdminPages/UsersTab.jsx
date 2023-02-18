@@ -88,6 +88,7 @@ const UsersTab = () => {
   const navigate = useNavigate();
 
   const [ users, setUsers ] = useState([]);
+  const [ref, setRef] = useState(false);
 
   useEffect(() => {
     const getAllUsers = async () => {
@@ -101,7 +102,7 @@ const UsersTab = () => {
     }
 
     getAllUsers();
-  }, []);
+  }, [ref]);
 
 
 
@@ -109,11 +110,12 @@ const UsersTab = () => {
     console.log(id);
     try {
       const response = await userRequest.delete(`/users/${id}`);
-      console.log(response);
+      console.log(response.data);
     }
     catch (err) {
-
+      console.log(err.response.data);
     }
+    setRef(!ref);
   }
 
   const actionColumn = [
@@ -132,7 +134,7 @@ const UsersTab = () => {
         );
       },
     },
-    { field: "email", headerName: "Email", flex: 1 },
+    { field: "email", headerName: "Email", flex: 2 },
     {
       field: "contacts",
       headerName: "Contacts",

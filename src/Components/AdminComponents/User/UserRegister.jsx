@@ -1,7 +1,22 @@
-import AddPhotoAlternate from "@mui/icons-material/AddPhotoAlternate"
-import { Avatar, Button, FormControlLabel, IconButton, MenuItem, Radio, RadioGroup, Select, TextField } from "@mui/material"
+import { Avatar, Button, MenuItem, Select, TextField } from "@mui/material"
 import { useState } from "react"
 import styled from "styled-components"
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import { publicRequest } from "../../../requestMethods/requestMethods";
+
+
+
+
+const UploadB = styled.label`
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px dashed gray;
+    padding: 30px 20px;
+    margin: 0px 20px;
+`
+
 
 const Container = styled.div`
     flex: 5;    
@@ -57,24 +72,67 @@ const Title = styled.h2`
 
 
 const UserRegister = () => {
+    
+    const data = {
+        username: "",
+        email: "",
+        password: "",
+        address: "",
+        contacts: "",
+        dob: "",
+        isAdmin: false,
+    };
+    const [profileImage, setProfileImage] = useState("");
+    const [userData, setUserData] = useState(data);
+
+    const handleChange = (e) => {
+        setUserData({ ...userData, [e.target.name]: e.target.value })
+    }
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        Object.keys(userData).forEach(key => {
+            formData.append(key, userData[key]);
+        });
+
+        try {
+            const response = await publicRequest.post("/users/register", formData, { headers: { "Content-type": "multipart/form-data" } });
+            console.log(response.data);
+            setUserData(data);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
 
     const InputData = [
         {
+            name: "username",
             type: "text",
-            label: "Username"
+            label: "Username",
+            value: userData.username,
         }, {
+            name: "email",
             type: "email",
-            label: "Email"
+            label: "Email",
+            value: userData.email,
         },
         {
+            name: "password",
             type: "password",
-            label: "Password"
+            label: "Password",
+            value: userData.password,
         },
         {
+            name: "address",
             type: "text",
-            label: "Address"
+            label: "Address",
+            value: userData.address,
         },
         {
+            name: "contacts",
             type: "tel",
             label: "Phone Number",
             pattern: {
@@ -85,25 +143,41 @@ const UserRegister = () => {
             },
         },
         {
+            name: "dob",
             type: "date",
             label: "Date of Birth"
         },
     ]
 
-    const [userType, setUserType] = useState("customer");
+
+    // image upload change handle
+    const handleImage = (e) => {
+        const imaged = e.target.files[0];
+        setUserData({ ...userData, "image": imaged })
+        setProfileImage(URL.createObjectURL(imaged))
+    }
 
 
     return (
         <Container>
             <Wrapper>
                 <Title> New user registration </Title>
-                <Form >
+                <Form onSubmit={handleRegister}>
                     <FormItem>
                         <Avatar alt="Rxman" src={""} sx={{ width: 100, height: 100 }} />
-                        <IconButton color="primary" aria-label="upload picture" component="label">
-                            <input hidden accept="image/*" type="file" />
-                            <AddPhotoAlternate />
-                        </IconButton>
+
+                        <UploadB>
+                            <AddPhotoAlternateIcon />
+                            Add Profile
+                            <input
+                                name="image"
+                                hidden
+                                type="file"
+                                onChange={handleImage}
+                                accept='image/*' />
+                        </UploadB>
+
+                        {profileImage && <Avatar src={profileImage} sx={{ width: 100, height: 100 }} />}
                     </FormItem>
 
 
@@ -112,30 +186,27 @@ const UserRegister = () => {
                             <FormItem key={input.label}>
                                 <Label> {input.label} </Label>
                                 <TextInput
-                                    required
-                                    variant="standard"
+                                    name={input.name}
                                     type={input.type}
-                                    defaultValue={input.defaultValue}
+                                    value={input.value && input.value}
+                                    onChange={handleChange}
                                     InputProps={input.pattern}
+                                    required
+                                    variant={"standard"}
                                 />
                             </FormItem>
                         ))}
-                        <FormItem>
-                            <Label> Gender </Label>
-                            <div sx={{flex: "1", width: "100%"}}>
-                                <RadioGroup row >
-                                    <FormControlLabel value="male" control={<Radio  />} label="Male" />
-                                    <FormControlLabel value="female" control={<Radio />} label="Female" />
-                                    <FormControlLabel value="other" control={<Radio />} label="Other" />
-                                </RadioGroup>
-                            </div>
-                        </FormItem>
 
                         <FormItem>
                             <Label> User Role </Label>
-                            <Select sx={{width: "100%", flex: "1"} } autoWidth value={userType} onChange={(e) => setUserType(e.target.value)}>
-                                <MenuItem  value="customer" > Customer </MenuItem>
-                                <MenuItem value="admin" > Admin </MenuItem>
+                            <Select sx={{ width: "100%", flex: "1" }}
+                                autoWidth
+                                name={"isAdmin"}
+                                value={userData.isAdmin}
+                                onChange={handleChange}
+                            >
+                                <MenuItem value={false}> Customer </MenuItem>
+                                <MenuItem value={true} > Admin </MenuItem>
                             </Select>
                         </FormItem>
 

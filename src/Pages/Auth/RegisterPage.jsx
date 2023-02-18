@@ -115,6 +115,8 @@ const RegisterPage = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
+
+    
     const handleSubmitRegister = async (e) => {
         e.preventDefault();
         await registerUser(dispatch, formData);

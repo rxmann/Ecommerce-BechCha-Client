@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useSelector } from "react-redux";
 
 
 
@@ -32,6 +31,7 @@ const Card = styled.div`
     background-color: white;
     overflow: hidden;
     padding: 20px;
+    max-width: 300px;
 `
 
 const Wrappper = styled.div`
@@ -89,16 +89,13 @@ const LinkItem = styled.a`
 const VerifyOTP = () => {
 
     const navigate = useNavigate();    
-    const { currentUser } = useSelector(state => state.user);
     const [otp, setOTP] = useState("")
-    const [email, setEmail] = useState(currentUser.email);
+    const [email, setEmail] = useState("");
 
     const handleVerifyOTP = async (e) => {
         e.preventDefault();
         try {
-            const response = await publicRequest.post("/users/verifyOTP", { userId: currentUser._id, email, otp: otp.toString() })
-
-            console.log(response.data);
+            const response = await publicRequest.post("/users/verifyOTP", { email, otp: otp.toString() })
 
             if (response?.data) {
 
@@ -124,7 +121,7 @@ const VerifyOTP = () => {
 
     const handleResend = async () => {
         try {
-            const response = await publicRequest.post("/users/resendOTP", { email, userId: currentUser._id  });
+            const response = await publicRequest.post("/users/resendOTP", { email  });
             console.log(response);
         }
         catch (err) {
@@ -144,7 +141,7 @@ const VerifyOTP = () => {
                 <Wrappper>
                     <H1> Verify OTP </H1>
 
-                    <Fade > Enter the 4 digit OTP sent to your email {email} </Fade>
+                    <Fade > Enter Email and 4 digit OTP sent to your email</Fade>
                     <Form onSubmit={handleVerifyOTP}>
                         
                         <FormControl>

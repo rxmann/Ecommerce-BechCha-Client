@@ -2,6 +2,8 @@ import { publicRequest, userRequest } from "../requestMethods/requestMethods";
 import { loginSuccess, logoutSuccess, registerSuccess, requestFailure, requestStart,  updateSuccess } from "./userSlice";
 import { getProductsFailure, getProductsStart, getProductsSucess } from "./productSlice";
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export const registerUser = async (dispatch, userPayload) => {
@@ -10,10 +12,11 @@ export const registerUser = async (dispatch, userPayload) => {
         const response = await publicRequest.post("/users/register", userPayload)
         const user = response.data.user;
         dispatch(registerSuccess(user))
+        toast.success('User account created!');
     }
     catch (err) {
-        console.log(err.response);
-        dispatch(requestFailure(err.reponse?.data));
+        dispatch(requestFailure());
+        toast.error(err.response.data);
     }
 }
 

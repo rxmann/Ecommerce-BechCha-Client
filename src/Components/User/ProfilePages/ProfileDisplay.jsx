@@ -66,7 +66,7 @@ const ProfileDisplay = () => {
             }
         }
         userD();
-      }, [userId, isFetching]);
+      }, [userId, isFetching, navigate]);
       
 
     const handleLogout = (e) => {
