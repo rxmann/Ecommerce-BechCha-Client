@@ -34,7 +34,7 @@ const TopSales = () => {
         const getTopSold = async () => {
             try {
                 const response = await publicRequest.get("/products?limit=10")
-                setData(response.data.products)
+                setData(response.data)
             }
             catch (err) {
                 console.log(err);

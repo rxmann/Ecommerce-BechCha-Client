@@ -1,4 +1,4 @@
-import { DeleteOutline } from '@mui/icons-material';
+import { AccountCircle, DeleteOutline } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -55,6 +55,32 @@ const DelBtn = styled(Button)`
   height: 100%;
 `
 
+export const StatusCell = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`
+export const Profile = styled.img`
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+`
+
+const StatusButton = ({ type }) => {
+  let color, background;
+  switch (type) {
+    case "pending":
+      color = "error"
+      background = "#fff0f1"
+      break;
+    case "verified":
+      color = "success"
+      background = "#e5faf2"
+      break;
+  }
+  return <Button size={"small"} color={color} sx={{ background: background }} type={type}> {type} </Button>
+}
 
 
 const UsersTab = () => {
@@ -77,16 +103,60 @@ const UsersTab = () => {
     getAllUsers();
   }, []);
 
+
+
+  const handleDeleteOne = async (id) => {
+    console.log(id);
+    try {
+      const response = await userRequest.delete(`/users/${id}`);
+      console.log(response);
+    }
+    catch (err) {
+
+    }
+  }
+
   const actionColumn = [
+    { field: "_id", headerName: "ID", flex: 2 },
+    {
+      field: "user",
+      headerName: "User",
+      flex: 1,
+      renderCell: (params) => {
+        return (
+          <StatusCell >
+            { params.row.image ? <Profile  src={params.row.image} /> :  <AccountCircle sx={{width: '40px',
+                        height: '40px'}} />}
+            {params.row.username}
+          </StatusCell>
+        );
+      },
+    },
+    { field: "email", headerName: "Email", flex: 1 },
+    {
+      field: "contacts",
+      headerName: "Contacts",
+      flex: 1,
+    },
+    {
+      field: "isVerified",
+      headerName: "Status",
+      flex: 1,
+      renderCell: (params) => {
+        return (
+          params.row.isVerified ? <StatusButton type={"verified"} /> : <StatusButton type={"pending"} />
+        )
+      }
+    },
     {
       field: "actions",
       headerName: "Actions",
       flex: 2,
-      renderCell: () => {
+      renderCell: (params) => {
         return (
           <ActionCell>
-            <ViewButton onClick={() => navigate("/admin/user/" + 2123)}> View </ViewButton>
-            <DelBtn size="small" variant="text" color="error">
+            <ViewButton onClick={() => navigate("/admin/user/" + params.row._id)}> View </ViewButton>
+            <DelBtn size="small" variant="text" color="error" onClick={() => handleDeleteOne(params.row._id)}>
               <DeleteOutline />
             </DelBtn>
           </ActionCell>
