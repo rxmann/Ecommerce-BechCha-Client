@@ -1,6 +1,10 @@
 import styled from "styled-components"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductForm from "./ProductForm";
+import { publicRequest } from "../../../requestMethods/requestMethods";
+import { useParams } from "react-router-dom"
+import ProductUpdateForm from "./ProductUpdateForm";
+
 
 const Container = styled.div`
     display: flex;
@@ -35,17 +39,11 @@ const BigImage = styled.img`
 
 
 
-const ProductUpdate = () => {
+const ProductUpdate = ({prodDetails}) => {
 
+  let images = prodDetails?.images;  
+  const [imageSelected, setImageSelected] = useState(images && images[0]?.url);
 
-    const [Data, setData] = useState(null);
-
-    
-
-    let images = [];
-    images[0] = "https://img.freepik.com/premium-vector/social-media-post-design-ecommerce-product-marketing_528542-192.jpg?w=2000"
-    images[1] = "https://media.wired.com/photos/627bfd36a4fb038463303e27/master/pass/Sony-WH-1000MX5-Gear.jpg";
-    const [imageSelected, setImageSelected] = useState(images[0]);
     return (
         <Container>
             
@@ -55,17 +53,17 @@ const ProductUpdate = () => {
                 </MainImageContainer>
 
                 <ImageContainer>
-                    {images?.map(image => (
+                    {images && images?.map(image => (
                         <SmallImage key={image}
                             selected={image === imageSelected}
-                            onClick={() => { setImageSelected(image) }}
-                            src={`${image}`} />
+                            onClick={() => { setImageSelected(image.url) }}
+                            src={`${image.url}`} />
                     ))}
                 </ImageContainer>
             </Left>
 
             <Right>
-                <ProductForm  FormType={"edit"} data={Data} setData={setData} />
+                <ProductUpdateForm  FormType={"edit"} prodDetails={prodDetails}/>
             </Right>
            
         </Container>

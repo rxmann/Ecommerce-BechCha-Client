@@ -26,7 +26,7 @@ const ProductList = ({id, sort, limitPrice, subIds }) => {
       try {
         setLoading(true)
         const response = await publicRequest.get(`/products?sort=${sort}&limitprice=${limitPrice}&subIds=${subIds}`)
-        setData(response.data.products)
+        setData(response.data)
         setLoading(false)
       }
       catch (err) {

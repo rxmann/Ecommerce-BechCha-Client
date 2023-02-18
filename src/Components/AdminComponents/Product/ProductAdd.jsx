@@ -1,5 +1,6 @@
 import { useState } from "react"
 import styled from "styled-components"
+import { userRequest } from "../../../requestMethods/requestMethods"
 import ProductForm from "./ProductForm"
 
 
@@ -20,12 +21,11 @@ const Title = styled.h1`
 
 
 const ProductAdd = () => {
-
-    const [Data, setData] = useState();
+    
   return (
    <Container>
     <Title> Add product </Title>
-        <ProductForm FormType={"add"} setData={setData} data={Data}/>
+        <ProductForm FormType={"add"}  />
    </Container>
   )
 }

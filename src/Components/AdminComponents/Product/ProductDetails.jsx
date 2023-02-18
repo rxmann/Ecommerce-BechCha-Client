@@ -2,6 +2,9 @@ import styled from "styled-components"
 import Chart from "../Chart"
 import { Avatar} from "@mui/material";
 import ProductUpdate from "./ProductUpdate";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { publicRequest } from "../../../requestMethods/requestMethods";
 
 const Container = styled.div`
     flex: 5;
@@ -97,6 +100,23 @@ const BottomWrapper = styled.div`
 `
 const ProductDetails = () => {
 
+
+  const prodId = useParams().id;
+  const [data, setData] = useState("");
+
+  useEffect( () => {
+    const getProduct = async () => {
+      try {
+        const response = await publicRequest.get(`/products/${prodId}`);
+        setData(response.data);
+      }
+      catch (err) {
+
+      }
+    }
+    getProduct();
+  }, []);
+
   return (
     <Container>
       <Title> Product Profile </Title>
@@ -112,26 +132,26 @@ const ProductDetails = () => {
           <ProductCard>
             <ItemTitle> Product Info </ItemTitle>
             <ProductNameWrap>
-              <Avatar alt="Rxman" src={""} sx={{ width: 60, height: 60 }} />
-              <Data> Apple  </Data>
+              <Avatar  src={data?.images && data.images[0]?.url} sx={{ width: 60, height: 60 }} />
+              <Data> {data?.title}  </Data>
             </ProductNameWrap>
             <ProductInfo>
 
               <Item>
                 <Label>Id</Label>
-                <Data> 0971231123213123 </Data>
+                <Data> {data?._id} </Data>
               </Item>
               <Item>
                 <Label>Sales</Label>
-                <Data> 1500 </Data>
+                <Data> {data?.quantity} </Data>
               </Item>
               <Item>
                 <Label> InStock</Label>
-                <Data>30 </Data>
+                <Data> {data?.quantity}  </Data>
               </Item>
               <Item>
                 <Label> Current Price</Label>
-                <Data>200 </Data>
+                <Data> {data?.price}  </Data>
               </Item>
             </ProductInfo>
           </ProductCard>
@@ -142,7 +162,7 @@ const ProductDetails = () => {
 
       <BottomWrapper>
         <Title style={{marginBottom: "30px"}}> Edit product </Title>
-          <ProductUpdate />
+          <ProductUpdate  prodDetails={data} />
       </BottomWrapper>
 
     </Container>

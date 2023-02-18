@@ -91,20 +91,25 @@ const UserRegister = () => {
 
     const handleRegister = async (e) => {
         e.preventDefault();
+        // 2mb
+        if (userData["image"].size > 2000000) {
+            alert("File too large");
+            return;
+        }
 
         const formData = new FormData();
         Object.keys(userData).forEach(key => {
             formData.append(key, userData[key]);
         });
 
-        try {
-            const response = await publicRequest.post("/users/register", formData, { headers: { "Content-type": "multipart/form-data" } });
-            console.log(response.data);
-            setUserData(data);
-        }
-        catch (err) {
-            console.log(err);
-        }
+        // try {
+        //     const response = await publicRequest.post("/users/register", formData, { headers: { "Content-type": "multipart/form-data" } });
+        //     console.log(response.data);
+        //     setUserData(data);
+        // }
+        // catch (err) {
+        //     console.log(err);
+        // }
     }
 
     const InputData = [

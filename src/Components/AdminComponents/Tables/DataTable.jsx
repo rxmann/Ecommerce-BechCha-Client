@@ -59,7 +59,7 @@ const DataTable = ({rows, columns}) => {
         <DataGrid
           rows={rows}
           columns={columns}
-          pageSize={9}
+          // pageSize={9}
           getRowId={row => row._id}
           rowsPerPageOptions={[5]}
           // checkboxSelection

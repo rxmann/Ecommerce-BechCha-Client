@@ -74,6 +74,11 @@ const UserUpdateForm = ({user, isFetching, isAdmin, email}) => {
         userData.append("address", formData.address);
         userData.append("contacts", parseInt(formData.contacts));
         if (profileImage) {
+            if (formData.image.size > 2000000) {
+                alert("File too large. Uplaod less than 2mb");
+                setProfileImage("");
+                return;
+            }
             userData.append(`image`, formData.image);
         }
         if (!isAdmin) {

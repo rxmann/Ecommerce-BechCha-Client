@@ -81,3 +81,43 @@ export const getAllProducts = async (dispatch) => {
         dispatch(getProductsFailure);
     }
 }
+
+
+export const addProductAdmin = async (values) => {
+    const formData = new FormData();
+    formData.append("title", values.title);
+    formData.append("category", "63b945c7eee85ec57531dd36");
+    formData.append("price", values.price);
+    formData.append("quantity", values.quantity);
+    formData.append("description", values.description);
+    values.images.forEach((image) => {
+        formData.append(`images`, image);
+    });
+
+    try {
+        await userRequest.post("/products", formData, {headers : { "Content-Type": "multipart/form-data" }})
+    }
+    catch (err) {
+        console.log(err)
+    }                        
+}
+
+export const editProductAdmin = async (values, id) => {
+    const formData = new FormData();
+    formData.append("title", values.title);
+    formData.append("category", "63b945c7eee85ec57531dd36");
+    formData.append("price", values.price);
+    formData.append("quantity", values.quantity);
+    formData.append("description", values.description);
+    values.images.forEach((image) => {
+        formData.append(`images`, image);
+    });
+
+    try {
+        const response = await userRequest.post(`/products/${id}`, formData, {headers : { "Content-Type": "multipart/form-data" }})
+        console.log(response.data);
+    }
+    catch (err) {
+        console.log(err.response.data);
+    }                        
+}

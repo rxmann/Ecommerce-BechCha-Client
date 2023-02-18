@@ -88,16 +88,7 @@ const Image = styled.img`
     object-fit: cover;
 `
 
-const DelBtn = styled.div`
-    position: absolute;
-   top:0;
-   right:0;
-    z-index:10;
-    border: none;
-    cursor: pointer;
-`
-
-const ProductForm = ({FormType}) => {
+const ProductUpdateForm = ({FormType, prodDetails}) => {
 
     const [categories, setCategories] = useState([]);
 
@@ -118,8 +109,35 @@ const ProductForm = ({FormType}) => {
     }, [FormType])
 
 
-    const val ={ title: "", category: "", price: "", quantity: "", description: "", images: [] }
-    const [values, setValues] = useState(val);
+
+    const [values, setValues] = useState();
+
+    useEffect(() => {
+        if (FormType === "add") {
+            setValues({ 
+                title: "", 
+                category: "", 
+                price: "", 
+                quantity: "", 
+                description: "", 
+                images: [] 
+            })
+        }
+        else {
+            setValues( { 
+                    title: prodDetails?.title, 
+                    category: "", 
+                    price: prodDetails?.price, 
+                    quantity: prodDetails?.quantity, 
+                    description: prodDetails?.description, 
+                    images: [],
+            })
+        }
+    
+    }, []);
+
+    console.log(values);
+
     // description field JODIT
     const config = {
         buttons: ["bold", "italic", "underline", "link", "unlink", "source"],
@@ -153,13 +171,8 @@ const ProductForm = ({FormType}) => {
 
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-        if (FormType  === "add") {
-            addProductAdmin(values);
-        }
-        else {
-            editProductAdmin(values)
-        }
+        e.preventDefault();            
+        // editProductAdmin(values)
     }
 
   return (
@@ -170,7 +183,7 @@ const ProductForm = ({FormType}) => {
                 <Label> Name </Label>
                 <TextInput 
                         name="title" 
-                        value={values["title"]}
+                        value={values?.title}
                         onChange={handleChange}  
                         size="small" required variant="outlined" type="text"  />
             </FormItem>
@@ -180,7 +193,7 @@ const ProductForm = ({FormType}) => {
                 <Select 
                     name="category" 
                     sx={{ flex: "2" }} 
-                    value={values["category"]} 
+                    value={values?.category} 
                     required
                     onChange={handleChange}>
                     {categories.map( (category) => (
@@ -193,7 +206,7 @@ const ProductForm = ({FormType}) => {
                 <Label>Price</Label>
                 <TextInput 
                     name="price" 
-                    value={values["price"]}
+                    value={values?.price}
                     onChange={handleChange}
                     size="small" required variant="outlined" type={"number"} />
             </FormItem>
@@ -201,7 +214,8 @@ const ProductForm = ({FormType}) => {
             <FormItem >
                 <Label> Quantity </Label>
                 <TextInput 
-                    name="quantity" 
+                    name="quantity"
+                    value = {values?.quantity}
                     onChange={handleChange}
                     size="small" required variant="outlined" type={"number"} />
             </FormItem>
@@ -211,7 +225,7 @@ const ProductForm = ({FormType}) => {
                 <DescWrap>
                     <JoditEditor
                         config={config}
-                        value={values["description"]}
+                        value={values?.description}
                         onBlur={con => setValues({...values, "description": con})}
                     />
                 </DescWrap>
@@ -232,16 +246,16 @@ const ProductForm = ({FormType}) => {
                             onChange={handleImages}
                             accept='image/*' />
                     </UploadB>
-                    <ImgContainer>
-                        {values["images"] && 
-                            values["images"].map(image => (
+                    {/* <ImgContainer>
+                        {values?.images && 
+                            values?.images.map(image => (
                                 <SmallImage key={image.name} >
                                     <Image src={URL.createObjectURL(image)} />
                                     <DelBtn onClick={() => handleDelete(image)}> <ClearIcon color='error'  /> </DelBtn>
                                 </SmallImage>
                             )) 
                         }
-                    </ImgContainer>
+                    </ImgContainer> */}
                 </Wrap>
             </ImageUploadWrapper>
 
@@ -252,4 +266,4 @@ const ProductForm = ({FormType}) => {
   )
 }
 
-export default ProductForm
+export default ProductUpdateForm
