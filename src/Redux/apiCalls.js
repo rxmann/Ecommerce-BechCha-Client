@@ -105,7 +105,7 @@ export const addProductAdmin = async (values) => {
 export const editProductAdmin = async (values, id) => {
     const formData = new FormData();
     formData.append("title", values.title);
-    formData.append("category", "63b945c7eee85ec57531dd36");
+    formData.append("category", values.category);
     formData.append("price", values.price);
     formData.append("quantity", values.quantity);
     formData.append("description", values.description);
@@ -114,8 +114,7 @@ export const editProductAdmin = async (values, id) => {
     });
 
     try {
-        const response = await userRequest.put(`/products/${id}`, formData, {headers : { "Content-Type": "multipart/form-data" }})
-        console.log(response.data);
+        const response = await userRequest.patch(`/products/${id}`, formData, {headers : { "Content-Type": "multipart/form-data" }})
     }
     catch (err) {
         console.log(err.response.data);

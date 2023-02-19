@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import Chart from "../Chart"
-import { Avatar} from "@mui/material";
+import { Avatar } from "@mui/material";
 import ProductUpdate from "./ProductUpdate";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -104,11 +104,48 @@ const ProductDetails = () => {
   const prodId = useParams().id;
   const [data, setData] = useState("");
 
-  useEffect( () => {
+
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const getAllCats = async () => {
+      const response = await publicRequest.get("/categories");
+      const categoryList = response.data.CategoryList;
+      const data = categoryList.map((cat) => {
+        return {
+          id: cat._id,
+          name: cat.name,
+        }
+      })
+      setCategories(data)
+    }
+    getAllCats();
+
+  }, [])
+
+
+  const getCatId = (id) => {
+    for (let i = 0; i < categories.length; i++) {
+      console.log(categories[i].id);
+      if (categories[i].id === id) {
+        return categories[i].name;
+      }
+    }
+    return id;
+  }
+
+  useEffect(() => {
     const getProduct = async () => {
       try {
         const response = await publicRequest.get(`/products/${prodId}`);
-        setData(response.data);
+        const cat = getCatId(response.data.category)
+        response.data.category = cat;
+        const outcome = response.data.images.map((image) => {
+          return image.url;
+        })
+        response.data.images = outcome;
+        const data = response.data;
+        setData(data);
       }
       catch (err) {
 
@@ -117,33 +154,8 @@ const ProductDetails = () => {
     getProduct();
   }, []);
 
+  console.log(data.images);
 
-  const getCatId = (id) => {
-    for (let i = 0; i < categories.length; i++) {
-        if (categories[i].id === id) {
-            return categories[i].name;
-        }
-    }
-    return null;
-}
-
-  const [categories, setCategories] = useState([]);
-
-    useEffect( () => {
-        const getAllCats = async () => {
-            const response = await publicRequest.get("/categories");
-            const categoryList = response.data.CategoryList;
-            const data = categoryList.map((cat) => {
-                return {
-                    id: cat._id,
-                    name: cat.name,
-                }
-            })
-            setCategories(data)
-        }
-        getAllCats();
-
-    }, [])
 
   return (
     <Container>
@@ -160,7 +172,7 @@ const ProductDetails = () => {
           <ProductCard>
             <ItemTitle> Product Info </ItemTitle>
             <ProductNameWrap>
-              <Avatar  src={data?.images && data.images[0]?.url} sx={{ width: 60, height: 60 }} />
+              <Avatar src={data?.images && data.images[0]} sx={{ width: 60, height: 60 }} />
               <Data> {data?.title}  </Data>
             </ProductNameWrap>
             <ProductInfo>
@@ -183,7 +195,7 @@ const ProductDetails = () => {
               </Item>
               <Item>
                 <Label> Category </Label>
-                <Data> {getCatId(data?.category)}  </Data>
+                <Data> {data?.category}  </Data>
               </Item>
             </ProductInfo>
           </ProductCard>
@@ -193,8 +205,10 @@ const ProductDetails = () => {
 
 
       <BottomWrapper>
-        <Title style={{marginBottom: "30px"}}> Edit product </Title>
-          <ProductUpdate  prodDetails={data}  categories={categories}/>
+        <Title style={{ marginBottom: "30px" }}> Edit product </Title>
+        {ProductDetails && (
+          <ProductUpdate prodDetails={data} categories={categories}  image={data?.images}/>
+        )}
       </BottomWrapper>
 
     </Container>

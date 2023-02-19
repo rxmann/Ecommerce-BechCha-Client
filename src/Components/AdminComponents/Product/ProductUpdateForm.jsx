@@ -1,11 +1,10 @@
 import styled from 'styled-components'
-import { Button, MenuItem, OutlinedInput, Select, TextField } from "@mui/material";
+import { Button, MenuItem, Select, TextField } from "@mui/material";
 import JoditEditor from "jodit-react";
 import { useEffect, useState } from "react";
 import UploadIcon from '@mui/icons-material/Upload';
 import ClearIcon from '@mui/icons-material/Clear';
-import { publicRequest } from "../../../requestMethods/requestMethods"
-import { addProductAdmin, editProductAdmin } from '../../../Redux/apiCalls';
+import { editProductAdmin } from '../../../Redux/apiCalls';
 
 const Form = styled.form`
     padding: 20px;
@@ -119,7 +118,7 @@ const ProductUpdateForm = ({ FormType, prodDetails, categories }) => {
                 images: [],
             })
         }
-    }, [prodDetails]);
+    }, [prodDetails, FormType]);
 
     // description field JODIT
     const config = {

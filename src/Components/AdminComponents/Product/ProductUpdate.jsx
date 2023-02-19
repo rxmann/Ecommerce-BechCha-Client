@@ -1,8 +1,5 @@
 import styled from "styled-components"
-import { useEffect, useState } from "react";
-import ProductForm from "./NewProductForm";
-import { publicRequest } from "../../../requestMethods/requestMethods";
-import { useParams } from "react-router-dom"
+import { useState } from "react";
 import ProductUpdateForm from "./ProductUpdateForm";
 
 
@@ -24,6 +21,7 @@ const ImageContainer = styled.div`
 
 const MainImageContainer = styled.div`
     height: 400px;
+    overflow: hidden;
 `
 const SmallImage = styled.img`
   height: 50px;
@@ -34,15 +32,17 @@ const SmallImage = styled.img`
 `
 const BigImage = styled.img`
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
 `
 
 
 
-const ProductUpdate = ({ prodDetails, categories }) => {
+const ProductUpdate = ({ prodDetails, categories, image }) => {
 
   let images = prodDetails?.images;
-  const [imageSelected, setImageSelected] = useState();
+
+  const [imageSelected, setImageSelected] = useState("");
+
 
   return (
     <Container>
@@ -55,8 +55,8 @@ const ProductUpdate = ({ prodDetails, categories }) => {
           {images && images?.map(image => (
             <SmallImage key={image.url}
               selected={image === imageSelected}
-              onClick={() => { setImageSelected(image.url) }}
-              src={`${image.url}`} />
+              onClick={() => { setImageSelected(image) }}
+              src={ `${image}`} />
           ))}
         </ImageContainer>
       </Left>
