@@ -179,13 +179,13 @@ const ProductPage = () => {
            {product.images?.map( image => (
              <SmallImage key={image.public_id} 
                         selected={image.url === imageSelected}
-                        onClick = {() => {setImageSelected(image.url)}}
+                        onClick = {() => {setImageSelected(image?.url)}}
                         src={image.url} />
            ))}
          </ImageContainer>
 
          <MainImageContainer>
-           <BigImage src={imageSelected || product.images[0].url} />
+           <BigImage src={imageSelected || product.images[0]?.url} />
          </MainImageContainer>
        </Left>
 

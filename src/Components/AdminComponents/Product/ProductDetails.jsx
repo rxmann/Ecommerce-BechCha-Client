@@ -154,8 +154,6 @@ const ProductDetails = () => {
     getProduct();
   }, []);
 
-  console.log(data.images);
-
 
   return (
     <Container>

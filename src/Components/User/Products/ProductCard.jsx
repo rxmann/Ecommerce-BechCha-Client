@@ -80,7 +80,7 @@ const AddBtn = styled(AddBoxOutlinedIcon)`
 const ProductCard = ({ data }) => {
 
   const navigate = useNavigate();
-  const image = data.images[0].url;
+  const image = data.images[0]?.url;
 
   return (
     <Container >
