@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import DataTable from '../../Components/AdminComponents/Tables/DataTable';
 import { useDispatch, useSelector } from "react-redux"
-import { getAllProducts } from '../../Redux/apiCalls';
+import { getAllCategories, getAllProducts } from '../../Redux/apiCalls';
 import { useEffect } from 'react';
 
 
@@ -75,10 +75,24 @@ const ProductsTab = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {products} = useSelector(state => state.product)
+  
   useEffect(() => {
     getAllProducts(dispatch)
+    getAllCategories(dispatch)
   }, [dispatch ])
+
+
+  const {products} = useSelector(state => state.product)
+  const {categories} = useSelector(state => state.product)
+
+  const getCatName = (id) => {
+    for (let i = 0; i < categories.length; i++) {
+      if (categories[i]._id === id) {
+        return categories[i].slug;
+      }
+    }
+    return id;
+  }
 
   const actionColumn =  [
     { field: "_id", headerName: "ID", flex: 3},
@@ -104,6 +118,11 @@ const ProductsTab = () => {
       field: "category",
       headerName: "Category",
       flex: 3,
+      renderCell: (params) => {
+        return (
+          getCatName(params.row.category)
+        )
+      } 
     },
     {
       field: "quantity",

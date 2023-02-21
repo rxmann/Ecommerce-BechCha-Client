@@ -152,7 +152,7 @@ const ProductDetails = () => {
       }
     }
     getProduct();
-  }, []);
+  }, [prodId]);
 
 
   return (
@@ -161,7 +161,7 @@ const ProductDetails = () => {
       <TopWrapper>
         <Left>
           <ProductChart>
-            <Chart title={"Sale Analytics"} data={{}} dataKey={"Sales"} />
+            <Chart title={"Sale Analytics"} data={{}} dataKey={"name"} />
           </ProductChart>
         </Left>
 

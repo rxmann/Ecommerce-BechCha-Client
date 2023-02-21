@@ -1,6 +1,6 @@
 import { publicRequest, userRequest } from "../requestMethods/requestMethods";
 import { loginSuccess, logoutSuccess, registerSuccess, requestFailure, requestStart,  updateSuccess } from "./userSlice";
-import { getProductsFailure, getProductsStart, getProductsSucess } from "./productSlice";
+import { getFailure, getStart, getProductsSuccess, getCategoriesSuccess } from "./productSlice";
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -71,14 +71,26 @@ export const LogoutUser = async (dispatch, id) => {
 
 
 export const getAllProducts = async (dispatch) => {
-    dispatch(getProductsStart)
+    dispatch(getStart)
     try {
         const response = await publicRequest.get("/products");
-        dispatch(getProductsSucess(response.data));
+        dispatch(getProductsSuccess(response.data));
     }
     catch (err) {
         console.log(err);
-        dispatch(getProductsFailure);
+        dispatch(getFailure);
+    }
+}
+
+export const getAllCategories = async (dispatch) => {
+    dispatch(getStart)
+    try {
+        const response = await publicRequest.get("/categories");
+        dispatch(getCategoriesSuccess(response.data.CategoryList));
+    }
+    catch (err) {
+        console.log(err);
+        dispatch(getFailure);
     }
 }
 
@@ -114,7 +126,7 @@ export const editProductAdmin = async (values, id) => {
     });
 
     try {
-        const response = await userRequest.patch(`/products/${id}`, formData, {headers : { "Content-Type": "multipart/form-data" }})
+        await userRequest.patch(`/products/${id}`, formData, {headers : { "Content-Type": "multipart/form-data" }})
     }
     catch (err) {
         console.log(err.response.data);

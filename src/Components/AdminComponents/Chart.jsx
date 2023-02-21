@@ -25,7 +25,7 @@ const Chart = ({data, title, grid, dataKey}) => {
         <Title> {title} </Title>
         <ResponsiveContainer width="95%" aspect={4 / 1}>
             <LineChart data={data} >
-              <XAxis dataKey="name" stroke="#0171b6" />
+              <XAxis dataKey="name" />
               <Line type={"monotone"} dataKey={dataKey} stroke="#0171b6"/>
               <YAxis />
               <Tooltip />
