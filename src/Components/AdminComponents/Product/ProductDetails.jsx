@@ -205,7 +205,7 @@ const ProductDetails = () => {
       <BottomWrapper>
         <Title style={{ marginBottom: "30px" }}> Edit product </Title>
         {ProductDetails && (
-          <ProductUpdate prodDetails={data} categories={categories}  image={data?.images}/>
+          <ProductUpdate prodDetails={data} categories={categories} />
         )}
       </BottomWrapper>
 

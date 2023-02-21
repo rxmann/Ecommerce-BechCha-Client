@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { useState } from "react";
 import ProductUpdateForm from "./ProductUpdateForm";
+import { useEffect } from "react";
 
 
 const Container = styled.div`
@@ -37,11 +38,15 @@ const BigImage = styled.img`
 
 
 
-const ProductUpdate = ({ prodDetails, categories, image }) => {
+const ProductUpdate = ({ prodDetails, categories }) => {
 
-  let images = prodDetails?.images;
+  const [imageSelected, setImageSelected] = useState();
 
-  const [imageSelected, setImageSelected] = useState("");
+  useEffect(() => {
+    if (prodDetails) {
+      setImageSelected(prodDetails.images[0]);
+    }
+  }, [prodDetails])
 
 
   return (
@@ -52,8 +57,8 @@ const ProductUpdate = ({ prodDetails, categories, image }) => {
         </MainImageContainer>
 
         <ImageContainer>
-          {images && images?.map(image => (
-            <SmallImage key={image.url}
+          {prodDetails.images && prodDetails.images.map(image => (
+            <SmallImage key={image}
               selected={image === imageSelected}
               onClick={() => { setImageSelected(image) }}
               src={ `${image}`} />
