@@ -1,12 +1,17 @@
 import styled from 'styled-components'
-import { DataGrid } from '@mui/x-data-grid';
-import { Button} from '@mui/material';
-
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { Button, InputAdornment, OutlinedInput, TextField } from '@mui/material';
+import { useEffect, useState } from 'react';
+import SearchIcon from '@mui/icons-material/Search';
 
 const Container = styled.div`
     height: 100%;
     width: 100%;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
 `
 
 const Wrapper = styled.div`
@@ -14,19 +19,23 @@ const Wrapper = styled.div`
   height: 100%;
   width: 100%;
 `
-export const StatusCell = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
+
+const SearchContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    gap: 20px;
 `
-export const Profile = styled.img`
-  width: 35px;
-  height: 35px;
-  object-fit: cover;
-  border-radius: 50%;
+const SearchBox = styled(OutlinedInput)`
+    width: 100%;
 `
 
-export const StatusButton = ({type}) => {
+const SearchButton = styled(Button)`
+    margin-right: 20px;
+`
+
+export const StatusButton = ({ type }) => {
   let color, background;
   switch (type) {
     case "pending":
@@ -41,29 +50,67 @@ export const StatusButton = ({type}) => {
       color = "error"
       background = "#fff0f1"
       break;
-    default: 
+    default:
       color = "warning"
       background = ""
       break;
   }
-  return <Button size={"small"} color={color} sx={{background: background}} type={type}> {type} </Button>  
+  return <Button size={"small"} color={color} sx={{ background: background }} type={type}> {type} </Button>
 }
 
 
 
-const DataTable = ({rows, columns}) => {
+const DataTable = ({ rows, columns }) => {
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredRows, setFilteredRows] = useState([]);
+
+  const filterRows = (data, searchQuery) => {
+    return data.filter( row =>
+        Object.values(row).some( value =>
+          String(value).toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    )
+  }
+
+  useEffect(() => {
+    setFilteredRows(filterRows(rows, searchQuery));
+  }, [searchQuery, rows])
+
 
   return (
     <Container>
+      <SearchContainer>
+        <SearchBox
+          size="small"
+          maxLength={30}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search fields"
+          sx={{backgroundColor: "#ffffff"}}
+          startAdornment={
+            <InputAdornment position="start">
+              <SearchIcon color="info" />
+            </InputAdornment>
+          }
+          endAdornment={
+            <InputAdornment position="end">
+                <SearchButton >Search</SearchButton>
+            </InputAdornment>
+          }
+        />
+      </SearchContainer>
+
       <Wrapper>
         <DataGrid
-          rows={rows}
+          rows={filteredRows}
           columns={columns}
-          // pageSize={9}
+          pageSize={5}
+          components={{
+            Toolbar: GridToolbar,
+          }}
           getRowId={row => row._id}
-          rowsPerPageOptions={[5]}
-          // checkboxSelection
-          />
+        />
       </Wrapper>
     </Container>
   )
