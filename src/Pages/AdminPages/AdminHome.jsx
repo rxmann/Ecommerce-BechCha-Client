@@ -80,7 +80,7 @@ const AdminHome = () => {
       setOrders(response.data);
     }
     getOrders();
-  }, [])
+  }, [currentUser])
 
 
   // users data for chart
@@ -98,7 +98,7 @@ const AdminHome = () => {
       setUserData(userD);
     }
     getUsersData();
-  }, [])
+  }, [currentUser])
 
 
   return (

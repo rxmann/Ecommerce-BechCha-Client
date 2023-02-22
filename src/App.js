@@ -39,6 +39,7 @@ import ProfileDisplay from "./Components/User/ProfilePages/ProfileDisplay"
 import Orders from "./Components/User/ProfilePages/Orders"
 import { useSelector } from "react-redux"
 import { useEffect } from "react"
+import CategoriesTab from "./Pages/AdminPages/CategoriesTab"
 
 
 const Wrapper = styled.div`
@@ -72,6 +73,18 @@ const App = () => {
   };
 
   const AdminLayout = () => {
+    const navigate = useNavigate();
+    const { isSignedIn, currentUser  } = useSelector(state => state.user)
+
+    useEffect(() => {
+      const checkLogin = () => {
+        if (!isSignedIn || !currentUser.isAdmin) {
+          navigate("/login");
+        }
+      }
+      checkLogin();
+    }, [isSignedIn, navigate]);
+
     return (
       <Wrapper >
         <Topbar />
@@ -158,12 +171,16 @@ const App = () => {
           element: <AdminHome />
         },
         {
-          path: "/admin/users/list",
+          path: "/admin/users",
           element: <UsersTab />
         },
         {
-          path: "/admin/products/list",
+          path: "/admin/products",
           element: <ProductsTab />
+        },
+        {
+          path: "/admin/categories",
+          element: <CategoriesTab />
         },
         {
           path: "/admin/user/:id",

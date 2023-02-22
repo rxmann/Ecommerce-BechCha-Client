@@ -151,7 +151,7 @@ const ProductsTab = () => {
       <Wrapper>
         <Title> Products List </Title>
         <Link to={"/admin/product/add"} >
-          <AddButton  variant='contained'> Add Product </AddButton>
+          <AddButton  variant='contained'> Add Category </AddButton>
         </Link>
       </Wrapper>
       <DataTable 
