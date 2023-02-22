@@ -148,7 +148,7 @@ const UserUpdateForm = ({user, isFetching, isAdmin, email}) => {
                 <Avatar src={user?.image} sx={{ width: 100, height: 100 }} />
                 <UploadB>
                     <AddPhotoAlternateIcon />
-                    Add Profile
+                    Upload
                     <input
                         name="image"
                         hidden

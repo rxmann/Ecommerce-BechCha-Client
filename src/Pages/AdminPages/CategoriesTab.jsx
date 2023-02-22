@@ -74,7 +74,6 @@ const CategoriesTab = () => {
     const navigate = useNavigate();
     const {categories} = useSelector(state => state.product)
 
-    console.log(categories);
 
     const actionColumn = [
         { headerName: "Category ID", field: "_id", flex: 1 },
@@ -114,7 +113,7 @@ const CategoriesTab = () => {
     <Wrapper>
       <Title> Categories List </Title>
       <Link to={"/admin/category/add"} >
-        <AddButton  variant='contained'> Add Product </AddButton>
+        <AddButton  variant='contained'> Add Category </AddButton>
       </Link>
     </Wrapper>
     <DataTable 

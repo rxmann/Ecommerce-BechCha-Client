@@ -4,9 +4,10 @@ import EmailIcon from '@mui/icons-material/Email';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
-import { Avatar } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import moment from 'moment';
-
+import { deleteUserAccount } from '../../../Redux/apiCalls';
+import { useDispatch, useSelector } from "react-redux"
 
 const Container = styled.div`
     flex: 1;
@@ -55,8 +56,18 @@ const UsernameWrapper = styled.span`
 
 const UserProfile = ({ user }) => {
 
+    const { currentUser } = useSelector( state => state.user );
+
+
+    const dispatch = useDispatch();
     const date = moment(user?.createdAt);
     const formattedDate = date.format('MMM D, YYYY');
+
+
+    const handleDeleteAccount = async () => {
+        console.log("account delete");
+        await deleteUserAccount( dispatch, user._id,  currentUser._id);
+    }
 
     return (
         <Container>
@@ -86,6 +97,8 @@ const UserProfile = ({ user }) => {
                     </Item>
                     <ItemTitle> Joined {formattedDate} </ItemTitle>
                 </UserInfo>
+
+                <Button size="small" color="error" onClick={handleDeleteAccount} > Delete Account {user?.username} </Button>
             </Profile>
         </Container>
     )

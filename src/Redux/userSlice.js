@@ -33,12 +33,21 @@ export const userSlice = createSlice({
             state.isFetching = false;
             state.currentUser = action.payload;
         },
-        logoutSuccess: (state) => {
+        logoutUserSuccess: (state) => {
             state.isFetching = false;
             state.currentUser = null;
             state.accessToken = "";
             state.isSignedIn = false;
         },
+        deleteUserSuccess: (state) => {
+            state.isFetching = false;
+            state.currentUser = null;
+            state.accessToken = "";
+            state.isSignedIn = false;
+        },
+        deleteUserSuccessAdmin: (state) => {
+            state.isFetching = false
+        }
     }
 })
 
@@ -47,6 +56,9 @@ export const {  requestStart,
                 registerSuccess, 
                 loginSuccess,
                 updateSuccess,
-                logoutSuccess } = userSlice.actions;
+                logoutSuccess,
+                deleteUserSuccessAdmin,
+                deleteUserSuccess 
+            } = userSlice.actions;
                 
 export default userSlice.reducer;

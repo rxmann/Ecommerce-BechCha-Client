@@ -1,5 +1,5 @@
 import { publicRequest, userRequest } from "../requestMethods/requestMethods";
-import { loginSuccess, logoutSuccess, registerSuccess, requestFailure, requestStart,  updateSuccess } from "./userSlice";
+import { deleteUserSuccess, deleteUserSuccessAdmin, loginSuccess, logoutSuccess, registerSuccess, requestFailure, requestStart,  updateSuccess } from "./userSlice";
 import { getFailure, getStart, getProductsSuccess, getCategoriesSuccess } from "./productSlice";
 
 import { toast } from 'react-toastify';
@@ -100,6 +100,31 @@ export const LogoutUser = async (dispatch, id) => {
         console.log(err);
         dispatch(requestFailure(err.reponse?.data));
         failureToast(err.response?.data)
+    }
+}
+
+
+export const deleteUserAccount = async (dispatch, id, userId) => {
+    requestStart();
+
+    console.log(id, userId);
+    try{
+        // const response = await userRequest.delete(`/users/${id}`)
+        
+
+        // if (id === userId) {
+        //     dispatch(deleteUserSuccess());
+        // }
+        // else {
+        //     dispatch(deleteUserSuccessAdmin());
+        // }
+
+        // console.log(response.data)
+        successToast("User Account deleted")
+    }
+    catch (err ) {
+        console.log(err);
+        failureToast("Unable to delete user Account");
     }
 }
 
