@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
+
 export const successToast = (message) => {
     toast.success(message, {
         position: "top-right",
@@ -109,17 +110,13 @@ export const deleteUserAccount = async (dispatch, id, userId) => {
 
     console.log(id, userId);
     try{
-        // const response = await userRequest.delete(`/users/${id}`)
-        
-
-        // if (id === userId) {
-        //     dispatch(deleteUserSuccess());
-        // }
-        // else {
-        //     dispatch(deleteUserSuccessAdmin());
-        // }
-
-        // console.log(response.data)
+        await userRequest.delete(`/users/${id}`)
+        if (id === userId) {
+            dispatch(deleteUserSuccess());
+        }
+        else {
+            dispatch(deleteUserSuccessAdmin());
+        }
         successToast("User Account deleted")
     }
     catch (err ) {

@@ -63,6 +63,7 @@ const ProfileDisplay = () => {
             }
             catch (er) {
                 console.log(er);
+                setUser(null)
             }
         }
         userD();
@@ -74,8 +75,12 @@ const ProfileDisplay = () => {
         LogoutUser(dispatch, currentUser._id);
     }
 
+
+    console.log(user);
     return (
         <Container>
+        {user ? 
+        <>
             <Card>
                 <UserUpdateForm user={user} isAdmin={currentUser?.isAdmin} email={currentUser?.email}/>
                 <UserProfile user={user}/>
@@ -87,6 +92,8 @@ const ProfileDisplay = () => {
                 </Bottom>
                 : ""
             }
+            </> : "No user found!"
+        }
         </Container>
     )
 }

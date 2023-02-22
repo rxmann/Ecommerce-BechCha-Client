@@ -8,6 +8,7 @@ import { Avatar, Button } from "@mui/material";
 import moment from 'moment';
 import { deleteUserAccount } from '../../../Redux/apiCalls';
 import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 const Container = styled.div`
     flex: 1;
@@ -58,7 +59,7 @@ const UserProfile = ({ user }) => {
 
     const { currentUser } = useSelector( state => state.user );
 
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const date = moment(user?.createdAt);
     const formattedDate = date.format('MMM D, YYYY');
@@ -67,6 +68,13 @@ const UserProfile = ({ user }) => {
     const handleDeleteAccount = async () => {
         console.log("account delete");
         await deleteUserAccount( dispatch, user._id,  currentUser._id);
+
+        if (user._id === currentUser._id) {
+            navigate("/");
+        }
+        else {
+            navigate("/admin/users");
+        }
     }
 
     return (
