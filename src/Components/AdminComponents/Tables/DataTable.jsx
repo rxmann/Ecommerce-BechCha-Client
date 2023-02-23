@@ -105,11 +105,11 @@ const DataTable = ({ rows, columns }) => {
         <DataGrid
           rows={filteredRows}
           columns={columns}
-          pageSize={5}
           components={{
             Toolbar: GridToolbar,
           }}
           getRowId={row => row._id}
+          rowsPerPageOptions={[5, 10, 20]}
         />
       </Wrapper>
     </Container>
