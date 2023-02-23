@@ -15,8 +15,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
     display: flex;
-    width: 100%;
-    align-items: center;
+    flex-direction: column;
     gap: 20px;
 `
 
@@ -26,7 +25,6 @@ const Title = styled.h1`
     color: gray;
 `
 const RecentCategories = styled.div`
-    flex: 1;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -54,7 +52,7 @@ const CategoryAdd = () => {
 
     useEffect(() => {
         getAllCategories(dispatch);
-    }, [])
+    }, [dispatch])
 
     const { categories } = useSelector(state => state.product)
 
@@ -77,7 +75,7 @@ const CategoryAdd = () => {
                 <RecentCategories>
                     <Title> Recent Categories </Title>
                     {categories &&
-                        categories.slice(-5).reverse().map((category => (
+                        categories.slice(0, 5).map((category => (
                             <Category key={category._id}>
                                 <CatInfo>
                                     <Avatar  variant="square" size="large" src={category.image.url} />

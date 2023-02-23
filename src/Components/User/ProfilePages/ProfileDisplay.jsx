@@ -75,8 +75,6 @@ const ProfileDisplay = () => {
         LogoutUser(dispatch, currentUser._id);
     }
 
-
-    console.log(user);
     return (
         <Container>
         {user ? 

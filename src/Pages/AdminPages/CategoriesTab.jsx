@@ -66,62 +66,67 @@ export const Profile = styled.img`
   border-radius: 50%;
 `
 
-export const StatusButton = ({type}) => {
-  return <Button size={"small"} > {type} </Button>  
+export const StatusButton = ({ type }) => {
+  return <Button size={"small"} > {type} </Button>
 }
 
 const CategoriesTab = () => {
-    const navigate = useNavigate();
-    const {categories} = useSelector(state => state.product)
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    getAllCategories(dispatch);
+  }, [dispatch])
+
+  const { categories } = useSelector(state => state.product)
 
 
-    const actionColumn = [
-        { headerName: "Category ID", field: "_id", flex: 1 },
-        { 
-            headerName: "Category", 
-            field: "image", 
-            flex: 1,
-            renderCell: (params) => {
-                return (
-                  <StatusCell >
-                    <Profile  src={params.row.image?.url} />
-                    {params.row.slug}
-                  </StatusCell>
-                )
-            },
-        },
-        {
-            field: "actions",
-            headerName: "Actions",
-            flex: 1,
-            renderCell: (params) => {
-              return (
-                <ActionCell>
-                  <ViewButton onClick={() => navigate(`/admin/category/${params.row._id}`)}> View </ViewButton>
-                  <DelBtn size="small" variant="text" color="error">
-                    <DeleteOutline />
-                  </DelBtn>
-                </ActionCell>
-              )
-            }
-          }
-    ]
+  const actionColumn = [
+    { headerName: "Category ID", field: "_id", flex: 1 },
+    {
+      headerName: "Category",
+      field: "image",
+      flex: 1,
+      renderCell: (params) => {
+        return (
+          <StatusCell >
+            <Profile src={params.row.image?.url} />
+            {params.row.slug}
+          </StatusCell>
+        )
+      },
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      flex: 1,
+      renderCell: (params) => {
+        return (
+          <ActionCell>
+            <ViewButton onClick={() => navigate(`/admin/category/${params.row._id}`)}> View </ViewButton>
+            <DelBtn size="small" variant="text" color="error">
+              <DeleteOutline />
+            </DelBtn>
+          </ActionCell>
+        )
+      }
+    }
+  ]
 
 
   return (
     <Container>
-    <Wrapper>
-      <Title> Categories List </Title>
-      <Link to={"/admin/category/add"} >
-        <AddButton  variant='contained'> Add Category </AddButton>
-      </Link>
-    </Wrapper>
-    <DataTable 
-        rows={categories} 
-        columns={actionColumn} 
-    />
-  </Container>
-  ) 
+      <Wrapper>
+        <Title> Categories List </Title>
+        <Link to={"/admin/category/add"} >
+          <AddButton variant='contained'> Add Category </AddButton>
+        </Link>
+      </Wrapper>
+      <DataTable
+        rows={categories}
+        columns={actionColumn}
+      />
+    </Container>
+  )
 }
 
 export default CategoriesTab

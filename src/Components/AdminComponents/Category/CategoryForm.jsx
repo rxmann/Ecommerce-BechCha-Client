@@ -17,7 +17,8 @@ const UploadB = styled.label`
     margin: 0px 20px;
 `
 const Form = styled.form`
-    flex: 1;
+    display: flex;
+    justify-content: start;
     padding: 20px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
     background-color: white;
@@ -164,9 +165,8 @@ const CategoryForm = ({ FormType }) => {
                         ))}
                     </Select>
                 </FormItem>
-
+                <Button type="submit" variant="contained"  > {FormType} </Button>
             </FormWrapper>
-            <Button type="submit" variant="contained" fullWidth > {FormType} </Button>
         </Form>
     )
 }

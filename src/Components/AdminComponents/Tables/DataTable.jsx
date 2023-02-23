@@ -66,9 +66,9 @@ const DataTable = ({ rows, columns }) => {
   const [filteredRows, setFilteredRows] = useState([]);
 
   const filterRows = (data, searchQuery) => {
-    return data.filter( row =>
-        Object.values(row).some( value =>
-          String(value).toLowerCase().includes(searchQuery.toLowerCase())
+    return data.filter(row =>
+      Object.values(row).some(value =>
+        String(value).toLowerCase().includes(searchQuery.toLowerCase())
       )
     )
   }
@@ -87,7 +87,7 @@ const DataTable = ({ rows, columns }) => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search fields"
-          sx={{backgroundColor: "#ffffff"}}
+          sx={{ backgroundColor: "#ffffff" }}
           startAdornment={
             <InputAdornment position="start">
               <SearchIcon color="info" />
@@ -95,7 +95,7 @@ const DataTable = ({ rows, columns }) => {
           }
           endAdornment={
             <InputAdornment position="end">
-                <SearchButton >Search</SearchButton>
+              <SearchButton >Search</SearchButton>
             </InputAdornment>
           }
         />
@@ -109,7 +109,8 @@ const DataTable = ({ rows, columns }) => {
             Toolbar: GridToolbar,
           }}
           getRowId={row => row._id}
-          rowsPerPageOptions={[5, 10, 20]}
+          pageSize={8}
+          rowsPerPageOptions={[5, 10]}
         />
       </Wrapper>
     </Container>
