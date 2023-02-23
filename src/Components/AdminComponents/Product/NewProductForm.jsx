@@ -6,6 +6,7 @@ import UploadIcon from '@mui/icons-material/Upload';
 import ClearIcon from '@mui/icons-material/Clear';
 import { publicRequest } from "../../../requestMethods/requestMethods"
 import { addProductAdmin, editProductAdmin } from '../../../Redux/apiCalls';
+import { useSelector } from 'react-redux';
 
 const Form = styled.form`
     padding: 20px;
@@ -98,24 +99,13 @@ const DelBtn = styled.div`
 `
 
 const NewProductForm = ({FormType}) => {
-
     const [categories, setCategories] = useState([]);
 
-    useEffect( () => {
-        const getAllCats = async () => {
-            const response = await publicRequest.get("/categories");
-            const categoryList = response.data.CategoryList;
-            const data = categoryList.map((cat) => {
-                return {
-                    id: cat._id,
-                    name: cat.name,
-                }
-            })
-            setCategories(data)
-        }
-        getAllCats();
+    const { categories: cat } = useSelector(state => state.product )
 
-    }, [FormType])
+    useEffect( () => {
+        setCategories(cat);
+     }, [FormType])
 
 
     const val ={ title: "", category: "", price: "", quantity: "", description: "", images: [] }

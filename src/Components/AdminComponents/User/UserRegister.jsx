@@ -102,14 +102,14 @@ const UserRegister = () => {
             formData.append(key, userData[key]);
         });
 
-        // try {
-        //     const response = await publicRequest.post("/users/register", formData, { headers: { "Content-type": "multipart/form-data" } });
-        //     console.log(response.data);
-        //     setUserData(data);
-        // }
-        // catch (err) {
-        //     console.log(err);
-        // }
+        try {
+            const response = await publicRequest.post("/users/register", formData, { headers: { "Content-type": "multipart/form-data" } });
+            console.log(response.data);
+            setUserData(data);
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
 
     const InputData = [

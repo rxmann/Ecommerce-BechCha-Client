@@ -40,6 +40,8 @@ import Orders from "./Components/User/ProfilePages/Orders"
 import { useSelector } from "react-redux"
 import { useEffect } from "react"
 import CategoriesTab from "./Pages/AdminPages/CategoriesTab"
+import CategoryForm from "./Components/AdminComponents/Category/CategoryForm"
+import CategoryAdd from "./Components/AdminComponents/Category/CategoryAdd"
 
 
 const Wrapper = styled.div`
@@ -197,6 +199,10 @@ const App = () => {
         {
           path: "/admin/product/add",
           element: <ProductAdd />
+        },
+        {
+          path: "/admin/category/add",
+          element: <CategoryAdd />
         }
       ]
     },

@@ -22,7 +22,7 @@ const ProductAdd = () => {
     
   return (
    <Container>
-    <Title> Add product </Title>
+        <Title> Add product </Title>
         <NewProductForm FormType={"add"}  />
    </Container>
   )
