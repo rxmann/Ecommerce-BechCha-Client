@@ -1,6 +1,6 @@
 import { Avatar } from "@mui/material"
 import { useEffect } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
 import { getAllCategories } from "../../../Redux/apiCalls"
 import CategoryForm from "./CategoryForm"
@@ -38,38 +38,52 @@ const Category = styled.div`
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
     background-color: white;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
 `
 
 const CatInfo = styled.span`
-    font-size: 16px;
-    font-weight: 500;
+    flex: 1;
+    font-size: 14px;
+    font-weight: 400;
     color: gray;
 `
 
 const CategoryAdd = () => {
 
+
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        getAllCategories();
+        getAllCategories(dispatch);
     }, [])
 
     const { categories } = useSelector(state => state.product)
 
+    const getCatName = (id) => {
+        for (let i = 0; i < categories.length; i++) {
+            if (categories[i]._id === id) {
+                return categories[i].slug;
+            }
+        }
+        return id;
+    }
 
     return (
         <Container>
             <Title> Add Category </Title>
             <Wrapper>
-                <CategoryForm FormType={"Add"} />
+                
+                <CategoryForm  FormType={"Add"} />
+
                 <RecentCategories>
                     <Title> Recent Categories </Title>
                     {categories &&
-                        categories.slice(0, 5).map((category => (
-                            <Category>
-                                <Avatar variant="square" size="large" src={category.image.url} />
+                        categories.slice(-5).reverse().map((category => (
+                            <Category key={category._id}>
+                                <CatInfo>
+                                    <Avatar  variant="square" size="large" src={category.image.url} />
+                                </CatInfo>
                                 <CatInfo> {category.name}  </CatInfo>
-                                <CatInfo> {category.parentId || "No parent"} </CatInfo>
+                                <CatInfo> {getCatName(category.parentId)|| "No parent"} </CatInfo>
                             </Category>
                         )))
                     }

@@ -79,7 +79,7 @@ const ProductsTab = () => {
   useEffect(() => {
     getAllProducts(dispatch)
     getAllCategories(dispatch)
-  }, [dispatch ])
+  }, [dispatch])
 
 
   const {products} = useSelector(state => state.product)
