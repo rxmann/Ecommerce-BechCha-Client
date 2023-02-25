@@ -1,4 +1,9 @@
 import axios from "axios"
+import Cookies from 'js-cookie';
+
+const jwt = Cookies.get();
+
+console.log(jwt);
 
 const BASE_URL = "http://localhost:5000/api"
 
@@ -11,7 +16,6 @@ const getAccessToken = () => {
 
 export const publicRequest = axios.create({
     baseURL: BASE_URL,
-    withCredentials: true
 })
 
 export const userRequest = axios.create({
@@ -22,4 +26,6 @@ export const userRequest = axios.create({
         authorization: `Bearer ${getAccessToken()}`,
     }
 });
-    
+
+
+

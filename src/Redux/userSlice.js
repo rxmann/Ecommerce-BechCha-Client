@@ -56,7 +56,7 @@ export const {  requestStart,
                 registerSuccess, 
                 loginSuccess,
                 updateSuccess,
-                logoutSuccess,
+                logoutUserSuccess,
                 deleteUserSuccessAdmin,
                 deleteUserSuccess 
             } = userSlice.actions;

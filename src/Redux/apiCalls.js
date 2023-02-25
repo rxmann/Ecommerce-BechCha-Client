@@ -1,9 +1,10 @@
 import { publicRequest, userRequest } from "../requestMethods/requestMethods";
-import { deleteUserSuccess, deleteUserSuccessAdmin, loginSuccess, logoutSuccess, registerSuccess, requestFailure, requestStart,  updateSuccess } from "./userSlice";
+import { deleteUserSuccess, deleteUserSuccessAdmin, loginSuccess, logoutUserSuccess, registerSuccess, requestFailure, requestStart,  updateSuccess } from "./userSlice";
 import { getFailure, getStart, getProductsSuccess, getCategoriesSuccess } from "./productSlice";
-
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Cookies from 'js-cookie';
+
 
 
 
@@ -53,6 +54,8 @@ export const loginUser = async (dispatch, user) => {
     try {
         const response = await publicRequest.post("/users/login", user)
         dispatch(loginSuccess(response.data));
+        console.log(response.data);
+        Cookies.set("jwt", response.data.newRefreshToken);
         successToast("Logged in successfully")
     }
     catch (err) {
@@ -94,12 +97,12 @@ export const LogoutUser = async (dispatch, id) => {
     dispatch(requestStart());
     try {
         await userRequest.delete(`/users/logout/${id}`);
-        dispatch(logoutSuccess());
+        dispatch(logoutUserSuccess());
         successToast("User logged out!")
     }
     catch (err) {
         console.log(err);
-        dispatch(requestFailure(err.reponse?.data));
+        dispatch(requestFailure());
         failureToast(err.response?.data)
     }
 }
