@@ -9,6 +9,7 @@ import moment from 'moment';
 import { deleteUserAccount } from '../../../Redux/apiCalls';
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import { publicRequest } from '../../../requestMethods/requestMethods';
 
 const Container = styled.div`
     flex: 1;
@@ -107,6 +108,11 @@ const UserProfile = ({ user }) => {
                 </UserInfo>
 
                 <Button size="small" color="error" onClick={handleDeleteAccount} > Delete Account {user?.username} </Button>
+
+                <Button onClick={ async () => {
+                    const access = await publicRequest.get("/users/refresh");
+                    console.log(access.data);
+                }}> REFRESH </Button>
             </Profile>
         </Container>
     )

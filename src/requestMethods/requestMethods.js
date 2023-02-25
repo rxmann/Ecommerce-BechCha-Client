@@ -1,9 +1,4 @@
 import axios from "axios"
-import Cookies from 'js-cookie';
-
-const jwt = Cookies.get();
-
-console.log(jwt);
 
 const BASE_URL = "http://localhost:5000/api"
 
@@ -16,6 +11,7 @@ const getAccessToken = () => {
 
 export const publicRequest = axios.create({
     baseURL: BASE_URL,
+    withCredentials: true,
 })
 
 export const userRequest = axios.create({
@@ -26,6 +22,24 @@ export const userRequest = axios.create({
         authorization: `Bearer ${getAccessToken()}`,
     }
 });
+
+
+// Add a request interceptor to check the access token before each request
+// userRequest.interceptors.request.use(
+//     async (config) => {
+//         const accessToken = getAccessToken();
+//         if (accessToken) {
+//             const refreshedToken = await axios.get(`${BASE_URL}/users/refresh`);
+//             const newAccessToken = refreshedToken.data.accessToken;
+            
+//             localStorage.setItem("persist:root", JSON.stringify({ user: { accessToken: newAccessToken } }));
+//         }
+//         return config;
+//     },
+//     (error) => {
+//         return Promise.reject(error);
+//     }
+// );
 
 
 

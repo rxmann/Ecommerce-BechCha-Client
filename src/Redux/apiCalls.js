@@ -3,7 +3,6 @@ import { deleteUserSuccess, deleteUserSuccessAdmin, loginSuccess, logoutUserSucc
 import { getFailure, getStart, getProductsSuccess, getCategoriesSuccess } from "./productSlice";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Cookies from 'js-cookie';
 
 
 
@@ -54,9 +53,7 @@ export const loginUser = async (dispatch, user) => {
     try {
         const response = await publicRequest.post("/users/login", user)
         dispatch(loginSuccess(response.data));
-        console.log(response.data);
-        Cookies.set("jwt", response.data.newRefreshToken);
-        successToast("Logged in successfully")
+        successToast("Logged in successfully");
     }
     catch (err) {
         dispatch(requestFailure(err.reponse?.data));
