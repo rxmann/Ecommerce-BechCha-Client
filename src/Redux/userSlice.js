@@ -47,6 +47,9 @@ export const userSlice = createSlice({
         },
         deleteUserSuccessAdmin: (state) => {
             state.isFetching = false
+        },
+        setAccessToken: (state, action) => {
+            state.accessToken = action.payload;
         }
     }
 })
@@ -58,7 +61,8 @@ export const {  requestStart,
                 updateSuccess,
                 logoutUserSuccess,
                 deleteUserSuccessAdmin,
-                deleteUserSuccess 
+                deleteUserSuccess,
+                setAccessToken
             } = userSlice.actions;
                 
 export default userSlice.reducer;

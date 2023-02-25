@@ -109,10 +109,7 @@ const UserProfile = ({ user }) => {
 
                 <Button size="small" color="error" onClick={handleDeleteAccount} > Delete Account {user?.username} </Button>
 
-                <Button onClick={ async () => {
-                    const access = await publicRequest.get("/users/refresh");
-                    console.log(access.data);
-                }}> REFRESH </Button>
+                
             </Profile>
         </Container>
     )

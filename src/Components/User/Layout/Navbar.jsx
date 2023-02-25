@@ -3,14 +3,16 @@ import Badge from '@mui/material/Badge';
 import SearchIcon from '@mui/icons-material/Search';
 import { ShoppingCartOutlined } from '@mui/icons-material';
 import CompareIcon from '@mui/icons-material/Compare';
-    import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import { InputAdornment, OutlinedInput } from '@mui/material';
+import { publicRequest } from '../../../requestMethods/requestMethods';
+import { setToken } from '../../../Redux/apiCalls';
 
 
 const Container = styled.div`
@@ -108,71 +110,75 @@ const Navbar = () => {
     const quantity = useSelector(state => state.cart.quantity)
     const navigate = useNavigate();
     const [search, setSearch] = useState("");
+    const dispatch = useDispatch();
 
-    
     const handleProfile = () => {
         if (!isSignedIn || !currentUser) {
             navigate("/login");
-          }
+        }
         else {
             navigate(`/profile/${currentUser._id}`);
         }
     }
     return (
-    <Container>
-        <Wrapper >
-            <Left>
-            <Link to="/"> 
-                <Logo src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true' />
-            </Link>
-            </Left>
+        <Container>
+            <Wrapper >
+                <Left>
+                    <Link to="/">
+                        <Logo src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true' />
+                    </Link>
+                </Left>
 
-            <Middle>
-                <SearchContainer>
-                     <SearchBox
-                                size="small"
-                                maxLength={30} 
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value) } 
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        { search  && <Clear onClick={() => setSearch('')}  /> }
-                                    </InputAdornment>
-                                }
-                                startAdornment={
-                                    <InputAdornment position="start">
-                                       <SearchIcon color="info"/>
-                                    </InputAdornment>
-                                }
-                            />
-                    <SearchButton variant='contained'>Search</SearchButton>
-                    
-                </SearchContainer>
-            </Middle>
+                <Middle>
+                    <SearchContainer>
+                        <SearchBox
+                            size="small"
+                            maxLength={30}
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    {search && <Clear onClick={() => setSearch('')} />}
+                                </InputAdornment>
+                            }
+                            startAdornment={
+                                <InputAdornment position="start">
+                                    <SearchIcon color="info" />
+                                </InputAdornment>
+                            }
+                        />
+                        <SearchButton variant='contained'>Search</SearchButton>
+                        <Button onClick={async () => {
+                            const access = await publicRequest.get("/users/refresh");
+                            setToken(dispatch, access.data.accessToken)
 
-            
-            <Right> 
-                <Mbtn>
-                    {currentUser?.isAdmin && <DashboardIcon  onClick={() => navigate("/admin/dashboard")} />}
-                </Mbtn>
-                <Mbtn>
-                    <Span>NP</Span>
-                </Mbtn>
-                <Mbtn onClick={handleProfile} >
-                    { currentUser === null ?  <AccountCircleIcon /> : <ProfilePic src={currentUser.image}/> }
-                </Mbtn>
-                <Mbtn onClick={() => navigate(`/profile/cart/${currentUser._id}`)}>
-                    <Badge badgeContent={quantity}  > 
+                        }}> REFRESH </Button>
+                    </SearchContainer>
+                </Middle>
+
+
+                <Right>
+                    <Mbtn>
+                        {currentUser?.isAdmin && <DashboardIcon onClick={() => navigate("/admin/dashboard")} />}
+                    </Mbtn>
+                    <Mbtn>
+                        <Span>NP</Span>
+                    </Mbtn>
+                    <Mbtn onClick={handleProfile} >
+                        {currentUser === null ? <AccountCircleIcon /> : <ProfilePic src={currentUser.image} />}
+                    </Mbtn>
+                    <Mbtn onClick={() => navigate(`/profile/cart/${currentUser._id}`)}>
+                        <Badge badgeContent={quantity}  >
                             <ShoppingCartOutlined />
-                    </Badge>
-                </Mbtn>
-                <Mbtn>
-                    <CompareIcon  />
-                </Mbtn>
-            </Right>
-        </Wrapper>
-    </Container>
-  )
+                        </Badge>
+                    </Mbtn>
+                    <Mbtn>
+                        <CompareIcon />
+                    </Mbtn>
+                </Right>
+            </Wrapper>
+        </Container>
+    )
 }
 
 export default Navbar

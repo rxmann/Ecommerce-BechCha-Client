@@ -1,5 +1,5 @@
 import { publicRequest, userRequest } from "../requestMethods/requestMethods";
-import { deleteUserSuccess, deleteUserSuccessAdmin, loginSuccess, logoutUserSuccess, registerSuccess, requestFailure, requestStart,  updateSuccess } from "./userSlice";
+import { deleteUserSuccess, deleteUserSuccessAdmin, loginSuccess, logoutUserSuccess, registerSuccess, requestFailure, requestStart,  setAccessToken,  updateSuccess } from "./userSlice";
 import { getFailure, getStart, getProductsSuccess, getCategoriesSuccess } from "./productSlice";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -31,6 +31,16 @@ export const failureToast = (message) => {
         progress: undefined,
         theme: "colored",
     })
+}
+
+export const setToken = async (dispatch, token) => {
+    try {
+        console.log(token);
+        dispatch(setAccessToken(token));
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
 
 export const registerUser = async (dispatch, userPayload) => {
