@@ -1,8 +1,11 @@
 import styled from "styled-components"
 import {AccountCircle  } from "@mui/icons-material"
 import { Link, useNavigate} from "react-router-dom"
-import { useSelector } from "react-redux"
-
+import { useDispatch, useSelector } from "react-redux"
+import { Button } from "@mui/material"
+import { publicRequest } from "../../../requestMethods/requestMethods"
+import { setToken } from "../../../Redux/apiCalls"
+ 
 
 const Container = styled.div`
     width: 100%;
@@ -49,6 +52,9 @@ const IconContainer = styled.div`
 const Topbar = () => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+
     const { currentUser, isSignedIn } = useSelector(state => state.user);
 
     const handleProfile = () => {
@@ -82,6 +88,13 @@ const Topbar = () => {
                     <NotificationsNone />
                     <SpanBadge> 2 </SpanBadge>
                 </IconContainer> */}
+
+                    <Button onClick={async () => {
+                            const access = await publicRequest.get("/users/refresh");
+                            console.log(access.data.accessToken);
+                            setToken(dispatch, access.data.accessToken)
+
+                        }}> REFRESH </Button>
                 <IconContainer onClick={handleProfile}>
                     <AccountCircle />
                 </IconContainer>

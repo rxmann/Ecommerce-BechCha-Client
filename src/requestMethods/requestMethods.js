@@ -8,6 +8,8 @@ const getAccessToken = () => {
     return TOKEN;
 }
 
+console.log(getAccessToken());
+
 
 export const publicRequest = axios.create({
     baseURL: BASE_URL,

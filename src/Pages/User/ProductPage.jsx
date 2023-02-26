@@ -189,14 +189,15 @@ const ProductPage = () => {
          </MainImageContainer>
        </Left>
 
-
        <Right>
          <TitleWrapper>
            <Title> {product.title} </Title>
            <Span >Product ID: {product._id}</Span>
          </TitleWrapper>
          <Price> RS {product.price} </Price>
-         <Description > {product.description}</Description>
+         {/* <Description >  */}
+          {product.description}
+         {/* </Description> */}
          <p style={{ color: "red" }}> Stock: {product.quantity} </p>
          <QuantityDiv>
            <Button onClick={()=>handleQuantity("dec",  product.quantity)}> - </Button>
