@@ -35,7 +35,6 @@ export const failureToast = (message) => {
 
 export const setToken = async (dispatch, token) => {
     try {
-        console.log(token);
         dispatch(setAccessToken(token));
     }
     catch (err) {

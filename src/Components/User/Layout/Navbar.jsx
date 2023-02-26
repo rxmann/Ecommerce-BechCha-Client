@@ -149,8 +149,13 @@ const Navbar = () => {
                         />
                         <SearchButton variant='contained'>Search</SearchButton>
                         <Button onClick={async () => {
-                            const access = await publicRequest.get("/users/refresh");
+                            try {
+                                const access = await publicRequest.get("/users/refresh");
                             setToken(dispatch, access.data.accessToken)
+                            }
+                            catch (err) {
+                                console.log(err.response.data);
+                            }
 
                         }}> REFRESH </Button>
                     </SearchContainer>

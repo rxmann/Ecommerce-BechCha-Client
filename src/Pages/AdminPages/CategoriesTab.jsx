@@ -71,8 +71,11 @@ export const StatusButton = ({ type }) => {
 }
 
 const CategoriesTab = () => {
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+
   useEffect(() => {
     getAllCategories(dispatch);
   }, [dispatch])

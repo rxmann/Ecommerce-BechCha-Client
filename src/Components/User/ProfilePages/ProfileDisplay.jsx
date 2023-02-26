@@ -62,7 +62,7 @@ const ProfileDisplay = () => {
                 setUser(response.data);
             }
             catch (er) {
-                console.log(er);
+                // console.log(er);
                 setUser(null)
             }
         }

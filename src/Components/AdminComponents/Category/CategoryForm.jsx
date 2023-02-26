@@ -98,8 +98,6 @@ const CategoryForm = ({ FormType }) => {
                     "Content-Type": "multipart/form-data"
                 }
             })
-
-            console.log(response.data);
             getAllCategories(dispatch);
             setValues({
                 name: "",

@@ -1,14 +1,14 @@
 import axios from "axios"
+import jwt_decode from "jwt-decode";
+import dayjs from 'dayjs'
 
 const BASE_URL = "http://localhost:5000/api"
 
 const getAccessToken = () => {
     const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
-    const TOKEN = user && JSON.parse(user).accessToken;
+    const TOKEN = user && JSON.parse(user)?.accessToken;
     return TOKEN;
 }
-
-console.log(getAccessToken());
 
 
 export const publicRequest = axios.create({
@@ -27,21 +27,49 @@ export const userRequest = axios.create({
 
 
 // Add a request interceptor to check the access token before each request
-// userRequest.interceptors.request.use(
-//     async (config) => {
-//         const accessToken = getAccessToken();
-//         if (accessToken) {
-//             const refreshedToken = await axios.get(`${BASE_URL}/users/refresh`);
-//             const newAccessToken = refreshedToken.data.accessToken;
-            
-//             localStorage.setItem("persist:root", JSON.stringify({ user: { accessToken: newAccessToken } }));
-//         }
-//         return config;
-//     },
-//     (error) => {
-//         return Promise.reject(error);
-//     }
-// );
+userRequest.interceptors.request.use(async (request) => {
+    console.log("Request Interceptors!");
+    const accessToken = getAccessToken();
+    console.log("Token sent now: ", accessToken);
+
+    const user = jwt_decode(accessToken);
+    const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
+    console.log("isExpired? ", isExpired);
+    if (!isExpired) return request;
+
+    try {
+        const response = await publicRequest.get(`/users/refresh`);
+        console.log("New access token: ", response.data.accessToken);
+
+
+        const persistRoot = JSON.parse(localStorage.getItem('persist:root'));
+        const userObjectString = persistRoot?.user;
+        if (userObjectString) {
+            const userObject = JSON.parse(userObjectString);
+            userObject.accessToken = response.data.accessToken;
+            persistRoot.user = JSON.stringify(userObject);
+            localStorage.setItem('persist:root', JSON.stringify(persistRoot));
+        }
+    }
+    catch (err) {
+        console.log(err);
+        // if (err.response.data?.code === "notoken" ) {
+        //     localStorage.setItem("persist:root", null);
+        // }
+    }
+
+    return request;
+})
+
+
+
+
+// CHECK response after every request
+userRequest.interceptors.response.use(async (response) => {
+    console.log("Response Intyerceptors ", response.data);
+    return response;
+})
+
 
 
 
