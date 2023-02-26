@@ -123,7 +123,7 @@ const CartPage = () => {
     const cart = useSelector(state => state.cart);
 
 
-    const [quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState();
 
     const handleQuantity = (option, maxQuantity) => {
 

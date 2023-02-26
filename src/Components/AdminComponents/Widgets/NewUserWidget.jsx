@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { Visibility} from "@mui/icons-material"
+import { Visibility } from "@mui/icons-material"
 import { userRequest } from "../../../requestMethods/requestMethods"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
@@ -45,8 +45,8 @@ const User = styled.div`
 const Name = styled.span`
     font-weight: 500;
 `
-    
-const Infor =  styled.span`
+
+const Infor = styled.span`
     font-weight: 300;
 `
 
@@ -67,39 +67,44 @@ const Button = styled.button`
 const NewUserWidget = () => {
 
     const navigate = useNavigate();
-    const [ users, setUsers ] = useState([]);
+    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         const getUsers = async () => {
-            const response = await userRequest.get("/users/find?new=true");
-            setUsers(response.data)
+            try {
+                const response = await userRequest.get("/users/find?new=true");
+                setUsers(response.data)
+            }
+            catch (err) {
+                console.log(err.response?.data);
+            }
         }
         getUsers();
-    }, [])
+    }, [navigate])
 
 
-  return (
-    <Container>
-        <Title> New Members </Title>
-        <List>
-           {users.map( (user) => (
-             <Item key={user._id}>
-                {user.image !== "" ? <Image src={user.image} /> : <AccountCircleIcon  sx={
-                    {
-                        width: '40px',
-                        height: '40px',
-                    }
-                } size="medium"/> }
-                <User>
-                    <Name> {user.username} </Name>
-                    <Infor> {user.email} </Infor>
-                </User>
-                <Button onClick={() => navigate(`/admin/user/${user._id}`)} > <Visibility/> View  </Button>
-            </Item>
-           ))}
-        </List>
-    </Container>
-  )
+    return (
+        <Container>
+            <Title> New Members </Title>
+            <List>
+                {users.map((user) => (
+                    <Item key={user._id}>
+                        {user.image !== "" ? <Image src={user.image} /> : <AccountCircleIcon sx={
+                            {
+                                width: '40px',
+                                height: '40px',
+                            }
+                        } size="medium" />}
+                        <User>
+                            <Name> {user.username} </Name>
+                            <Infor> {user.email} </Infor>
+                        </User>
+                        <Button onClick={() => navigate(`/admin/user/${user._id}`)} > <Visibility /> View  </Button>
+                    </Item>
+                ))}
+            </List>
+        </Container>
+    )
 }
 
 export default NewUserWidget

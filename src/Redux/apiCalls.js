@@ -1,5 +1,5 @@
 import { publicRequest, userRequest } from "../requestMethods/requestMethods";
-import { deleteUserSuccess, deleteUserSuccessAdmin, loginSuccess, logoutUserSuccess, registerSuccess, requestFailure, requestStart,  setAccessToken,  updateSuccess } from "./userSlice";
+import { deleteUserSuccess, deleteUserSuccessAdmin, loginSuccess, logoutUserSuccess, registerSuccess, requestFailure, requestStart, setAccessToken, updateSuccess } from "./userSlice";
 import { getFailure, getStart, getProductsSuccess, getCategoriesSuccess } from "./productSlice";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -118,7 +118,7 @@ export const deleteUserAccount = async (dispatch, id, userId) => {
     requestStart();
 
     console.log(id, userId);
-    try{
+    try {
         await userRequest.delete(`/users/${id}`)
         if (id === userId) {
             dispatch(deleteUserSuccess());
@@ -128,22 +128,20 @@ export const deleteUserAccount = async (dispatch, id, userId) => {
         }
         successToast("User Account deleted")
     }
-    catch (err ) {
+    catch (err) {
         console.log(err);
         failureToast("Unable to delete user Account");
     }
 }
 
 
-export const getAllProducts = async (dispatch) => {
-    dispatch(getStart)
+export const getAllProducts = async () => {
     try {
         const response = await publicRequest.get("/products");
-        dispatch(getProductsSuccess(response.data));
+        return response.data;
     }
     catch (err) {
         console.log(err);
-        dispatch(getFailure);
     }
 }
 
@@ -172,13 +170,13 @@ export const addProductAdmin = async (values) => {
     });
 
     try {
-        await userRequest.post("/products", formData, {headers : { "Content-Type": "multipart/form-data" }})
+        await userRequest.post("/products", formData, { headers: { "Content-Type": "multipart/form-data" } })
         successToast("Product added in the system")
     }
     catch (err) {
         console.log(err.response.data);
         failureToast(err.response?.data)
-    }                        
+    }
 }
 
 export const editProductAdmin = async (values, id) => {
@@ -193,11 +191,43 @@ export const editProductAdmin = async (values, id) => {
     });
 
     try {
-        await userRequest.patch(`/products/${id}`, formData, {headers : { "Content-Type": "multipart/form-data" }})
+        await userRequest.patch(`/products/${id}`, formData, { headers: { "Content-Type": "multipart/form-data" } })
         successToast("Product updated")
     }
     catch (err) {
         console.log(err.response.data);
         failureToast("Problem updating the product info.")
-    }                        
+    }
+}
+
+
+
+export const getSalesStats = async () => {
+    try {
+        const response = await userRequest.get("/orders/sales/analytics");
+        return response.data;
+    }
+    catch (err) {
+        console.log(err.response?.data);
+    }
+}
+
+export const getOrdersStats = async () => {
+    try {
+        const response = await userRequest.get("/orders/orders/analytics");
+        return response.data
+    }
+    catch (err) {
+        console.log(err.response?.data);
+    }
+}
+
+export const getUserStats = async () => {
+    try {
+        const response = await userRequest.get("/orders/users/analytics");
+        return response.data;
+    }
+    catch (err) {
+        console.log(err.response?.data);
+    }
 }

@@ -9,6 +9,7 @@ import OrderWidget from "../../Components/AdminComponents/Widgets/OrderWidget"
 import Widget from "../../Components/AdminComponents/Widgets/Widget"
 import months from 'months';
 import { userRequest } from "../../requestMethods/requestMethods"
+import { getOrdersStats, getSalesStats, getUserStats } from "../../Redux/apiCalls"
 
 const Container = styled.div`
     flex: 5;
@@ -35,14 +36,15 @@ const HomeWidgets = styled.div`
 
 
 const AdminHome = () => {
+
   const navigate = useNavigate();
-  const { currentUser, isSignedIn } = useSelector(state => state.user)
+  const { currentUser, isSignedIn, accessToken } = useSelector(state => state.user)
 
   useEffect(() => {
     if (!currentUser.isAdmin || !isSignedIn) {
       navigate("/");
     }
-  }, [currentUser, isSignedIn, navigate])
+  }, [currentUser, isSignedIn, navigate, accessToken])
 
 
   // orders sales stats
@@ -50,55 +52,44 @@ const AdminHome = () => {
   const [ordersStats, setOrdersStats] = useState();
   const [salesStats, setSalesStats] = useState({});
   const [userStats, setUserStats] = useState({});
-  useEffect(() => {
-    const getSalesStats = async () => {
-      const response = await userRequest.get("/orders/sales/analytics");
-      setSalesStats(response.data);
-    }
-    const getOrdersStats = async () => {
-      const response = await userRequest.get("/orders/orders/analytics");
-      setOrdersStats(response.data);
-    }
-    const getUserStats = async () => {
-      const response = await userRequest.get("/orders/users/analytics");
-      setUserStats(response.data);
-    }
-    getOrdersStats();
-    getSalesStats();
-    getUserStats();
-  }, [])
 
-
-  // orders data
-  const [orders, setOrders] = useState([{
-    name: "",
-    users: ""
-  }]);
   useEffect(() => {
-    const getOrders = async () => {
-      const response = await userRequest.get("/orders");
-      setOrders(response.data);
+
+    const getAllStats = async () => {
+      // sales stats past-now
+      setSalesStats(await getSalesStats());
+
+      setOrdersStats(await getOrdersStats());
+
+      setUserStats(await getUserStats());
     }
-    getOrders();
-  }, [currentUser])
+
+    getAllStats();
+  }, [currentUser, isSignedIn, navigate])
+
 
 
   // users data for chart
   const [userData, setUserData] = useState([]);
   useEffect(() => {
     const getUsersData = async () => {
-      const response = await userRequest.get("/users/stats");
-      const userD = response?.data?.map((each) => {
-          const name =  months[each._id - 1];
-          const users =  each.total;
+      try {
+        const response = await userRequest.get("/users/stats");
+        const userD = response?.data?.map((each) => {
+          const name = months[each._id - 1];
+          const users = each.total;
           return {
             name, users
           }
-      })
-      setUserData(userD);
+        })
+        setUserData(userD);
+      }
+      catch (err) {
+        console.log(err);
+      }
     }
     getUsersData();
-  }, [currentUser])
+  }, [currentUser, isSignedIn, navigate])
 
 
   return (
@@ -106,16 +97,16 @@ const AdminHome = () => {
       <FeaturedInfo >
         <Widget type="EARNINGS" data={salesStats} />
         <Widget type="ORDERS" data={ordersStats} />
-        <Widget type="USERS" data={userStats}/>
-        <Widget type="BALANCE" data={ordersStats} /> 
+        <Widget type="USERS" data={userStats} />
+        <Widget type="BALANCE" data={ordersStats} />
       </FeaturedInfo>
 
       <ChartContainer>
-        <Chart title={"Users Analytics"} data={userData} grid  dataKey={"users"} />
+        <Chart title={"Users Analytics"} data={userData} grid dataKey={"users"} />
       </ChartContainer>
 
       <HomeWidgets>
-        <OrderWidget orders={orders} />
+        <OrderWidget />
         <NewUserWidget />
       </HomeWidgets>
     </Container>

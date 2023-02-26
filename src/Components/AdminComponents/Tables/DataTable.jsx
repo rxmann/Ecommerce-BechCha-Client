@@ -63,19 +63,31 @@ export const StatusButton = ({ type }) => {
 const DataTable = ({ rows, columns }) => {
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredRows, setFilteredRows] = useState([]);
+  const [filteredRows, setFilteredRows] = useState(rows);
+  
+
+  useEffect(() => {
+    const setFilters = async () => {
+      setFilteredRows(filterRows(rows, searchQuery));
+    } 
+
+    setFilters()
+  }, [searchQuery, rows])
+
+
 
   const filterRows = (data, searchQuery) => {
-    return data.filter(row =>
+    return data?.filter(row =>
       Object.values(row).some(value =>
         String(value).toLowerCase().includes(searchQuery.toLowerCase())
       )
     )
   }
 
-  useEffect(() => {
-    setFilteredRows(filterRows(rows, searchQuery));
-  }, [searchQuery, rows])
+
+
+
+  
 
 
   return (

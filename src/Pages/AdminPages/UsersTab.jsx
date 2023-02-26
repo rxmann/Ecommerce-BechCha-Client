@@ -94,7 +94,7 @@ const UsersTab = () => {
     const getAllUsers = async () => {
         try {
             const res = await userRequest.get("/users/find");
-            setUsers(res.data)
+            setUsers(res?.data)
         }
         catch (err) {
             console.log(err);
@@ -110,7 +110,7 @@ const UsersTab = () => {
     console.log(id);
     try {
       const response = await userRequest.delete(`/users/${id}`);
-      console.log(response.data);
+      console.log(response?.data);
     }
     catch (err) {
       console.log(err.response.data);

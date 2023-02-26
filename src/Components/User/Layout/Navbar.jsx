@@ -8,11 +8,9 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import { InputAdornment, OutlinedInput } from '@mui/material';
-import { publicRequest } from '../../../requestMethods/requestMethods';
-import { setToken } from '../../../Redux/apiCalls';
 
 
 const Container = styled.div`
@@ -110,8 +108,6 @@ const Navbar = () => {
     const quantity = useSelector(state => state.cart.quantity)
     const navigate = useNavigate();
     const [search, setSearch] = useState("");
-    const dispatch = useDispatch();
-
     const handleProfile = () => {
         if (!isSignedIn || !currentUser) {
             navigate("/login");
@@ -148,16 +144,6 @@ const Navbar = () => {
                             }
                         />
                         <SearchButton variant='contained'>Search</SearchButton>
-                        <Button onClick={async () => {
-                            try {
-                                const access = await publicRequest.get("/users/refresh");
-                            setToken(dispatch, access.data.accessToken)
-                            }
-                            catch (err) {
-                                console.log(err.response.data);
-                            }
-
-                        }}> REFRESH </Button>
                     </SearchContainer>
                 </Middle>
 

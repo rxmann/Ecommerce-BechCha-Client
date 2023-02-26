@@ -14,6 +14,7 @@ export const cartSlice = createSlice({
             state.total += action.payload.price * action.payload.quantity;
             console.log("State: ", state.products, state.quantity, state.total);
         }
+        
     }
 })
 

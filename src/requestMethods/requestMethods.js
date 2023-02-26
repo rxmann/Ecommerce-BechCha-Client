@@ -4,6 +4,10 @@ import dayjs from 'dayjs'
 
 const BASE_URL = "http://localhost:5000/api"
 
+let isRefreshing = false;
+let refreshSubscribers = [];
+
+
 const getAccessToken = () => {
     const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
     const TOKEN = user && JSON.parse(user)?.accessToken;
@@ -30,34 +34,45 @@ export const userRequest = axios.create({
 userRequest.interceptors.request.use(async (request) => {
     console.log("Request Interceptors!");
     const accessToken = getAccessToken();
-    console.log("Token sent now: ", accessToken);
 
     const user = jwt_decode(accessToken);
     const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
     console.log("isExpired? ", isExpired);
+
     if (!isExpired) return request;
 
-    try {
-        const response = await publicRequest.get(`/users/refresh`);
-        console.log("New access token: ", response.data.accessToken);
+    if (!isRefreshing) {
 
+        isRefreshing = true;
 
-        const persistRoot = JSON.parse(localStorage.getItem('persist:root'));
-        const userObjectString = persistRoot?.user;
-        if (userObjectString) {
-            const userObject = JSON.parse(userObjectString);
-            userObject.accessToken = response.data.accessToken;
-            persistRoot.user = JSON.stringify(userObject);
-            localStorage.setItem('persist:root', JSON.stringify(persistRoot));
+        try {
+            const response = await publicRequest.get(`/users/refresh`);
+
+            const persistRoot = JSON.parse(localStorage.getItem('persist:root'));
+            const userObjectString = persistRoot?.user;
+            if (userObjectString) {
+                const userObject = JSON.parse(userObjectString);
+                userObject.accessToken = response.data.accessToken;
+                persistRoot.user = JSON.stringify(userObject);
+                localStorage.setItem('persist:root', JSON.stringify(persistRoot));
+            }
+
+            // set new authorization header
+            if (getAccessToken !== accessToken) {
+                console.log("NewToken set");
+                request.headers.authorization = `Bearer ${getAccessToken()}`;
+            }
         }
-    }
-    catch (err) {
-        console.log(err);
-        // if (err.response.data?.code === "notoken" ) {
-        //     localStorage.setItem("persist:root", null);
-        // }
-    }
+        catch (err) {
+            // console.log(err.response?.data);
+            if (err.response.data?.code === "notoken") {
+                localStorage.setItem("persist:root", null);
+            }
+        }
 
+        isRefreshing = false;
+
+    }
     return request;
 })
 
@@ -66,7 +81,7 @@ userRequest.interceptors.request.use(async (request) => {
 
 // CHECK response after every request
 userRequest.interceptors.response.use(async (response) => {
-    console.log("Response Intyerceptors ", response.data);
+    // console.log("Response Intyerceptors ", response.data);
     return response;
 })
 

@@ -1,5 +1,7 @@
 import styled from "styled-components"
 import Button from '@mui/material/Button';
+import { useEffect, useState } from "react";
+import { userRequest } from "../../../requestMethods/requestMethods";
 const moment = require("moment")
 
 
@@ -60,7 +62,7 @@ const Name = styled.span`
 `
 
 
-const OrderWidget = ({orders}) => {
+const OrderWidget = ({ orders: allOrders}) => {
   
   const StatusButton = ({ type }) => {
     let color, background;
@@ -84,6 +86,25 @@ const OrderWidget = ({orders}) => {
     }
     return <Button size={"small"} color={color} sx={{ background: background }} type={type}> {type} </Button>
   }
+
+
+
+    // orders data
+    const [orders, setOrders] = useState();
+
+
+    useEffect(() => {
+      const getOrders = async () => {
+       if (!allOrders) {
+        const response = await userRequest.get("/orders");
+        setOrders(response.data);
+       }
+       else {
+        setOrders(allOrders)
+       }
+      }
+      getOrders();
+    }, [])
 
 
   return (

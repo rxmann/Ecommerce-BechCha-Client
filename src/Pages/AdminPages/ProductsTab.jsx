@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import DataTable from '../../Components/AdminComponents/Tables/DataTable';
 import { useDispatch, useSelector } from "react-redux"
 import { getAllCategories, getAllProducts } from '../../Redux/apiCalls';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 
 const Container = styled.div`
@@ -76,14 +76,23 @@ const ProductsTab = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
+  const [products, setProducts] = useState([]);
+
   useEffect(() => {
-    getAllProducts(dispatch)
-    getAllCategories(dispatch)
+    const getEssentials = async () => {
+      const res = await getAllProducts()
+      setProducts(res);
+      await getAllCategories(dispatch)
+    }
+
+    getEssentials();
   }, [dispatch])
 
-
-  const {products} = useSelector(state => state.product)
   const {categories} = useSelector(state => state.product)
+
+
+
+
 
   const getCatName = (id) => {
     for (let i = 0; i < categories.length; i++) {
@@ -155,7 +164,7 @@ const ProductsTab = () => {
         </Link>
       </Wrapper>
       <DataTable 
-          rows={products} 
+          rows={products !== null && products} 
           columns={actionColumn} 
       />
     </Container>
