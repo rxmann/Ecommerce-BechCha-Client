@@ -26,13 +26,7 @@ import ProductAdd from "./Components/AdminComponents/Product/ProductAdd"
 
 import styled from "styled-components"
 import { ToastContainer } from 'react-toastify';
-
-
-
-
-
-
-
+import 'react-toastify/dist/ReactToastify.css';
 
 import CartPage from "./Components/User/Carts/CartPage"
 import ProfileDisplay from "./Components/User/ProfilePages/ProfileDisplay"
@@ -40,7 +34,6 @@ import Orders from "./Components/User/ProfilePages/Orders"
 import { useSelector } from "react-redux"
 import { useEffect } from "react"
 import CategoriesTab from "./Pages/AdminPages/CategoriesTab"
-import CategoryForm from "./Components/AdminComponents/Category/CategoryForm"
 import CategoryAdd from "./Components/AdminComponents/Category/CategoryAdd"
 import CategoryDisplay from "./Components/AdminComponents/Category/CategoryDisplay"
 
@@ -86,7 +79,7 @@ const App = () => {
         }
       }
       checkLogin();
-    }, [isSignedIn, navigate]);
+    }, [isSignedIn, navigate, currentUser?.isAdmin]);
 
     return (
       <Wrapper >

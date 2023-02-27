@@ -1,8 +1,8 @@
+import styled from "styled-components"
 import { Avatar } from "@mui/material"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import styled from "styled-components"
-import { getAllCategories } from "../../../Redux/apiCalls"
+import { getAllCategories } from "../../../ApiCalls/CategoriesApiCalls"
 import CategoryForm from "./CategoryForm"
 import { useNavigate } from "react-router-dom"
 

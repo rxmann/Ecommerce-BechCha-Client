@@ -1,11 +1,12 @@
 import { DeleteOutline } from '@mui/icons-material';
 import { Button } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import DataTable from '../../Components/AdminComponents/Tables/DataTable';
 import { useDispatch, useSelector } from "react-redux"
-import { getAllCategories, getAllProducts } from '../../Redux/apiCalls';
 import { useEffect } from 'react';
+import { getAllCategories } from '../../ApiCalls/CategoriesApiCalls';
+
 
 
 const Container = styled.div`
@@ -30,10 +31,6 @@ const Title = styled.h1`
   font-size: 24px;
     font-weight: 500;
     color: gray;
-`
-
-const AddButton = styled(Button)`
-    text-transform: unset !important;
 `
 
 const ActionCell = styled.div`

@@ -5,9 +5,8 @@ import {  useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import UserUpdateForm from "./UserUpdateForm";
-import { LogoutUser } from "../../../Redux/apiCalls";
 import { useState } from "react";
-import { userRequest } from "../../../requestMethods/requestMethods";
+import { getOneUser, LogoutUser } from "../../../ApiCalls/UserApiCalls";
 
 
 const Container =styled.div`
@@ -51,28 +50,22 @@ const ProfileDisplay = () => {
           }
         }
         checkLogin();
-      }, [isSignedIn, navigate, userId, isFetching]);
+      }, [isSignedIn, navigate, userId, isFetching, dispatch]);
 
 
 
       useEffect(() => {
         const userD = async () => {
-            try {
-                const response = await userRequest.get(`/users/find/${userId}`)
-                setUser(response.data);
-            }
-            catch (er) {
-                // console.log(er);
-                setUser(null)
-            }
+            const response = await getOneUser(dispatch, userId)
+            setUser(response);
         }
         userD();
-      }, [userId, isFetching, navigate]);
+      }, [userId, isFetching, dispatch]);
       
 
-    const handleLogout = (e) => {
+    const handleLogout = async (e) => {
         e.preventDefault();
-        LogoutUser(dispatch, currentUser._id);
+        await LogoutUser(dispatch, currentUser._id);
     }
 
     return (

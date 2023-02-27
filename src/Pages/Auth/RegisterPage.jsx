@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useDispatch, useSelector } from "react-redux"
-import { registerUser } from "../../Redux/apiCalls";
+import { registerUser } from "../../ApiCalls/UserApiCalls";
 import { useEffect } from "react";
 
 

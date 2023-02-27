@@ -6,10 +6,9 @@ import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import { Avatar, Button } from "@mui/material";
 import moment from 'moment';
-import { deleteUserAccount } from '../../../Redux/apiCalls';
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { publicRequest } from '../../../requestMethods/requestMethods';
+import { deleteUserAccount } from '../../../ApiCalls/UserApiCalls';
 
 const Container = styled.div`
     flex: 1;
@@ -67,7 +66,6 @@ const UserProfile = ({ user }) => {
 
 
     const handleDeleteAccount = async () => {
-        console.log("account delete");
         await deleteUserAccount( dispatch, user._id,  currentUser._id);
 
         if (user._id === currentUser._id) {

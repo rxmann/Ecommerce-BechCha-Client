@@ -1,12 +1,12 @@
 import styled from "styled-components"
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { useState } from "react";
-import { updateUser, updateUserByAdmin } from "../../../Redux/apiCalls";
 import { Avatar, Button, TextField } from "@mui/material";
 import { useDispatch } from "react-redux"
 import { useEffect } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useNavigate } from "react-router-dom";
+import { updateUser, updateUserByAdmin } from "../../../ApiCalls/UserApiCalls";
 
 const Form = styled.form`
     flex: 2;

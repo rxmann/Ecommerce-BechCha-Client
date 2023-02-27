@@ -30,27 +30,32 @@ const User = styled.div`
 const UserDetails = () => {
 
 
-  const id = useParams().id;
-  const [ orders, setOrders ] = useState([]);
+    const id = useParams().id;
+    const [orders, setOrders] = useState([]);
 
-  useEffect(() => {
-      const getOrders = async () => {
-          const response = await userRequest.get(`/orders/${id}`);
-          setOrders(response.data);
-      }
-      getOrders();
-  }, [id])
+    useEffect(() => {
+        const getOrders = async () => {
+            try {
+                const response = await userRequest.get(`/orders/${id}`);
+                setOrders(response.data);
+            }
+            catch (er) {
+                console.log(er);
+            }
+        }
+        getOrders();
+    }, [id])
 
 
-  return (
-    <Container> 
-        <Title> User Profile </Title>
-        <User>
-           <ProfileDisplay />
-        </User>
-        <OrderWidget orders={orders}/>
-    </Container>
-  )
+    return (
+        <Container>
+            <Title> User Profile </Title>
+            <User>
+                <ProfileDisplay />
+            </User>
+            <OrderWidget orders={orders} />
+        </Container>
+    )
 }
 
 export default UserDetails

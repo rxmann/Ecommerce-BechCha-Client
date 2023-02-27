@@ -4,7 +4,7 @@ import JoditEditor from "jodit-react";
 import { useEffect, useState } from "react";
 import UploadIcon from '@mui/icons-material/Upload';
 import ClearIcon from '@mui/icons-material/Clear';
-import { editProductAdmin } from '../../../Redux/apiCalls';
+import { editProductAdmin } from '../../../ApiCalls/ProductApiCalls';
 
 const Form = styled.form`
     padding: 20px;
@@ -152,9 +152,9 @@ const ProductUpdateForm = ({ FormType, prodDetails, categories }) => {
     }
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        editProductAdmin(values, prodDetails._id);
+        await editProductAdmin(values, prodDetails._id);
     }
 
     return (

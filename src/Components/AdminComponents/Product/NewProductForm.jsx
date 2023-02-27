@@ -4,8 +4,7 @@ import JoditEditor from "jodit-react";
 import { useEffect, useState  } from "react";
 import UploadIcon from '@mui/icons-material/Upload';
 import ClearIcon from '@mui/icons-material/Clear';
-import { publicRequest } from "../../../requestMethods/requestMethods"
-import { addProductAdmin, editProductAdmin } from '../../../Redux/apiCalls';
+import { addProductAdmin, editProductAdmin } from '../../../ApiCalls/ProductApiCalls';
 import { useSelector } from 'react-redux';
 
 const Form = styled.form`
@@ -105,7 +104,7 @@ const NewProductForm = ({FormType}) => {
 
     useEffect( () => {
         setCategories(cat);
-     }, [FormType])
+     }, [FormType, cat])
 
 
     const val ={ title: "", category: "", price: "", quantity: "", description: "", images: [] }

@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components"
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import CategoryIcon from '@mui/icons-material/Category';
-import { userRequest } from "../../../requestMethods/requestMethods";
-import { getAllCategories } from "../../../Redux/apiCalls";
+import { getAllCategories } from "../../../ApiCalls/CategoriesApiCalls";
+import { AddCategory } from "../../../ApiCalls/CategoriesApiCalls";
 
 const UploadB = styled.label`
     cursor: pointer;
@@ -66,6 +66,8 @@ const CategoryForm = ({ FormType, Data }) => {
     // set categories for drop down
     const [categories, setCategories] = useState([]);
     const { categories: cat } = useSelector(state => state.product)
+
+    
     useEffect(() => {
         setCategories(cat);
         if (Data) {
@@ -75,7 +77,7 @@ const CategoryForm = ({ FormType, Data }) => {
             })
         }
 
-    }, [FormType, Data])
+    }, [FormType, Data, cat])
 
 
     const handleImage = (e) => {
@@ -99,22 +101,13 @@ const CategoryForm = ({ FormType, Data }) => {
             console.log(key, values[key]);
         });
 
-        // try {
-        //     await userRequest.post("/categories/add", formData, {
-        //         headers: {
-        //             "Content-Type": "multipart/form-data"
-        //         }
-        //     })
-        //     getAllCategories(dispatch);
-        //     setValues({
-        //         name: "",
-        //         parentId: "",
-        //         image: "",
-        //     })
-        // }
-        // catch (err) {
-        //     console.log(err.response.data);
-        // }
+        await AddCategory(dispatch, formData);
+        await getAllCategories(dispatch);
+        setValues({
+            name: "",
+            parentId: "",
+            image: "",
+        })
     }
 
 
