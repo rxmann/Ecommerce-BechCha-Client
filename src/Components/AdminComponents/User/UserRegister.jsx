@@ -103,6 +103,7 @@ const UserRegister = () => {
         });
 
         try {
+            console.log("reg");
             const response = await publicRequest.post("/users/register", formData, { headers: { "Content-type": "multipart/form-data" } });
             console.log(response.data);
             setUserData(data);

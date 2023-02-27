@@ -119,10 +119,10 @@ const UsersTab = () => {
   }
 
   const actionColumn = [
-    { field: "_id", headerName: "ID", flex: 2 },
+    { field: "_id", headerName: "ID",  headerClassName: "header-datatable", flex: 2 },
     {
       field: "user",
-      headerName: "User",
+      headerName: "User",  headerClassName: "header-datatable",
       flex: 1,
       renderCell: (params) => {
         return (
@@ -134,15 +134,16 @@ const UsersTab = () => {
         );
       },
     },
-    { field: "email", headerName: "Email", flex: 2 },
+    { field: "email", headerName: "Email",  headerClassName: "header-datatable", flex: 2 },
     {
       field: "contacts",
-      headerName: "Contacts",
+      headerName: "Contacts",  headerClassName: "header-datatable",
       flex: 1,
     },
     {
       field: "isVerified",
       headerName: "Status",
+      headerClassName: "header-datatable",
       flex: 1,
       renderCell: (params) => {
         return (
@@ -153,6 +154,7 @@ const UsersTab = () => {
     {
       field: "actions",
       headerName: "Actions",
+      headerClassName: "header-datatable",
       flex: 2,
       renderCell: (params) => {
         return (

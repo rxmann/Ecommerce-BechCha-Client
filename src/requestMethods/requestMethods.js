@@ -32,12 +32,12 @@ export const userRequest = axios.create({
 
 // Add a request interceptor to check the access token before each request
 userRequest.interceptors.request.use(async (request) => {
-    console.log("Request Interceptors!");
+
     const accessToken = getAccessToken();
 
     const user = jwt_decode(accessToken);
     const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
-    console.log("isExpired? ", isExpired);
+    console.log("Request Interceptors! | isExpired? ", isExpired);
 
     if (!isExpired) return request;
 
@@ -71,8 +71,12 @@ userRequest.interceptors.request.use(async (request) => {
         }
 
         isRefreshing = false;
-
     }
+    else  {
+        request.headers.authorization = `Bearer ${getAccessToken()}`;
+    }
+
+
     return request;
 })
 

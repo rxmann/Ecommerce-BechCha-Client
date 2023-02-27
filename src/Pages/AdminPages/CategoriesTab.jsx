@@ -84,9 +84,10 @@ const CategoriesTab = () => {
 
 
   const actionColumn = [
-    { headerName: "Category ID", field: "_id", flex: 1 },
+    { headerName: "Category ID",  headerClassName: "header-datatable", field: "_id", flex: 1 },
     {
       headerName: "Category",
+      headerClassName: "header-datatable",
       field: "image",
       flex: 1,
       renderCell: (params) => {
@@ -101,6 +102,7 @@ const CategoriesTab = () => {
     {
       field: "actions",
       headerName: "Actions",
+      headerClassName: "header-datatable",
       flex: 1,
       renderCell: (params) => {
         return (

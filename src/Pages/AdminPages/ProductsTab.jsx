@@ -103,11 +103,12 @@ const ProductsTab = () => {
     return id;
   }
 
-  const actionColumn =  [
-    { field: "_id", headerName: "ID", flex: 3},
+  const actionColumn = [
+    { field: "_id", headerName: "ID",  headerClassName: "header-datatable", flex: 3},
     {
       field: "image",
       headerName: "Product",
+      headerClassName: "header-datatable",
       flex: 3,
       renderCell: (params) => {
         return (
@@ -121,11 +122,13 @@ const ProductsTab = () => {
     {
       field: "price",
       headerName: "Price",
+      headerClassName: "header-datatable",
       flex: 1,
     },
     {
       field: "category",
       headerName: "Category",
+      headerClassName: "header-datatable",
       flex: 3,
       renderCell: (params) => {
         return (
@@ -136,11 +139,13 @@ const ProductsTab = () => {
     {
       field: "quantity",
       headerName: "Stock",
+      headerClassName: "header-datatable",
       flex: 1,
     },
     {
       field: "actions",
       headerName: "Actions",
+      headerClassName: "header-datatable",
       flex: 2,
       renderCell: (params) => {
         return (

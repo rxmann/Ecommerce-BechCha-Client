@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { Button, InputAdornment, OutlinedInput, TextField } from '@mui/material';
+import { Box, Button, InputAdornment, OutlinedInput, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -11,7 +11,6 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
 `
 
 const Wrapper = styled.div`
@@ -33,6 +32,21 @@ const SearchBox = styled(OutlinedInput)`
 
 const SearchButton = styled(Button)`
     margin-right: 20px;
+`
+
+
+const BOX = styled(Box)`
+  width: 100%;
+  height: 100%;
+
+  & .header-datatable {
+    background-color: #0171b6 !important;
+    color: white;
+  }
+
+  & .rows-datatable :hover {
+    color:#0171b6 !important;
+  }
 `
 
 export const StatusButton = ({ type }) => {
@@ -64,12 +78,12 @@ const DataTable = ({ rows, columns }) => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredRows, setFilteredRows] = useState(rows);
-  
+
 
   useEffect(() => {
     const setFilters = async () => {
       setFilteredRows(filterRows(rows, searchQuery));
-    } 
+    }
 
     setFilters()
   }, [searchQuery, rows])
@@ -83,11 +97,6 @@ const DataTable = ({ rows, columns }) => {
       )
     )
   }
-
-
-
-
-  
 
 
   return (
@@ -114,16 +123,19 @@ const DataTable = ({ rows, columns }) => {
       </SearchContainer>
 
       <Wrapper>
-        <DataGrid
-          rows={filteredRows}
-          columns={columns}
-          components={{
-            Toolbar: GridToolbar,
-          }}
-          getRowId={row => row._id}
-          pageSize={8}
-          rowsPerPageOptions={[5, 10]}
-        />
+        <BOX >
+          <DataGrid
+            rows={filteredRows}
+            columns={columns}
+            components={{
+              Toolbar: GridToolbar,
+            }}
+            getRowId={row => row._id}
+            pageSize={8}
+            rowsPerPageOptions={[5, 10]}
+            getRowClassName={ () => `rows-datatable` }
+          />
+        </BOX>
       </Wrapper>
     </Container>
   )
