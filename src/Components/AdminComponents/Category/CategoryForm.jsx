@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components"
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import CategoryIcon from '@mui/icons-material/Category';
-import { getAllCategories } from "../../../ApiCalls/CategoriesApiCalls";
+import {  UpdateCategory } from "../../../ApiCalls/CategoriesApiCalls";
 import { AddCategory } from "../../../ApiCalls/CategoriesApiCalls";
 
 const UploadB = styled.label`
@@ -67,7 +67,7 @@ const CategoryForm = ({ FormType, Data }) => {
     const [categories, setCategories] = useState([]);
     const { categories: cat } = useSelector(state => state.product)
 
-    
+
     useEffect(() => {
         setCategories(cat);
         if (Data) {
@@ -77,7 +77,7 @@ const CategoryForm = ({ FormType, Data }) => {
             })
         }
 
-    }, [FormType, Data, cat])
+    }, [FormType, Data, cat, dispatch])
 
 
     const handleImage = (e) => {
@@ -91,23 +91,30 @@ const CategoryForm = ({ FormType, Data }) => {
     // on submit for new category
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if ( FormType === "add" && !values.image) {
+        if (FormType === "add" && !values.image) {
             return alert("Requires at least one image!")
         }
 
         const formData = new FormData();
         Object.keys(values).forEach(key => {
-            formData.append(key, values[key]);
-            console.log(key, values[key]);
+            if (values[key]) {
+                formData.append(key, values[key]);
+                console.log(values[key]);
+            }
         });
 
-        await AddCategory(dispatch, formData);
-        await getAllCategories(dispatch);
-        setValues({
-            name: "",
-            parentId: "",
-            image: "",
-        })
+        if (FormType === "add") {
+            await AddCategory(dispatch, formData);
+            setValues({
+                name: "",
+                parentId: "",
+                image: "",
+            })
+        }
+        else {
+            await UpdateCategory(dispatch, formData, Data._id);
+        }
+
     }
 
 
@@ -132,12 +139,12 @@ const CategoryForm = ({ FormType, Data }) => {
                     <UploadB>
                         <AddPhotoAlternateIcon />
                         Add Picture
-                            <input
-                                name="image"
-                                hidden
-                                type="file"
-                                onChange={handleImage}
-                                accept='image/*' />
+                        <input
+                            name="image"
+                            hidden
+                            type="file"
+                            onChange={handleImage}
+                            accept='image/*' />
                     </UploadB>
 
                     {Image && <Avatar variant="square" src={Image} sx={{ width: 100, height: 100 }} />}

@@ -8,6 +8,12 @@ let isRefreshing = false;
 let refreshSubscribers = [];
 
 
+
+function refreshPage() {
+    window.location.reload(false);
+  }
+
+
 const getAccessToken = () => {
     const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
     const TOKEN = user && JSON.parse(user)?.accessToken;
@@ -57,6 +63,8 @@ userRequest.interceptors.request.use(async (request) => {
                 localStorage.setItem('persist:root', JSON.stringify(persistRoot));
             }
 
+            refreshPage();
+            
             // set new authorization header
             if (getAccessToken !== accessToken) {
                 console.log("NewToken set");

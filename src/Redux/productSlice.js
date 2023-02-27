@@ -4,7 +4,6 @@ import { createSlice } from "@reduxjs/toolkit";
 export const productSlice = createSlice({
     name: "product",
     initialState: {
-        products: [],
         categories: [],
         isFetching: false,
         error: false,
