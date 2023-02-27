@@ -164,13 +164,12 @@ const ProductsTab = () => {
     <Container>
       <Wrapper>
         <Title> Products List </Title>
-        <Link to={"/admin/product/add"} >
-          <AddButton  variant='contained'> Add Product </AddButton>
-        </Link>
       </Wrapper>
       <DataTable 
           rows={products !== null && products} 
           columns={actionColumn} 
+          type={'Add Product'}
+          link="/admin/product/add"
       />
     </Container>
   )

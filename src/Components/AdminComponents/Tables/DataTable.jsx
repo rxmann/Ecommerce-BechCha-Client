@@ -3,6 +3,7 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { Box, Button, InputAdornment, OutlinedInput, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
     height: 100%;
@@ -22,12 +23,12 @@ const Wrapper = styled.div`
 const SearchContainer = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
+    width: 100%;
+    justify-content: space-between;
     padding: 10px;
-    gap: 20px;
 `
 const SearchBox = styled(OutlinedInput)`
-    width: 100%;
+    width: 25%;
 `
 
 const SearchButton = styled(Button)`
@@ -72,9 +73,13 @@ export const StatusButton = ({ type }) => {
   return <Button size={"small"} color={color} sx={{ background: background }} type={type}> {type} </Button>
 }
 
+const AddButton = styled(Button)`
+  text-transform: unset !important;
+`
 
 
-const DataTable = ({ rows, columns }) => {
+
+const DataTable = ({ rows, columns, link, type }) => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredRows, setFilteredRows] = useState(rows);
@@ -120,6 +125,11 @@ const DataTable = ({ rows, columns }) => {
             </InputAdornment>
           }
         />
+
+
+        <Link to={link} >
+          <AddButton variant='contained'> {type} </AddButton>
+        </Link>
       </SearchContainer>
 
       <Wrapper>
@@ -133,7 +143,7 @@ const DataTable = ({ rows, columns }) => {
             getRowId={row => row._id}
             pageSize={8}
             rowsPerPageOptions={[5, 10]}
-            getRowClassName={ () => `rows-datatable` }
+            getRowClassName={() => `rows-datatable`}
           />
         </BOX>
       </Wrapper>

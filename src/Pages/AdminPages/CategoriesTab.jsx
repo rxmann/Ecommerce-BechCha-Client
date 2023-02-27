@@ -122,13 +122,12 @@ const CategoriesTab = () => {
     <Container>
       <Wrapper>
         <Title> Categories List </Title>
-        <Link to={"/admin/category/add"} >
-          <AddButton variant='contained'> Add Category </AddButton>
-        </Link>
       </Wrapper>
       <DataTable
         rows={categories}
         columns={actionColumn}
+        type={'Add Categories'}
+        link="/admin/category/add"
       />
     </Container>
   )

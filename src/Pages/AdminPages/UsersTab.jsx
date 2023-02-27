@@ -32,10 +32,6 @@ const Title = styled.h1`
     color: gray;
 `
 
-const AddButton = styled(Button)`
-  text-transform: unset !important;
-`
-
 const ActionCell = styled.div`
   display: flex;
   align-items: center;
@@ -173,11 +169,12 @@ const UsersTab = () => {
     <Container>
       <Wrapper>
         <Title> Customers List </Title>
-        <Link to="/admin/user/register">
-          <AddButton variant='contained'> Add user </AddButton>
-        </Link>
       </Wrapper>
-      <DataTable rows={users} columns={actionColumn} />
+      <DataTable 
+        rows={users} 
+        columns={actionColumn}
+        type={'Register User'}
+        link="/admin/user/register"/>
     </Container>
   )
 }
