@@ -9,7 +9,6 @@ import { publicRequest } from "../../../requestMethods/requestMethods";
 const Container = styled.div`
     flex: 5;
     padding: 20px;
-    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;

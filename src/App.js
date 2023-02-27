@@ -42,6 +42,7 @@ import { useEffect } from "react"
 import CategoriesTab from "./Pages/AdminPages/CategoriesTab"
 import CategoryForm from "./Components/AdminComponents/Category/CategoryForm"
 import CategoryAdd from "./Components/AdminComponents/Category/CategoryAdd"
+import CategoryDisplay from "./Components/AdminComponents/Category/CategoryDisplay"
 
 
 const Wrapper = styled.div`
@@ -199,6 +200,10 @@ const App = () => {
         {
           path: "/admin/product/add",
           element: <ProductAdd />
+        },
+        {
+          path: "/admin/category/:id",
+          element: <CategoryDisplay />
         },
         {
           path: "/admin/category/add",

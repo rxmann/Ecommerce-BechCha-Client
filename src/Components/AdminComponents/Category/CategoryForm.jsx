@@ -52,7 +52,7 @@ const TextInput = styled(TextField)`
 
 
 
-const CategoryForm = ({ FormType }) => {
+const CategoryForm = ({ FormType, Data }) => {
 
     const dispatch = useDispatch();
     const [values, setValues] = useState({
@@ -68,7 +68,14 @@ const CategoryForm = ({ FormType }) => {
     const { categories: cat } = useSelector(state => state.product)
     useEffect(() => {
         setCategories(cat);
-    }, [FormType])
+        if (Data) {
+            setValues({
+                name: Data?.name,
+                parentId: Data?.parentId
+            })
+        }
+
+    }, [FormType, Data])
 
 
     const handleImage = (e) => {
@@ -82,32 +89,32 @@ const CategoryForm = ({ FormType }) => {
     // on submit for new category
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!values.image) {
+        if ( FormType === "add" && !values.image) {
             return alert("Requires at least one image!")
         }
-        console.log(values);
 
         const formData = new FormData();
         Object.keys(values).forEach(key => {
             formData.append(key, values[key]);
+            console.log(key, values[key]);
         });
 
-        try {
-            const response = await userRequest.post("/categories/add", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
-            })
-            getAllCategories(dispatch);
-            setValues({
-                name: "",
-                parentId: "",
-                image: "",
-            })
-        }
-        catch (err) {
-            console.log(err.response.data);
-        }
+        // try {
+        //     await userRequest.post("/categories/add", formData, {
+        //         headers: {
+        //             "Content-Type": "multipart/form-data"
+        //         }
+        //     })
+        //     getAllCategories(dispatch);
+        //     setValues({
+        //         name: "",
+        //         parentId: "",
+        //         image: "",
+        //     })
+        // }
+        // catch (err) {
+        //     console.log(err.response.data);
+        // }
     }
 
 
@@ -122,20 +129,22 @@ const CategoryForm = ({ FormType }) => {
             <FormWrapper>
 
                 <FormItem>
-                    <Avatar variant="square" src={""} sx={{ width: 100, height: 100 }} >
+                    <Avatar
+                        src={Data?.image?.url}
+                        variant="square"
+                        sx={{ width: 100, height: 100 }} >
                         <CategoryIcon />
                     </Avatar>
 
                     <UploadB>
                         <AddPhotoAlternateIcon />
                         Add Picture
-                        <input
-                            name="image"
-                            hidden
-                            required
-                            type="file"
-                            onChange={handleImage}
-                            accept='image/*' />
+                            <input
+                                name="image"
+                                hidden
+                                type="file"
+                                onChange={handleImage}
+                                accept='image/*' />
                     </UploadB>
 
                     {Image && <Avatar variant="square" src={Image} sx={{ width: 100, height: 100 }} />}
