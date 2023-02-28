@@ -45,7 +45,7 @@ const ButtonQ = styled.button`
 
 
 
-const CartItem = ({ product: pro }) => {
+const CartItem = ({ product: pro, quantity: qty, maxQuantity }) => {
 
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState();
@@ -53,7 +53,7 @@ const CartItem = ({ product: pro }) => {
 
   useEffect( () => {
     setProduct(pro);
-    setQuantity(pro.quantity);
+    setQuantity(qty);
   }, [pro])
 
 
@@ -67,7 +67,6 @@ const CartItem = ({ product: pro }) => {
 
     }
     else if (option === "inc") {
-      console.log("click")
       if (quantity < maxQuantity) {
         setQuantity(quantity + 1)
       }
@@ -77,7 +76,7 @@ const CartItem = ({ product: pro }) => {
 
 
   const handleDeleteCartProd = async (id) => {
-    await deleteProductFromCart(dispatch, id);
+    deleteProductFromCart(dispatch, id);
   }
 
 
@@ -92,9 +91,9 @@ const CartItem = ({ product: pro }) => {
       </Item>
       <Item flex={1}>
         <QuantityDiv>
-          <ButtonQ onClick={() => handleQuantity("dec", 10)}> - </ButtonQ>
+          <ButtonQ onClick={() => handleQuantity("dec", maxQuantity)}> - </ButtonQ>
           {quantity}
-          <ButtonQ onClick={() => handleQuantity("inc", 10)} > + </ButtonQ>
+          <ButtonQ onClick={() => handleQuantity("inc", maxQuantity)} > + </ButtonQ>
         </QuantityDiv>
       </Item>
       <Item flex={1}> {product?.price} </Item>

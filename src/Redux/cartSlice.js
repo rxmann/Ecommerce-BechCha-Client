@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const cartSlice = createSlice({
-    name: "cart",
+    name: "usercart",
     initialState: {
         cart: [],
         totalQuantity: 0,
@@ -19,19 +19,39 @@ export const cartSlice = createSlice({
             state.error = true;
         },
         addProductSuccess: (state, action) => {
-            console.log(action.payload);
             state.isLoading = false;
-            state.totalQuantity += 1;
-            state.cart.push(action.payload);
-            state.totalAmount += action.payload.product.price * action.payload.quantity;
+
+            const product = state.cart.find(item => item.product._id === action.payload.product._id)
+            if (product) {
+                const updatedCart = state.cart.map(item => {
+                    if (item.product._id === action.payload.product._id ) {
+                        if ( item.maxQuantity <= action.payload.quantity) {
+                            return { ...item, quantity: item.quantity + action.payload.quantity };
+                        }
+                        else {
+                            return { ...item, quantity: action.payload.maxQuantity };
+                        }
+                        
+                    }
+                    return item;
+                });
+                state.cart = updatedCart;
+                state.totalAmount += action.payload.product.price * action.payload.quantity 
+            }
+            else {
+                state.cart.push(action.payload);
+                state.totalQuantity += 1;
+                state.totalAmount += action.payload.product.price * action.payload.quantity;
+            }
+
         },
         deleteProductSuccess: (state, action) => {
             state.isLoading = false;
             const prodId = action.payload;
-            const product = state.cart.find(prod => prod.product === prodId)
+            const productItem = state.cart.find(item => item.product._id.toString() === prodId)
             state.totalQuantity -= 1;
-            state.totalAmount -= product.price * product.quantity;
-            state.cart = state.cart.filter(prod => prod._id !== prodId);
+            state.totalAmount -= productItem.product.price * productItem.quantity;
+            state.cart = state.cart.filter(item => item.product._id.toString() !== prodId);
         },
         emptyCart: (state) => {
             state.isLoading = false;

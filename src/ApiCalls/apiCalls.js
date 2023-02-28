@@ -31,14 +31,14 @@ export const failureToast = (message) => {
 
 
 export const addProductToCart = (dispatch, product, quantity, maxQuantity) => {
-    const cart = {
+    const products = {
         product,
         quantity,
         maxQuantity
     }
-    dispatch(cartStart(cart));
+    dispatch(cartStart());
     try {
-        dispatch(addProductSuccess(cart))
+        dispatch(addProductSuccess(products))
         successToast("Product added to cart!")
     }
     catch (err) {

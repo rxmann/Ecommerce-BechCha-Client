@@ -104,7 +104,7 @@ const ProfilePic = styled.img`
 const Navbar = () => {
 
     const { currentUser, isSignedIn } = useSelector(state => state.user);
-    const quantity = useSelector(state => state.cart.quantity)
+    const quantity = useSelector(state => state.usercart?.totalQuantity)
     const navigate = useNavigate();
 
 

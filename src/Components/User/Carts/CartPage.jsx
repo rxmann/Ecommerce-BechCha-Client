@@ -94,7 +94,7 @@ const CartPage = () => {
 
 
     const dispatch = useDispatch();
-    const cart = useSelector(state => state.cart);
+    const userCart = useSelector(state => state.usercart);
 
     return (
         <Container>
@@ -102,7 +102,7 @@ const CartPage = () => {
                 <CartWrapper>
                     <TitleWrapper>
                         <Title> Shopping Cart </Title>
-                        <Title> Items: 4 </Title>
+                        <Title> Items: {userCart?.totalQuantity} </Title>
                     </TitleWrapper>
                     <Cart>
                         <CartHeading>
@@ -113,8 +113,8 @@ const CartPage = () => {
                             <ItemTitle flex={0.3}> Action </ItemTitle>
                         </CartHeading>
 
-                        {cart.products?.map((item) => (
-                          <CartItem product={item} key={item._id}/>
+                        {userCart?.cart?.map((item) => (
+                          <CartItem product={item.product} key={item.product._id} maxQuantity={item.maxQuantity} quantity={item.quantity}/>
                         ))}
 
                     </Cart>
@@ -127,13 +127,13 @@ const CartPage = () => {
                         <Title> Order Summary</Title>
                         <Item>
                             <TotalText> Sub Total </TotalText>
-                            <Price > {cart.total} </Price>
+                            <Price > {userCart?.totalAmount} </Price>
                         </Item>
 
-                        {cart.quantity > 0 &&
+                        {userCart?.quantity > 0 &&
                             <Item>
                                 <TotalText> Delivery </TotalText>
-                                <Price > {cart.quantity > 0 && 200} </Price>
+                                <Price > {userCart?.quantity > 0 && 200} </Price>
                             </Item>
                         }
 
@@ -142,7 +142,7 @@ const CartPage = () => {
                     <Cart>
                         <Item>
                             <Total> Total </Total>
-                            <Total> NPR { cart.total  + (cart.quantity > 0 && 200) }  </Total>
+                            <Total> NPR { userCart?.total  + (userCart?.quantity > 0 && 200) }  </Total>
                         </Item>
                         <Button color={"error"} onClick={() => dispatch(emptyCart())} > Empty Cart </Button>
                         <Button variant="contained"> Checkout </Button>
