@@ -9,7 +9,7 @@ import OrderWidget from "../../Components/AdminComponents/Widgets/OrderWidget"
 import Widget from "../../Components/AdminComponents/Widgets/Widget"
 import months from 'months';
 import { userRequest } from "../../requestMethods/requestMethods"
-import { getOrdersStats, getSalesStats, getUserStats } from "../../Redux/apiCalls"
+import { getOrdersStats, getSalesStats, getUserStats } from "../../ApiCalls/apiCalls"
 
 const Container = styled.div`
     flex: 5;

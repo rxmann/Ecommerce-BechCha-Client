@@ -5,9 +5,10 @@ import { deleteUserSuccess,
     registerSuccess, 
     requestFailure, 
     requestStart, 
+    requestSuccess, 
     updateSuccess } from "../Redux/userSlice";
 import { publicRequest, userRequest } from "../requestMethods/requestMethods";
-import { failureToast, successToast } from "../Redux/apiCalls";
+import { failureToast, successToast } from "./apiCalls";
 
 
 
@@ -116,6 +117,7 @@ export const getOneUser = async (dispatch, id ) => {
     dispatch(requestStart());
     try {
         const response = await userRequest.get(`/users/find/${id}`)
+        dispatch(requestSuccess());
         return response.data;
     }
     catch (er) {

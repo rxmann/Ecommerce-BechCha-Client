@@ -2,8 +2,9 @@ import styled from "styled-components";
 import { useState } from "react";
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { deleteProductFromCart } from "../../../ApiCalls/apiCalls"
+import { emptyCart } from "../../../Redux/cartSlice";
 
 const Container = styled.div`
     
@@ -120,6 +121,8 @@ const Total = styled.h3`
 
 const CartPage = () => {
 
+
+    const dispatch = useDispatch();
     const cart = useSelector(state => state.cart);
 
 
@@ -129,12 +132,20 @@ const CartPage = () => {
 
         if (option === "dec") {
             if (quantity > 1) setQuantity(quantity - 1);
-            
+
         }
         else if (option === "inc") {
             console.log("click")
             if (quantity < maxQuantity) setQuantity(quantity + 1)
         }
+    }
+
+
+
+
+
+    const handleDeleteCartProd = async (id) => {
+        await deleteProductFromCart(dispatch, id);
     }
 
 
@@ -157,24 +168,28 @@ const CartPage = () => {
                         </CartHeading>
 
                         {cart.products.map((product) => (
-                            <CartItems key={product._id}>
-                            <Item flex={2}>
-                               <Item>
-                                    <ProductImage src={product.images[0]?.url} />
-                                    <Item>{product.title}</Item>
-                               </Item>
-                            </Item>
-                            <Item flex={1}>
-                                <QuantityDiv>
-                                    <ButtonQ onClick={() => handleQuantity("dec", 10)}> - </ButtonQ>
-                                    {product.quantity}
-                                    <ButtonQ onClick={() => handleQuantity("inc", 10)} > + </ButtonQ>
-                                </QuantityDiv>
-                            </Item>
-                            <Item flex={1}> {product.price} </Item>
-                            <Item flex={1}> {product.quantity * product.price} </Item>
-                            <Item flex={0.3}> <Button> <DeleteIcon color={"error"} /> </Button> </Item>
-                        </CartItems>
+                            <CartItems key={product._id + Date()}>
+                                <Item flex={2}>
+                                    <Item>
+                                        <ProductImage src={product.images[0]?.url} />
+                                        <Item>{product.title}</Item>
+                                    </Item>
+                                </Item>
+                                <Item flex={1}>
+                                    <QuantityDiv>
+                                        <ButtonQ onClick={() => handleQuantity("dec", 10)}> - </ButtonQ>
+                                        {product.quantity}
+                                        <ButtonQ onClick={() => handleQuantity("inc", 10)} > + </ButtonQ>
+                                    </QuantityDiv>
+                                </Item>
+                                <Item flex={1}> {product.price} </Item>
+                                <Item flex={1}> {product.quantity * product.price} </Item>
+                                <Item flex={0.3}>
+                                    <Button onClick={() => handleDeleteCartProd(product._id)}>
+                                        <DeleteIcon color={"error"} />
+                                    </Button>
+                                </Item>
+                            </CartItems>
                         ))}
 
                     </Cart>
@@ -190,17 +205,21 @@ const CartPage = () => {
                             <Price > {cart.total} </Price>
                         </Item>
 
-                        <Item>
-                            <TotalText> Delivery </TotalText>
-                            <Price > 100 </Price>
-                        </Item>
+                        {cart.quantity > 0 &&
+                            <Item>
+                                <TotalText> Delivery </TotalText>
+                                <Price > {cart.quantity > 0 && 200} </Price>
+                            </Item>
+                        }
+
                     </Cart>
 
                     <Cart>
                         <Item>
                             <Total> Total </Total>
-                            <Total> NPR {cart.total + 100 }  </Total>
+                            <Total> NPR {cart.total  + cart.quantity > 0 && 200 }  </Total>
                         </Item>
+                        <Button color={"error"} onClick={() => dispatch(emptyCart())} > Empty Cart </Button>
                         <Button variant="contained"> Checkout </Button>
                     </Cart>
                 </SummaryWrapper>

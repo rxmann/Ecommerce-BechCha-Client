@@ -50,7 +50,7 @@ const ProfileDisplay = () => {
           }
         }
         checkLogin();
-      }, [isSignedIn, navigate, userId, isFetching, dispatch]);
+      }, [isSignedIn, userId, dispatch]);
 
 
 
@@ -60,7 +60,7 @@ const ProfileDisplay = () => {
             setUser(response);
         }
         userD();
-      }, [userId, isFetching, dispatch]);
+      }, [userId, dispatch]);
       
 
     const handleLogout = async (e) => {

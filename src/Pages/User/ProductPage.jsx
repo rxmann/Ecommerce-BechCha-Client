@@ -6,8 +6,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import DescriptionTable from "../../Components/User/DescriptionTable/DescriptionTable";
 import { useParams } from "react-router-dom";
 import { publicRequest } from "../../requestMethods/requestMethods";
-import { addProduct } from "../../Redux/cartSlice";
 import { useDispatch } from "react-redux"
+import { addProductToCart } from "../../ApiCalls/apiCalls";
 
 const Container = styled.div`
   display: flex;
@@ -68,12 +68,6 @@ const Price = styled.span`
   font-size: 18px;
   font-weight: 600;
   color: #0171b6;
-`
-
-const Description = styled.p`
-  font-size: 14px;
-  font-weight: 300;
-  text-align: justify;
 `
 
 const QuantityDiv = styled.div`
@@ -165,8 +159,8 @@ const ProductPage = () => {
   }
   
 
-  const handleAddToCart = () => {
-    dispatch(addProduct({ ...product, quantity}));
+  const handleAddToCart = async () => {
+    await addProductToCart(dispatch, product, quantity)
   }
 
   return ( 

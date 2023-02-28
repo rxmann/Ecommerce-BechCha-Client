@@ -1,16 +1,16 @@
 import { publicRequest, userRequest } from "../requestMethods/requestMethods";
 import { getFailure, getStart, getCategoriesSuccess } from "../Redux/productSlice";
-import { failureToast, successToast } from "../Redux/apiCalls";
+import { failureToast, successToast } from "./apiCalls";
 
 export const getAllCategories = async (dispatch) => {
-    dispatch(getStart)
+    dispatch(getStart())
     try {
         const response = await publicRequest.get("/categories");
         dispatch(getCategoriesSuccess(response.data.CategoryList));
     }
     catch (err) {
         console.log(err);
-        dispatch(getFailure);
+        dispatch(getFailure());
     }
 }
 

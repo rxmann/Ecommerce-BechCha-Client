@@ -1,5 +1,5 @@
 import { publicRequest, userRequest } from "../requestMethods/requestMethods";
-import { failureToast, successToast } from "../Redux/apiCalls";
+import { failureToast, successToast } from "./apiCalls";
 
 export const getAllProducts = async () => {
     try {

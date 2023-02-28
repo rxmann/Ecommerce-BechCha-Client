@@ -18,6 +18,10 @@ export const userSlice = createSlice({
             state.isFetching = false;
             state.error = true;
         },
+        requestSuccess: (state) => {
+            state.isFetching = false;
+            state.error = false;
+        },
         registerSuccess: (state, action) => {
             state.isFetching = false;
             state.isSignedIn = false;
@@ -47,22 +51,19 @@ export const userSlice = createSlice({
         },
         deleteUserSuccessAdmin: (state) => {
             state.isFetching = false
-        },
-        setAccessToken: (state, action) => {
-            state.accessToken = action.payload;
         }
     }
 })
 
 export const {  requestStart,
                 requestFailure,
+                requestSuccess,
                 registerSuccess, 
                 loginSuccess,
                 updateSuccess,
                 logoutUserSuccess,
                 deleteUserSuccessAdmin,
-                deleteUserSuccess,
-                setAccessToken
+                deleteUserSuccess
             } = userSlice.actions;
                 
 export default userSlice.reducer;

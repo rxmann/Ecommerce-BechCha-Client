@@ -1,11 +1,10 @@
 import {  userRequest } from "../requestMethods/requestMethods";
-import { setAccessToken } from "./userSlice";
 import { toast } from 'react-toastify';
-
+import { cartStart, cartFail, addProductSuccess, deleteProductSuccess  } from "../Redux/cartSlice"
 
 export const successToast = (message) => {
     toast.success(message, {
-        position: "top-right",
+        position: "bottom-center",
         autoClose: 2000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -30,16 +29,37 @@ export const failureToast = (message) => {
 }
 
 
-export const setToken = async (dispatch, token) => {
+
+export const addProductToCart = (dispatch, product, quantity) => {
+    dispatch(cartStart());
     try {
-        dispatch(setAccessToken(token));
+        dispatch(addProductSuccess({...product, quantity}))
+        successToast("Product added to cart!")
     }
     catch (err) {
         console.log(err);
+        failureToast("Could not add to cart!")
+        dispatch(cartFail())
     }
+
 }
 
 
+
+
+export const deleteProductFromCart = (dispatch, prodId) => {
+    dispatch(cartStart());
+    try {
+        dispatch(deleteProductSuccess(prodId))
+        successToast("Product deleted from cart!")
+    }
+    catch (err) {
+        console.log(err);
+        failureToast("Could not delete from cart!")
+        dispatch(cartFail())
+    }
+
+}
 
 export const getSalesStats = async () => {
     try {
