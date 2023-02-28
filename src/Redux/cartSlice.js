@@ -3,9 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 export const cartSlice = createSlice({
     name: "cart",
     initialState: {
-        products: [],
-        quantity: 0,
-        total: 0,
+        cart: [],
+        totalQuantity: 0,
+        totalAmount: 0,
         isLoading: false,
         error: false,
     },
@@ -19,25 +19,25 @@ export const cartSlice = createSlice({
             state.error = true;
         },
         addProductSuccess: (state, action) => {
+            console.log(action.payload);
             state.isLoading = false;
-            state.quantity += 1;
-            state.products.push(action.payload);
-            state.total += action.payload.price * action.payload.quantity;
-            console.log("State: ", state.quantity, state.total);
+            state.totalQuantity += 1;
+            state.cart.push(action.payload);
+            state.totalAmount += action.payload.product.price * action.payload.quantity;
         },
         deleteProductSuccess: (state, action) => {
             state.isLoading = false;
             const prodId = action.payload;
-            const product = state.products.find(prod => prod._id === prodId)
-            state.quantity -= 1;
-            state.total -= product.price * product.quantity;
-            state.products = state.products.filter(prod => prod._id !== prodId);
+            const product = state.cart.find(prod => prod.product === prodId)
+            state.totalQuantity -= 1;
+            state.totalAmount -= product.price * product.quantity;
+            state.cart = state.cart.filter(prod => prod._id !== prodId);
         },
         emptyCart: (state) => {
-            state.products = [];
-            state.quantity = 0;
-            state.total = 0;
             state.isLoading = false;
+            state.cart = [];
+            state.totalQuantity = 0;
+            state.totalAmount = 0;
             state.error = false;
         }
 

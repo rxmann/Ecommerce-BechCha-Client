@@ -30,10 +30,15 @@ export const failureToast = (message) => {
 
 
 
-export const addProductToCart = (dispatch, product, quantity) => {
-    dispatch(cartStart());
+export const addProductToCart = (dispatch, product, quantity, maxQuantity) => {
+    const cart = {
+        product,
+        quantity,
+        maxQuantity
+    }
+    dispatch(cartStart(cart));
     try {
-        dispatch(addProductSuccess({...product, quantity}))
+        dispatch(addProductSuccess(cart))
         successToast("Product added to cart!")
     }
     catch (err) {

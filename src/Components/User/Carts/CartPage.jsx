@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import { useState } from "react";
 import Button from '@mui/material/Button';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProductFromCart } from "../../../ApiCalls/apiCalls"
 import { emptyCart } from "../../../Redux/cartSlice";
+import CartItem from "./CartItem";
 
 const Container = styled.div`
     
@@ -39,6 +38,16 @@ const Cart = styled.div`
     gap: 30px;
 `
 
+const Item = styled.span`
+    flex: ${props => props.flex};
+    font-weight: 400;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+`
+
 const CartHeading = styled.div`
     display: flex;
     align-items: center;
@@ -51,44 +60,6 @@ const ItemTitle = styled.div`
     font-weight: 500;
     font-size: 16px;
     color: white;
-`
-
-const CartItems = styled.div`
-    display: flex;
-    align-items: center;
-    padding: 20px;
-`
-
-const Item = styled.span`
-    flex: ${props => props.flex};
-    font-weight: 400;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 30px;
-`
-
-const ProductImage = styled.img`
-    width: 100px;
-`
-
-const QuantityDiv = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-`
-
-const ButtonQ = styled.button`
-  cursor: pointer;
-  width: 50px;
-  height: 50px;
-  font-size: 24px;
-  display : flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  background-color: #f5f7f8;
 `
 
 const SummaryWrapper = styled.div`
@@ -125,31 +96,6 @@ const CartPage = () => {
     const dispatch = useDispatch();
     const cart = useSelector(state => state.cart);
 
-
-    const [quantity, setQuantity] = useState();
-
-    const handleQuantity = (option, maxQuantity) => {
-
-        if (option === "dec") {
-            if (quantity > 1) setQuantity(quantity - 1);
-
-        }
-        else if (option === "inc") {
-            console.log("click")
-            if (quantity < maxQuantity) setQuantity(quantity + 1)
-        }
-    }
-
-
-
-
-
-    const handleDeleteCartProd = async (id) => {
-        await deleteProductFromCart(dispatch, id);
-    }
-
-
-
     return (
         <Container>
             <Wrapper>
@@ -167,29 +113,8 @@ const CartPage = () => {
                             <ItemTitle flex={0.3}> Action </ItemTitle>
                         </CartHeading>
 
-                        {cart.products.map((product) => (
-                            <CartItems key={product._id + Date()}>
-                                <Item flex={2}>
-                                    <Item>
-                                        <ProductImage src={product.images[0]?.url} />
-                                        <Item>{product.title}</Item>
-                                    </Item>
-                                </Item>
-                                <Item flex={1}>
-                                    <QuantityDiv>
-                                        <ButtonQ onClick={() => handleQuantity("dec", 10)}> - </ButtonQ>
-                                        {product.quantity}
-                                        <ButtonQ onClick={() => handleQuantity("inc", 10)} > + </ButtonQ>
-                                    </QuantityDiv>
-                                </Item>
-                                <Item flex={1}> {product.price} </Item>
-                                <Item flex={1}> {product.quantity * product.price} </Item>
-                                <Item flex={0.3}>
-                                    <Button onClick={() => handleDeleteCartProd(product._id)}>
-                                        <DeleteIcon color={"error"} />
-                                    </Button>
-                                </Item>
-                            </CartItems>
+                        {cart.products?.map((item) => (
+                          <CartItem product={item} key={item._id}/>
                         ))}
 
                     </Cart>
