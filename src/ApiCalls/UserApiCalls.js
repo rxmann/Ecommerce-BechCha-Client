@@ -121,7 +121,7 @@ export const getOneUser = async (dispatch, id ) => {
         return response.data;
     }
     catch (er) {
-        console.log(er);
+        console.log(er.response.data);
         dispatch(requestFailure());
     }
 }

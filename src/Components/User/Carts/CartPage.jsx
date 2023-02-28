@@ -217,7 +217,7 @@ const CartPage = () => {
                     <Cart>
                         <Item>
                             <Total> Total </Total>
-                            <Total> NPR {cart.total  + cart.quantity > 0 && 200 }  </Total>
+                            <Total> NPR { cart.total  + (cart.quantity > 0 && 200) }  </Total>
                         </Item>
                         <Button color={"error"} onClick={() => dispatch(emptyCart())} > Empty Cart </Button>
                         <Button variant="contained"> Checkout </Button>

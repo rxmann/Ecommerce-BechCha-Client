@@ -62,9 +62,7 @@ userRequest.interceptors.request.use(async (request) => {
                 persistRoot.user = JSON.stringify(userObject);
                 localStorage.setItem('persist:root', JSON.stringify(persistRoot));
             }
-
             refreshPage();
-            
             // set new authorization header
             if (getAccessToken !== accessToken) {
                 console.log("NewToken set");
@@ -72,7 +70,7 @@ userRequest.interceptors.request.use(async (request) => {
             }
         }
         catch (err) {
-            // console.log(err.response?.data);
+            console.log(err.response?.data);
             if (err.response.data?.code === "notoken") {
                 localStorage.setItem("persist:root", null);
             }
