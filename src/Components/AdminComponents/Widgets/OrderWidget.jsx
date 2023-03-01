@@ -104,8 +104,7 @@ const OrderWidget = ({ orders: allOrders}) => {
        }
       }
       getOrders();
-    }, [])
-
+    }, [allOrders])
 
   return (
     <Container>

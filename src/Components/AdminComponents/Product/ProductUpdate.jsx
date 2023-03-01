@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { useState } from "react";
-import ProductUpdateForm from "./ProductUpdateForm";
+// import ProductUpdateForm from "./ProductUpdateForm";
+import NewProductForm from "./NewProductForm";
 import { useEffect } from "react";
 
 
@@ -67,7 +68,8 @@ const ProductUpdate = ({ prodDetails, categories }) => {
       </Left>
 
       <Right>
-        <ProductUpdateForm FormType={"edit"} prodDetails={prodDetails} categories={categories} />
+        <NewProductForm FormType={"edit"} prodDetails={prodDetails}  />
+        {/* <ProductUpdateForm FormType={"edit"} prodDetails={prodDetails} categories={categories} /> */}
       </Right>
     </Container>
   )

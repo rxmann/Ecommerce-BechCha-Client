@@ -4,6 +4,7 @@ import { decreaseItemFromCart, deleteProductFromCart, increaseItemFromCart } fro
 import Button from '@mui/material/Button';
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import {useNavigate} from "react-router-dom"
 
 const CartItems = styled.div`
     display: flex;
@@ -13,6 +14,7 @@ const CartItems = styled.div`
 
 const ProductImage = styled.img`
     width: 100px;
+    cursor: pointer;
 `
 
 const Item = styled.span`
@@ -48,6 +50,7 @@ const ButtonQ = styled.button`
 const CartItem = ({ product: pro, quantity: qty, maxQuantity }) => {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [quantity, setQuantity] = useState();
   const [product, setProduct] = useState()
 
@@ -89,7 +92,7 @@ const CartItem = ({ product: pro, quantity: qty, maxQuantity }) => {
     <CartItems >
       <Item flex={2}>
         <Item>
-          <ProductImage src={product?.images[0]?.url} />
+          <ProductImage onClick={() => navigate(`/product/${product._id}`)} src={product?.images[0]?.url} />
           <Item>{product?.title}</Item>
         </Item>
       </Item>

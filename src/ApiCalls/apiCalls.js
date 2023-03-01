@@ -1,6 +1,6 @@
-import {  userRequest } from "../requestMethods/requestMethods";
+import { userRequest } from "../requestMethods/requestMethods";
 import { toast } from 'react-toastify';
-import { cartStart, cartFail, addProductSuccess, deleteProductSuccess, decreaseProductFromCart, increaseProductFromCart  } from "../Redux/cartSlice"
+import { cartStart, cartFail, addProductSuccess, deleteProductSuccess, decreaseProductFromCart, increaseProductFromCart } from "../Redux/cartSlice"
 
 export const successToast = (message) => {
     toast.success(message, {
@@ -31,20 +31,21 @@ export const failureToast = (message) => {
 
 
 export const addProductToCart = async (dispatch, product, quantity, maxQuantity) => {
+
     const products = {
         product,
         quantity,
         maxQuantity
     }
+
+    const form = new FormData()
+    form.append("product", product._id)
+    form.append("quantity", quantity)
+    form.append("price", product.price)
+
     dispatch(cartStart());
     try {
-        const response = await userRequest.post("/cart", {
-            cart: {
-                product: product._id, 
-                quantity, 
-                price: product.price
-            }
-        })
+        const response = await userRequest.post("/cart", form)
         console.log(response.data);
         dispatch(addProductSuccess(products))
         successToast("Product added to cart!")

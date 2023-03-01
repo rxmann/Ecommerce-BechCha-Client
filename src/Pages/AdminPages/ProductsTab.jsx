@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import DataTable from '../../Components/AdminComponents/Tables/DataTable';
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from 'react';
-import { getAllProducts } from '../../ApiCalls/ProductApiCalls';
+import { deleteProductAdmin, getAllProducts } from '../../ApiCalls/ProductApiCalls';
 import { getAllCategories } from '../../ApiCalls/CategoriesApiCalls';
 
 
@@ -79,17 +79,12 @@ const ProductsTab = () => {
     const getEssentials = async () => {
       const res = await getAllProducts()
       setProducts(res);
-      // await getAllCategories(dispatch)
     }
 
     getEssentials();
   }, [dispatch])
 
   const {categories} = useSelector(state => state.product)
-
-
-
-
 
   const getCatName = (id) => {
     for (let i = 0; i < categories.length; i++) {
@@ -100,6 +95,9 @@ const ProductsTab = () => {
     return id;
   }
 
+
+
+  /// column for product datatable
   const actionColumn = [
     { field: "_id", headerName: "ID",  headerClassName: "header-datatable", flex: 3},
     {
@@ -148,7 +146,9 @@ const ProductsTab = () => {
         return (
           <ActionCell>
             <ViewButton onClick={() => navigate(`/admin/product/${params.row._id}`)}> View </ViewButton>
-            <DelBtn size="small" variant="text" color="error">
+            <DelBtn 
+              onClick={() => deleteProductAdmin(params.row._id)}
+              size="small" variant="text" color="error">
               <DeleteOutline />
             </DelBtn>
           </ActionCell>

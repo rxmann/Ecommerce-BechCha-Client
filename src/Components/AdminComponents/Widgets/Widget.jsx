@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import { AccountBalanceWallet, KeyboardArrowDown, KeyboardArrowUp, MonetizationOnOutlined, PersonOutline, ShoppingCart } from "@mui/icons-material"
+import { useNavigate } from "react-router-dom"
 
 
 const Container = styled.div`
@@ -65,6 +66,9 @@ const Icon = styled.button`
 `
 
 const Widget = ({ type, data }) => {
+
+    const navigate = useNavigate();
+
     let widgetData;
 
     switch (type) {
@@ -84,7 +88,7 @@ const Widget = ({ type, data }) => {
             break;
         case "ORDERS":
             widgetData = {
-                 title: "ORDERS",
+                title: "ORDERS",
                 isMoney: false,
                 link: "View all orders",
                 icon: (<ShoppingCart />),
@@ -105,7 +109,7 @@ const Widget = ({ type, data }) => {
                 prevData: data?.LastMonthCount,
                 percent: data?.userCountDifference,
                 link: "View all users",
-                icon: (<PersonOutline />),
+                icon: (<PersonOutline  onClick={() => navigate("/admin/users")} />),
                 theme: {
                     color: "crimson",
                     background: "rgba(255, 0, 0, 0.2)",

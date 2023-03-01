@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 import { Button, MenuItem, Select, TextField } from "@mui/material";
 import JoditEditor from "jodit-react";
-import { useEffect, useState  } from "react";
+import { useEffect, useState } from "react";
 import UploadIcon from '@mui/icons-material/Upload';
 import ClearIcon from '@mui/icons-material/Clear';
-import { addProductAdmin, editProductAdmin } from '../../../ApiCalls/ProductApiCalls';
+import { addProductAdmin, editProductAdmin, getAllProducts } from '../../../ApiCalls/ProductApiCalls';
 import { useSelector } from 'react-redux';
 
 const Form = styled.form`
@@ -75,7 +75,7 @@ const Wrap = styled.div`
     justify-content: space-between;
 `
 
-const ImgContainer =styled.div`
+const ImgContainer = styled.div`
     display: flex;
 `
 
@@ -97,18 +97,30 @@ const DelBtn = styled.div`
     cursor: pointer;
 `
 
-const NewProductForm = ({FormType}) => {
+const NewProductForm = ({ FormType, prodDetails }) => {
+
+
+    const [values, setValues] = useState({ title: "", category: "", price: "", quantity: "", description: "", images: [] });
     const [categories, setCategories] = useState([]);
 
-    const { categories: cat } = useSelector(state => state.product )
+    const { categories: cat } = useSelector(state => state.product)
 
-    useEffect( () => {
+    useEffect(() => {
         setCategories(cat);
-     }, [FormType, cat])
 
+        if (FormType === "edit") {
+            setValues({
+                title: prodDetails?.title,
+                category: prodDetails?.category,
+                price: prodDetails?.price,
+                quantity: prodDetails?.quantity,
+                description: prodDetails?.description,
+                images: [],
+            })
+        }
 
-    const val ={ title: "", category: "", price: "", quantity: "", description: "", images: [] }
-    const [values, setValues] = useState(val);
+    }, [FormType, cat, prodDetails])
+
     // description field JODIT
     const config = {
         buttons: ["bold", "italic", "underline", "link", "unlink", "source"],
@@ -122,7 +134,7 @@ const NewProductForm = ({FormType}) => {
     const handleImages = (e) => {
         e.preventDefault();
         const selected = Array.from(e.target.files);
-        setValues({...values, "images": selected} )
+        setValues({ ...values, "images": selected })
     }
 
 
@@ -130,7 +142,7 @@ const NewProductForm = ({FormType}) => {
     const handleDelete = (data) => {
         const imageArray = values["images"];
         const newImageArray = imageArray.filter((image) => image !== data)
-        setValues({...values, "images": newImageArray} )
+        setValues({ ...values, "images": newImageArray })
     }
 
 
@@ -141,104 +153,109 @@ const NewProductForm = ({FormType}) => {
     }
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (FormType  === "add") {
-            addProductAdmin(values);
+        if (FormType === "add") {
+            await addProductAdmin(values);
+            getAllProducts();
         }
         else {
-            editProductAdmin(values)
+            await editProductAdmin(values, prodDetails._id);
         }
     }
 
-  return (
-    <Form onSubmit={handleSubmit}>
-    <FormWrapper>
-        <FormOptions>
-            <FormItem >
-                <Label> Name </Label>
-                <TextInput 
-                        name="title" 
-                        value={values["title"]}
-                        onChange={handleChange}  
-                        size="small" required variant="outlined" type="text"  />
-            </FormItem>
+    return (
+        <Form onSubmit={handleSubmit}>
+            <FormWrapper>
+                <FormOptions>
+                    <FormItem >
+                        <Label> Name </Label>
+                        <TextInput
+                            name="title"
+                            value={values["title"]}
+                            onChange={handleChange}
+                            size="small" required variant="outlined" type="text" />
+                    </FormItem>
 
-            <FormItem >
-                <Label>Category</Label>
-                <Select 
-                    name="category" 
-                    sx={{ flex: "2" }} 
-                    value={values["category"]} 
-                    required
-                    onChange={handleChange}>
-                    {categories.map( (category) => (
-                        <MenuItem value={category._id} key={category._id}> {category.name} </MenuItem>
-                    ))}
-                </Select>
-            </FormItem>
+                    <FormItem >
+                        <Label>Category</Label>
+                        <Select
+                            name="category"
+                            sx={{ flex: "2" }}
+                            value={values["category"]}
+                            required
+                            onChange={handleChange}>
+                            {categories.map((category) => (
+                                <MenuItem value={category._id} key={category._id}> {category.name} </MenuItem>
+                            ))}
+                        </Select>
+                    </FormItem>
 
-            <FormItem >
-                <Label>Price</Label>
-                <TextInput 
-                    name="price" 
-                    value={values["price"]}
-                    onChange={handleChange}
-                    size="small" required variant="outlined" type={"number"} />
-            </FormItem>
+                    <FormItem >
+                        <Label>Price</Label>
+                        <TextInput
+                            name="price"
+                            value={values["price"]}
+                            onChange={handleChange}
+                            size="small" required variant="outlined" type={"number"} />
+                    </FormItem>
 
-            <FormItem >
-                <Label> Quantity </Label>
-                <TextInput 
-                    name="quantity" 
-                    onChange={handleChange}
-                    size="small" required variant="outlined" type={"number"} />
-            </FormItem>
+                    <FormItem >
+                        <Label> Quantity </Label>
+                        <TextInput
+                            name="quantity"
+                            value={values?.quantity}
+                            onChange={handleChange}
+                            size="small"
+                            required
+                            variant="standard"
+                            type={"number"} />
+                    </FormItem>
 
-            <FormDesc style={{ flexShrink: 4 }}>
-                <Label> Description </Label>
-                <DescWrap>
-                    <JoditEditor
-                        config={config}
-                        value={values["description"]}
-                        onBlur={con => setValues({...values, "description": con})}
-                    />
-                </DescWrap>
-            </FormDesc>
+                    <FormDesc style={{ flexShrink: 4 }}>
+                        <Label> Description </Label>
+                        <DescWrap>
+                            <JoditEditor
+                                config={config}
+                                value={values["description"]}
+                                onBlur={con => setValues({ ...values, "description": con })}
+                            />
+                        </DescWrap>
+                    </FormDesc>
 
-            
-            <ImageUploadWrapper>
-                <Label>Images</Label>
-                <Wrap>
-                    <UploadB>
-                        <UploadIcon />
-                        3 images
-                        <input 
-                            name="images"
-                            hidden 
-                            type="file" 
-                            multiple 
-                            onChange={handleImages}
-                            accept='image/*' />
-                    </UploadB>
-                    <ImgContainer>
-                        {values["images"] && 
-                            values["images"].map(image => (
-                                <SmallImage key={image.name} >
-                                    <Image src={URL.createObjectURL(image)} />
-                                    <DelBtn onClick={() => handleDelete(image)}> <ClearIcon color='error'  /> </DelBtn>
-                                </SmallImage>
-                            )) 
-                        }
-                    </ImgContainer>
-                </Wrap>
-            </ImageUploadWrapper>
 
-        </FormOptions>
-    </FormWrapper>
-    <Button type="submit" fullWidth variant="contained"> {FormType} </Button>
-</Form>
-  )
+                    <ImageUploadWrapper>
+                        <Label>Images</Label>
+                        <Wrap>
+                            <UploadB>
+                                <UploadIcon />
+                                3 images
+                                <input
+                                    name="images"
+                                    hidden
+                                    type="file"
+                                    multiple
+                                    onChange={handleImages}
+                                    accept='image/*' />
+                            </UploadB>
+                            <ImgContainer>
+                                {values["images"] &&
+                                    values["images"].map(image => (
+                                        <SmallImage key={image.name} >
+                                            <Image src={URL.createObjectURL(image)} />
+                                            <DelBtn onClick={() => handleDelete(image)}> <ClearIcon color='error' /> </DelBtn>
+                                        </SmallImage>
+                                    ))
+                                }
+                            </ImgContainer>
+                        </Wrap>
+                    </ImageUploadWrapper>
+
+                </FormOptions>
+            </FormWrapper>
+            <Button type="submit" fullWidth variant="contained"> {FormType} </Button>
+        </Form>
+    )
 }
 
 export default NewProductForm

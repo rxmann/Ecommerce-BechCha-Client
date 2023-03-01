@@ -30,7 +30,7 @@ export const getOneProduct = async (id) => {
 export const addProductAdmin = async (values) => {
     const formData = new FormData();
     formData.append("title", values.title);
-    formData.append("category", "63b945c7eee85ec57531dd36");
+    formData.append("category", values.category);
     formData.append("price", values.price);
     formData.append("quantity", values.quantity);
     formData.append("description", values.description);
@@ -39,7 +39,7 @@ export const addProductAdmin = async (values) => {
     });
 
     try {
-        await userRequest.post("/products", formData, { headers: { "Content-Type": "multipart/form-data" } })
+        await userRequest.post("/products", formData)
         successToast("Product added in the system")
     }
     catch (err) {
@@ -63,7 +63,7 @@ export const editProductAdmin = async (values, id) => {
     });
 
     try {
-        await userRequest.patch(`/products/${id}`, formData, { headers: { "Content-Type": "multipart/form-data" } })
+        await userRequest.patch(`/products/${id}`, formData)
         successToast("Product updated")
     }
     catch (err) {
@@ -71,4 +71,20 @@ export const editProductAdmin = async (values, id) => {
         failureToast("Problem updating the product info.")
     }
 }
+
+
+
+export const deleteProductAdmin = async (id) => {
+    try {
+        await userRequest.delete(`/products/${id}`)
+        getAllProducts();
+        successToast("Product deleted")
+    }
+    catch (err) {
+        console.log(err.response.data);
+        failureToast("Problem deleting product")
+    }
+}
+
+
 
