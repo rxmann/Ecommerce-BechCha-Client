@@ -20,9 +20,24 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
+    expire: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
 }
 
-const rootReducer = combineReducers({user: userReducer, product: productReducer, usercart: cartReducer})
+
+const productConfig = {
+    ...persistConfig,
+    key: 'products',
+    version: 1,
+    storage,
+    expire: 1 * 24 * 60 * 60 * 1000, // 1 day in milliseconds
+}
+
+
+const rootReducer = combineReducers({
+    user: userReducer, 
+    product: persistReducer(productConfig, productReducer), 
+    usercart: persistReducer(productConfig, cartReducer)
+})
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

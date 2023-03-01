@@ -38,7 +38,7 @@ const ProfileDisplay = () => {
     const userId = useParams().id;
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { isSignedIn, currentUser, isFetching } = useSelector(state => state.user)
+    const { isSignedIn, currentUser } = useSelector(state => state.user)
 
     const [ user, setUser] = useState({});
 
@@ -60,7 +60,7 @@ const ProfileDisplay = () => {
             setUser(response);
         }
         userD();
-      }, [userId, dispatch]);
+      }, [userId]);
       
 
     const handleLogout = async (e) => {

@@ -30,7 +30,7 @@ export const failureToast = (message) => {
 
 
 
-export const addProductToCart = (dispatch, product, quantity, maxQuantity) => {
+export const addProductToCart = async (dispatch, product, quantity, maxQuantity) => {
     const products = {
         product,
         quantity,
@@ -38,11 +38,19 @@ export const addProductToCart = (dispatch, product, quantity, maxQuantity) => {
     }
     dispatch(cartStart());
     try {
+        const response = await userRequest.post("/cart", {
+            cart: {
+                product: product._id, 
+                quantity, 
+                price: product.price
+            }
+        })
+        console.log(response.data);
         dispatch(addProductSuccess(products))
         successToast("Product added to cart!")
     }
     catch (err) {
-        console.log(err);
+        console.log(err.response.data);
         failureToast("Could not add to cart!")
         dispatch(cartFail())
     }
@@ -99,7 +107,6 @@ export const increaseItemFromCart = (dispatch, prodId) => {
 export const getSalesStats = async () => {
     try {
         const response = await userRequest.get("/orders/sales/analytics");
-        console.log(response.data);
         return response.data;
     }
     catch (err) {

@@ -74,7 +74,7 @@ const Categories = () => {
                     Categories
                 </Title>
                 <Span>
-                    Buy Items best siuite for you
+                    Buy Items best suite for you
                 </Span>
             </Display>
 
