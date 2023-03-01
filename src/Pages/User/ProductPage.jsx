@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { publicRequest } from "../../requestMethods/requestMethods";
 import { useDispatch } from "react-redux"
 import { addProductToCart } from "../../ApiCalls/apiCalls";
+import { getOneProduct } from "../../ApiCalls/ProductApiCalls";
 
 const Container = styled.div`
   display: flex;
@@ -40,7 +41,7 @@ const SmallImage = styled.img`
   padding: 10px;
   object-fit: contain;
   cursor: pointer;
-  border: ${(props) => (props.selected === true? "#0171b6" : "white" )} 1px solid;
+  border: ${(props) => (props.selected === true ? "#0171b6" : "white")} 1px solid;
 `
 const BigImage = styled.img`
   width: 100%;
@@ -136,19 +137,20 @@ const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState(null);
   const [imageSelected, setImageSelected] = useState();
-  
+
   useEffect(() => {
-    const getOneProduct = async () => {
-      try {
-        const response = await publicRequest.get(`/products/${id}`);
-        setProduct(response.data)
-      }
-      catch (err) { console.log(err) };
+    const getEssential = async () => {
+      const pro = await getOneProduct(id);
+      console.log(pro);
+      setProduct(pro)
     }
-    getOneProduct();
+
+    getEssential()
   }, [id])
-  
-  
+
+
+
+  /// quantity increase / decrease
   const handleQuantity = (option, maxQuantity) => {
     if (option === "dec") {
       if (quantity > 1) setQuantity(quantity - 1);
@@ -157,66 +159,66 @@ const ProductPage = () => {
       if (quantity < maxQuantity) setQuantity(quantity + 1)
     }
   }
-  
+
 
   const handleAddToCart = async () => {
     const { _id } = product;
     addProductToCart(dispatch, product, quantity, product.quantity);
   }
 
-  return ( 
+  return (
     <>
-    {product ?
-     <Container>
-     <Wrapper>
-       <Left>
-         <ImageContainer>
-           {product.images?.map( image => (
-             <SmallImage key={image.public_id} 
-                        selected={image.url === imageSelected}
-                        onClick = {() => {setImageSelected(image?.url)}}
-                        src={image.url} />
-           ))}
-         </ImageContainer>
+      {product ?
+        <Container>
+          <Wrapper>
+            <Left>
+              <ImageContainer>
+                {product.images?.map(image => (
+                  <SmallImage key={image.public_id}
+                    selected={image.url === imageSelected}
+                    onClick={() => { setImageSelected(image?.url) }}
+                    src={image.url} />
+                ))}
+              </ImageContainer>
 
-         <MainImageContainer>
-           <BigImage src={imageSelected || product.images[0]?.url} />
-         </MainImageContainer>
-       </Left>
+              <MainImageContainer>
+                <BigImage src={imageSelected || product.images[0]?.url} />
+              </MainImageContainer>
+            </Left>
 
-       <Right>
-         <TitleWrapper>
-           <Title> {product.title} </Title>
-           <Span >Product ID: {product._id}</Span>
-         </TitleWrapper>
-         <Price> RS {product.price} </Price>
-         {/* <Description >  */}
-          {product.description}
-         {/* </Description> */}
-         <p style={{ color: "red" }}> Stock: {product.quantity} </p>
-         <QuantityDiv>
-           <Button onClick={()=>handleQuantity("dec",  product.quantity)}> - </Button>
-           {quantity}
-           <Button onClick={()=>handleQuantity("inc", product.quantity)} > + </Button>
-         </QuantityDiv>
+            <Right>
+              <TitleWrapper>
+                <Title> {product.title} </Title>
+                <Span >Product ID: {product._id}</Span>
+              </TitleWrapper>
+              <Price> RS {product.price} </Price>
+              {/* <Description >  */}
+              {product.description}
+              {/* </Description> */}
+              <p style={{ color: "red" }}> Stock: {product.quantity} </p>
+              <QuantityDiv>
+                <Button onClick={() => handleQuantity("dec", product.quantity)}> - </Button>
+                {quantity}
+                <Button onClick={() => handleQuantity("inc", product.quantity)} > + </Button>
+              </QuantityDiv>
 
-         <AddToCart onClick={handleAddToCart}>
-           <AddShoppingCartIcon /> ADD TO CART
-         </AddToCart>
+              <AddToCart onClick={handleAddToCart}>
+                <AddShoppingCartIcon /> ADD TO CART
+              </AddToCart>
 
-         <QuickLinks>
-           <Links> <FavoriteIcon /> ADD TO WISHLIST </Links>
-           <Links> <BalanceIcon /> ADD TO COMPARE </Links>
-         </QuickLinks>
-       </Right>
+              <QuickLinks>
+                <Links> <FavoriteIcon /> ADD TO WISHLIST </Links>
+                <Links> <BalanceIcon /> ADD TO COMPARE </Links>
+              </QuickLinks>
+            </Right>
 
-     </Wrapper>
-     <DescriptionTable />
-   </Container>
+          </Wrapper>
+          <DescriptionTable />
+        </Container>
 
-   : <LoadingScreen> Loading product ... </LoadingScreen>
-    }
-    
+        : <LoadingScreen> Loading product ... </LoadingScreen>
+      }
+
     </>
   )
 }

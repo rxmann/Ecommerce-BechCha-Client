@@ -130,10 +130,10 @@ const CartPage = () => {
                             <Price > {userCart?.totalAmount} </Price>
                         </Item>
 
-                        {userCart?.quantity > 0 &&
+                        {userCart?.totalQuantity > 0 &&
                             <Item>
-                                <TotalText> Delivery </TotalText>
-                                <Price > {userCart?.quantity > 0 && 200} </Price>
+                                <TotalText> Delivery  </TotalText>
+                                <Price > {userCart?.totalQuantity > 0 && 200} </Price>
                             </Item>
                         }
 
@@ -142,7 +142,7 @@ const CartPage = () => {
                     <Cart>
                         <Item>
                             <Total> Total </Total>
-                            <Total> NPR { userCart?.total  + (userCart?.quantity > 0 && 200) }  </Total>
+                            <Total> NPR { userCart?.totalAmount  + (userCart?.totalQuantity > 0 && 200) }  </Total>
                         </Item>
                         <Button color={"error"} onClick={() => dispatch(emptyCart())} > Empty Cart </Button>
                         <Button variant="contained"> Checkout </Button>

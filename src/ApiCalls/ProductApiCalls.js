@@ -13,6 +13,19 @@ export const getAllProducts = async () => {
 
 
 
+export const getOneProduct = async (id) => {
+    try {
+        const response = await publicRequest.get(`/products/${id}`);
+        return response.data;
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+
+
+
 
 export const addProductAdmin = async (values) => {
     const formData = new FormData();

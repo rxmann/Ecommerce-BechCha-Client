@@ -1,6 +1,6 @@
 import {  userRequest } from "../requestMethods/requestMethods";
 import { toast } from 'react-toastify';
-import { cartStart, cartFail, addProductSuccess, deleteProductSuccess  } from "../Redux/cartSlice"
+import { cartStart, cartFail, addProductSuccess, deleteProductSuccess, decreaseProductFromCart, increaseProductFromCart  } from "../Redux/cartSlice"
 
 export const successToast = (message) => {
     toast.success(message, {
@@ -65,6 +65,36 @@ export const deleteProductFromCart = (dispatch, prodId) => {
     }
 
 }
+
+
+
+export const decreaseItemFromCart = (dispatch, prodId) => {
+    dispatch(cartStart())
+    try {
+        dispatch(decreaseProductFromCart(prodId));
+    }
+    catch (err) {
+        console.log(err);
+        dispatch(cartFail())
+    }
+}
+
+
+
+
+export const increaseItemFromCart = (dispatch, prodId) => {
+    dispatch(cartStart())
+    try {
+        dispatch(increaseProductFromCart(prodId));
+    }
+    catch (err) {
+        console.log(err);
+        dispatch(cartFail())
+    }
+}
+
+
+
 
 export const getSalesStats = async () => {
     try {

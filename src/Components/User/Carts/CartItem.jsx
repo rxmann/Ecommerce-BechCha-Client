@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteProductFromCart } from "../../../ApiCalls/apiCalls"
+import { decreaseItemFromCart, deleteProductFromCart, increaseItemFromCart } from "../../../ApiCalls/apiCalls"
 import Button from '@mui/material/Button';
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -58,23 +58,27 @@ const CartItem = ({ product: pro, quantity: qty, maxQuantity }) => {
 
 
 
-  const handleQuantity = (option, maxQuantity) => {
 
+  /// quantity increase / decrease
+  const handleQuantity = (option, maxQuantity) => {
     if (option === "dec") {
       if (quantity > 1) {
         setQuantity(quantity - 1)
+        decreaseItemFromCart(dispatch, pro._id)
       }
-
     }
     else if (option === "inc") {
       if (quantity < maxQuantity) {
         setQuantity(quantity + 1)
+        increaseItemFromCart(dispatch, pro._id)
       }
     }
   }
 
 
 
+
+  // empty cart
   const handleDeleteCartProd = async (id) => {
     deleteProductFromCart(dispatch, id);
   }
