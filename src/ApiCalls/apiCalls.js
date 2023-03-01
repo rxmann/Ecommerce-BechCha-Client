@@ -99,6 +99,7 @@ export const increaseItemFromCart = (dispatch, prodId) => {
 export const getSalesStats = async () => {
     try {
         const response = await userRequest.get("/orders/sales/analytics");
+        console.log(response.data);
         return response.data;
     }
     catch (err) {

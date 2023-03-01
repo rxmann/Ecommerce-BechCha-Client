@@ -5,7 +5,6 @@ import BalanceIcon from '@mui/icons-material/Balance';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DescriptionTable from "../../Components/User/DescriptionTable/DescriptionTable";
 import { useParams } from "react-router-dom";
-import { publicRequest } from "../../requestMethods/requestMethods";
 import { useDispatch } from "react-redux"
 import { addProductToCart } from "../../ApiCalls/apiCalls";
 import { getOneProduct } from "../../ApiCalls/ProductApiCalls";
@@ -141,7 +140,6 @@ const ProductPage = () => {
   useEffect(() => {
     const getEssential = async () => {
       const pro = await getOneProduct(id);
-      console.log(pro);
       setProduct(pro)
     }
 
@@ -162,7 +160,6 @@ const ProductPage = () => {
 
 
   const handleAddToCart = async () => {
-    const { _id } = product;
     addProductToCart(dispatch, product, quantity, product.quantity);
   }
 

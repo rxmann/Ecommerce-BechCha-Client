@@ -8,11 +8,12 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Link } from 'react-router-dom';
 
 const Container = styled.div`
-    display: flex;
-    max-height: 200px;
-    margin-top: 50px;
     background-color: #ffffff;
     z-index: 5;
+    padding: 0px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 `
 
 const LeftDiv = styled.div`
@@ -55,7 +56,6 @@ const MediaIcon = styled.div`
 const MidDiv = styled.div`
     flex: 1;
     padding: 20px 50px;
-    height: 100%;
 `
 
 const Title = styled.h3`

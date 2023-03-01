@@ -44,7 +44,6 @@ const Wrapper = styled.div`
 const Contents = styled.div`
   display: flex;
   font-family: 'Nunito', sans-serif;
-  padding-right: 50px;
   background-color: #f5f7f8;
 `
 
@@ -62,7 +61,7 @@ const App = () => {
     return (
       <Wrapper>
         <Navbar />
-        <Outlet />
+          <Outlet />
         <Footer />
       </Wrapper>
     );
@@ -70,7 +69,7 @@ const App = () => {
 
   const AdminLayout = () => {
     const navigate = useNavigate();
-    const { isSignedIn, currentUser  } = useSelector(state => state.user)
+    const { isSignedIn, currentUser } = useSelector(state => state.user)
 
     useEffect(() => {
       const checkLogin = () => {
@@ -95,7 +94,7 @@ const App = () => {
 
   const ProfileLayout = () => {
     const navigate = useNavigate();
-    const { isSignedIn  } = useSelector(state => state.user)
+    const { isSignedIn } = useSelector(state => state.user)
 
     useEffect(() => {
       const checkLogin = () => {
@@ -210,7 +209,7 @@ const App = () => {
     },
     {
       path: "/register",
-      element: (<RegisterPage />) 
+      element: (<RegisterPage />)
     },
     {
       path: "/verify-registration",

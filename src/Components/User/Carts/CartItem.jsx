@@ -54,7 +54,7 @@ const CartItem = ({ product: pro, quantity: qty, maxQuantity }) => {
   useEffect( () => {
     setProduct(pro);
     setQuantity(qty);
-  }, [pro])
+  }, [pro, qty])
 
 
 

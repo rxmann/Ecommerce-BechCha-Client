@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useState } from "react";
 import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from "react-redux";
 import { emptyCart } from "../../../Redux/cartSlice";
@@ -65,6 +64,7 @@ const ItemTitle = styled.div`
 const SummaryWrapper = styled.div`
     flex: 1;
     padding: 20px;
+    max-height: 500px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
