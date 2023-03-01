@@ -79,7 +79,7 @@ const ProductsTab = () => {
     const getEssentials = async () => {
       const res = await getAllProducts()
       setProducts(res);
-      await getAllCategories(dispatch)
+      // await getAllCategories(dispatch)
     }
 
     getEssentials();

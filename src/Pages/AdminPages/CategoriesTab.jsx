@@ -72,11 +72,6 @@ const CategoriesTab = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
-  useEffect(() => {
-    getAllCategories(dispatch);
-  }, [dispatch])
-
   const { categories } = useSelector(state => state.product)
 
 

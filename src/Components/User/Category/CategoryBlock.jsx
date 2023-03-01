@@ -84,7 +84,7 @@ const CategoryBlock = ({ category }) => {
   return (
     <Container >
       <Wrapper >
-        <Image src={category.image} />
+        <Image src={category.image?.url} />
         <Name> {category.name} </Name>
       </Wrapper>
       <Button onClick={() => navigate(`/products/${category._id}`)}> SHOP NOW </Button>

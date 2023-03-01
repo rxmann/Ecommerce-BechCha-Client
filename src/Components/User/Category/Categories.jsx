@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 import OneCategory from './CategoryBlock'
-import { publicRequest } from '../../../requestMethods/requestMethods';
 import { Navigation, Autoplay } from "swiper";
+import { useDispatch, useSelector } from "react-redux"
+import { getAllCategories } from "../../../ApiCalls/CategoriesApiCalls"
 
 // Import Swiper styles
 import "swiper/css/bundle";
 import "swiper/css/autoplay"
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useEffect, useState } from 'react';
 
@@ -47,22 +47,22 @@ const Span = styled.span`
 
 const Categories = () => {
 
-
     const [CategoriesList, setCategoriesList] = useState([]);
+    const dispatch = useDispatch();
+    const { categories } = useSelector(state => state.product);
 
     useEffect(() => {
         const getCategoriesAll = async () => {
-            try {
-                const response = await publicRequest.get("/categories?child=none");
-                const resData = response.data.CategoryList;
-                setCategoriesList(resData)
-            }
-            catch (err) {
-
+            if (categories.length === 0) {
+                const cats = await getAllCategories(dispatch);
+                setCategoriesList(cats);
+            } else {
+                setCategoriesList(categories);
             }
         }
         getCategoriesAll();
-    }, []);
+    }, [dispatch, categories]);
+
 
 
 
@@ -94,12 +94,12 @@ const Categories = () => {
             >
                 <List >
                     {CategoriesList.length > 0 ?
-                    CategoriesList.map((each) => (
-                        <SwiperSlide key={each._id}>
-                            <OneCategory category={each} />
-                        </SwiperSlide>
-                    )) 
-                : <p>No categories to display :(</p>} 
+                        CategoriesList.map((each) => (
+                            <SwiperSlide key={each._id}>
+                                <OneCategory category={each} />
+                            </SwiperSlide>
+                        ))
+                        : <p>No categories to display :(</p>}
                 </List>
 
             </Swiper>
