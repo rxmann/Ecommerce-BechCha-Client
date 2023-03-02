@@ -18,6 +18,10 @@ export const cartSlice = createSlice({
             state.isLoading = false;
             state.error = true;
         },
+        updateCartSuccess: (state, action) => {
+            state.isLoading = false;
+            state.cart = action.payload.cart;
+        },
         addProductSuccess: (state, action) => {
             state.isLoading = false;
 
@@ -55,19 +59,7 @@ export const cartSlice = createSlice({
         },
         decreaseProductFromCart: (state, action) => {
             state.isLoading = false;
-            let price, set = false;
-            const updatedCart = state.cart.map( (item) => {
-                if (item.product._id.toString() === action.payload && item.quantity >= 0 ) {
-                    price = item.product.price;
-                    set = true;
-                    return { ...item, quantity: item.quantity - 1 }
-                }
-                return item;
-            })
-            if (set) {
-                state.cart = updatedCart;
-                state.totalAmount -= price;
-            }
+            state.cart = action.payload;
         },
         increaseProductFromCart: (state, action) => {
             state.isLoading = false;
@@ -100,6 +92,7 @@ export const cartSlice = createSlice({
 
 export const { 
     addProductSuccess, 
+    updateCartSuccess,
     deleteProductSuccess, 
     decreaseProductFromCart,
     increaseProductFromCart,

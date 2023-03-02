@@ -92,7 +92,7 @@ const CartItem = ({ product: pro, quantity: qty, maxQuantity }) => {
     <CartItems >
       <Item flex={2}>
         <Item>
-          <ProductImage onClick={() => navigate(`/product/${product._id}`)} src={product?.images[0]?.url} />
+          <ProductImage onClick={() => navigate(`/product/${product._id}`)} src={product?.images[0]?.url || ""} />
           <Item>{product?.title}</Item>
         </Item>
       </Item>
