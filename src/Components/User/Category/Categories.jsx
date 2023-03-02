@@ -53,7 +53,7 @@ const Categories = () => {
 
     useEffect(() => {
         const getCategoriesAll = async () => {
-            if (categories.length === 0) {
+            if (categories && categories?.length === 0) {
                 const cats = await getAllCategories(dispatch);
                 setCategoriesList(cats);
             } else {

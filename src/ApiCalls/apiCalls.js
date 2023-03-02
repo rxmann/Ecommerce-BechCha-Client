@@ -1,6 +1,6 @@
 import { userRequest } from "../requestMethods/requestMethods";
 import { toast } from 'react-toastify';
-import { cartStart, cartFail, addProductSuccess, deleteProductSuccess, decreaseProductFromCart, increaseProductFromCart, updateCartSuccess } from "../Redux/cartSlice"
+import { cartStart, cartFail, deleteProductSuccess, decreaseProductFromCart, increaseProductFromCart, updateCartSuccess } from "../Redux/cartSlice"
 
 export const successToast = (message) => {
     toast.success(message, {
@@ -29,7 +29,7 @@ export const failureToast = (message) => {
 }
 
 
-
+// add to cart
 export const addProductToCart = async (dispatch, product, quantity, maxQuantity) => {
 
     const form = new FormData()
@@ -40,10 +40,10 @@ export const addProductToCart = async (dispatch, product, quantity, maxQuantity)
 
     dispatch(cartStart());
     try {
-        const response = await userRequest.post("/cart", form)
-        const cart = response.data.cart
+        await userRequest.post("/cart", form)
+        const cart = await getMyCart();
         console.log(cart);
-        dispatch(updateCartSuccess({cart}))
+        dispatch(updateCartSuccess(cart))
         successToast("Product added to cart!")
     }
     catch (err) {
@@ -52,6 +52,32 @@ export const addProductToCart = async (dispatch, product, quantity, maxQuantity)
         dispatch(cartFail())
     }
 
+}
+
+
+export const getMyCart = async () => {
+    try {
+        const response = await userRequest.get("/cart");
+        const myCart = response.data.cart;
+
+        // get total Amount and get Total quantity in cart
+        const cartDetails = myCart?.reduce((details, cartObj) => {
+            details.totalAmount += cartObj.price * cartObj.quantity
+            details.totalQuantity++;
+            return details;
+        }, { totalAmount: 0, totalQuantity: 0 } );
+
+        const cart = {
+            cart: myCart,
+            totalAmount: cartDetails.totalAmount, 
+            totalQuantity: cartDetails.totalQuantity,
+        }
+
+        return cart;
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
 
 

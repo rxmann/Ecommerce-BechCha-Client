@@ -21,33 +21,8 @@ export const cartSlice = createSlice({
         updateCartSuccess: (state, action) => {
             state.isLoading = false;
             state.cart = action.payload.cart;
-        },
-        addProductSuccess: (state, action) => {
-            state.isLoading = false;
-
-            const product = state.cart.find(item => item.product._id === action.payload.product._id)
-            if (product) {
-                const updatedCart = state.cart.map(item => {
-                    if (item.product._id === action.payload.product._id ) {
-                        if ( item.maxQuantity <= action.payload.quantity) {
-                            return { ...item, quantity: item.quantity + action.payload.quantity };
-                        }
-                        else {
-                            return { ...item, quantity: action.payload.maxQuantity };
-                        }
-                        
-                    }
-                    return item;
-                });
-                state.cart = updatedCart;
-                state.totalAmount += action.payload.product.price * action.payload.quantity 
-            }
-            else {
-                state.cart.push(action.payload);
-                state.totalQuantity += 1;
-                state.totalAmount += action.payload.product.price * action.payload.quantity;
-            }
-
+            state.totalQuantity = action.payload.totalQuantity;
+            state.totalAmount = action.payload.totalAmount;
         },
         deleteProductSuccess: (state, action) => {
             state.isLoading = false;

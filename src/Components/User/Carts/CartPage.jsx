@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { emptyCart } from "../../../Redux/cartSlice";
 import CartItem from "./CartItem";
 import { useEffect, useState } from "react";
-import { userRequest } from "../../../requestMethods/requestMethods";
+import { getMyCart } from "../../../ApiCalls/apiCalls";
 
 const Container = styled.div`
     
@@ -94,17 +94,21 @@ const Total = styled.h3`
 
 const CartPage = () => {
     const dispatch = useDispatch();
-    const userCart = useSelector(state => state.usercart);
+    const cartObject = useSelector(state => state.usercart);
 
-    const [ cartObject, setCartObject ] = useState();
- 
+    const [ userCart, setUserCart] = useState();
+
     useEffect(() => {
-        const getMyCart = async () => {
-            const response = await userRequest.get("cart/");
-            const cart = response.body;
-            setCartObject(cart);
+        const getCart = async () => {
+            if (!cartObject ) {
+                const cartt = await getMyCart();
+                setUserCart(cartt)
+            }
+            else {
+                setUserCart(cartObject)
+            }
         }
-        getMyCart();
+        getCart();
     }, [])
 
     return (
@@ -125,7 +129,7 @@ const CartPage = () => {
                         </CartHeading>
 
                         {userCart?.cart?.map((item) => (
-                          <CartItem product={item.product} key={item.product._id} maxQuantity={item.maxQuantity} quantity={item.quantity}/>
+                            <CartItem product={item.product} key={item.product._id} maxQuantity={item.maxQuantity} quantity={item.quantity} />
                         ))}
 
                     </Cart>
@@ -153,7 +157,7 @@ const CartPage = () => {
                     <Cart>
                         <Item>
                             <Total> Total </Total>
-                            <Total> NPR { userCart?.totalAmount  + (userCart?.totalQuantity > 0 && 200) }  </Total>
+                            <Total> NPR {userCart?.totalAmount + (userCart?.totalQuantity > 0 && 200)}  </Total>
                         </Item>
                         <Button color={"error"} onClick={() => dispatch(emptyCart())} > Empty Cart </Button>
                         <Button variant="contained"> Checkout </Button>
