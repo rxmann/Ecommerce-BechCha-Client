@@ -32,26 +32,26 @@ export const cartSlice = createSlice({
             state.totalAmount -= productItem.product.price * productItem.quantity;
             state.cart = state.cart.filter(item => item.product._id.toString() !== prodId);
         },
-        decreaseProductFromCart: (state, action) => {
-            state.isLoading = false;
-            state.cart = action.payload;
-        },
-        increaseProductFromCart: (state, action) => {
-            state.isLoading = false;
-            let price, set = false;
-            const updatedCart = state.cart.map( (item) => {
-                if (item.product._id.toString() === action.payload && item.quantity < item.product.quantity ) {
-                    price = item.product.price;
-                    set = true;
-                    return { ...item, quantity: item.quantity + 1 }
-                }
-                return item;
-            })
-            if (set) {
-                state.cart = updatedCart;
-                state.totalAmount += price;
-            }
-        },
+        // decreaseProductFromCart: (state, action) => {
+        //     state.isLoading = false;
+        //     state.cart = action.payload;
+        // },
+        // increaseProductFromCart: (state, action) => {
+        //     state.isLoading = false;
+        //     let price, set = false;
+        //     const updatedCart = state.cart.map( (item) => {
+        //         if (item.product._id.toString() === action.payload && item.quantity < item.product.quantity ) {
+        //             price = item.product.price;
+        //             set = true;
+        //             return { ...item, quantity: item.quantity + 1 }
+        //         }
+        //         return item;
+        //     })
+        //     if (set) {
+        //         state.cart = updatedCart;
+        //         state.totalAmount += price;
+        //     }
+        // },
         emptyCart: (state) => {
             state.isLoading = false;
             state.cart = [];

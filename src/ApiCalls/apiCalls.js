@@ -1,6 +1,6 @@
 import { userRequest } from "../requestMethods/requestMethods";
 import { toast } from 'react-toastify';
-import { cartStart, cartFail, deleteProductSuccess, decreaseProductFromCart, increaseProductFromCart, updateCartSuccess } from "../Redux/cartSlice"
+import { cartStart, cartFail, deleteProductSuccess, decreaseProductFromCart, increaseProductFromCart, updateCartSuccess, emptyCart } from "../Redux/cartSlice"
 
 export const successToast = (message) => {
     toast.success(message, {
@@ -41,8 +41,7 @@ export const addProductToCart = async (dispatch, product, quantity, maxQuantity)
     dispatch(cartStart());
     try {
         await userRequest.post("/cart", form)
-        const cart = await getMyCart();
-        console.log(cart);
+        const cart = await getMyCart(dispatch);
         dispatch(updateCartSuccess(cart))
         successToast("Product added to cart!")
     }
@@ -55,7 +54,24 @@ export const addProductToCart = async (dispatch, product, quantity, maxQuantity)
 }
 
 
-export const getMyCart = async () => {
+
+export const emptyMyCart = async (dispatch) => {
+    dispatch(cartStart())
+    try {
+        const response = await userRequest.delete("/cart");
+        dispatch(emptyCart())
+        successToast("Cart Emptied!")
+    }
+    catch (error) {
+        console.log(error);
+        dispatch(cartFail())
+        failureToast("Cart is empty!")
+    }
+}
+
+
+export const getMyCart = async (dispatch) => {
+    dispatch(cartStart())
     try {
         const response = await userRequest.get("/cart");
         const myCart = response.data.cart;
@@ -77,9 +93,9 @@ export const getMyCart = async () => {
     }
     catch (err) {
         console.log(err);
+        dispatch(cartFail())
     }
 }
-
 
 
 

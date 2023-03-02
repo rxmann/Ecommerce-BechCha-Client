@@ -4,7 +4,7 @@ import { decreaseItemFromCart, deleteProductFromCart, increaseItemFromCart } fro
 import Button from '@mui/material/Button';
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const CartItems = styled.div`
     display: flex;
@@ -13,8 +13,16 @@ const CartItems = styled.div`
 `
 
 const ProductImage = styled.img`
-    width: 100px;
-    cursor: pointer;
+    height: 100%;
+  width: 100%;
+  cursor: pointer;
+  transition: transform .3s ease;
+  transform: scale(0.8);
+  border-radius: 2px;
+
+  &:hover {
+    transform: scale(1);
+  }
 `
 
 const Item = styled.span`
@@ -23,6 +31,7 @@ const Item = styled.span`
     font-size: 16px;
     display: flex;
     align-items: center;
+    height: 100px;
     justify-content: space-between;
     gap: 30px;
 `
@@ -54,7 +63,7 @@ const CartItem = ({ product: pro, quantity: qty, maxQuantity }) => {
   const [quantity, setQuantity] = useState();
   const [product, setProduct] = useState()
 
-  useEffect( () => {
+  useEffect(() => {
     setProduct(pro);
     setQuantity(qty);
   }, [pro, qty])
@@ -91,10 +100,8 @@ const CartItem = ({ product: pro, quantity: qty, maxQuantity }) => {
   return (
     <CartItems >
       <Item flex={2}>
-        <Item>
-          <ProductImage onClick={() => navigate(`/product/${product._id}`)} src={product?.images[0]?.url || ""} />
-          <Item>{product?.title}</Item>
-        </Item>
+        <ProductImage onClick={() => navigate(`/product/${product._id}`)} src={product?.images[0]?.url || ""} />
+        <Item>{product?.title}</Item>
       </Item>
       <Item flex={1}>
         <QuantityDiv>

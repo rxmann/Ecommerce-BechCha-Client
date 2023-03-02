@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { emptyCart } from "../../../Redux/cartSlice";
 import CartItem from "./CartItem";
 import { useEffect, useState } from "react";
-import { getMyCart } from "../../../ApiCalls/apiCalls";
+import { emptyMyCart, getMyCart } from "../../../ApiCalls/apiCalls";
 
 const Container = styled.div`
     
@@ -100,16 +100,17 @@ const CartPage = () => {
 
     useEffect(() => {
         const getCart = async () => {
-            if (!cartObject ) {
-                const cartt = await getMyCart();
-                setUserCart(cartt)
-            }
-            else {
+            if (cartObject) {
                 setUserCart(cartObject)
             }
+            else if (cartObject?.cart?.length === 0 ) {
+                const cartt = await getMyCart(dispatch);
+                setUserCart(cartt)
+            }
+            console.log(userCart);
         }
         getCart();
-    }, [])
+    }, [cartObject])
 
     return (
         <Container>
@@ -159,7 +160,7 @@ const CartPage = () => {
                             <Total> Total </Total>
                             <Total> NPR {userCart?.totalAmount + (userCart?.totalQuantity > 0 && 200)}  </Total>
                         </Item>
-                        <Button color={"error"} onClick={() => dispatch(emptyCart())} > Empty Cart </Button>
+                        <Button color={"error"} onClick={() => emptyMyCart(dispatch)} > Empty Cart </Button>
                         <Button variant="contained"> Checkout </Button>
                     </Cart>
                 </SummaryWrapper>
