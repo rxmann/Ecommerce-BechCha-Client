@@ -42,6 +42,7 @@ export const addProductToCart = async (dispatch, product, quantity, maxQuantity)
     form.append("product", product._id)
     form.append("quantity", quantity)
     form.append("price", product.price)
+    form.append("max", maxQuantity)
 
     dispatch(cartStart());
     try {
@@ -52,7 +53,7 @@ export const addProductToCart = async (dispatch, product, quantity, maxQuantity)
     }
     catch (err) {
         console.log(err.response.data);
-        failureToast("Could not add to cart!")
+        failureToast( err.response.data || "Could not add to cart!")
         dispatch(cartFail())
     }
 

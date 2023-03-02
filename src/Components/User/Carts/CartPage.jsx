@@ -3,6 +3,8 @@ import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from "react-redux";
 import { emptyCart } from "../../../Redux/cartSlice";
 import CartItem from "./CartItem";
+import { useEffect, useState } from "react";
+import { userRequest } from "../../../requestMethods/requestMethods";
 
 const Container = styled.div`
     
@@ -91,10 +93,19 @@ const Total = styled.h3`
 
 
 const CartPage = () => {
-
-
     const dispatch = useDispatch();
     const userCart = useSelector(state => state.usercart);
+
+    const [ cartObject, setCartObject ] = useState();
+ 
+    useEffect(() => {
+        const getMyCart = async () => {
+            const response = await userRequest.get("cart/");
+            const cart = response.body;
+            setCartObject(cart);
+        }
+        getMyCart();
+    }, [])
 
     return (
         <Container>

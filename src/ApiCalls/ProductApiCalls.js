@@ -77,7 +77,6 @@ export const editProductAdmin = async (values, id) => {
 export const deleteProductAdmin = async (id) => {
     try {
         await userRequest.delete(`/products/${id}`)
-        getAllProducts();
         successToast("Product deleted")
     }
     catch (err) {

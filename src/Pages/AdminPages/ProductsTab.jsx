@@ -87,7 +87,7 @@ const ProductsTab = () => {
   const {categories} = useSelector(state => state.product)
 
   const getCatName = (id) => {
-    for (let i = 0; i < categories.length; i++) {
+    for (let i = 0; i < categories?.length; i++) {
       if (categories[i]._id === id) {
         return categories[i].slug;
       }
@@ -147,7 +147,10 @@ const ProductsTab = () => {
           <ActionCell>
             <ViewButton onClick={() => navigate(`/admin/product/${params.row._id}`)}> View </ViewButton>
             <DelBtn 
-              onClick={() => deleteProductAdmin(params.row._id)}
+              onClick={async () => {
+                await deleteProductAdmin(params.row._id)
+                setProducts(await getAllProducts());
+              }}
               size="small" variant="text" color="error">
               <DeleteOutline />
             </DelBtn>

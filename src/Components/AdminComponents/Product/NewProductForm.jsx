@@ -183,7 +183,6 @@ const NewProductForm = ({ FormType, prodDetails }) => {
                             name="category"
                             sx={{ flex: "2" }}
                             value={values["category"]}
-                            required
                             onChange={handleChange}>
                             {categories.map((category) => (
                                 <MenuItem value={category._id} key={category._id}> {category.name} </MenuItem>

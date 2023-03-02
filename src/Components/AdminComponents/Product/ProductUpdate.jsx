@@ -39,7 +39,7 @@ const BigImage = styled.img`
 
 
 
-const ProductUpdate = ({ prodDetails, categories }) => {
+const ProductUpdate = ({ prodDetails }) => {
 
   const [imageSelected, setImageSelected] = useState();
 
@@ -69,7 +69,6 @@ const ProductUpdate = ({ prodDetails, categories }) => {
 
       <Right>
         <NewProductForm FormType={"edit"} prodDetails={prodDetails}  />
-        {/* <ProductUpdateForm FormType={"edit"} prodDetails={prodDetails} categories={categories} /> */}
       </Right>
     </Container>
   )

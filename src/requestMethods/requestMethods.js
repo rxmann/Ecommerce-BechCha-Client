@@ -40,6 +40,10 @@ export const userRequest = axios.create({
 userRequest.interceptors.request.use(async (request) => {
 
     const accessToken = getAccessToken();
+    // const form = request.data
+    // for (let key of form.keys()) {
+    //     console.log(key + ": " + form.get(key));
+    //   }
 
     const user = jwt_decode(accessToken);
     const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
