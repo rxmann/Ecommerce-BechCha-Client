@@ -29,6 +29,18 @@ export const failureToast = (message) => {
 }
 
 
+export const reloadCart = async (dispatch) => {
+    dispatch(cartStart());
+    try {
+        const cart = await getMyCart(dispatch);
+        dispatch(updateCartSuccess(cart))
+    }
+    catch (err) {
+        dispatch(cartFail())
+    }
+}
+
+
 // add to cart
 export const addProductToCart = async (dispatch, product, quantity, maxQuantity) => {
 
@@ -41,13 +53,12 @@ export const addProductToCart = async (dispatch, product, quantity, maxQuantity)
     dispatch(cartStart());
     try {
         await userRequest.post("/cart", form)
-        const cart = await getMyCart(dispatch);
-        dispatch(updateCartSuccess(cart))
+        reloadCart(dispatch);
         successToast("Product added to cart!")
     }
     catch (err) {
         console.log(err.response?.data || err);
-        failureToast( err.response.data || "Could not add to cart!")
+        failureToast( err?.response?.data || "Could not add to cart!")
         dispatch(cartFail())
     }
 
@@ -58,7 +69,7 @@ export const addProductToCart = async (dispatch, product, quantity, maxQuantity)
 export const emptyMyCart = async (dispatch) => {
     dispatch(cartStart())
     try {
-        const response = await userRequest.delete("/cart");
+        await userRequest.delete("/cart");
         dispatch(emptyCart())
         successToast("Cart Emptied!")
     }
@@ -68,6 +79,8 @@ export const emptyMyCart = async (dispatch) => {
         failureToast("Cart is empty!")
     }
 }
+
+
 
 
 export const getMyCart = async (dispatch) => {

@@ -1,7 +1,6 @@
 import styled from "styled-components"
 import Button from '@mui/material/Button';
 import { useEffect, useState } from "react";
-import { userRequest } from "../../../requestMethods/requestMethods";
 const moment = require("moment")
 
 
@@ -95,13 +94,7 @@ const OrderWidget = ({ orders: allOrders}) => {
 
     useEffect(() => {
       const getOrders = async () => {
-       if (!allOrders) {
-        const response = await userRequest.get("/orders");
-        setOrders(response.data);
-       }
-       else {
         setOrders(allOrders)
-       }
       }
       getOrders();
     }, [allOrders])

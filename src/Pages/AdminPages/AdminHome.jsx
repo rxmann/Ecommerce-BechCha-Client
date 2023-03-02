@@ -71,9 +71,16 @@ const AdminHome = () => {
 
   // users data for chart
   const [userData, setUserData] = useState([]);
+  const [ordersData, setOrdersData] = useState([]);
+
+
   useEffect(() => {
     const getUsersData = async () => {
       try {
+        
+        const ordersResponse = await userRequest.get("/orders/all");
+        setOrdersData(ordersResponse.data)
+          
         const response = await userRequest.get("/users/stats");
         const userD = response?.data?.map((each) => {
           const name = months[each._id - 1];
@@ -106,7 +113,7 @@ const AdminHome = () => {
       </ChartContainer>
 
       <HomeWidgets>
-        <OrderWidget />
+        <OrderWidget orders={ordersData}  />
         <NewUserWidget />
       </HomeWidgets>
     </Container>

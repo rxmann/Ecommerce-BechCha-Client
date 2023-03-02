@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from "react-redux";
-import { emptyCart } from "../../../Redux/cartSlice";
 import CartItem from "./CartItem";
 import { useEffect, useState } from "react";
-import { emptyMyCart, getMyCart } from "../../../ApiCalls/apiCalls";
+import { emptyMyCart, reloadCart } from "../../../ApiCalls/apiCalls";
 
 const Container = styled.div`
     
@@ -93,24 +92,30 @@ const Total = styled.h3`
 
 
 const CartPage = () => {
-    const dispatch = useDispatch();
-    const cartObject = useSelector(state => state.usercart);
 
-    const [ userCart, setUserCart] = useState();
+    const dispatch = useDispatch();
+    const [userCart, setUserCart] = useState();
 
     useEffect(() => {
-        const getCart = async () => {
+       reloadCart(dispatch);
+    }, [dispatch])
+
+    const cartObject = useSelector(state => state.usercart);
+
+    useEffect(() => {
+        const getCartIfNotInState = async () => {
             if (cartObject) {
                 setUserCart(cartObject)
             }
-            else if (cartObject?.cart?.length === 0 ) {
-                const cartt = await getMyCart(dispatch);
-                setUserCart(cartt)
+            else if (cartObject?.cart?.length === 0) {
+                reloadCart(dispatch);
             }
-            console.log(userCart);
         }
-        getCart();
-    }, [cartObject])
+        getCartIfNotInState();
+    }, [cartObject, dispatch])
+
+
+
 
     return (
         <Container>

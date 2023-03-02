@@ -1,3 +1,4 @@
+import { emptyCart } from "../Redux/cartSlice";
 import { deleteUserSuccess, 
     deleteUserSuccessAdmin, 
     loginSuccess, 
@@ -81,6 +82,7 @@ export const LogoutUser = async (dispatch, id) => {
     try {
         await userRequest.delete(`/users/logout/${id}`);
         dispatch(logoutUserSuccess());
+        dispatch(emptyCart());
         successToast("User logged out!")
     }
     catch (err) {

@@ -1,23 +1,28 @@
-import styled from "styled-components"
+import { useEffect, useState } from "react"
+import { userRequest } from "../../../requestMethods/requestMethods"
+import OrderWidget from "../../AdminComponents/Widgets/OrderWidget"
 
-const Card = styled.div`
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-    border-radius: 10px;
-    background-color: white;
-    width: 100%;
-    height: 600px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`
+
 
 const Orders = () => {
 
+    const [orders, setOrders] = useState();
+
+    useEffect(() => {
+        const getMyOrder = async () => {
+            try {
+                const response = await userRequest.get("/orders");
+                setOrders(response.data)
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
+        getMyOrder();
+    }, [])
 
     return (
-        <Card>
-            No orders recorded.
-        </Card>
+        <OrderWidget orders={orders} />
     )
 }
 
