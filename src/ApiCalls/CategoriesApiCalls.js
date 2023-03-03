@@ -6,6 +6,7 @@ export const getAllCategories = async (dispatch) => {
     dispatch(getStart())
     try {
         const response = await publicRequest.get("/categories");
+        console.log("Cat updated!");
         dispatch(getCategoriesSuccess(response.data.CategoryList));
     }
     catch (err) {
@@ -51,7 +52,7 @@ export const deleteCategory = async (dispatch, catId) => {
     dispatch(getStart)
     try {
         await userRequest.delete(`/categories/${catId}`)
-        getAllCategories(dispatch);
+        await getAllCategories(dispatch);
         successToast("Category Deleted!")
     }
     catch (err) {

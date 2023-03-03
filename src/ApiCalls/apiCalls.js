@@ -1,6 +1,6 @@
 import { userRequest } from "../requestMethods/requestMethods";
 import { toast } from 'react-toastify';
-import { cartStart, cartFail, deleteProductSuccess, decreaseProductFromCart, increaseProductFromCart, updateCartSuccess, emptyCart } from "../Redux/cartSlice"
+import { cartStart, cartFail, updateCartSuccess, emptyCart } from "../Redux/cartSlice"
 
 export const successToast = (message) => {
     toast.success(message, {

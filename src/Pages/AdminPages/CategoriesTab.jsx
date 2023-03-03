@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import DataTable from '../../Components/AdminComponents/Tables/DataTable';
 import { useDispatch, useSelector } from "react-redux"
-import { deleteCategory } from '../../ApiCalls/CategoriesApiCalls';
+import { deleteCategory, getAllCategories } from '../../ApiCalls/CategoriesApiCalls';
+import { useEffect } from 'react';
 
 
 
@@ -71,6 +72,9 @@ const CategoriesTab = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    getAllCategories(dispatch)
+  }, [])
   const { categories } = useSelector(state => state.product)
 
   const getCatName = (id) => {
@@ -81,6 +85,7 @@ const CategoriesTab = () => {
     }
     return id;
   }
+
 
 
   const deleteThisCat = async (id) => {
