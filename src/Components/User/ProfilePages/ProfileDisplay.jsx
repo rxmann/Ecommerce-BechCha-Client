@@ -77,11 +77,10 @@ const ProfileDisplay = () => {
                 <UserProfile user={user}/>
             </Card>
 
-            {user?._id === currentUser?._id ?
+            {user?._id === currentUser?._id &&
                 <Bottom>
                 <Button variant="contained" color="error" onClick={handleLogout} > {user.username} Logout </Button>
                 </Bottom>
-                : ""
             }
             </> : "No user found!"
         }

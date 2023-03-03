@@ -93,7 +93,7 @@ const Categories = () => {
                 effect={'slide'}
             >
                 <List >
-                    {CategoriesList.length > 0 ?
+                    {CategoriesList?.length > 0 ?
                         CategoriesList.map((each) => (
                             <SwiperSlide key={each._id}>
                                 <OneCategory category={each} />

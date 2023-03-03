@@ -112,11 +112,12 @@ export const getMyCart = async (dispatch) => {
 
 
 
-export const deleteProductFromCart = (dispatch, prodId) => {
+export const deleteProductFromCart = async (dispatch, prodId) => {
     dispatch(cartStart());
     try {
-        dispatch(deleteProductSuccess(prodId))
-        successToast("Product deleted from cart!")
+        await userRequest.delete(`/cart/${prodId}`);
+        await reloadCart(dispatch);
+        successToast(`Product deleted from cart!`)
     }
     catch (err) {
         console.log(err);
@@ -128,34 +129,27 @@ export const deleteProductFromCart = (dispatch, prodId) => {
 
 
 
-export const decreaseItemFromCart = (dispatch, prodId) => {
+export const updateItemFromCart = async (dispatch, product, type) => {
     dispatch(cartStart())
     try {
-        dispatch(decreaseProductFromCart(prodId));
+        await userRequest.patch("/cart", { 
+            product: product._id, 
+            type, 
+            max: product.quantity,
+            currentPrice: product.price
+        })
+        await reloadCart(dispatch);
     }
     catch (err) {
-        console.log(err);
+        console.log(err.response.data);
         dispatch(cartFail())
+        failureToast(err.response.data);
     }
 }
 
 
 
-
-export const increaseItemFromCart = (dispatch, prodId) => {
-    dispatch(cartStart())
-    try {
-        dispatch(increaseProductFromCart(prodId));
-    }
-    catch (err) {
-        console.log(err);
-        dispatch(cartFail())
-    }
-}
-
-
-
-
+// ALL STATS FOR ADMIN DASHBOARD
 export const getSalesStats = async () => {
     try {
         const response = await userRequest.get("/orders/sales/analytics");

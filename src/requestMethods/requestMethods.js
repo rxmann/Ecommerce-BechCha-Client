@@ -75,7 +75,7 @@ userRequest.interceptors.request.use(async (request) => {
         }
         catch (err) {
             console.log(err.response?.data);
-            if (err.response.data?.code === "notoken") {
+            if (err.response.data?.code.toString() === "notoken") {
                 localStorage.setItem("persist:root", null);
             }
         }

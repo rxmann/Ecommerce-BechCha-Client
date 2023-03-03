@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import DeleteIcon from '@mui/icons-material/Delete';
-import { decreaseItemFromCart, deleteProductFromCart, increaseItemFromCart } from "../../../ApiCalls/apiCalls"
+import {  deleteProductFromCart, updateItemFromCart } from "../../../ApiCalls/apiCalls"
 import Button from '@mui/material/Button';
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -26,12 +26,12 @@ const ProductImage = styled.img`
 
 const Item = styled.span`
     flex: ${props => props.flex};
-    font-weight: 400;
+    font-weight: ${props => props.fw ? props.fw : 400};
     font-size: 16px;
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 100px;
-    justify-content: space-between;
     gap: 30px;
 `
 
@@ -55,7 +55,7 @@ const ButtonQ = styled.button`
 
 
 
-const CartItem = ({ product: pro, quantity: qty, maxQuantity }) => {
+const CartItem = ({ product: pro, quantity: qty }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -71,19 +71,8 @@ const CartItem = ({ product: pro, quantity: qty, maxQuantity }) => {
 
 
   /// quantity increase / decrease
-  const handleQuantity = (option, maxQuantity) => {
-    if (option === "dec") {
-      if (quantity > 1) {
-        setQuantity(quantity - 1)
-        decreaseItemFromCart(dispatch, pro._id)
-      }
-    }
-    else if (option === "inc") {
-      if (quantity < maxQuantity) {
-        setQuantity(quantity + 1)
-        increaseItemFromCart(dispatch, pro._id)
-      }
-    }
+  const handleQuantity = (option) => {
+    updateItemFromCart(dispatch, pro, option)
   }
 
 
@@ -102,11 +91,11 @@ const CartItem = ({ product: pro, quantity: qty, maxQuantity }) => {
         <ProductImage onClick={() => navigate(`/product/${product._id}`)} src={product?.images[0]?.url || ""} />
         <Item>{product?.title}</Item>
       </Item>
-      <Item flex={1}>
+      <Item flex={2}>
         <QuantityDiv>
-          <ButtonQ onClick={() => handleQuantity("dec", maxQuantity)}> - </ButtonQ>
+          <ButtonQ onClick={() => handleQuantity("dec")}> - </ButtonQ>
           {quantity}
-          <ButtonQ onClick={() => handleQuantity("inc", maxQuantity)} > + </ButtonQ>
+          <ButtonQ onClick={() => handleQuantity("inc")} > + </ButtonQ>
         </QuantityDiv>
       </Item>
       <Item flex={1}> {product?.price} </Item>
