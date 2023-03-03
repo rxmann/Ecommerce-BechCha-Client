@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { Box, Button, InputAdornment, OutlinedInput, TextField } from '@mui/material';
+import { Box, Button, InputAdornment, OutlinedInput } from '@mui/material';
 import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
@@ -128,7 +128,7 @@ const DataTable = ({ rows, columns, link, type }) => {
 
 
         <Link to={link} >
-          <AddButton variant='contained'> {type} </AddButton>
+          <AddButton variant='contained' > {type} </AddButton>
         </Link>
       </SearchContainer>
 

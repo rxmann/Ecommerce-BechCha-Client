@@ -20,11 +20,8 @@ export const getAllCategories = async (dispatch) => {
 export const AddCategory = async (dispatch, formData) => {
     dispatch(getStart())
     try {
-        await userRequest.post("/categories/add", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        })
+        await userRequest.post("/categories/add", formData)
+        getAllCategories(dispatch);
         successToast("Category Added!")
     }
     catch (err) {
@@ -38,18 +35,29 @@ export const AddCategory = async (dispatch, formData) => {
 export const UpdateCategory = async (dispatch, formData, catId) => {
     dispatch(getStart)
     try {
-        await userRequest.patch(`/categories/${catId}`, formData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        })
-        successToast("Category Updated!")
-        
+        await userRequest.patch(`/categories/${catId}`, formData)
+        getAllCategories(dispatch);
+        successToast("Category Updated!") 
     }
     catch (err) {
         console.log(err.response.data);
         dispatch(getFailure);
         failureToast("Couldnot update category!")
+    }
+}
+
+
+export const deleteCategory = async (dispatch, catId) => {
+    dispatch(getStart)
+    try {
+        await userRequest.delete(`/categories/${catId}`)
+        getAllCategories(dispatch);
+        successToast("Category Deleted!")
+    }
+    catch (err) {
+        console.log(err.response);
+        dispatch(getFailure);
+        failureToast("Couldnot delete category!")
     }
 }
 

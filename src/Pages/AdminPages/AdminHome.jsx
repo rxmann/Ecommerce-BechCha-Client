@@ -15,6 +15,7 @@ const Container = styled.div`
     flex: 5;
     width: 100%;
     padding: 20px;
+    width: 100%;
 `
 
 

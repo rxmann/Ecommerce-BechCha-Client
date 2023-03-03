@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import DataTable from '../../Components/AdminComponents/Tables/DataTable';
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from 'react';
-import { getAllCategories } from '../../ApiCalls/CategoriesApiCalls';
+import { deleteCategory } from '../../ApiCalls/CategoriesApiCalls';
 
 
 
@@ -68,15 +67,29 @@ export const StatusButton = ({ type }) => {
 }
 
 const CategoriesTab = () => {
-  
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { categories } = useSelector(state => state.product)
 
+  const getCatName = (id) => {
+    for (let i = 0; i < categories?.length; i++) {
+      if (categories[i]._id === id) {
+        return categories[i].slug;
+      }
+    }
+    return id;
+  }
+
+
+  const deleteThisCat = async (id) => {
+      await deleteCategory(dispatch, id);
+  }
+
 
   const actionColumn = [
-    { headerName: "Category ID",  headerClassName: "header-datatable", field: "_id", flex: 1 },
+    { headerName: "Category ID", headerClassName: "header-datatable", field: "_id", flex: 1 },
     {
       headerName: "Category",
       headerClassName: "header-datatable",
@@ -92,6 +105,17 @@ const CategoriesTab = () => {
       },
     },
     {
+      headerName: "Parent",
+      headerClassName: "header-datatable",
+      field: "parentId",
+      flex: 1,
+      renderCell: (params) => {
+        return (
+          getCatName(params.row.parentId) || "No parent"
+        )
+      } 
+    },
+    {
       field: "actions",
       headerName: "Actions",
       headerClassName: "header-datatable",
@@ -100,7 +124,12 @@ const CategoriesTab = () => {
         return (
           <ActionCell>
             <ViewButton onClick={() => navigate(`/admin/category/${params.row._id}`)}> View </ViewButton>
-            <DelBtn size="small" variant="text" color="error">
+            <DelBtn 
+              size="small" 
+              variant="text" 
+              color="error"
+              onClick={() => {deleteThisCat(params.row._id)}}
+              >
               <DeleteOutline />
             </DelBtn>
           </ActionCell>

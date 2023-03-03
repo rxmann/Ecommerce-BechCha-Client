@@ -5,17 +5,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const Container = styled.div`
     flex: 1;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 60px);
     max-width: 250px;
     position: sticky;
-    top: 70px;
+    top: 60px;
     background-color: white;
-    z-index: 3;
-    border-right: 0.3px solid #f0e8e87d;
+    z-index: 4;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0px 20px;
     box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);
 `
 

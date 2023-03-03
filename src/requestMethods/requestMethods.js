@@ -5,7 +5,6 @@ import dayjs from 'dayjs'
 const BASE_URL = "http://localhost:5000/api"
 
 let isRefreshing = false;
-let refreshSubscribers = [];
 
 
 

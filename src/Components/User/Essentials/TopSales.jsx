@@ -33,7 +33,7 @@ const TopSales = () => {
     useEffect(() => {
         const getTopSold = async () => {
             try {
-                const response = await publicRequest.get("/products?limit=10")
+                const response = await publicRequest.get("/products?limit=6")
                 setData(response.data)
             }
             catch (err) {

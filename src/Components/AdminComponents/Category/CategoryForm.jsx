@@ -99,11 +99,11 @@ const CategoryForm = ({ FormType, Data }) => {
         Object.keys(values).forEach(key => {
             if (values[key]) {
                 formData.append(key, values[key]);
-                console.log(values[key]);
             }
         });
 
-        if (FormType === "add") {
+        console.log(FormType);
+        if (FormType !== "update") {
             await AddCategory(dispatch, formData);
             setValues({
                 name: "",
@@ -112,7 +112,7 @@ const CategoryForm = ({ FormType, Data }) => {
             })
         }
         else {
-            await UpdateCategory(dispatch, formData, Data._id);
+            await UpdateCategory(dispatch, formData, Data?._id);
         }
 
     }

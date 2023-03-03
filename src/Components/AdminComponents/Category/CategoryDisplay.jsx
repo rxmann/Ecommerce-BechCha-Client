@@ -39,7 +39,7 @@ const CategoryDisplay = () => {
   return (
     <Container>
       <Title> Category Profile </Title>
-      <CategoryForm FormType={"Update"} Data={category} />
+      <CategoryForm FormType={"update"} Data={category} />
     </Container>
   )
 }
