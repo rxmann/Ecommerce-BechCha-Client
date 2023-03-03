@@ -14,7 +14,6 @@ const CartItems = styled.div`
 
 const ProductImage = styled.img`
     height: 100%;
-  width: 100%;
   cursor: pointer;
   transition: transform .3s ease;
   transform: scale(0.8);
