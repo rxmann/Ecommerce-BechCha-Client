@@ -61,7 +61,7 @@ const Name = styled.span`
 `
 
 
-const OrderWidget = ({ orders: allOrders}) => {
+const OrderPage = ({ orders: allOrders}) => {
   
   const StatusButton = ({ type }) => {
     let color, background;
@@ -131,4 +131,4 @@ const OrderWidget = ({ orders: allOrders}) => {
   )
 }
 
-export default OrderWidget
+export default OrderPage

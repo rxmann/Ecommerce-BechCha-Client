@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./CartItem";
 import { useEffect, useState } from "react";
 import { emptyMyCart, reloadCart } from "../../../ApiCalls/apiCalls";
+import { makeAnOrder } from "../../../ApiCalls/ordersApiCalls";
 
 const Container = styled.div`
     
@@ -119,6 +120,7 @@ const CartPage = () => {
     }, [cartObject, dispatch])
 
 
+    const TOTALPAYABLE = userCart?.totalAmount + (userCart?.totalQuantity > 0 && 200);
 
 
     return (
@@ -171,13 +173,15 @@ const CartPage = () => {
                         <Cart>
                             <Item>
                                 <Total> Total </Total>
-                                <Total> NPR {userCart?.totalAmount + (userCart?.totalQuantity > 0 && 200)}  </Total>
+                                <Total> NPR {TOTALPAYABLE}  </Total>
                             </Item>
 
                             <Button color={"error"} onClick={() => emptyMyCart(dispatch)} >
                                 Empty Cart
                             </Button>
-                            <Button variant="contained"> Checkout </Button>
+                            <Button 
+                                onClick={() => makeAnOrder(userCart, TOTALPAYABLE)}
+                                variant="contained"> Checkout </Button>
                         </Cart>
                     </SummaryWrapper>
                 }

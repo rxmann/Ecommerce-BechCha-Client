@@ -93,7 +93,6 @@ const OrdersTab = () => {
     useEffect(() => {
         const getOrds = async () => {
             const ordersList = await getAllOrdersAsAdmin();
-            console.log(ordersList);
             setData(ordersList)
         }
         getOrds();
@@ -108,17 +107,17 @@ const OrdersTab = () => {
 
 
     const actionColumn = [
-        { headerName: "Order ID", headerClassName: "header-datatable", field: "_id", flex: 1 },
+        { headerName: "Order ID", headerClassName: "header-datatable", field: "_id", flex: 2 },
         {
             headerName: "Customer",
             headerClassName: "header-datatable",
-            field: "userId",
+            field: "user",
             flex: 1,
             renderCell: (params) => {
                 return (
                     <StatusCell >
-                        <Profile src={params.row.userId?.image} />
-                        {params.row.userId.username}
+                        <Profile src={params.row.user?.image} />
+                        {params.row.user.username}
                     </StatusCell>
                 )
             },
@@ -131,11 +130,14 @@ const OrdersTab = () => {
             renderCell: (params) => {
                 return (
                     <StatusCell >
-                        {params.row.quantity} items
+                        {params.row.totalItems} items
 
-                        { params.row.products.map( prod => (
-                            <Profile src={prod.images[0].url} />
-                        ) ) }
+                        {params.row.products?.map(prod =>
+                            <Profile 
+                                key={prod.product.images[0].public_id} 
+                                src={prod.product.images[0].url} 
+                            />
+                        )}
                     </StatusCell>
                 )
             },
@@ -170,7 +172,7 @@ const OrdersTab = () => {
             renderCell: (params) => {
                 return (
                     <Price>
-                        RS {params.row.totalAmount}
+                        RS {params.row.payable}
                     </Price>
                 )
             },
@@ -184,14 +186,14 @@ const OrdersTab = () => {
                 return (
                     <ActionCell>
                         <ViewButton onClick={() => navigate(`/admin/category/${params.row._id}`)}> View </ViewButton>
-                        <DelBtn
+                        {/* <DelBtn
                             size="small"
                             variant="text"
                             color="error"
                             onClick={() => { DeleteThisOrder(params.row._id) }}
                         >
                             <DeleteOutline />
-                        </DelBtn>
+                        </DelBtn> */}
                     </ActionCell>
                 )
             }
