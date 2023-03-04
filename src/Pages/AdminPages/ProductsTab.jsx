@@ -76,7 +76,7 @@ const ProductsTab = () => {
 
   useEffect(() => {
     const getEssentials = async () => {
-      const res = await getAllProducts()
+      const res = await getAllProducts({sort: "createdAt"})
       setProducts(res);
     }
 

@@ -16,7 +16,8 @@ const ProductList = ({ id, sort, limitPrice, subIds }) => {
 
   useEffect(() => {
     const getProductsOfCategory = async () => {
-      setData(await getAllProducts({sort, limitPrice, subIds}))
+      const prods = await getAllProducts({sort, limitPrice, subIds})
+      setData(prods)
     }
     getProductsOfCategory();
   }, [id, sort, limitPrice, subIds])

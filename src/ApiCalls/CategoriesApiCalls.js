@@ -19,7 +19,7 @@ export const getAllCategories = async (dispatch) => {
 export const getOneCategoryDetails = async (paramId) => {
     try {
         const response = await publicRequest.get(`/categories/${paramId}`);
-        console.log(response.data);
+        return response.data;
     }
     catch (err) {
         console.log(err);

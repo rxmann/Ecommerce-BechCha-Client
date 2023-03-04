@@ -2,8 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
 import ProductList from "../../Components/User/Products/ProductList"
-import { publicRequest } from "../../requestMethods/requestMethods"
-import { useSelector } from "react-redux"
+import { getOneCategoryDetails } from "../../ApiCalls/CategoriesApiCalls"
 
 const Products = styled.div`
   display: flex;
@@ -83,14 +82,11 @@ const ProductsPage = () => {
 
   const [selectedValues, setSelectedValues] = useState([paramId]);
 
-  const { categories } = useSelector(state => state.product)
-
   // get category display image
   useEffect(() => {
     const getCatImage = async () => {
       try {
-        const response = await publicRequest.get(`/categories/${paramId}`);
-        const { category, children } = response.data;
+        const { category, children } = await getOneCategoryDetails(paramId);
         const ids = children.map((child) => child._id)
         ids.push(paramId);
         setSelectedValues(ids);
