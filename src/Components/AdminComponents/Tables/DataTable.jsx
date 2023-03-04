@@ -127,9 +127,11 @@ const DataTable = ({ rows, columns, link, type }) => {
         />
 
 
-        <Link to={link} >
-          <AddButton variant='contained' > {type} </AddButton>
-        </Link>
+        {link && type &&
+          <Link to={link} >
+            <AddButton variant='contained' > {type} </AddButton>
+          </Link>
+        }
       </SearchContainer>
 
       <Wrapper>

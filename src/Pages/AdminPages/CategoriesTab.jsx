@@ -51,12 +51,12 @@ const DelBtn = styled(Button)`
   justify-content: flex-end;
   height: 100%;
 `
-export const StatusCell = styled.div`
+const StatusCell = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
 `
-export const Profile = styled.img`
+const Profile = styled.img`
   width: 35px;
   height: 35px;
   object-fit: cover;
