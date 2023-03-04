@@ -1,9 +1,16 @@
 import { publicRequest, userRequest } from "../requestMethods/requestMethods";
 import { failureToast, successToast } from "./apiCalls";
 
-export const getAllProducts = async () => {
+export const getAllProducts = async ({sort="", limitPrice="", subIds="", limit}) => {
     try {
-        const response = await publicRequest.get("/products");
+        let endpoint = "/products?"
+        if (sort)  endpoint += `sort=${sort}&`
+        if (limitPrice) endpoint += `limitprice=${limitPrice}&`
+        if (subIds) endpoint += `subIds=${subIds}&`
+        if (limit) endpoint += `limit=${limit}&`
+
+        // console.log(endpoint);
+        const response = await publicRequest.get(endpoint);
         return response.data;
     }
     catch (err) {
@@ -15,6 +22,7 @@ export const getAllProducts = async () => {
 
 export const getOneProduct = async (id) => {
     try {
+        console.log("getOne Product");
         const response = await publicRequest.get(`/products/${id}`);
         return response.data;
     }

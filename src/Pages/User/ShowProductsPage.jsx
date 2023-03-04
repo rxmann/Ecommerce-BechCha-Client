@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import styled from "styled-components"
 import ProductList from "../../Components/User/Products/ProductList"
 import { publicRequest } from "../../requestMethods/requestMethods"
-
+import { useSelector } from "react-redux"
 
 const Products = styled.div`
   display: flex;
@@ -57,6 +57,10 @@ const ImageContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
 `
 
+const ListOfProducts = styled.div`
+  width: 100%;
+`
+
 const Image = styled.img`
   width: 100%;
   height: 100%;
@@ -79,6 +83,8 @@ const ProductsPage = () => {
 
   const [selectedValues, setSelectedValues] = useState([paramId]);
 
+  const { categories } = useSelector(state => state.product)
+
   // get category display image
   useEffect(() => {
     const getCatImage = async () => {
@@ -93,7 +99,7 @@ const ProductsPage = () => {
         setChildren(children);
       }
       catch (err) {
-        console.log(err); 
+        console.log(err);
       }
 
     }
@@ -102,10 +108,10 @@ const ProductsPage = () => {
 
   }, [paramId])
 
-// id change event
+  // id change event
   const handleChange = (event) => {
     const { id, checked } = event.target;
-  
+
     if (checked) {
       setSelectedValues([...selectedValues, id]);
     } else {
@@ -117,17 +123,17 @@ const ProductsPage = () => {
     <Products>
       <Left>
 
-        {Children?.length >  0 && <FilterHeading> {Category.name} </FilterHeading>}
+        {Children?.length > 0 && <FilterHeading> {Category.name} </FilterHeading>}
         <FilterItem >
-        {Children?.length > 0 &&
-        Children.map((filter) => (
-          <InputItem key={filter._id}>
-          <Input type="checkbox" id={filter._id} value={filter._id} onChange={handleChange} checked={selectedValues.includes(filter._id)} />
-          <Label htmlFor={filter._id}>{filter.name}</Label>
-        </InputItem>
-        ))
-      }
-      </FilterItem>
+          {Children?.length > 0 &&
+            Children.map((filter) => (
+              <InputItem key={filter._id}>
+                <Input type="checkbox" id={filter._id} value={filter._id} onChange={handleChange} checked={selectedValues.includes(filter._id)} />
+                <Label htmlFor={filter._id}>{filter.name}</Label>
+              </InputItem>
+            ))
+          }
+        </FilterItem>
 
         {/* *********************************************************************** */}
         <FilterItem>
@@ -168,7 +174,9 @@ const ProductsPage = () => {
           {Category && <Image src={CategoryImage} />}
         </ImageContainer>
 
-        <ProductList limitPrice={limitPrice} sort={sort} subIds={selectedValues} />
+        <ListOfProducts>
+          <ProductList limitPrice={limitPrice} sort={sort} subIds={selectedValues} />
+        </ListOfProducts>
 
       </Right>
 

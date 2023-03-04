@@ -6,7 +6,6 @@ import DataTable from '../../Components/AdminComponents/Tables/DataTable';
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from 'react';
 import { deleteProductAdmin, getAllProducts } from '../../ApiCalls/ProductApiCalls';
-import { getAllCategories } from '../../ApiCalls/CategoriesApiCalls';
 
 
 const Container = styled.div`
@@ -82,7 +81,7 @@ const ProductsTab = () => {
     }
 
     getEssentials();
-  }, [dispatch])
+  }, [dispatch, navigate])
 
   const {categories} = useSelector(state => state.product)
 

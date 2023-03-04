@@ -42,10 +42,11 @@ const BigImage = styled.img`
 const ProductUpdate = ({ prodDetails }) => {
 
   const [imageSelected, setImageSelected] = useState();
-
+  
   useEffect(() => {
     if (prodDetails) {
-      setImageSelected(prodDetails.images[0]);
+      console.log(prodDetails);
+      setImageSelected(prodDetails?.images[0]?.url);
     }
   }, [prodDetails])
 
@@ -59,10 +60,10 @@ const ProductUpdate = ({ prodDetails }) => {
 
         <ImageContainer>
           {prodDetails.images && prodDetails.images.map(image => (
-            <SmallImage key={image}
-              selected={image === imageSelected}
-              onClick={() => { setImageSelected(image) }}
-              src={ `${image}`} />
+            <SmallImage key={image.public_id}
+              selected={image.url === imageSelected}
+              onClick={() => { setImageSelected(image.url) }}
+              src={ `${image.url}`} />
           ))}
         </ImageContainer>
       </Left>

@@ -2,7 +2,7 @@ import { AccountCircle, DeleteOutline } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import DataTable from '../../Components/AdminComponents/Tables/DataTable';
 import { userRequest } from '../../requestMethods/requestMethods';
@@ -74,6 +74,8 @@ const StatusButton = ({ type }) => {
       color = "success"
       background = "#e5faf2"
       break;
+    default:
+      return;
   }
   return <Button size={"small"} color={color} sx={{ background: background }} type={type}> {type} </Button>
 }
@@ -98,7 +100,7 @@ const UsersTab = () => {
     }
 
     getAllUsers();
-  }, [ref]);
+  }, [ref, navigate]);
 
 
 

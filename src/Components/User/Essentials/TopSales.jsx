@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import ProductCard from '../Products/ProductCard'
-import {publicRequest} from "../../../requestMethods/requestMethods"
+import { getAllProducts } from '../../../ApiCalls/ProductApiCalls'
 
 const Container = styled.div`
     padding: 10px 50px;
@@ -32,13 +32,8 @@ const TopSales = () => {
 
     useEffect(() => {
         const getTopSold = async () => {
-            try {
-                const response = await publicRequest.get("/products?limit=6")
-                setData(response.data)
-            }
-            catch (err) {
-                console.log(err);
-            }
+            const prods = await getAllProducts({limit: 6})
+            setData(prods)
         }
 
         getTopSold();

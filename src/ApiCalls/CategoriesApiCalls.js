@@ -16,6 +16,17 @@ export const getAllCategories = async (dispatch) => {
 }
 
 
+export const getOneCategoryDetails = async (paramId) => {
+    try {
+        const response = await publicRequest.get(`/categories/${paramId}`);
+        console.log(response.data);
+    }
+    catch (err) {
+        console.log(err);
+    }
+
+}
+
 
 
 export const AddCategory = async (dispatch, formData) => {
@@ -38,7 +49,7 @@ export const UpdateCategory = async (dispatch, formData, catId) => {
     try {
         await userRequest.patch(`/categories/${catId}`, formData)
         getAllCategories(dispatch);
-        successToast("Category Updated!") 
+        successToast("Category Updated!")
     }
     catch (err) {
         console.log(err.response.data);

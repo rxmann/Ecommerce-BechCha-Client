@@ -74,7 +74,8 @@ const CategoriesTab = () => {
 
   useEffect(() => {
     getAllCategories(dispatch)
-  }, [])
+  }, [dispatch])
+  
   const { categories } = useSelector(state => state.product)
 
   const getCatName = (id) => {
