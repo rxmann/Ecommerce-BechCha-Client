@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { getMyOrdersList } from "../../../ApiCalls/ordersApiCalls";
-import { userRequest } from "../../../requestMethods/requestMethods"
-import OrderWidget from "../../AdminComponents/Widgets/OrderWidget"
+import OrderPage from "./OrderPage";
 
 
 
@@ -17,7 +16,7 @@ const Orders = () => {
     }, [])
 
     return (
-        <OrderWidget orders={orders} />
+        <OrderPage orders={orders} />
     )
 }
 

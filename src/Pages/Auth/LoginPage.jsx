@@ -111,6 +111,7 @@ const LoginPage = () => {
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
         await loginUser(dispatch, formData);
+        window.location.reload(false);
     }
 
 
@@ -122,6 +123,7 @@ const LoginPage = () => {
             else if (isSignedIn) {
                 navigate("/")
             }
+            
         }
         checkLogin();
     }, [currentUser, navigate, isSignedIn])

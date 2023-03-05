@@ -9,6 +9,7 @@ import "swiper/css/bundle";
 import "swiper/css/autoplay"
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useEffect, useState } from 'react';
+import Fetching from '../EmptyView/Fetching';
 
 const Container = styled.div`
     padding: 10px 50px;
@@ -99,7 +100,8 @@ const Categories = () => {
                                 <OneCategory category={each} />
                             </SwiperSlide>
                         ))
-                        : <p>No categories to display :(</p>}
+                    : <Fetching  type={"spokes"}/> 
+            }
                 </List>
 
             </Swiper>

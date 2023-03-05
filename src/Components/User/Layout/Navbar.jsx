@@ -43,7 +43,6 @@ const Left = styled.div`
 const Logo = styled.img`
     width: 100px;
     cursor: pointer;
-    text-decoration: none;
 `
 
 const Middle = styled.div`

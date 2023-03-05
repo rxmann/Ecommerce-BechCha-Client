@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import Button from '@mui/material/Button';
 import { useEffect, useState } from "react";
+import Fetching from "../EmptyView/Fetching";
 const moment = require("moment")
 
 
@@ -99,34 +100,39 @@ const OrderPage = ({ orders: allOrders}) => {
       getOrders();
     }, [allOrders])
 
+
   return (
     <Container>
       <Title>Recent Transactions</Title>
+      { orders?.length > 0 ?
       <Table>
-        <TableBody>
-          <TableRow>
-            <TableHead> Customer </TableHead>
-            <TableHead> Date </TableHead>
-            <TableHead> Amount </TableHead>
-            <TableHead> Status </TableHead>
-          </TableRow>
+      <TableBody>
+        <TableRow>
+          <TableHead> Customer </TableHead>
+          <TableHead> Date </TableHead>
+          <TableHead> Amount </TableHead>
+          <TableHead> Status </TableHead>
+        </TableRow>
 
 
-          {orders && orders.map((order) => (
-            <TableRow key={order?.updatedAt + Math.random()}>
-              <User>
-                <Image src={order.user?.image} />
-                <Name> {order.user?.username} </Name>
-              </User>
-    
-              <Date> { moment(order.createdAt).format('MMM D, YYYY') } </Date>
-              <Amount> RS {order.payable} </Amount>
-              <Status> <StatusButton type={order.status} /> </Status>
-          </TableRow>
-          ))
-        }
-        </TableBody>
-      </Table>
+        {orders && 
+        orders.map((order) => (
+          <TableRow key={order?.updatedAt + Math.random()}>
+            <User>
+              <Image src={order.user?.image} />
+              <Name> {order.user?.username} </Name>
+            </User>
+  
+            <Date> { moment(order.createdAt).format('MMM D, YYYY') } </Date>
+            <Amount> RS {order.payable} </Amount>
+            <Status> <StatusButton type={order.status} /> </Status>
+        </TableRow>
+        ))
+      }
+      </TableBody>
+    </Table>
+    : <Fetching type={"Empty"} Message={"No orders"} />  
+    }
     </Container>
   )
 }

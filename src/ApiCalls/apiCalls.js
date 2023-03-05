@@ -91,6 +91,7 @@ export const getMyCart = async (dispatch) => {
     try {
         const response = await userRequest.get("/cart");
         const myCart = response.data.cart;
+        if (!myCart) return [];
 
         // get total Amount and get Total quantity in cart
         const cartDetails = myCart?.reduce((details, cartObj) => {

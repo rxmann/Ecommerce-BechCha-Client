@@ -30,7 +30,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import CartPage from "./Components/User/Carts/CartPage"
 import ProfileDisplay from "./Components/User/ProfilePages/ProfileDisplay"
-import Orders from "./Components/User/ProfilePages/Orders"
+import Orders from "./Components/User/Order/Orders"
 import { useSelector } from "react-redux"
 import { useEffect } from "react"
 import CategoriesTab from "./Pages/AdminPages/CategoriesTab"
@@ -41,6 +41,7 @@ import OrdersTab from "./Pages/AdminPages/OrdersTab"
 
 const Wrapper = styled.div`
   background-color: #f5f7f8;
+  width: 100%;
 `
 const Contents = styled.div`
   display: flex;
@@ -62,7 +63,7 @@ const App = () => {
     return (
       <Wrapper>
         <Navbar />
-          <Outlet />
+        <Outlet />
         <Footer />
       </Wrapper>
     );

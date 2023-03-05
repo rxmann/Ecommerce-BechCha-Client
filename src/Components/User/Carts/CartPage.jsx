@@ -13,7 +13,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
     display: flex;
     gap: 20px;
-    min-height: 500px;
+    min-height: 400px;
 `
 
 const CartWrapper = styled.div`
@@ -138,14 +138,16 @@ const CartPage = () => {
                         </CartHeading>
 
 
-                        { isLoading && !error && !userCart && <Fetching color="#0171b6" type="spokes" /> }
-                        { userCart && userCart.length > 0 ?
+                        { !isLoading  ? 
+                        (userCart && userCart.length > 0 ?
                             userCart?.map((item) => (
                                 <CartItem product={item.product} key={item.product._id} maxQuantity={item.maxQuantity} quantity={item.quantity} />
-                            ))
-                            :
-                            // <Fetching color="#0171b6" type="blank" /> 
-                            "check"
+                                ))
+                                :
+                                // <Fetching color="#0171b6" type="blank" /> 
+                                <Fetching type={"Empty"} Message={"No Items in cart. Browse for more products!"} />
+                            )
+                        : <Fetching color="#0171b6" type="spokes" />
                         }
 
                     </Cart>

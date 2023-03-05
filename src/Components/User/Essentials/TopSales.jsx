@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import ProductCard from '../Products/ProductCard'
 import { getAllProducts } from '../../../ApiCalls/ProductApiCalls'
+import Fetching from '../EmptyView/Fetching'
 
 const Container = styled.div`
     padding: 10px 50px;
@@ -19,12 +20,6 @@ const Title = styled.h1`
 const Wrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
-`
-const LoadingScreen = styled.div`
-  height: 60vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `
 
 const TopSales = () => {
@@ -49,7 +44,7 @@ const TopSales = () => {
             {data?.length > 0 ?  
                 data?.map(element => (
                     <ProductCard data={element} key={element._id} /> ))
-            : <LoadingScreen> Retrieving products... </LoadingScreen>
+            : <Fetching type={"Empty"} />
             }
         </Wrapper>
     </Container>

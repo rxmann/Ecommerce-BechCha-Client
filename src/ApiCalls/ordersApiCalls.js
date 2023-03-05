@@ -1,7 +1,7 @@
 import { userRequest } from "../requestMethods/requestMethods";
 import { emptyMyCart, successToast } from "./apiCalls";
 
-export const getMyOrdersList = async (user) => {
+export const getMyOrdersList = async () => {
     try {
         const response = await userRequest.get(`/orders/me`)
         return response.data;
@@ -16,7 +16,6 @@ export const getAllOrdersAsAdmin = async ({limit=0}) => {
     try {
         let endpoint = "/orders?";
         if (limit !== 0) endpoint += `limit=${limit}&`
-        console.log(endpoint);
         const response = await userRequest.get(endpoint);
         return response.data;
     }

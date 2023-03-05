@@ -4,6 +4,7 @@ import { Box, Button, InputAdornment, OutlinedInput } from '@mui/material';
 import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
+import Fetching from '../../User/EmptyView/Fetching';
 
 const Container = styled.div`
     height: 100%;
@@ -136,17 +137,20 @@ const DataTable = ({ rows, columns, link, type }) => {
 
       <Wrapper>
         <BOX >
-          <DataGrid
-            rows={filteredRows}
-            columns={columns}
-            components={{
-              Toolbar: GridToolbar,
-            }}
-            getRowId={row => row._id}
-            pageSize={8}
-            rowsPerPageOptions={[5, 10]}
-            getRowClassName={() => `rows-datatable`}
-          />
+         {rows && columns && filteredRows ?
+           <DataGrid
+           rows={filteredRows}
+           columns={columns}
+           components={{
+             Toolbar: GridToolbar,
+           }}
+           getRowId={row => row._id}
+           getRowClassName={() => `rows-datatable`}
+           pageSize={8} // set the initial page size
+           rowsPerPageOptions={[5, 10, 20]} // set the available page sizes
+         />
+         : <Fetching type="Empty"/> 
+        }
         </BOX>
       </Wrapper>
     </Container>

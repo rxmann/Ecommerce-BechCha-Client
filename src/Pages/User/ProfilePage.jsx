@@ -85,7 +85,7 @@ const ProfilePage = () => {
       }
     }
     changeLayout();
-  }, [selected, currentUser, navigate])
+  }, [selected, currentUser])
 
 
   return (
