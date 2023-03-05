@@ -1,4 +1,15 @@
 import { userRequest } from "../requestMethods/requestMethods";
+import { emptyMyCart, successToast } from "./apiCalls";
+
+export const getMyOrdersList = async (user) => {
+    try {
+        const response = await userRequest.get(`/orders/me`)
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
 
 
 export const getAllOrdersAsAdmin = async () => {
@@ -13,7 +24,7 @@ export const getAllOrdersAsAdmin = async () => {
 
 
 
-export const makeAnOrder = async (orderData, totalPayable) => {
+export const makeAnOrder = async (dispatch, orderData, totalPayable) => {
     try {
         let cartProducts = orderData.cart.map(prod => {
             const { _id, ...rest} = prod;
@@ -27,8 +38,9 @@ export const makeAnOrder = async (orderData, totalPayable) => {
             products: cartProducts, payable: totalPayable, totalItems: cartQuantity
         }
         // console.log(form);
-        const response = await userRequest.post("/orders", form);
-        console.log(response.data);
+        await userRequest.post("/orders", form);
+        await emptyMyCart(dispatch);
+        successToast(` ${cartQuantity} items ordered successfully! `)
     } catch (error) {
         console.log(error);
     }

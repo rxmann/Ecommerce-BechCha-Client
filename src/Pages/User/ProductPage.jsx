@@ -160,7 +160,8 @@ const ProductPage = () => {
 
 
   const handleAddToCart = async () => {
-    await addProductToCart(dispatch, product, quantity, product.quantity);
+    console.log("Add to cart!");
+    await addProductToCart(dispatch, product, quantity, product.quantity, id);
   }
 
   return (

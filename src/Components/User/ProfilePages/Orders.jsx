@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { getMyOrdersList } from "../../../ApiCalls/ordersApiCalls";
 import { userRequest } from "../../../requestMethods/requestMethods"
 import OrderWidget from "../../AdminComponents/Widgets/OrderWidget"
 
@@ -10,13 +11,7 @@ const Orders = () => {
 
     useEffect(() => {
         const getMyOrder = async () => {
-            try {
-                const response = await userRequest.get("/orders");
-                setOrders(response.data)
-            }
-            catch (err) {
-                console.log(err);
-            }
+           setOrders(await getMyOrdersList())
         }
         getMyOrder();
     }, [])

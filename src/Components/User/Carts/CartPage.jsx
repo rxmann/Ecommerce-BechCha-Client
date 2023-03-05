@@ -180,7 +180,7 @@ const CartPage = () => {
                                 Empty Cart
                             </Button>
                             <Button 
-                                onClick={() => makeAnOrder(userCart, TOTALPAYABLE)}
+                                onClick={() => makeAnOrder(dispatch, userCart, TOTALPAYABLE)}
                                 variant="contained"> Checkout </Button>
                         </Cart>
                     </SummaryWrapper>

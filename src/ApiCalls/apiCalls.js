@@ -1,6 +1,9 @@
 import { userRequest } from "../requestMethods/requestMethods";
 import { toast } from 'react-toastify';
 import { cartStart, cartFail, updateCartSuccess, emptyCart } from "../Redux/cartSlice"
+import months from 'months';
+
+
 
 export const successToast = (message) => {
     toast.success(message, {
@@ -42,7 +45,7 @@ export const reloadCart = async (dispatch) => {
 
 
 // add to cart
-export const addProductToCart = async (dispatch, product, quantity, maxQuantity) => {
+export const addProductToCart = async (dispatch, product, quantity, maxQuantity, id) => {
 
     const form = new FormData()
     form.append("product", product._id)
@@ -52,12 +55,12 @@ export const addProductToCart = async (dispatch, product, quantity, maxQuantity)
 
     dispatch(cartStart());
     try {
-        await userRequest.post("/cart", form)
+        await userRequest.post(`/cart`, form)
         reloadCart(dispatch);
         successToast("Product added to cart!")
     }
     catch (err) {
-        console.log(err.response?.data || err);
+        console.log(err);
         failureToast( err?.response?.data || "Could not add to cart!")
         dispatch(cartFail())
     }
@@ -174,6 +177,26 @@ export const getUserStats = async () => {
     try {
         const response = await userRequest.get("/orders/users/analytics");
         return response.data;
+    }
+    catch (err) {
+        console.log(err.response?.data);
+    }
+}
+
+
+
+export const getUserRateStats = async () => {
+    try {
+        const response = await userRequest.get("/users/stats");
+        response.data.sort( (a, b) => a._id - b._id )
+        const userD = response?.data?.map((each) => {
+            const name = months[each._id - 1];
+            const users = each.total;
+            return {
+              name, users
+            }
+          })
+        return userD;
     }
     catch (err) {
         console.log(err.response?.data);

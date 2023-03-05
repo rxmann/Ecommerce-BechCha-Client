@@ -7,9 +7,8 @@ import Chart from "../../Components/AdminComponents/Chart"
 import NewUserWidget from "../../Components/AdminComponents/Widgets/NewUserWidget"
 import OrderWidget from "../../Components/AdminComponents/Widgets/OrderWidget"
 import Widget from "../../Components/AdminComponents/Widgets/Widget"
-import months from 'months';
-import { userRequest } from "../../requestMethods/requestMethods"
-import { getOrdersStats, getSalesStats, getUserStats } from "../../ApiCalls/apiCalls"
+import { getOrdersStats, getSalesStats, getUserRateStats, getUserStats } from "../../ApiCalls/apiCalls"
+import { getAllOrdersAsAdmin } from "../../ApiCalls/ordersApiCalls"
 
 const Container = styled.div`
     flex: 5;
@@ -77,24 +76,13 @@ const AdminHome = () => {
 
   useEffect(() => {
     const getUsersData = async () => {
-      try {
-        
-        const ordersResponse = await userRequest.get("/orders/all");
-        setOrdersData(ordersResponse.data)
-          
-        const response = await userRequest.get("/users/stats");
-        const userD = response?.data?.map((each) => {
-          const name = months[each._id - 1];
-          const users = each.total;
-          return {
-            name, users
-          }
-        })
-        setUserData(userD);
-      }
-      catch (err) {
-        console.log(err);
-      }
+      const ordersResponse = await getAllOrdersAsAdmin();
+      console.log(ordersResponse);
+      setOrdersData(ordersResponse)
+
+      const userResponse = await getUserRateStats();
+      setUserData(userResponse);
+
     }
     getUsersData();
   }, [currentUser, isSignedIn, navigate])
@@ -114,7 +102,7 @@ const AdminHome = () => {
       </ChartContainer>
 
       <HomeWidgets>
-        <OrderWidget orders={ordersData}  />
+        <OrderWidget orders={ordersData} />
         <NewUserWidget />
       </HomeWidgets>
     </Container>
