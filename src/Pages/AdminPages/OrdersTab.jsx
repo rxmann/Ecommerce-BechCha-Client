@@ -78,6 +78,14 @@ const StatusButton = ({ type }) => {
             color = "success"
             background = "#e5faf2"
             break;
+        case "processing":
+            color = "secondary"
+            background = "#fcebfe"
+            break;
+        case "shipping":
+            color = "info"
+            background = "#ebf1fe"
+            break;
         default:
             return;
     }
@@ -92,7 +100,7 @@ const OrdersTab = () => {
 
     useEffect(() => {
         const getOrds = async () => {
-            const ordersList = await getAllOrdersAsAdmin();
+            const ordersList = await getAllOrdersAsAdmin({ limit: 0 });
             setData(ordersList)
         }
         getOrds();
@@ -133,9 +141,9 @@ const OrdersTab = () => {
                         {params.row.totalItems} items
 
                         {params.row.products?.map(prod =>
-                            <Profile 
-                                key={prod.product.images[0].public_id} 
-                                src={prod.product.images[0].url} 
+                            <Profile
+                                key={prod.product.images[0].public_id}
+                                src={prod.product.images[0].url}
                             />
                         )}
                     </StatusCell>
@@ -160,7 +168,7 @@ const OrdersTab = () => {
             flex: 1,
             renderCell: (params) => {
                 return (
-                    params.row.status === "delivered" ? <StatusButton type={"delivered"} /> : <StatusButton type={"pending"} />
+                    <StatusButton type={params.row.status} />
                 )
             }
         },

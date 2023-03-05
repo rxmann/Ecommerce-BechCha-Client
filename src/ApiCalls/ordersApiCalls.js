@@ -12,13 +12,12 @@ export const getMyOrdersList = async (user) => {
 }
 
 
-export const getAllOrdersAsAdmin = async ({limit=""}) => {
+export const getAllOrdersAsAdmin = async ({limit=0}) => {
     try {
         let endpoint = "/orders?";
-        if (limit) endpoint += `limit=${limit}&`
+        if (limit !== 0) endpoint += `limit=${limit}&`
         console.log(endpoint);
         const response = await userRequest.get(endpoint);
-
         return response.data;
     }
     catch (err) {
@@ -30,11 +29,11 @@ export const getAllOrdersAsAdmin = async ({limit=""}) => {
 
 export const makeAnOrder = async (dispatch, orderData, totalPayable) => {
     try {
-        let cartProducts = orderData.cart.map(prod => {
+        let cartProducts = orderData.map(prod => {
             const { _id, ...rest} = prod;
             return {...rest,  product: rest.product._id}
         })
-        let cartQuantity = orderData.cart.reduce((acc, val) => {
+        let cartQuantity = orderData.reduce((acc, val) => {
             return acc += val.quantity
         }, 0)
         

@@ -5,6 +5,7 @@ import CartItem from "./CartItem";
 import { useEffect, useState } from "react";
 import { emptyMyCart, reloadCart } from "../../../ApiCalls/apiCalls";
 import { makeAnOrder } from "../../../ApiCalls/ordersApiCalls";
+import Fetching from "../EmptyView/Fetching";
 
 const Container = styled.div`
     
@@ -99,31 +100,27 @@ const Total = styled.h3`
 const CartPage = () => {
 
     const dispatch = useDispatch();
-    const [userCart, setUserCart] = useState();
 
     useEffect(() => {
         reloadCart(dispatch);
     }, [dispatch])
 
-    const cartObject = useSelector(state => state.usercart);
+    const { error, isLoading, cart: userCart, totalQuantity, totalAmount } = useSelector(state => state.usercart);
 
     useEffect(() => {
         const getCartIfNotInState = async () => {
-            if (cartObject) {
-                setUserCart(cartObject)
-            }
-            else if (cartObject?.cart?.length === 0) {
+            if (userCart?.cart?.length === 0) {
                 reloadCart(dispatch);
             }
         }
-        getCartIfNotInState();
-    }, [cartObject, dispatch])
+        getCartIfNotInState()
+    }, [userCart, dispatch])
 
 
-    const TOTALPAYABLE = userCart?.totalAmount + (userCart?.totalQuantity > 0 && 200);
+    const TOTALPAYABLE = totalAmount + (totalQuantity > 0 && 200);
 
 
-    return (
+    return ( 
         <Container>
             <Wrapper>
                 <CartWrapper>
@@ -140,31 +137,34 @@ const CartPage = () => {
                             <ItemTitle flex={0.3}> Action </ItemTitle>
                         </CartHeading>
 
-                        { userCart?.cart.length >= 1 ?
-                            userCart?.cart?.map((item) => (
+
+                        { isLoading && !error && !userCart && <Fetching color="#0171b6" type="spokes" /> }
+                        { userCart && userCart.length > 0 ?
+                            userCart?.map((item) => (
                                 <CartItem product={item.product} key={item.product._id} maxQuantity={item.maxQuantity} quantity={item.quantity} />
                             ))
                             :
-                            "Cart Empty!"
+                            // <Fetching color="#0171b6" type="blank" /> 
+                            "check"
                         }
 
                     </Cart>
                 </CartWrapper>
 
-                {cartObject && cartObject.totalQuantity >= 1 &&
+                { userCart && totalQuantity >= 1 &&
 
                     <SummaryWrapper>
                         <Cart>
                             <Title> Order Summary</Title>
                             <Item>
                                 <TotalText> Sub Total </TotalText>
-                                <Price > {userCart?.totalAmount} </Price>
+                                <Price > {totalAmount} </Price>
                             </Item>
 
                             {userCart?.totalQuantity > 0 &&
                                 <Item>
                                     <TotalText> Delivery  </TotalText>
-                                    <Price > {userCart?.totalQuantity > 0 && 200} </Price>
+                                    <Price > {totalQuantity > 0 && 200} </Price>
                                 </Item>
                             }
 
