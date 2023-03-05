@@ -76,7 +76,7 @@ const AdminHome = () => {
 
   useEffect(() => {
     const getUsersData = async () => {
-      const ordersResponse = await getAllOrdersAsAdmin();
+      const ordersResponse = await getAllOrdersAsAdmin({limit: 5});
       console.log(ordersResponse);
       setOrdersData(ordersResponse)
 

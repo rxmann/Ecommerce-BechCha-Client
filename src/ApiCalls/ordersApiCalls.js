@@ -12,9 +12,13 @@ export const getMyOrdersList = async (user) => {
 }
 
 
-export const getAllOrdersAsAdmin = async () => {
+export const getAllOrdersAsAdmin = async ({limit=""}) => {
     try {
-        const response = await userRequest.get("/orders");
+        let endpoint = "/orders?";
+        if (limit) endpoint += `limit=${limit}&`
+        console.log(endpoint);
+        const response = await userRequest.get(endpoint);
+
         return response.data;
     }
     catch (err) {
