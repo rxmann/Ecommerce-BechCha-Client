@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import UserUpdateForm from "./UserUpdateForm";
 import { useState } from "react";
 import { getOneUser, LogoutUser } from "../../../ApiCalls/UserApiCalls";
+import Fetching from "../EmptyView/Fetching";
 
 
 const Container =styled.div`
@@ -20,9 +21,6 @@ const Card = styled.div`
     width: 100%;
     background-color: white;
 `
-
-
-
 
 const Bottom = styled.div`
     display: flex;
@@ -82,7 +80,7 @@ const ProfileDisplay = () => {
                 <Button variant="contained" color="error" onClick={handleLogout} > {user.username} Logout </Button>
                 </Bottom>
             }
-            </> : "No user found!"
+        </> : <Fetching type={"Empty"} Message={"No user data!"}  />
         }
         </Container>
     )

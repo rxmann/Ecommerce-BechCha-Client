@@ -124,10 +124,11 @@ export const getOneUser = async (dispatch, id ) => {
     }
     catch (er) {
         console.log(er.response?.data || er);
-        if (er.response?.data?.code.toString() === "notoken") {
+        if (er.response?.data?.code?.toString() === "notoken") {
             localStorage.setItem("persist:root", null);
         }
         dispatch(requestFailure());
+        return null;
     }
 }
 

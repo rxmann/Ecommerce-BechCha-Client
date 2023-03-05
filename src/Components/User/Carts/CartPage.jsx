@@ -2,18 +2,16 @@ import styled from "styled-components";
 import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./CartItem";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { emptyMyCart, reloadCart } from "../../../ApiCalls/apiCalls";
 import { makeAnOrder } from "../../../ApiCalls/ordersApiCalls";
 import Fetching from "../EmptyView/Fetching";
 
 const Container = styled.div`
-    
-`
-const Wrapper = styled.div`
     display: flex;
     gap: 20px;
     min-height: 400px;
+    display: flex;
 `
 
 const CartWrapper = styled.div`
@@ -95,8 +93,6 @@ const Total = styled.h3`
     color: #0171b6;
 `
 
-
-
 const CartPage = () => {
 
     const dispatch = useDispatch();
@@ -105,7 +101,7 @@ const CartPage = () => {
         reloadCart(dispatch);
     }, [dispatch])
 
-    const { error, isLoading, cart: userCart, totalQuantity, totalAmount } = useSelector(state => state.usercart);
+    const { isLoading, cart: userCart, totalQuantity = 0, totalAmount } = useSelector(state => state.usercart);
 
     useEffect(() => {
         const getCartIfNotInState = async () => {
@@ -120,74 +116,71 @@ const CartPage = () => {
     const TOTALPAYABLE = totalAmount + (totalQuantity > 0 && 200);
 
 
-    return ( 
+    return (
         <Container>
-            <Wrapper>
-                <CartWrapper>
-                    <TitleWrapper>
-                        <Title> Shopping Cart </Title>
-                        <Title> Items: {userCart?.totalQuantity} </Title>
-                    </TitleWrapper>
-                    <Cart>
-                        <CartHeading>
-                            <ItemTitle flex={2}> Product  </ItemTitle>
-                            <ItemTitle flex={2}> Quantity  </ItemTitle>
-                            <ItemTitle flex={1}> Price  </ItemTitle>
-                            <ItemTitle flex={1}> Sum  </ItemTitle>
-                            <ItemTitle flex={0.3}> Action </ItemTitle>
-                        </CartHeading>
+            {!isLoading ?
+                    (<CartWrapper>
+                        <TitleWrapper>
+                            <Title> Shopping Cart </Title>
+                            <Title> Items: {totalQuantity} </Title>
+                        </TitleWrapper>
 
+                        {userCart && userCart.length > 0 ?
+                        <Cart>
+                            <CartHeading>
+                                <ItemTitle flex={2}> Product  </ItemTitle>
+                                <ItemTitle flex={2}> Quantity  </ItemTitle>
+                                <ItemTitle flex={1}> Price  </ItemTitle>
+                                <ItemTitle flex={1}> Sum  </ItemTitle>
+                                <ItemTitle flex={0.3}> Action </ItemTitle>
+                            </CartHeading>
 
-                        { !isLoading  ? 
-                        (userCart && userCart.length > 0 ?
-                            userCart?.map((item) => (
+                            {userCart?.map((item) => (
                                 <CartItem product={item.product} key={item.product._id} maxQuantity={item.maxQuantity} quantity={item.quantity} />
-                                ))
-                                :
-                                // <Fetching color="#0171b6" type="blank" /> 
-                                <Fetching type={"Empty"} Message={"No Items in cart. Browse for more products!"} />
-                            )
-                        : <Fetching color="#0171b6" type="spokes" />
+                            ))
+
+                            }
+                        </Cart>
+                    :  <Fetching type="Empty" Message={"No items in cart! Please browse for products"} />   
+                    }
+                    </CartWrapper>
+                    ) :
+                    <Fetching type="spokes" />
+            }
+            {userCart && totalQuantity >= 1 &&
+
+                <SummaryWrapper>
+                    <Cart>
+                        <Title> Order Summary</Title>
+                        <Item>
+                            <TotalText> Sub Total </TotalText>
+                            <Price > {totalAmount} </Price>
+                        </Item>
+
+                        {userCart?.totalQuantity > 0 &&
+                            <Item>
+                                <TotalText> Delivery  </TotalText>
+                                <Price > {totalQuantity > 0 && 200} </Price>
+                            </Item>
                         }
 
                     </Cart>
-                </CartWrapper>
 
-                { userCart && totalQuantity >= 1 &&
+                    <Cart>
+                        <Item>
+                            <Total> Total </Total>
+                            <Total> NPR {TOTALPAYABLE}  </Total>
+                        </Item>
 
-                    <SummaryWrapper>
-                        <Cart>
-                            <Title> Order Summary</Title>
-                            <Item>
-                                <TotalText> Sub Total </TotalText>
-                                <Price > {totalAmount} </Price>
-                            </Item>
-
-                            {userCart?.totalQuantity > 0 &&
-                                <Item>
-                                    <TotalText> Delivery  </TotalText>
-                                    <Price > {totalQuantity > 0 && 200} </Price>
-                                </Item>
-                            }
-
-                        </Cart>
-
-                        <Cart>
-                            <Item>
-                                <Total> Total </Total>
-                                <Total> NPR {TOTALPAYABLE}  </Total>
-                            </Item>
-
-                            <Button color={"error"} onClick={() => emptyMyCart(dispatch)} >
-                                Empty Cart
-                            </Button>
-                            <Button 
-                                onClick={() => makeAnOrder(dispatch, userCart, TOTALPAYABLE)}
-                                variant="contained"> Checkout </Button>
-                        </Cart>
-                    </SummaryWrapper>
-                }
-            </Wrapper>
+                        <Button color={"error"} onClick={() => emptyMyCart(dispatch)} >
+                            Empty Cart
+                        </Button>
+                        <Button
+                            onClick={() => makeAnOrder(dispatch, userCart, TOTALPAYABLE)}
+                            variant="contained"> Checkout </Button>
+                    </Cart>
+                </SummaryWrapper>
+            }
         </Container>
     );
 };
