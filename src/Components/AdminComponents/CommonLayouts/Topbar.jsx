@@ -75,14 +75,14 @@ const Topbar = () => {
             navigate("/login");
         }
         else {
-            navigate(`/profile/${currentUser._id}`);
+            navigate(`/profile/me`);
         }
     }
     return (
         <Container>
             <Wrapper >
                 <Left>
-                    <Link to="/">
+                    <Link to="/admin/dashboard">
                         <Logo src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true' />
                     </Link>
                 </Left>

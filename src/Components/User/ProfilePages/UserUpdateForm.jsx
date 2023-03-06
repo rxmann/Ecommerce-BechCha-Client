@@ -9,13 +9,14 @@ import { useNavigate } from "react-router-dom";
 import { updateUser, updateUserByAdmin } from "../../../ApiCalls/UserApiCalls";
 
 const Form = styled.form`
-    flex: 2;
+    flex: 1.5;
     display: flex;
     flex-direction: column;
     gap: 30px;
     padding: 30px;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    background-color: white;
 `
 
 const FormItem = styled.div`

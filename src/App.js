@@ -37,11 +37,15 @@ import CategoriesTab from "./Pages/AdminPages/CategoriesTab"
 import CategoryAdd from "./Components/AdminComponents/Category/CategoryAdd"
 import CategoryDisplay from "./Components/AdminComponents/Category/CategoryDisplay"
 import OrdersTab from "./Pages/AdminPages/OrdersTab"
+import OrderDetails from "./Components/User/Order/OrderDetails"
 
 
 const Wrapper = styled.div`
   background-color: #f5f7f8;
-  width: 100%;
+   /* hide scrollbar on Chrome */
+   ::-webkit-scrollbar {
+          display: none;
+        }
 `
 const Contents = styled.div`
   display: flex;
@@ -51,6 +55,7 @@ const Contents = styled.div`
 
 const ProfileWrapper = styled.div`
   padding: 10px 50px;
+  
 `
 
 // box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
@@ -144,16 +149,20 @@ const App = () => {
           element: <ProfileLayout />,
           children: [
             {
-              path: "/profile/:id",
+              path: "/profile/me",
               element: <ProfileDisplay />
             },
             {
-              path: "/profile/cart/:id",
+              path: "/profile/cart/me",
               element: <CartPage />
             },
             {
-              path: "/profile/orders/:id",
+              path: "/profile/orders/me",
               element: <Orders />
+            },
+            {
+              path: "/profile/order/:id",
+              element: <OrderDetails />
             },
           ]
         },
@@ -188,25 +197,25 @@ const App = () => {
           element: <UserDetails />
         },
         {
-          path: "/admin/user/register",
-          element: <UserRegister />
-        },
-        {
           path: "/admin/product/:id",
           element: <ProductDetails />
-        },
-        {
-          path: "/admin/product/add",
-          element: <ProductAdd />
         },
         {
           path: "/admin/category/:id",
           element: <CategoryDisplay />
         },
         {
+          path: "/admin/user/register",
+          element: <UserRegister />
+        },
+        {
+          path: "/admin/product/add",
+          element: <ProductAdd />
+        },
+        {
           path: "/admin/category/add",
           element: <CategoryAdd />
-        }
+        },
       ]
     },
     {

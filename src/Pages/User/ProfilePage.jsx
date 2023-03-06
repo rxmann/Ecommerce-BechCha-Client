@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { useSelector } from "react-redux"
 
 const Container = styled.div`
-  margin: 20px 50px;
+  padding: 10px 50px;
 `
 
 const Wrapper = styled.div`
@@ -51,37 +51,43 @@ const ProfilePage = () => {
   const path = useLocation().pathname;
   const navigate = useNavigate();
 
-  const [selected, setSelected] = useState(path);
+  const [selected, setSelected] = useState();
+
+
+
+  useEffect(() => {
+    setSelected(path);
+  }, [path])
 
   const navItems = [
     {
       title: "Profile",
-      goto: `/profile/${currentUser?._id}`
+      goto: `/profile/me`,
     },
     {
       title: "Cart",
-      goto: `/profile/cart/${currentUser?._id}`
+      goto: `/profile/cart/me`,
     },
     {
       title: "Orders",
-      goto: `/profile/orders/${currentUser?._id}`
+      goto: `/profile/orders/me`,
     },
     {
       title: "Account",
-      goto: `/profile/account/${currentUser?._id}`
+      goto: `/profile/account/me`,
     }
   ]
 
 
   const handleNavigate = (item) => {
-    setSelected(item.goto)
+    setSelected(item)
   }
 
   useEffect(() => {
     const changeLayout = () => {
       if (currentUser === null) navigate("/");
       else {
-        navigate(selected);
+        navigate(selected?.goto);
       }
     }
     changeLayout();

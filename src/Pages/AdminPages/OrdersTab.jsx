@@ -1,4 +1,3 @@
-import { DeleteOutline } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
@@ -44,12 +43,6 @@ const ViewButton = styled(Button)`
   cursor: pointer;
   color: #0171b6;
   border: 1px solid #0171b6;
-`
-
-const DelBtn = styled(Button)`
-  display: flex;
-  justify-content: flex-end;
-  height: 100%;
 `
 const StatusCell = styled.div`
   display: flex;
@@ -106,12 +99,6 @@ const OrdersTab = () => {
         getOrds();
     }, [])
 
-
-
-
-    const DeleteThisOrder = async (id) => {
-
-    }
 
 
     const actionColumn = [
@@ -193,15 +180,7 @@ const OrdersTab = () => {
             renderCell: (params) => {
                 return (
                     <ActionCell>
-                        <ViewButton onClick={() => navigate(`/admin/category/${params.row._id}`)}> View </ViewButton>
-                        {/* <DelBtn
-                            size="small"
-                            variant="text"
-                            color="error"
-                            onClick={() => { DeleteThisOrder(params.row._id) }}
-                        >
-                            <DeleteOutline />
-                        </DelBtn> */}
+                        <ViewButton onClick={() => navigate(`/admin/order/${params.row._id}`)}> Edit </ViewButton>
                     </ActionCell>
                 )
             }

@@ -65,7 +65,7 @@ const AdminHome = () => {
     }
 
     getAllStats();
-  }, [currentUser, isSignedIn, navigate])
+  }, [currentUser, isSignedIn ])
 
 
 
@@ -84,7 +84,7 @@ const AdminHome = () => {
 
     }
     getUsersData();
-  }, [currentUser, isSignedIn, navigate])
+  }, [currentUser, isSignedIn])
 
 
   return (

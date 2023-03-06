@@ -21,7 +21,7 @@ const Container = styled.div`
     align-items: center;
     justify-content: space-between;
     background-color: #ffffff;
-    z-index: 3;
+    z-index: 6;
     box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);
     height: 60px;
 `
@@ -53,7 +53,8 @@ const Middle = styled.div`
 `
 
 const SearchContainer = styled.div`
-    width: 70%;
+    /* width: 70%; */
+    min-width: 500px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -108,12 +109,13 @@ const Navbar = () => {
 
 
     const [search, setSearch] = useState("");
+    
     const handleProfile = () => {
         if (!isSignedIn || !currentUser) {
             navigate("/login");
         }
         else {
-            navigate(`/profile/${currentUser._id}`);
+            navigate(`/profile/me`);
         }
     }
     return (
@@ -158,7 +160,7 @@ const Navbar = () => {
                     <Mbtn onClick={handleProfile} >
                         {currentUser === null ? <AccountCircleIcon /> : <ProfilePic src={currentUser.image} />}
                     </Mbtn>
-                    <Mbtn onClick={() => navigate(`/profile/cart/${currentUser._id}`)}>
+                    <Mbtn onClick={() => navigate(`/profile/cart/me`)}>
                         <Badge color='error' badgeContent={quantity}  >
                             <ShoppingCartOutlined />
                         </Badge>

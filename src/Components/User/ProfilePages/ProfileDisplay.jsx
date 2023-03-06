@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { Button } from "@mui/material";
 import UserProfile from "./UserProfile";
-import {  useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import UserUpdateForm from "./UserUpdateForm";
@@ -10,16 +10,16 @@ import { getOneUser, LogoutUser } from "../../../ApiCalls/UserApiCalls";
 import Fetching from "../EmptyView/Fetching";
 
 
-const Container =styled.div`
+const Container = styled.div`
      display: flex;
      flex-direction: column;
      width: 100%;
 `
 const Card = styled.div`
     display: flex;
-    gap: 30px;
-    width: 100%;
-    background-color: white;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50PX;  
 `
 
 const Bottom = styled.div`
@@ -33,33 +33,35 @@ const Bottom = styled.div`
 
 const ProfileDisplay = () => {
 
-    const userId = useParams().id;
+    let userId = useParams().id;
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { isSignedIn, currentUser } = useSelector(state => state.user)
 
-    const [ user, setUser] = useState({});
+    if (!userId) userId = currentUser._id
+
+    const [user, setUser] = useState({});
 
     // check user login status
     useEffect(() => {
         const checkLogin = () => {
-          if (!isSignedIn || !userId) {
-            navigate("/login");
-          }
+            if (!isSignedIn || !userId) {
+                navigate("/login");
+            }
         }
         checkLogin();
-      }, [isSignedIn, userId, dispatch, navigate]);
+    }, [isSignedIn, userId, dispatch]);
 
 
 
-      useEffect(() => {
+    useEffect(() => {
         const userD = async () => {
             const response = await getOneUser(dispatch, userId)
             setUser(response);
         }
         userD();
-      }, [userId, dispatch]);
-      
+    }, [userId, dispatch]);
+
 
     const handleLogout = async (e) => {
         e.preventDefault();
@@ -68,20 +70,20 @@ const ProfileDisplay = () => {
 
     return (
         <Container>
-        {user ? 
-        <>
-            <Card>
-                <UserUpdateForm user={user} isAdmin={currentUser?.isAdmin} email={currentUser?.email}/>
-                <UserProfile user={user}/>
-            </Card>
+            {user ?
+                <>
+                    <Card>
+                        <UserUpdateForm user={user} isAdmin={currentUser?.isAdmin} email={currentUser?.email} />
+                        <UserProfile user={user} />
+                    </Card>
 
-            {user?._id === currentUser?._id &&
-                <Bottom>
-                <Button variant="contained" color="error" onClick={handleLogout} > {user.username} Logout </Button>
-                </Bottom>
+                    {user?._id === currentUser?._id &&
+                        <Bottom>
+                            <Button variant="contained" color="error" onClick={handleLogout} > {user.username} Logout </Button>
+                        </Bottom>
+                    }
+                </> : <Fetching type={"Empty"} Message={"No user data!"} />
             }
-        </> : <Fetching type={"Empty"} Message={"No user data!"}  />
-        }
         </Container>
     )
 }

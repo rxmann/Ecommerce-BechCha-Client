@@ -2,13 +2,12 @@ import styled from "styled-components"
 import Button from '@mui/material/Button';
 import { useEffect, useState } from "react";
 import Fetching from "../EmptyView/Fetching";
+import { useNavigate } from 'react-router-dom';
 const moment = require("moment")
 
 
 const Container = styled.div`
-    flex: 2;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-    padding: 20px;
     background-color: #ffffff;
 `
 
@@ -61,8 +60,14 @@ const Name = styled.span`
     font-weight: 500;
 `
 
+const Action = styled(Button)`
+
+`
+
 
 const OrderPage = ({ orders: allOrders}) => {
+
+  const navigate = useNavigate();
   
   const StatusButton = ({ type }) => {
     let color, background;
@@ -126,6 +131,13 @@ const OrderPage = ({ orders: allOrders}) => {
             <Date> { moment(order.createdAt).format('MMM D, YYYY') } </Date>
             <Amount> RS {order.payable} </Amount>
             <Status> <StatusButton type={order.status} /> </Status>
+            <Action 
+              variant="text" 
+              color={"secondary"} 
+              onClick= { () => navigate(`/profile/order/${order._id}`) }
+            > 
+                Details 
+            </Action>
         </TableRow>
         ))
       }

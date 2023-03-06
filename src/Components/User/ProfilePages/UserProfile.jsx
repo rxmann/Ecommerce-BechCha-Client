@@ -12,6 +12,7 @@ import { deleteUserAccount } from '../../../ApiCalls/UserApiCalls';
 
 const Container = styled.div`
     flex: 1;
+    background-color: white;
 `
 
 const Profile = styled.div`

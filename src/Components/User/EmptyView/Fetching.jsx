@@ -17,7 +17,7 @@ const LoadingScreen = styled.span`
   width: 100%;
   min-height: 30vh;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 16px;
   background-color: white;
     display: flex;
     align-items: center;
