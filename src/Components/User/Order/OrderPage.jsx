@@ -10,6 +10,7 @@ const Container = styled.div`
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
     background-color: #ffffff;
     min-height: 40vh;
+    padding: 20px;
 `
 
 const Title = styled.span`

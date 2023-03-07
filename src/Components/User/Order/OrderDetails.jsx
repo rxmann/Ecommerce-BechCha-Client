@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components"
 import WestIcon from '@mui/icons-material/West';
 import { useEffect, useState } from "react";
@@ -6,13 +6,14 @@ import { getOneOrderById } from "../../../ApiCalls/ordersApiCalls";
 import Fetching from "../EmptyView/Fetching";
 import moment from "moment"
 import StepProgressBar from "./StepProgressBar";
+import CartItem from "../Carts/CartItem";
 
 const Container = styled.div`
   background-color: #ffffff;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 50px;
   gap: 10px;
   min-height: 40vh;
 `
@@ -24,8 +25,6 @@ const Title = styled.h2`
 
 const Back = styled(WestIcon)`
   border-radius: 50%; 
-  background-color: "#aaaaaa"; 
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   padding: 10px;
   cursor: pointer;
   &:hover {
@@ -81,7 +80,10 @@ const OrderItem = styled.div`
 `
 
 const OrderStatusWrapper = styled.div`
-
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 const OrderStatus = styled.div`
@@ -94,6 +96,8 @@ const CancelOrder = styled.div`
 
 
 const OrderDetails = () => {
+  
+  const navigate = useNavigate();
   const orderId = useParams().id;
 
   const [order, setOrder] = useState();
@@ -106,11 +110,9 @@ const OrderDetails = () => {
     getOrderDetails();
   }, [orderId])
 
-  console.log(order);
-
   return (
     <Container>
-      <Back onClick={() => window.history.go(-1)} />
+      <Back onClick={()=> navigate("/profile/orders/me")} />
       {order ?
         <>
           <Title>Order Details</Title>
@@ -123,15 +125,12 @@ const OrderDetails = () => {
               <OrderTotalAmount> Total: NPR {order.payable} </OrderTotalAmount>
             </OrderTitleWrapper>
 
-            <StepProgressBar />
-
+            
             <OrderStatusWrapper>
-              
-              <OrderStatus> {order.status} </OrderStatus>
-              <CancelOrder> Cancel </CancelOrder>
+              <StepProgressBar status={order.status} />
             </OrderStatusWrapper>
 
-
+            <CartItem />
 
 
             <OrderUserWrapper>

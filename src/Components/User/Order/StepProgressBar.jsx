@@ -1,50 +1,141 @@
-import styled from "styled-components"
-import { ProgressBar, Step } from "react-step-progress-bar";
-
+import { ProgressBar, Step } from 'react-step-progress-bar';
+import 'react-step-progress-bar/styles.css';
+import styled from 'styled-components';
+import WarehouseIcon from '@mui/icons-material/Warehouse';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const Container = styled.div`
-    width: 100%;
+    padding: 10px 30px;
+    width: 60%;
 `
 
-const StepProgressBar = () => {
+const StatusWrapper = styled.div`
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+`
+
+const IconWrapper = styled.div`
+    color:  ${props => props.color};
+    background-color: ${props => props.background};
+    padding: 8px;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+`
+
+const MultiStepProgressBar = styled.div`
+    margin: 50px;
+`
+
+const Status = styled.span`
+    font-weight: 500px;
+    font-size: 16px;
+    color: gray;
+`
+
+
+
+const steps = [
+    {
+        name: "PENDING",
+        label: <AutorenewIcon />
+    },
+    {
+        name: "PROCESSING",
+        label: <WarehouseIcon />
+    },
+    {
+        name: "SHIPPING",
+        label: <LocalShippingIcon />
+    },
+    {
+        name: "DELIVERED",
+        label: <CheckCircleIcon />
+    }
+];
+
+const StepProgressBar = ({ status }) => {
+
+    var stepPercentage = 0;
+
+    switch (status) {
+        case "pending":
+            stepPercentage = 16;
+            break;
+        case "processing":
+            stepPercentage = 49.5;
+            break;
+        case "shipping":
+            stepPercentage = 82.5;
+            break;
+        case "delivered":
+            stepPercentage = 100;
+            break;
+        default:
+            stepPercentage = 50;
+    }
+
+    
+
     return (
         <Container>
-            <ProgressBar
-            percent={75}
-            filledBackground="linear-gradient(to right, #fefb72, #f0bb31)"
-        >
+            <MultiStepProgressBar>
+                <ProgressBar
+                    percent={stepPercentage}
+                    filledBackground="linear-gradient(to right, #2c8fffd3, #4effb8e8)"
+                >
+                    {steps.map((step, index) => (
+                        <Step key={index} transition="scale">
+                            {({ accomplished }) => (
+                                accomplished ?
+                                    (
+                                        <StatusWrapper>
+                                            <IconWrapper color={"#ffffff"} background={"#0171b6"} >
+                                                {step.label}
+                                            </IconWrapper>
+                                        </StatusWrapper>
 
-            <Step transition="scale">
-                {({ accomplished }) => (
-                    <img
-                        style={{ filter: `grayscale(${accomplished ? 0 : 80}%)` }}
-                        width="30"
-                        src="https://vignette.wikia.nocookie.net/pkmnshuffle/images/9/9d/Pichu.png/revision/latest?cb=20170407222851"
-                    />
-                )}
-            </Step>
-            <Step transition="scale">
-                {({ accomplished }) => (
-                    <img
-                        style={{ filter: `grayscale(${accomplished ? 0 : 80}%)` }}
-                        width="30"
-                        src="https://vignette.wikia.nocookie.net/pkmnshuffle/images/9/97/Pikachu_%28Smiling%29.png/revision/latest?cb=20170410234508"
-                    />
-                )}
-            </Step>
-            <Step transition="scale">
-                {({ accomplished }) => (
-                    <img
-                        style={{ filter: `grayscale(${accomplished ? 0 : 80}%)` }}
-                        width="30"
-                        src="https://orig00.deviantart.net/493a/f/2017/095/5/4/raichu_icon_by_pokemonshuffle_icons-db4ryym.png"
-                    />
-                )}
-            </Step>
+                                    )
 
-        </ProgressBar>
+                                    :
+
+                                    <StatusWrapper>
+                                        <IconWrapper color={""} background={"#f5f7f8"} >
+                                            {step.label}
+                                        </IconWrapper>
+                                    </StatusWrapper>
+
+                            )}
+                        </Step>
+                    ))}
+                </ProgressBar>
+
+            </MultiStepProgressBar>
+
+
+            <MultiStepProgressBar>
+
+                <ProgressBar
+                    percent={stepPercentage}
+                    filledBackground={"#FFFFFF"}
+                    unfilledBackground={"#ffffff"}
+                >
+                    {steps.map((step, index) => (
+                        <Step key={index} transition="scale">
+                            {({ accomplished }) => (
+                                <Status> {step.name} </Status>
+                            )}
+                        </Step>
+                    ))}
+                </ProgressBar>
+            </MultiStepProgressBar>
         </Container>
-    )
-}
+    );
+};
 
-export default StepProgressBar
+export default StepProgressBar;
