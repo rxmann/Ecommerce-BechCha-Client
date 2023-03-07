@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components"
 import WestIcon from '@mui/icons-material/West';
+import { useEffect, useState } from "react";
+import { getOneOrderById } from "../../../ApiCalls/ordersApiCalls";
 
 const Container = styled.div`
   background-color: #ffffff;
@@ -28,11 +30,41 @@ const Wrapper = styled.div`
 `
 const OrderDetails = () => {
   const orderId = useParams().id;
+
+  const [order, setOrder] = useState();
+
+  useEffect(() => {
+    const getOrderDetails = async () => {
+      const orderDetails = await getOneOrderById(orderId);
+      setOrder(orderDetails);
+    }
+    getOrderDetails();
+  }, [orderId])
+
   return (
     <Container>
       <Back onClick={() => window.history.back()}/>
       <Wrapper>
-        OrderDetails
+        <OrderTitleWrapper>
+          <OrderTitle> </OrderTitle>
+          <OrderQuantity>  </OrderQuantity>
+        </OrderTitleWrapper>
+
+        <OrderUserWrapper> 
+          <UserProfile>  </UserProfile>
+        </OrderUserWrapper>
+
+        <OrderProductsList>
+           <OrderItem>  </OrderItem>
+           <OrderItem>  </OrderItem>
+           <OrderItem>  </OrderItem>
+        </OrderProductsList>
+
+
+        <OrderStatusWrapper>
+          <OrderStatus>  </OrderStatus>
+          <CancelOrder>  </CancelOrder>
+        </OrderStatusWrapper>
       </Wrapper>
     </Container>
   )

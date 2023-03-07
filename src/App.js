@@ -42,10 +42,6 @@ import OrderDetails from "./Components/User/Order/OrderDetails"
 
 const Wrapper = styled.div`
   background-color: #f5f7f8;
-   /* hide scrollbar on Chrome */
-   ::-webkit-scrollbar {
-          display: none;
-        }
 `
 const Contents = styled.div`
   display: flex;

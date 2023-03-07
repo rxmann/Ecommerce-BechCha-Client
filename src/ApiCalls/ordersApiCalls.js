@@ -1,6 +1,20 @@
 import { userRequest } from "../requestMethods/requestMethods";
 import { emptyMyCart, successToast } from "./apiCalls";
 
+
+
+// needs authorization
+export const getOneOrderById = async (id) => {
+    try {
+        const response = await userRequest.get(`/orders/${id}`);
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+
 export const getMyOrdersList = async () => {
     try {
         const response = await userRequest.get(`/orders/me`)
