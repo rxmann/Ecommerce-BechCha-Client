@@ -2,7 +2,7 @@ import { Button } from "@mui/material"
 import styled from "styled-components"
 
 const Container = styled.div`
-    flex: 4;
+    flex: 2;
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 `
 
 const ItemsList = styled.div`
-    padding: 10px;
+    padding: 10px 0px;
     width: 100%;
 `
 const ProductImage = styled.img`
@@ -28,11 +28,12 @@ const ProductImage = styled.img`
 const ItemContainer = styled.div`
     display: flex;
     width: 100%;
+    padding: 10px 0px;
 `
 
 const ItemH = styled.span`
     flex: ${props => props.flex};
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 500;
     display: flex;
     align-items: center;

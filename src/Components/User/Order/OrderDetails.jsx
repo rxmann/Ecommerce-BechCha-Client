@@ -7,6 +7,7 @@ import Fetching from "../EmptyView/Fetching";
 import moment from "moment"
 import StepProgressBar from "./StepProgressBar";
 import OrderedProduct from "./OrderedProduct";
+import { Button } from "@mui/material";
 
 const Container = styled.div`
   background-color: #ffffff;
@@ -15,10 +16,9 @@ const Container = styled.div`
   flex-direction: column;
   padding: 50px;
   gap: 10px;
-  min-height: 40vh;
 `
 
-const Title = styled.h3`
+const Title = styled.h2`
   color: #aaaaaa;
 `
 
@@ -35,7 +35,7 @@ const Back = styled(WestIcon)`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 50px;
 `
 
 const OrderTitleWrapper = styled.div`
@@ -55,66 +55,41 @@ const OrderTitle = styled.span`
 
 
 const OrderTotalAmount = styled.span`
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 20px;
 `
 
-
-const OrderUserWrapper = styled.div`
-
-`
-
-
-const UserProfile = styled.div`
-
-`
-
-
-
-const OrderProductsList = styled.div`
-
-`
-
-const OrderItem = styled.div`
-
-`
 
 const OrderStatusWrapper = styled.div`
     display: flex;
 `
-
-const OrderStatus = styled.div`
-
-`
-
-const CancelOrder = styled.div`
-
-`
-
-
-
 const SummaryWrapper = styled.div`
     flex: 1;
     padding: 10px;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 `
 
-const TotalText = styled.span`
+const Item = styled.div`
+  display: flex;
+`
+
+const SummaryName = styled.span`
+    flex: 1;
     font-size: 16px;
     color: gray;
     font-weight: 500;
 `
 
-const Price = styled.span`
-    font-size: 16px;
-    font-weight: 500;
+const SummaryValue = styled.span`
+    flex: 1;
+    font-size:${props => props.size ? props.size : "16px"};
+    color: ${props => props.color && props.color};
+    font-weight: ${props => props.weight ? props.weight : 400};
 `
-
-const Total = styled.h3`
-    color: #0171b6;
-`
-
-const Item = styled.div`
-
+const Titled = styled.h3`
+  color: #aaaaaa;
 `
 
 
@@ -124,14 +99,14 @@ const OrderDetails = () => {
   const orderId = useParams().id;
 
   const [order, setOrder] = useState();
-  let Sum;
+  const [Sum, setSum] = useState();
 
   useEffect(() => {
     const getOrderDetails = async () => {
       const orderDetails = await getOneOrderById(orderId);
-      Sum = orderDetails.products.reduce((acc, val) => {
+      setSum(orderDetails.products.reduce((acc, val) => {
         return acc += val.price
-      }, 0)
+      }, 0))
       setOrder(orderDetails);
     }
     getOrderDetails();
@@ -146,7 +121,10 @@ const OrderDetails = () => {
       <Back onClick={() => navigate("/profile/orders/me")} />
       {order ?
         <>
+        <OrderTitleWrapper>
           <Title>Order Details</Title>
+          {order.status === "pending" && <Button color="error"> Cancel Order </Button>}
+        </OrderTitleWrapper>
           <Wrapper>
             <OrderTitleWrapper>
               <OrderTitles>
@@ -163,42 +141,39 @@ const OrderDetails = () => {
 
             {/* { Order Items and Summary } */}
             <OrderStatusWrapper>
-              
+
               <OrderedProduct data={order} />
 
               <SummaryWrapper>
-                <Title> Order Summary</Title>
+                <Titled> Order Summary</Titled>
                 <Item>
-                  <TotalText> Sub Total </TotalText>
-                  <Price > {Sum} </Price>
+                  <SummaryName> Shipping Address  </SummaryName>
+                  <SummaryValue > Mandikhatar, Kathmandu </SummaryValue>
                 </Item>
                 <Item>
-                  <TotalText> Delivery  </TotalText>
-                  <Price > 200 </Price>
+                  <SummaryName> Blling Address  </SummaryName>
+                  <SummaryValue > Mandikhatar, Kathmandu </SummaryValue>
                 </Item>
                 <Item>
-                  <Total> Total </Total>
-                  <Total> NPR {order.payable}  </Total>
+                  <SummaryName> Recipient  </SummaryName>
+                  <SummaryValue > Roman karki </SummaryValue>
+                </Item>
+
+
+                <Item>
+                  <SummaryName> Sub Total </SummaryName>
+                  <SummaryValue > RS {Sum} </SummaryValue>
+                </Item>
+                <Item>
+                  <SummaryName> Delivery  </SummaryName>
+                  <SummaryValue > RS 200 </SummaryValue>
+                </Item>
+                <Item>
+                  <SummaryValue color={"#0171b6"} size={"24px"} weight={"600"} > Total Payable </SummaryValue>
+                  <SummaryValue color={"#0171b6"} size={"24px"} weight={"600"}> NPR {order.payable} </SummaryValue>
                 </Item>
               </SummaryWrapper>
             </OrderStatusWrapper>
-
-
-
-
-
-            <OrderUserWrapper>
-              <UserProfile>  </UserProfile>
-            </OrderUserWrapper>
-
-            <OrderProductsList>
-              <OrderItem>  </OrderItem>
-              <OrderItem>  </OrderItem>
-              <OrderItem>  </OrderItem>
-            </OrderProductsList>
-
-
-
           </Wrapper>
         </>
 

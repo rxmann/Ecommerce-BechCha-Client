@@ -7,17 +7,17 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const Container = styled.div`
-    padding: 10px 30px;
-    width: 60%;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
 `
 
 const StatusWrapper = styled.div`
     background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 10px;
 `
 
 const IconWrapper = styled.div`
@@ -29,11 +29,11 @@ const IconWrapper = styled.div`
 `
 
 const MultiStepProgressBar = styled.div`
-    margin: 50px;
+    width: 50%;
 `
 
 const Status = styled.span`
-    font-weight: 500px;
+    font-weight: 700px;
     font-size: 16px;
     color: gray;
 `
