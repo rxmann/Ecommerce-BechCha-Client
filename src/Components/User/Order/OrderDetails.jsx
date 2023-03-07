@@ -3,20 +3,29 @@ import styled from "styled-components"
 import WestIcon from '@mui/icons-material/West';
 import { useEffect, useState } from "react";
 import { getOneOrderById } from "../../../ApiCalls/ordersApiCalls";
+import Fetching from "../EmptyView/Fetching";
+import moment from "moment"
+import StepProgressBar from "./StepProgressBar";
 
 const Container = styled.div`
   background-color: #ffffff;
-  width: 100%;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   display: flex;
   flex-direction: column;
   padding: 20px;
   gap: 10px;
+  min-height: 40vh;
+`
+
+const Title = styled.h2`
+  margin-top: 20px;
+  color: gray;
 `
 
 const Back = styled(WestIcon)`
   border-radius: 50%; 
-  background-color: "#f5f7f8"; 
+  background-color: "#aaaaaa"; 
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   padding: 10px;
   cursor: pointer;
   &:hover {
@@ -26,8 +35,64 @@ const Back = styled(WestIcon)`
 `
 
 const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`
+
+const OrderTitleWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+`
+
+const OrderTitles = styled.span`
+  display: flex;
+  flex-direction: column;
+`
+
+const OrderTitle = styled.span`
+  font-size: 12px;
+`
+
+
+const OrderTotalAmount = styled.span`
+  font-weight: 500;
+`
+
+
+const OrderUserWrapper = styled.div`
 
 `
+
+
+const UserProfile = styled.div`
+
+`
+
+
+
+const OrderProductsList = styled.div`
+
+`
+
+const OrderItem = styled.div`
+
+`
+
+const OrderStatusWrapper = styled.div`
+
+`
+
+const OrderStatus = styled.div`
+
+`
+
+const CancelOrder = styled.div`
+
+`
+
+
 const OrderDetails = () => {
   const orderId = useParams().id;
 
@@ -41,31 +106,51 @@ const OrderDetails = () => {
     getOrderDetails();
   }, [orderId])
 
+  console.log(order);
+
   return (
     <Container>
-      <Back onClick={() => window.history.back()}/>
-      <Wrapper>
-        <OrderTitleWrapper>
-          <OrderTitle> </OrderTitle>
-          <OrderQuantity>  </OrderQuantity>
-        </OrderTitleWrapper>
+      <Back onClick={() => window.history.go(-1)} />
+      {order ?
+        <>
+          <Title>Order Details</Title>
+          <Wrapper>
+            <OrderTitleWrapper>
+              <OrderTitles>
+                <OrderTitle> Order Id: #{order._id} </OrderTitle>
+                <OrderTitle> Placed on: {moment(order.createdAt).format("MMM DD, YYYY")} </OrderTitle>
+              </OrderTitles>
+              <OrderTotalAmount> Total: NPR {order.payable} </OrderTotalAmount>
+            </OrderTitleWrapper>
 
-        <OrderUserWrapper> 
-          <UserProfile>  </UserProfile>
-        </OrderUserWrapper>
+            <StepProgressBar />
 
-        <OrderProductsList>
-           <OrderItem>  </OrderItem>
-           <OrderItem>  </OrderItem>
-           <OrderItem>  </OrderItem>
-        </OrderProductsList>
+            <OrderStatusWrapper>
+              
+              <OrderStatus> {order.status} </OrderStatus>
+              <CancelOrder> Cancel </CancelOrder>
+            </OrderStatusWrapper>
 
 
-        <OrderStatusWrapper>
-          <OrderStatus>  </OrderStatus>
-          <CancelOrder>  </CancelOrder>
-        </OrderStatusWrapper>
-      </Wrapper>
+
+
+            <OrderUserWrapper>
+              <UserProfile>  </UserProfile>
+            </OrderUserWrapper>
+
+            <OrderProductsList>
+              <OrderItem>  </OrderItem>
+              <OrderItem>  </OrderItem>
+              <OrderItem>  </OrderItem>
+            </OrderProductsList>
+
+
+            
+          </Wrapper>
+        </>
+
+        : <Fetching type="spokes" />
+      }
     </Container>
   )
 }
