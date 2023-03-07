@@ -6,7 +6,7 @@ import { getOneOrderById } from "../../../ApiCalls/ordersApiCalls";
 import Fetching from "../EmptyView/Fetching";
 import moment from "moment"
 import StepProgressBar from "./StepProgressBar";
-import CartItem from "../Carts/CartItem";
+import OrderedProduct from "./OrderedProduct";
 
 const Container = styled.div`
   background-color: #ffffff;
@@ -18,9 +18,8 @@ const Container = styled.div`
   min-height: 40vh;
 `
 
-const Title = styled.h2`
-  margin-top: 20px;
-  color: gray;
+const Title = styled.h3`
+  color: #aaaaaa;
 `
 
 const Back = styled(WestIcon)`
@@ -36,7 +35,7 @@ const Back = styled(WestIcon)`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 `
 
 const OrderTitleWrapper = styled.div`
@@ -80,10 +79,7 @@ const OrderItem = styled.div`
 `
 
 const OrderStatusWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
 `
 
 const OrderStatus = styled.div`
@@ -95,24 +91,59 @@ const CancelOrder = styled.div`
 `
 
 
+
+const SummaryWrapper = styled.div`
+    flex: 1;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+`
+
+const TotalText = styled.span`
+    font-size: 16px;
+    color: gray;
+    font-weight: 500;
+`
+
+const Price = styled.span`
+    font-size: 16px;
+    font-weight: 500;
+`
+
+const Total = styled.h3`
+    color: #0171b6;
+`
+
+const Item = styled.div`
+
+`
+
+
 const OrderDetails = () => {
-  
+
   const navigate = useNavigate();
   const orderId = useParams().id;
 
   const [order, setOrder] = useState();
+  let Sum;
 
   useEffect(() => {
     const getOrderDetails = async () => {
       const orderDetails = await getOneOrderById(orderId);
+      Sum = orderDetails.products.reduce((acc, val) => {
+        return acc += val.price
+      }, 0)
       setOrder(orderDetails);
     }
     getOrderDetails();
   }, [orderId])
 
+
+
+
+
   return (
     <Container>
-      <Back onClick={()=> navigate("/profile/orders/me")} />
+      <Back onClick={() => navigate("/profile/orders/me")} />
       {order ?
         <>
           <Title>Order Details</Title>
@@ -125,12 +156,35 @@ const OrderDetails = () => {
               <OrderTotalAmount> Total: NPR {order.payable} </OrderTotalAmount>
             </OrderTitleWrapper>
 
-            
+
+            {/* progress bar */}
+            <StepProgressBar status={order.status} />
+
+
+            {/* { Order Items and Summary } */}
             <OrderStatusWrapper>
-              <StepProgressBar status={order.status} />
+              
+              <OrderedProduct data={order} />
+
+              <SummaryWrapper>
+                <Title> Order Summary</Title>
+                <Item>
+                  <TotalText> Sub Total </TotalText>
+                  <Price > {Sum} </Price>
+                </Item>
+                <Item>
+                  <TotalText> Delivery  </TotalText>
+                  <Price > 200 </Price>
+                </Item>
+                <Item>
+                  <Total> Total </Total>
+                  <Total> NPR {order.payable}  </Total>
+                </Item>
+              </SummaryWrapper>
             </OrderStatusWrapper>
 
-            <CartItem />
+
+
 
 
             <OrderUserWrapper>
@@ -144,7 +198,7 @@ const OrderDetails = () => {
             </OrderProductsList>
 
 
-            
+
           </Wrapper>
         </>
 
