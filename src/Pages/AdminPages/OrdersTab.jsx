@@ -64,8 +64,8 @@ const StatusButton = ({ type }) => {
     let color, background;
     switch (type) {
         case "pending":
-            color = "error"
-            background = "#fff0f1"
+            color = "primary"
+            background = "#ddd9ff"
             break;
         case "delivered":
             color = "success"
@@ -80,7 +80,9 @@ const StatusButton = ({ type }) => {
             background = "#ebf1fe"
             break;
         default:
-            return;
+            color = "error"
+            background = "#fff0f1"
+            break;
     }
     return <Button size={"small"} color={color} sx={{ background: background }} type={type}> {type} </Button>
 }

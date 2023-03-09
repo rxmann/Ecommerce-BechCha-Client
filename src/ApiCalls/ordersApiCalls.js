@@ -3,6 +3,19 @@ import { emptyMyCart, successToast } from "./apiCalls";
 
 
 
+export const cancelThisOrder = async (id) => {
+    try {
+        const response = await userRequest.post(`/${id}`);
+        console.log(response);
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+
+
+
 // needs authorization
 export const getOneOrderById = async (id) => {
     try {

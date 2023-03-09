@@ -9,7 +9,9 @@ const Container = styled.div`
 `
 const Title = styled.h3`
     color: #aaaaaa;
-    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 `
 
 const Wrapper = styled.div`
@@ -21,9 +23,9 @@ const ItemsList = styled.div`
     width: 100%;
 `
 const ProductImage = styled.img`
-    width: 100px;
+    max-width: 60px;
     cursor: pointer;
-    max-height: 80px;
+    max-height: 60px;
     &:hover{
         transform: scale(1.1, 1.1);
     }
@@ -44,9 +46,8 @@ const ItemContainer = styled.div`
 
 const ItemH = styled.span`
     flex: ${props => props.flex};
-    font-size: 18px;
-    font-weight: 500;
     display: flex;
+    font-weight: 500;
     align-items: center;
     justify-content: center;
     gap: 30px;
@@ -73,8 +74,8 @@ const OrderedProduct = ({ data }) => {
                 <ItemsList>
 
                     <ItemHeadContainer>
-                        <ItemH flex={1}>  </ItemH>
-                        <ItemH flex={1}> Product </ItemH>
+                        <ItemH flex={2}>  </ItemH>
+                        <ItemH flex={2}> Product </ItemH>
                         <ItemH flex={1}> Quantity </ItemH>
                         <ItemH flex={1}> Price </ItemH>
                     </ItemHeadContainer>
@@ -83,16 +84,16 @@ const OrderedProduct = ({ data }) => {
                     {data && data.products &&
                         data.products.map((item) => (
                             <ItemContainer key={item.product._id}>
-                                <ItemC flex={1}>
+                                <ItemC flex={2}>
                                     <ProductImage onClick={() => navigate(`/product/${item.product._id}`)} src={item.product?.images[0]?.url} />
                                 </ItemC>
-                                <ItemC flex={1}>
+                                <ItemC flex={2}>
                                     <ItemC>{item.product.title}</ItemC>
                                 </ItemC>
                                 <ItemC flex={1}>
                                     {item.quantity}
                                 </ItemC>
-                                <ItemC flex={1} fw={600}>
+                                <ItemC flex={1} fw={500}>
                                     {item.price}
                                 </ItemC>
                             </ItemContainer>

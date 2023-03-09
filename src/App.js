@@ -198,6 +198,10 @@ const App = () => {
           element: <ProductDetails />
         },
         {
+          path: "/admin/order/:id",
+          element: <OrderDetails />
+        },
+        {
           path: "/admin/category/:id",
           element: <CategoryDisplay />
         },

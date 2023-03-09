@@ -68,21 +68,27 @@ const OrderPage = () => {
     let color, background;
     switch (type) {
       case "pending":
-        color = "error"
-        background = "#fff0f1"
+        color = "primary"
+        background = "#ddd9ff"
         break;
       case "delivered":
         color = "success"
         background = "#e5faf2"
         break;
-      case "approved":
+      case "processing":
+        color = "secondary"
+        background = "#fcebfe"
+        break;
+      case "shipping":
         color = "info"
         background = "#ebf1fe"
         break;
-      default:
-        color = "warning"
-        background = ""
+      case "cancelled":
+        color = "error"
+        background = "#fff0f1"
         break;
+      default:
+       return
     }
     return <Button size={"small"} color={color} sx={{ background: background }} type={type}> {type} </Button>
   }
@@ -100,9 +106,6 @@ const OrderPage = () => {
     getMyOrder();
   }, [])
 
-
-
-  console.log(orders);
 
   return (
     <Container>
@@ -125,10 +128,10 @@ const OrderPage = () => {
                 <TableRow key={order?.updatedAt}>
                   <User>
                     {order.products.map((prod) => (
-                       <ProductImage
-                       key={prod?.product.images[0].url}
-                       src={prod?.product.images[0].url} 
-                       />
+                      <ProductImage
+                        key={prod?.product.images[0].url}
+                        src={prod?.product.images[0].url}
+                      />
                     ))}
                   </User>
                   <TableData> {order.user?.username} </TableData>
@@ -136,13 +139,13 @@ const OrderPage = () => {
                   <TableData> {order.totalItems}  </TableData>
                   <TableData> RS {order.payable} </TableData>
                   <TableData> <StatusButton type={order.status} /> </TableData>
-                  <Action
+                  <TableData > <Action
                     variant="text"
                     color={"secondary"}
                     onClick={() => navigate(`/profile/order/${order._id}`)}
                   >
                     Details
-                  </Action>
+                  </Action> </TableData>
                 </TableRow>
               ))
             }

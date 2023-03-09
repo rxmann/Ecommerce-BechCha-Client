@@ -5,6 +5,8 @@ import WarehouseIcon from '@mui/icons-material/Warehouse';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import BlockIcon from '@mui/icons-material/Block';
+
 
 const Container = styled.div`
     padding: 20px;
@@ -59,6 +61,18 @@ const steps = [
     }
 ];
 
+
+const cancelledSteps = [
+    {
+        name: "PENDING",
+        label: <AutorenewIcon />
+    },
+    {
+        name: "CANCELLED",
+        label: <BlockIcon />
+    },
+];
+
 const StepProgressBar = ({ status }) => {
 
     var stepPercentage = 0;
@@ -76,64 +90,118 @@ const StepProgressBar = ({ status }) => {
         case "delivered":
             stepPercentage = 100;
             break;
+        case "cancelled":
+            stepPercentage = 100;
+            break;
         default:
             stepPercentage = 50;
     }
 
+       
     
 
     return (
         <Container>
+            { status !== "cancelled" ?
+            <>
             <MultiStepProgressBar>
-                <ProgressBar
-                    percent={stepPercentage}
-                    filledBackground="linear-gradient(to right, #2c8fffd3, #4effb8e8)"
-                >
-                    {steps.map((step, index) => (
-                        <Step key={index} transition="scale">
-                            {({ accomplished }) => (
-                                accomplished ?
-                                    (
-                                        <StatusWrapper>
-                                            <IconWrapper color={"#ffffff"} background={"#0171b6"} >
-                                                {step.label}
-                                            </IconWrapper>
-                                        </StatusWrapper>
-
-                                    )
-
-                                    :
-
+            <ProgressBar
+                percent={stepPercentage}
+                filledBackground="linear-gradient(to right, #2c8fffd3, #4effb8e8)"
+            >
+                {steps.map((step, index) => (
+                    <Step key={index} transition="scale">
+                        {({ accomplished }) => (
+                            accomplished ?
+                                (
                                     <StatusWrapper>
-                                        <IconWrapper color={""} background={"#f5f7f8"} >
+                                        <IconWrapper color={"#ffffff"} background={"#0171b6"} >
                                             {step.label}
                                         </IconWrapper>
                                     </StatusWrapper>
 
-                            )}
-                        </Step>
-                    ))}
-                </ProgressBar>
+                                )
 
-            </MultiStepProgressBar>
+                                :
+
+                                <StatusWrapper>
+                                    <IconWrapper color={""} background={"#f5f7f8"} >
+                                        {step.label}
+                                    </IconWrapper>
+                                </StatusWrapper>
+
+                        )}
+                    </Step>
+                ))}
+            </ProgressBar>
+
+        </MultiStepProgressBar>
 
 
-            <MultiStepProgressBar>
+        <MultiStepProgressBar>
 
-                <ProgressBar
-                    percent={stepPercentage}
-                    filledBackground={"#FFFFFF"}
-                    unfilledBackground={"#ffffff"}
-                >
-                    {steps.map((step, index) => (
-                        <Step key={index} transition="scale">
-                            {({ accomplished }) => (
-                                <Status> {step.name} </Status>
-                            )}
-                        </Step>
-                    ))}
-                </ProgressBar>
-            </MultiStepProgressBar>
+            <ProgressBar
+                percent={stepPercentage}
+                filledBackground={"#FFFFFF"}
+                unfilledBackground={"#ffffff"}
+            >
+                {steps.map((step, index) => (
+                    <Step key={index} transition="scale">
+                        {({ accomplished }) => (
+                            <Status> {step.name} </Status>
+                        )}
+                    </Step>
+                ))}
+            </ProgressBar>
+        </MultiStepProgressBar>
+        </>
+
+        :
+        <>
+        <MultiStepProgressBar>
+        <ProgressBar
+            percent={stepPercentage}
+            filledBackground="linear-gradient(to right, #2c8fffd3, #4effb8e8)"
+        >
+            {cancelledSteps.map((step, index) => (
+                <Step key={index} transition="scale">
+                    {({ accomplished }) => (
+                        accomplished &&
+                            (
+                                <StatusWrapper>
+                                    <IconWrapper color={"#ffffff"} background={"#cb360d"} >
+                                        {step.label}
+                                    </IconWrapper>
+                                </StatusWrapper>
+
+                            )
+
+                    )}
+                </Step>
+            ))}
+        </ProgressBar>
+
+    </MultiStepProgressBar>
+
+
+    <MultiStepProgressBar>
+
+        <ProgressBar
+            percent={stepPercentage}
+            filledBackground={"#FFFFFF"}
+            unfilledBackground={"#ffffff"}
+        >
+            {cancelledSteps.map((step, index) => (
+                <Step key={index} transition="scale">
+                    {({ accomplished }) => (
+                        <Status> {step.name} </Status>
+                    )}
+                </Step>
+            ))}
+        </ProgressBar>
+    </MultiStepProgressBar>
+    </>
+            }
         </Container>
     );
 };
