@@ -39,10 +39,6 @@ export const userRequest = axios.create({
 userRequest.interceptors.request.use(async (request) => {
 
     const accessToken = getAccessToken();
-    // const form = request.data
-    // for (let key of form.keys()) {
-    //     console.log(key + ": " + form.get(key));
-    //   }
 
     const user = jwt_decode(accessToken);
     const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
@@ -74,7 +70,8 @@ userRequest.interceptors.request.use(async (request) => {
         }
         catch (err) {
             console.log(err.response?.data);
-            if (err.response.data?.code.toString() === "notoken") {
+            if (err.response.data?.code === "notoken") {
+                console.log("Token Expired");
                 localStorage.setItem("persist:root", null);
             }
         }

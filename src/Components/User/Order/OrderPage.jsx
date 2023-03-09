@@ -3,8 +3,8 @@ import Button from '@mui/material/Button';
 import { useEffect, useState } from "react";
 import Fetching from "../EmptyView/Fetching";
 import { useNavigate } from 'react-router-dom';
-const moment = require("moment")
-
+import { getMyOrdersList } from "../../../ApiCalls/ordersApiCalls";
+const moment = require("moment");
 
 const Container = styled.div`
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
@@ -39,27 +39,18 @@ const User = styled.td`
   gap: 10px;
 `
 
-const Date = styled.td`
-  font-weight: 400;
-`
-
-const Amount = styled.td`
-  font-weight: 400;
-`
-const Status = styled.td`
+const TableData = styled.td`
 
 `
 
-
-const Image = styled.img`
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-`
-
-const Name = styled.span`
-    font-weight: 500;
+const ProductImage = styled.img`
+    cursor: pointer;
+    object-fit: contain;
+    max-width: 40px;
+    max-height: 40px;
+    &:hover{
+        transform: scale(1.1, 1.1);
+    }
 `
 
 const Action = styled(Button)`
@@ -69,10 +60,10 @@ const Action = styled(Button)`
 
 
 
-const OrderPage = ({ orders: allOrders}) => {
+const OrderPage = () => {
 
   const navigate = useNavigate();
-  
+
   const StatusButton = ({ type }) => {
     let color, background;
     switch (type) {
@@ -98,57 +89,67 @@ const OrderPage = ({ orders: allOrders}) => {
 
 
 
-    // orders data
-    const [orders, setOrders] = useState();
+  // orders data
+  const [orders, setOrders] = useState();
 
 
-    useEffect(() => {
-      const getOrders = async () => {
-        setOrders(allOrders)
-      }
-      getOrders();
-    }, [allOrders])
+  useEffect(() => {
+    const getMyOrder = async () => {
+      setOrders(await getMyOrdersList())
+    }
+    getMyOrder();
+  }, [])
 
+
+
+  console.log(orders);
 
   return (
     <Container>
       <Title>Recent Transactions</Title>
-      { orders?.length > 0 ?
-      <Table>
-      <TableBody>
-        <TableRow>
-          <TableHead> Customer </TableHead>
-          <TableHead> Date </TableHead>
-          <TableHead> Amount </TableHead>
-          <TableHead> Status </TableHead>
-        </TableRow>
+      {orders?.length > 0 ?
+        <Table>
+          <TableBody>
+            <TableRow>
+              <TableHead> Products </TableHead>
+              <TableHead> User </TableHead>
+              <TableHead> Ordered Date </TableHead>
+              <TableHead> Quantity </TableHead>
+              <TableHead> Amount </TableHead>
+              <TableHead> Status </TableHead>
+            </TableRow>
 
 
-        {orders && 
-        orders.map((order) => (
-          <TableRow key={order?.updatedAt + Math.random()}>
-            <User>
-              <Image src={order.user?.image} />
-              <Name> {order.user?.username} </Name>
-            </User>
-  
-            <Date> { moment(order.createdAt).format('MMM D, YYYY') } </Date>
-            <Amount> RS {order.payable} </Amount>
-            <Status> <StatusButton type={order.status} /> </Status>
-            <Action 
-              variant="text" 
-              color={"secondary"} 
-              onClick= { () => navigate(`/profile/order/${order._id}`) }
-            > 
-                Details 
-            </Action>
-        </TableRow>
-        ))
+            {orders &&
+              orders.map((order) => (
+                <TableRow key={order?.updatedAt}>
+                  <User>
+                    {order.products.map((prod) => (
+                       <ProductImage
+                       key={prod?.product.images[0].url}
+                       src={prod?.product.images[0].url} 
+                       />
+                    ))}
+                  </User>
+                  <TableData> {order.user?.username} </TableData>
+                  <TableData> {moment(order.createdAt).format('MMM D, YYYY')} </TableData>
+                  <TableData> {order.totalItems}  </TableData>
+                  <TableData> RS {order.payable} </TableData>
+                  <TableData> <StatusButton type={order.status} /> </TableData>
+                  <Action
+                    variant="text"
+                    color={"secondary"}
+                    onClick={() => navigate(`/profile/order/${order._id}`)}
+                  >
+                    Details
+                  </Action>
+                </TableRow>
+              ))
+            }
+          </TableBody>
+        </Table>
+        : <Fetching type={"Empty"} Message={"No orders"} />
       }
-      </TableBody>
-    </Table>
-    : <Fetching type={"Empty"} Message={"No orders"} />  
-    }
     </Container>
   )
 }

@@ -14,7 +14,7 @@ const Container = styled.div`
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   display: flex;
   flex-direction: column;
-  padding: 50px;
+  padding: 10px 30px;
   gap: 10px;
 `
 
@@ -26,6 +26,7 @@ const Back = styled(WestIcon)`
   border-radius: 50%; 
   padding: 10px;
   cursor: pointer;
+  background-color: #f5f7f8;
   &:hover {
     background-color: #0171b6;
     color: white;
@@ -35,7 +36,7 @@ const Back = styled(WestIcon)`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 80px;
 `
 
 const OrderTitleWrapper = styled.div`
@@ -62,13 +63,22 @@ const OrderTotalAmount = styled.span`
 
 const OrderStatusWrapper = styled.div`
     display: flex;
+    gap: 50px;
 `
 const SummaryWrapper = styled.div`
     flex: 1;
     padding: 10px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 30px;
+`
+
+const UserInfo = styled.div`
+
+`
+
+const BillingProfile = styled.div`
+
 `
 
 const Item = styled.div`
@@ -77,7 +87,6 @@ const Item = styled.div`
 
 const SummaryName = styled.span`
     flex: 1;
-    font-size: 16px;
     color: gray;
     font-weight: 500;
 `
@@ -90,6 +99,10 @@ const SummaryValue = styled.span`
 `
 const Titled = styled.h3`
   color: #aaaaaa;
+`
+
+const TotalPayableDiv = styled.div`
+  margin: 20px 0px;
 `
 
 
@@ -142,11 +155,15 @@ const OrderDetails = () => {
             {/* { Order Items and Summary } */}
             <OrderStatusWrapper>
 
+
               <OrderedProduct data={order} />
+
+
 
               <SummaryWrapper>
                 <Titled> Order Summary</Titled>
-                <Item>
+               <UserInfo>
+               <Item>
                   <SummaryName> Shipping Address  </SummaryName>
                   <SummaryValue > Mandikhatar, Kathmandu </SummaryValue>
                 </Item>
@@ -156,10 +173,16 @@ const OrderDetails = () => {
                 </Item>
                 <Item>
                   <SummaryName> Recipient  </SummaryName>
-                  <SummaryValue > Roman karki </SummaryValue>
+                  <SummaryValue > {order.user.username} </SummaryValue>
                 </Item>
+                <Item>
+                  <SummaryName> Contacts  </SummaryName>
+                  <SummaryValue > {order.user.contacts} </SummaryValue>
+                </Item>
+               </UserInfo>
 
 
+                <BillingProfile>
                 <Item>
                   <SummaryName> Sub Total </SummaryName>
                   <SummaryValue > RS {Sum} </SummaryValue>
@@ -168,10 +191,13 @@ const OrderDetails = () => {
                   <SummaryName> Delivery  </SummaryName>
                   <SummaryValue > RS 200 </SummaryValue>
                 </Item>
-                <Item>
-                  <SummaryValue color={"#0171b6"} size={"24px"} weight={"600"} > Total Payable </SummaryValue>
-                  <SummaryValue color={"#0171b6"} size={"24px"} weight={"600"}> NPR {order.payable} </SummaryValue>
+               <TotalPayableDiv>
+               <Item>
+                  <SummaryValue color={"#0171b6"} size={"20px"} weight={"800"} > Total Payable </SummaryValue>
+                  <SummaryValue color={"#0171b6"} size={"20px"} weight={"800"}> NPR {order.payable} </SummaryValue>
                 </Item>
+               </TotalPayableDiv>
+                </BillingProfile>
               </SummaryWrapper>
             </OrderStatusWrapper>
           </Wrapper>

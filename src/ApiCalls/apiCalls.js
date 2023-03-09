@@ -2,9 +2,8 @@ import { userRequest } from "../requestMethods/requestMethods";
 import { toast } from 'react-toastify';
 import { cartStart, cartFail, updateCartSuccess, emptyCart } from "../Redux/cartSlice"
 import months from 'months';
-
-
-
+import { persistor } from "../Redux/store";
+ 
 export const successToast = (message) => {
     toast.success(message, {
         position: "bottom-center",
@@ -30,6 +29,14 @@ export const failureToast = (message) => {
         theme: "colored",
     })
 }
+
+
+// delete purged data from redux store
+export const emptyReduxStore = () => {  
+   
+}
+
+
 
 
 export const reloadCart = async (dispatch) => {

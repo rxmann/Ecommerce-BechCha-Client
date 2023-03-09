@@ -30,14 +30,15 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import CartPage from "./Components/User/Carts/CartPage"
 import ProfileDisplay from "./Components/User/ProfilePages/ProfileDisplay"
-import Orders from "./Components/User/Order/Orders"
-import { useSelector } from "react-redux"
-import { useEffect } from "react"
 import CategoriesTab from "./Pages/AdminPages/CategoriesTab"
 import CategoryAdd from "./Components/AdminComponents/Category/CategoryAdd"
 import CategoryDisplay from "./Components/AdminComponents/Category/CategoryDisplay"
 import OrdersTab from "./Pages/AdminPages/OrdersTab"
 import OrderDetails from "./Components/User/Order/OrderDetails"
+import OrderPage from "./Components/User/Order/OrderPage"
+
+import { useSelector } from "react-redux"
+import { useEffect } from "react"
 
 
 const Wrapper = styled.div`
@@ -154,7 +155,7 @@ const App = () => {
             },
             {
               path: "/profile/orders/me",
-              element: <Orders />
+              element: <OrderPage />
             },
             {
               path: "/profile/order/:id",
