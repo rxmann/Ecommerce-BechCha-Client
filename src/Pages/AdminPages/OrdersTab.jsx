@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import DataTable from '../../Components/AdminComponents/Tables/DataTable';
 import { useEffect, useState } from 'react';
-import { getAllOrdersAsAdmin } from '../../ApiCalls/ordersApiCalls';
+import { deleteThisOrder, getAllOrdersAsAdmin } from '../../ApiCalls/ordersApiCalls';
 import moment from 'moment';
+import { DeleteOutline } from '@mui/icons-material';
 
 
 
@@ -60,31 +61,37 @@ const Price = styled.span`
     font-weight: 500;
     font-size: 16px;
 `
+const DelBtn = styled(Button)`
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+`
+
 const StatusButton = ({ type }) => {
     let color, background;
     switch (type) {
         case "pending":
-          color = "primary"
-          background = "#ddd9ff"
-          break;
+            color = "primary"
+            background = "#ddd9ff"
+            break;
         case "delivered":
-          color = "success"
-          background = "#e5faf2"
-          break;
+            color = "success"
+            background = "#e5faf2"
+            break;
         case "processing":
-          color = "secondary"
-          background = "#fcebfe"
-          break;
+            color = "secondary"
+            background = "#fcebfe"
+            break;
         case "shipping":
-          color = "info"
-          background = "#ebf1fe"
-          break;
+            color = "info"
+            background = "#ebf1fe"
+            break;
         case "cancelled":
-          color = "error"
-          background = "#fff0f1"
-          break;
+            color = "error"
+            background = "#fff0f1"
+            break;
         default:
-         break;
+            break;
     }
     return <Button size={"small"} color={color} sx={{ background: background }} type={type}> {type} </Button>
 }
@@ -185,6 +192,9 @@ const OrdersTab = () => {
                 return (
                     <ActionCell>
                         <ViewButton onClick={() => navigate(`/admin/order/${params.row._id}`)}> Edit </ViewButton>
+                        <DelBtn size="small" variant="text" color="error" onClick={() => deleteThisOrder(params.row._id)}>
+                            <DeleteOutline />
+                        </DelBtn>
                     </ActionCell>
                 )
             }

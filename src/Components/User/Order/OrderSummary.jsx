@@ -64,11 +64,11 @@ const OrderSummary = ({data: order, Sum}) => {
                 </Item>
                 <Item>
                     <SummaryName> Recipient  </SummaryName>
-                    <SummaryValue > {order.user.username} </SummaryValue>
+                    <SummaryValue > {order.user?.username} </SummaryValue>
                 </Item>
                 <Item>
                     <SummaryName> Contacts  </SummaryName>
-                    <SummaryValue > {order.user.contacts} </SummaryValue>
+                    <SummaryValue > {order.user?.contacts} </SummaryValue>
                 </Item>
                 <Item>
                     <SummaryName>Total Items </SummaryName>

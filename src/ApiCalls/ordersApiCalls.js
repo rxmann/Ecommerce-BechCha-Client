@@ -1,15 +1,32 @@
 import { userRequest } from "../requestMethods/requestMethods";
-import { emptyMyCart, successToast } from "./apiCalls";
+import { emptyMyCart, failureToast, successToast } from "./apiCalls";
+
+
+
+export const deleteThisOrder = async (id) => {
+    try {
+        const response = await userRequest.delete(`/orders/${id}`);
+        successToast(response);
+        window.location.reload(false);
+    }
+    catch (error) {
+        console.log(error);
+        failureToast(error.response.data);
+    }
+}
 
 
 
 export const cancelThisOrder = async (id) => {
     try {
-        const response = await userRequest.post(`/${id}`);
+        const response = await userRequest.post(`/orders/cancel/${id}`);
         console.log(response);
+        window.location.reload(false);
+        successToast(response.data);
     }
     catch (error) {
         console.log(error);
+        failureToast(error.response.data);
     }
 }
 
@@ -20,6 +37,7 @@ export const cancelThisOrder = async (id) => {
 export const getOneOrderById = async (id) => {
     try {
         const response = await userRequest.get(`/orders/${id}`);
+        console.log(response.data);
         return response.data;
     }
     catch (error) {

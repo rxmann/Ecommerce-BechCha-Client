@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components"
 import WestIcon from '@mui/icons-material/West';
 import { useEffect, useState } from "react";
-import { getOneOrderById } from "../../../ApiCalls/ordersApiCalls";
+import { cancelThisOrder, getOneOrderById } from "../../../ApiCalls/ordersApiCalls";
 import Fetching from "../EmptyView/Fetching";
 import moment from "moment"
 import StepProgressBar from "./StepProgressBar";
@@ -74,21 +74,21 @@ const OrderDetails = () => {
       const orderDetails = await getOneOrderById(orderId);
       setSum(orderDetails?.products?.reduce((acc, val) => {
         return acc += val.price
-      }, 0))    
+      }, 0))
       setOrder(orderDetails);
     }
     getOrderDetails();
   }, [orderId])
 
-
+  
 
   return (
     <Container>
-      {order && order.totalItems > 0 ?
+      {order ?
         <>
         <OrderTitleWrapper>
           <Title>Order Details</Title>
-          {order.status === "pending" && <Button color="error"> Cancel Order </Button>}
+          {order.status === "pending" && <Button color="error" onClick={() => cancelThisOrder(order._id)}> Cancel Order </Button>}
         </OrderTitleWrapper>
           <Wrapper>
             <OrderTitleWrapper>

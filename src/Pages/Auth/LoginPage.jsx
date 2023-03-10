@@ -126,7 +126,7 @@ const LoginPage = () => {
             
         }
         checkLogin();
-    }, [currentUser, navigate, isSignedIn])
+    }, [currentUser, isSignedIn])
 
     return (
         <Container>

@@ -31,11 +31,6 @@ export const failureToast = (message) => {
 }
 
 
-// delete purged data from redux store
-export const emptyReduxStore = () => {  
-   
-}
-
 
 
 
