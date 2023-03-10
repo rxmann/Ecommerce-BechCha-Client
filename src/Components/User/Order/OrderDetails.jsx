@@ -82,8 +82,6 @@ const OrderDetails = () => {
 
 
 
-
-
   return (
     <Container>
       {order && order.totalItems > 0 ?
