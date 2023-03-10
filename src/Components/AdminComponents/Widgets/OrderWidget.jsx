@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import Button from '@mui/material/Button';
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 const moment = require("moment")
 
 
@@ -62,26 +63,34 @@ const Name = styled.span`
 
 
 const OrderWidget = ({ orders: allOrders}) => {
+
+  const navigate = useNavigate();
   
   const StatusButton = ({ type }) => {
     let color, background;
     switch (type) {
       case "pending":
-        color = "error"
-        background = "#fff0f1"
+        color = "primary"
+        background = "#ddd9ff"
         break;
       case "delivered":
         color = "success"
         background = "#e5faf2"
         break;
-      case "approved":
+      case "processing":
+        color = "secondary"
+        background = "#fcebfe"
+        break;
+      case "shipping":
         color = "info"
         background = "#ebf1fe"
         break;
-      default:
-        color = "warning"
-        background = ""
+      case "cancelled":
+        color = "error"
+        background = "#fff0f1"
         break;
+      default:
+       break;
     }
     return <Button size={"small"} color={color} sx={{ background: background }} type={type}> {type} </Button>
   }
@@ -106,9 +115,10 @@ const OrderWidget = ({ orders: allOrders}) => {
         <TableBody>
           <TableRow>
             <TableHead> Customer </TableHead>
-            <TableHead> Date </TableHead>
+            <TableHead> Ordered Date </TableHead>
             <TableHead> Amount </TableHead>
             <TableHead> Status </TableHead>
+            <TableHead> </TableHead>
           </TableRow>
 
 
@@ -122,6 +132,7 @@ const OrderWidget = ({ orders: allOrders}) => {
               <Date> { moment(order.createdAt).format('MMM D, YYYY') } </Date>
               <Amount> RS {order.payable} </Amount>
               <Status> <StatusButton type={order.status} /> </Status>
+              <Status> <Button variant={"secondary"} onClick={() => navigate(`/admin/order/${order._id}`)}> Edit</Button> </Status>
           </TableRow>
           ))
         }

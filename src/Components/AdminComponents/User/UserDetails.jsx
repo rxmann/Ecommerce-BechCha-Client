@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
-import { userRequest } from "../../../requestMethods/requestMethods"
+import { getMyOrdersList } from "../../../ApiCalls/ordersApiCalls"
 import ProfileDisplay from "../../User/ProfilePages/ProfileDisplay"
 import OrderWidget from "../Widgets/OrderWidget"
 
@@ -35,16 +35,13 @@ const UserDetails = () => {
 
     useEffect(() => {
         const getOrders = async () => {
-            try {
-                const response = await userRequest.get(`/orders/${id}`);
-                setOrders(response.data);
-            }
-            catch (er) {
-                console.log(er);
-            }
+            const data = await getMyOrdersList(id)
+            setOrders(data);
         }
         getOrders();
     }, [id])
+
+    console.log(orders);
 
 
     return (

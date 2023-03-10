@@ -64,25 +64,27 @@ const StatusButton = ({ type }) => {
     let color, background;
     switch (type) {
         case "pending":
-            color = "primary"
-            background = "#ddd9ff"
-            break;
+          color = "primary"
+          background = "#ddd9ff"
+          break;
         case "delivered":
-            color = "success"
-            background = "#e5faf2"
-            break;
+          color = "success"
+          background = "#e5faf2"
+          break;
         case "processing":
-            color = "secondary"
-            background = "#fcebfe"
-            break;
+          color = "secondary"
+          background = "#fcebfe"
+          break;
         case "shipping":
-            color = "info"
-            background = "#ebf1fe"
-            break;
+          color = "info"
+          background = "#ebf1fe"
+          break;
+        case "cancelled":
+          color = "error"
+          background = "#fff0f1"
+          break;
         default:
-            color = "error"
-            background = "#fff0f1"
-            break;
+         break;
     }
     return <Button size={"small"} color={color} sx={{ background: background }} type={type}> {type} </Button>
 }
