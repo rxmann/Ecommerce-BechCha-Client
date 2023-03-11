@@ -36,7 +36,7 @@ import CategoryDisplay from "./Components/AdminComponents/Category/CategoryDispl
 import OrdersTab from "./Pages/AdminPages/OrdersTab"
 import OrderDetails from "./Components/User/Order/OrderDetails"
 import OrderPage from "./Components/User/Order/OrderPage"
-
+import ComparePage from "./Pages/User/ComparePage"
 import { useSelector } from "react-redux"
 import { useEffect } from "react"
 
@@ -136,6 +136,10 @@ const App = () => {
         {
           path: "/products/:id",
           element: <ShowProductsPage />,
+        },
+        {
+          path: "/compare/:id",
+          element: <ComparePage />,
         },
         {
           path: "/product/:id",
