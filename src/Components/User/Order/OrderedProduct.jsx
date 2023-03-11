@@ -11,7 +11,6 @@ const Title = styled.h3`
     color: #aaaaaa;
     padding: 10px;
     border-radius: 12px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 `
 
 const Wrapper = styled.div`

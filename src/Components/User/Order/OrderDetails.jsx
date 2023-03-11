@@ -13,11 +13,11 @@ import AdminOrderControls from "./AdminOrderControls";
 
 const Container = styled.div`
   flex: 5;
-  padding: 20px;
-  background-color: #f5f7f8;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  background-color: #ffffff;
+  padding: 20px;
 `
 
 const Title = styled.h2`
@@ -28,11 +28,10 @@ const Title = styled.h2`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
   padding: 20px;
-  background-color: #ffffff;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 `
+
 
 const OrderTitleWrapper = styled.div`
   display: flex;
@@ -58,12 +57,13 @@ const OrderTotalAmount = styled.span`
 
 const OrderStatusWrapper = styled.div`
     display: flex;
-    gap: 50px;
+    gap: 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 `
 
 
 
-const OrderDetails = ({type}) => {
+const OrderDetails = ({ type }) => {
 
   const orderId = useParams().id;
 
@@ -81,17 +81,17 @@ const OrderDetails = ({type}) => {
     getOrderDetails();
   }, [orderId])
 
-  
+
 
   return (
     <Container>
       {order ?
         <>
-        <OrderTitleWrapper>
-          <Title>Order Details</Title>
-          {order.status === "pending" && <Button color="error" onClick={() => cancelThisOrder(order._id)}> Cancel Order </Button>}
-        </OrderTitleWrapper>
-        { type === "admin" && <AdminOrderControls data={order} /> }
+          <OrderTitleWrapper>
+            <Title>Order Details</Title>
+            {order.status === "pending" && <Button color="error" onClick={() => cancelThisOrder(order._id)}> Cancel Order </Button>}
+          </OrderTitleWrapper>
+          {type === "admin" && <AdminOrderControls data={order} />}
           <Wrapper>
             <OrderTitleWrapper>
               <OrderTitles>
@@ -104,19 +104,19 @@ const OrderDetails = ({type}) => {
 
             {/* progress bar */}
             <StepProgressBar status={order.status} />
-
-
-            {/* { Order Items and Summary } */}
-            <OrderStatusWrapper>
-
-
-              <OrderedProduct data={order} />
-
-              <OrderSummary data={order} Sum={Sum}  />
-
-
-            </OrderStatusWrapper>
           </Wrapper>
+
+          {/* { Order Items and Summary } */}
+          <OrderStatusWrapper>
+
+
+            <OrderedProduct data={order} />
+
+            <OrderSummary data={order} Sum={Sum} />
+
+
+          </OrderStatusWrapper>
+
         </>
 
         : <Fetching type="Empty" Message="No orders with such ID" />

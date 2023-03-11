@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 const SummaryWrapper = styled.div`
     flex: 1;
-    padding: 10px;
+    padding: 10px 20px;
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -40,7 +40,6 @@ const Titled = styled.h3`
   color: #aaaaaa;
   padding: 10px;
   border-radius: 12px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 `
 
 const TotalPayableDiv = styled.div`

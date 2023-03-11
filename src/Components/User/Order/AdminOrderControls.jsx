@@ -11,7 +11,7 @@ const Container = styled.div`
 `
 
 const Selector = styled.div`
-    max-width: 140px;
+    width: 140px;
 `
 
 const AdminOrderControls = ({ data }) => {
@@ -27,7 +27,7 @@ const AdminOrderControls = ({ data }) => {
                 setItemsList(["cancelled", "processing"])
                 break;
             case "cancelled":
-                setItemsList(["cancelled"])
+                setItemsList([])
                 break;
             case "processing":
                 setItemsList(["shipping"])
@@ -35,7 +35,7 @@ const AdminOrderControls = ({ data }) => {
             case "shipping":
                 setItemsList(["delivered"])
             case "delivered":
-                setItemsList(["success"])
+                setItemsList([])
                 break;
             default:
                 setItemsList(["failed"])
@@ -45,19 +45,24 @@ const AdminOrderControls = ({ data }) => {
 
     return (
         <Container>
-           <Selector>
-           <Select
-                fullWidth
-                value={selected}
-                onChange={(e) => setSelected(e.target.value)}
-            >
-                {itemsList.length > 0 && itemsList?.map((item) => (
-                    <MenuItem key={item} value={item} > {item} </MenuItem>
-                ))}
-            </Select>
-           </Selector>
 
-           <Button variant={"contained"} size="large"> Move to {selected} </Button>
+            {itemsList.length > 0 &&
+                <>
+                    <Selector>
+                        <Select
+                            fullWidth
+                            value={selected}
+                            onChange={(e) => setSelected(e.target.value)}
+                        >
+                            {itemsList?.map((item) => (
+                                <MenuItem key={item} value={item} > {item} </MenuItem>
+                            ))}
+                        </Select>
+                    </Selector>
+
+                    <Button variant={"contained"} size="large"> Move to {selected} </Button>
+                </>
+            }
 
         </Container>
     )
