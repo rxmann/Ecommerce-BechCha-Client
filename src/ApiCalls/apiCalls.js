@@ -6,7 +6,7 @@ import { persistor } from "../Redux/store";
  
 export const successToast = (message) => {
     toast.success(message, {
-        position: "bottom-center",
+        position: "top-right",
         autoClose: 2000,
         hideProgressBar: true,
         closeOnClick: true,

@@ -1,6 +1,7 @@
 import { Button, MenuItem, Select } from "@mui/material"
 import { useEffect, useState } from "react";
 import styled from "styled-components"
+import { updateThisOrder } from "../../../ApiCalls/ordersApiCalls";
 
 const Container = styled.div`
     padding: 20px 0px;
@@ -20,47 +21,58 @@ const AdminOrderControls = ({ data }) => {
     const [itemsList, setItemsList] = useState([]);
 
 
+
+    const handleUpdateOrder = async () => {
+        const orderId = data._id;
+        await updateThisOrder(orderId, selected);
+    }
+
+
     useEffect(() => {
         const sta = data.status;
         switch (sta) {
             case "pending":
-                setItemsList(["cancelled", "processing"])
+                setItemsList("processing")
                 break;
             case "cancelled":
-                setItemsList([])
+                setItemsList()
                 break;
             case "processing":
-                setItemsList(["shipping"])
+                setItemsList("shipping")
                 break;
             case "shipping":
-                setItemsList(["delivered"])
+                setItemsList("delivered")
             case "delivered":
-                setItemsList([])
+                setItemsList()
                 break;
             default:
-                setItemsList(["failed"])
+                setItemsList("failed")
                 break;
         }
     }, [data])
 
     return (
         <Container>
-
-            {itemsList.length > 0 &&
+            {itemsList?.length > 0 &&
                 <>
                     <Selector>
                         <Select
                             fullWidth
                             value={selected}
+                            defaultValue={itemsList}
                             onChange={(e) => setSelected(e.target.value)}
                         >
-                            {itemsList?.map((item) => (
-                                <MenuItem key={item} value={item} > {item} </MenuItem>
-                            ))}
+                                <MenuItem value={itemsList} > {itemsList} </MenuItem>
                         </Select>
                     </Selector>
 
-                    <Button variant={"contained"} size="large"> Move to {selected} </Button>
+                    <Button 
+                        variant={"contained"} 
+                        size="large"
+                        onClick = {handleUpdateOrder}
+                    > 
+                        Move to {selected} 
+                    </Button>
                 </>
             }
 

@@ -3,6 +3,19 @@ import { emptyMyCart, failureToast, successToast } from "./apiCalls";
 
 
 
+export const updateThisOrder = async (id, status)  => {
+    try {
+        console.log(status);
+        const response = await userRequest.patch(`/orders/update/${id}`, { status: status });
+        console.log(response.data);
+        successToast("Order status updated!")
+    }
+    catch (error) {
+        console.log(error);
+        failureToast(error.response.data)
+    }
+}
+
 export const deleteThisOrder = async (id) => {
     try {
         const response = await userRequest.delete(`/orders/${id}`);
@@ -59,7 +72,6 @@ export const getAllOrdersAsAdmin = async ({limit=0}) => {
     try {
         let endpoint = "/orders?";
         if (limit !== 0) endpoint += `limit=${limit}&`
-        console.log(endpoint);
         const response = await userRequest.get(endpoint);
         return response.data;
     }
