@@ -9,6 +9,7 @@ import StepProgressBar from "./StepProgressBar";
 import OrderedProduct from "./OrderedProduct";
 import { Button } from "@mui/material";
 import OrderSummary from "./OrderSummary";
+import AdminOrderControls from "./AdminOrderControls";
 
 const Container = styled.div`
   flex: 5;
@@ -62,7 +63,7 @@ const OrderStatusWrapper = styled.div`
 
 
 
-const OrderDetails = () => {
+const OrderDetails = ({type}) => {
 
   const orderId = useParams().id;
 
@@ -90,6 +91,7 @@ const OrderDetails = () => {
           <Title>Order Details</Title>
           {order.status === "pending" && <Button color="error" onClick={() => cancelThisOrder(order._id)}> Cancel Order </Button>}
         </OrderTitleWrapper>
+        { type === "admin" && <AdminOrderControls data={order} /> }
           <Wrapper>
             <OrderTitleWrapper>
               <OrderTitles>

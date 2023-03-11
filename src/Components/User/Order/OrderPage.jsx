@@ -122,7 +122,6 @@ const OrderPage = () => {
               <TableHead> Status </TableHead>
             </TableRow>
 
-
             {orders &&
               orders.map((order) => (
                 <TableRow key={order?.updatedAt}>

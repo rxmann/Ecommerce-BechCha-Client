@@ -163,7 +163,7 @@ const App = () => {
             },
             {
               path: "/profile/order/:id",
-              element: <OrderDetails />
+              element: <OrderDetails type={"user"} />
             },
           ]
         },
@@ -203,7 +203,7 @@ const App = () => {
         },
         {
           path: "/admin/order/:id",
-          element: <OrderDetails />
+          element: <OrderDetails type={"admin"}/>
         },
         {
           path: "/admin/category/:id",

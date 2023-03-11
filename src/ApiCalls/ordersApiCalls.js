@@ -20,7 +20,6 @@ export const deleteThisOrder = async (id) => {
 export const cancelThisOrder = async (id) => {
     try {
         const response = await userRequest.post(`/orders/cancel/${id}`);
-        console.log(response);
         window.location.reload(false);
         successToast(response.data);
     }
@@ -37,7 +36,6 @@ export const cancelThisOrder = async (id) => {
 export const getOneOrderById = async (id) => {
     try {
         const response = await userRequest.get(`/orders/${id}`);
-        console.log(response.data);
         return response.data;
     }
     catch (error) {
