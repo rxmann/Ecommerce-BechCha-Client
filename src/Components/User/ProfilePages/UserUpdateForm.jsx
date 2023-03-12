@@ -54,6 +54,29 @@ const UserUpdateForm = ({user, isFetching, isAdmin, email}) => {
     const [reset, setReset] = useState(true);
     const [profileImage, setProfileImage] = useState("")
 
+
+    const [formData, setFormData] = useState(
+        {
+            username: user?.username,
+            address: user?.address,
+            contacts: user?.contacts,
+            image: "",
+        }
+    )
+
+    /// resetting default values
+    useEffect(() => {
+        const resetValues = () => {
+            setFormData({
+                username: user?.username,
+                address: user?.address,
+                contacts: user?.contacts,
+                image: "",
+            })
+        }
+        resetValues();
+    }, [reset, navigate, user])
+
     // handling changes in input fields
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -82,6 +105,8 @@ const UserUpdateForm = ({user, isFetching, isAdmin, email}) => {
             }
             userData.append(`image`, formData.image);
         }
+
+        console.log(isAdmin);
         if (!isAdmin) {
             await updateUser(dispatch, userData, user._id);
         }
@@ -95,27 +120,7 @@ const UserUpdateForm = ({user, isFetching, isAdmin, email}) => {
     }
 
     
-    const [formData, setFormData] = useState(
-        {
-            username: user?.username,
-            address: user?.address,
-            contacts: user?.contacts,
-            image: "",
-        }
-    )
 
-    /// resetting default values
-    useEffect(() => {
-        const resetValues = () => {
-            setFormData({
-                username: user?.username,
-                address: user?.address,
-                contacts: user?.contacts,
-                image: "",
-            })
-        }
-        resetValues();
-    }, [reset, navigate, user])
 
 
     const InputData = [{

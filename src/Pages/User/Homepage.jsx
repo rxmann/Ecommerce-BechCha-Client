@@ -6,7 +6,6 @@ import Newsletter from "../../Components/User/Layout/Newsletter"
 import TopSales from "../../Components/User/Essentials/TopSales"
 
 
-
 // #9cb2e0
 // #0171b6
 
@@ -20,6 +19,8 @@ const Wrapper = styled.div`
 `
 
 const Homepage = () => {
+
+
   return (
     <Container>
       <Wrapper>

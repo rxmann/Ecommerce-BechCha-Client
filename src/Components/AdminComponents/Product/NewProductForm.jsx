@@ -158,10 +158,12 @@ const NewProductForm = ({ FormType, prodDetails }) => {
         if (FormType === "add") {
             await addProductAdmin(values);
             getAllProducts();
+            
         }
         else {
             await editProductAdmin(values, prodDetails._id);
         }
+        window.location.reload(false);
     }
 
     return (

@@ -105,7 +105,7 @@ const RegisterPage = () => {
         email: "",
         password: "",
         dob: "",
-        
+
     })
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -116,15 +116,26 @@ const RegisterPage = () => {
     }
 
 
-    
+
     const handleSubmitRegister = async (e) => {
         e.preventDefault();
+
+        if (formData.password.length < 8 || !/\d/.test(formData.password)) return alert("Password should be 8 characters long and must include Numbers")
+
         await registerUser(dispatch, formData);
+        setFormData({
+            username: "",
+            email: "",
+            password: "",
+            dob: "",
+
+        })
+        navigate("/verify-registration");
     }
 
-    
 
-    
+
+
     return (
         <Container>
             <Card>
@@ -213,15 +224,15 @@ const RegisterPage = () => {
                                 }
                             />
                         </FormCtrl>
-                            
-                            <LoadingButton
-                                loading={isFetching}
-                                type="submit"
-                                size="large"
-                                variant="contained"
-                            >
-                                Register
-                            </LoadingButton> 
+
+                        <LoadingButton
+                            loading={isFetching}
+                            type="submit"
+                            size="large"
+                            variant="contained"
+                        >
+                            Register
+                        </LoadingButton>
 
 
                         <Span> Already have an account? </Span>

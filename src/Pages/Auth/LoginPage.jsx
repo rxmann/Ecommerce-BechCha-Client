@@ -187,7 +187,6 @@ const LoginPage = () => {
 
 
                         <LoadingButton
-                            loading={isFetching}
                             type="submit"
                             size="large"
                             variant="contained"

@@ -8,6 +8,7 @@ export const updateThisOrder = async (id, status)  => {
         console.log(status);
         const response = await userRequest.patch(`/orders/update/${id}`, { status: status });
         console.log(response.data);
+        // window.location.reload(false);
         successToast("Order status updated!")
     }
     catch (error) {
@@ -101,5 +102,6 @@ export const makeAnOrder = async (dispatch, orderData, totalPayable) => {
         successToast(` ${cartQuantity} items ordered successfully! `)
     } catch (error) {
         console.log(error);
+        failureToast(error.response.data)
     }
 }

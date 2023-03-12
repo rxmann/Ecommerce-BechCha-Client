@@ -123,7 +123,7 @@ const OrdersTab = () => {
                 return (
                     <StatusCell >
                         <Profile src={params.row.user?.image} />
-                        {params.row.user.username}
+                        {params.row.user?.username}
                     </StatusCell>
                 )
             },

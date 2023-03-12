@@ -54,7 +54,7 @@ const AdminHome = () => {
   const [userStats, setUserStats] = useState({});
 
   useEffect(() => {
-
+    
     const getAllStats = async () => {
       // sales stats past-now
       setSalesStats(await getSalesStats());

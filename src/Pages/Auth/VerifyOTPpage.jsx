@@ -8,8 +8,8 @@ import {
     InputLabel,
     OutlinedInput,
 } from "@mui/material";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { resendUserOTP, verifyUserOTP } from "../../ApiCalls/UserApiCalls";
+import { useDispatch, useSelector } from "react-redux";
 
 
 
@@ -88,45 +88,28 @@ const LinkItem = styled.a`
 
 const VerifyOTP = () => {
 
-    const navigate = useNavigate();    
+
+    const {currentUser} = useSelector(state => state.user);
+    const navigate = useNavigate();   
+    const dispatch = useDispatch(); 
     const [otp, setOTP] = useState("")
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState(currentUser?.email ? currentUser?.email : "");
+
+   
 
     const handleVerifyOTP = async (e) => {
         e.preventDefault();
-        try {
-            const response = await publicRequest.post("/users/verifyOTP", { email, otp: otp.toString() })
-
-            if (response?.data) {
-
-                toast.success("User verification completed!", {
-                    position: "top-center",
-                    theme: "colored",
-                })
-
-                navigate("/login");
-            }
-            else {
-                throw new Error("Verification failed. Try again!")
-            }
+        const payload = {
+            email, otp
         }
-        catch (err) {
-            console.log(err.response);
-            toast.error(err.response.data, {
-                position: "top-center",
-                theme: "colored"
-            })
-        }
+        await verifyUserOTP(dispatch, payload);
+        navigate("/login");  
     }
 
-    const handleResend = async () => {
-        try {
-            const response = await publicRequest.post("/users/resendOTP", { email  });
-            console.log(response);
-        }
-        catch (err) {
-            console.log(err.response.data);
-        }
+    const handleResend = async (e) => {
+        e.preventDefault();
+        await resendUserOTP(dispatch, email);
+        
     }
 
     return (
@@ -148,6 +131,7 @@ const VerifyOTP = () => {
                             <InputLabel> Email </InputLabel>
                             <OutlinedInput
                                 value={email}
+                                defaultValue={email}
                                 onChange={(e) => { setEmail(e.target.value) }}
                                 type="text"
                                 label="Email"

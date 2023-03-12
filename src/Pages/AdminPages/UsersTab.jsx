@@ -1,9 +1,12 @@
 import { AccountCircle, DeleteOutline } from '@mui/icons-material';
 import { Button } from '@mui/material';
+import { current } from '@reduxjs/toolkit';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
+import { deleteUserAccount } from '../../ApiCalls/UserApiCalls';
 import DataTable from '../../Components/AdminComponents/Tables/DataTable';
 import { userRequest } from '../../requestMethods/requestMethods';
 
@@ -84,6 +87,9 @@ const StatusButton = ({ type }) => {
 const UsersTab = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { currentUser } = useSelector(state => state.user);
 
   const [ users, setUsers ] = useState([]);
   const [ref, setRef] = useState(false);
@@ -106,13 +112,7 @@ const UsersTab = () => {
 
   const handleDeleteOne = async (id) => {
     console.log(id);
-    try {
-      const response = await userRequest.delete(`/users/${id}`);
-      console.log(response?.data);
-    }
-    catch (err) {
-      console.log(err.response.data);
-    }
+    await deleteUserAccount(dispatch, id, currentUser._id);
     setRef(!ref);
   }
 

@@ -43,7 +43,6 @@ userRequest.interceptors.request.use(async (request) => {
     const user = jwt_decode(accessToken);
     const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
     console.log("Request Interceptors! | isExpired? ", isExpired);
-      
 
     if (!isExpired) return request;
 
@@ -70,7 +69,7 @@ userRequest.interceptors.request.use(async (request) => {
             }
         }
         catch (err) {
-            console.log(err.response?.data);
+            console.log("Interceptor Error: ", err.response?.data);
             if (err.response.data?.code === "notoken") {
                 console.log("Token Expired");
                 localStorage.setItem("persist:root", null);

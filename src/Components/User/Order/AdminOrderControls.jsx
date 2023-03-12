@@ -18,18 +18,19 @@ const Selector = styled.div`
 const AdminOrderControls = ({ data }) => {
 
     const [selected, setSelected] = useState("");
-    const [itemsList, setItemsList] = useState([]);
-
+    const [itemsList, setItemsList] = useState(data.status);
 
 
     const handleUpdateOrder = async () => {
         const orderId = data._id;
         await updateThisOrder(orderId, selected);
+        window.location.reload(false);
     }
 
 
     useEffect(() => {
         const sta = data.status;
+        console.log(data.status);
         switch (sta) {
             case "pending":
                 setItemsList("processing")
@@ -42,6 +43,7 @@ const AdminOrderControls = ({ data }) => {
                 break;
             case "shipping":
                 setItemsList("delivered")
+                break;
             case "delivered":
                 setItemsList()
                 break;
@@ -53,13 +55,12 @@ const AdminOrderControls = ({ data }) => {
 
     return (
         <Container>
-            {itemsList?.length > 0 &&
+            {itemsList   &&
                 <>
                     <Selector>
                         <Select
                             fullWidth
                             value={selected}
-                            defaultValue={itemsList}
                             onChange={(e) => setSelected(e.target.value)}
                         >
                                 <MenuItem value={itemsList} > {itemsList} </MenuItem>

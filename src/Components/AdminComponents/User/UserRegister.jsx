@@ -2,8 +2,8 @@ import { Avatar, Button, MenuItem, Select, TextField } from "@mui/material"
 import { useState } from "react"
 import styled from "styled-components"
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import { publicRequest } from "../../../requestMethods/requestMethods";
-
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../../ApiCalls/UserApiCalls";
 
 
 
@@ -72,7 +72,7 @@ const Title = styled.h2`
 
 
 const UserRegister = () => {
-    
+
     const data = {
         username: "",
         email: "",
@@ -84,76 +84,48 @@ const UserRegister = () => {
     };
     const [profileImage, setProfileImage] = useState("");
     const [userData, setUserData] = useState(data);
+    const dispatch = useDispatch();
 
+
+
+    // state management
     const handleChange = (e) => {
         setUserData({ ...userData, [e.target.name]: e.target.value })
     }
 
+
+    // invoke registrations
     const handleRegister = async (e) => {
         e.preventDefault();
+
         // 2mb
-        if (userData["image"].size > 2000000) {
+        if (!userData["image"]) return alert("Requires a profile image.")
+
+        if (userData["image"]?.size > 2000000) {
             alert("File too large");
             return;
         }
 
+        if (userData.password.length < 8 || !/\d/.test(userData.password)) return alert("Password should be 8 characters long and must include Numbers")
+
+        
         const formData = new FormData();
-        Object.keys(userData).forEach(key => {
-            formData.append(key, userData[key]);
+        formData.append("username", userData["username"]);
+        formData.append("email", userData["email"]);
+        formData.append("password", userData["password"]);
+        formData.append("isAdmin", userData["isAdmin"]);
+        formData.append("contacts", userData["contacts"]);
+        formData.append("dob", userData["dob"]);
+
+
+        Object.keys(formData).forEach(key => {
+            console.log(key, formData[key]);
         });
 
-        try {
-            console.log("reg");
-            const response = await publicRequest.post("/users/register", formData, { headers: { "Content-type": "multipart/form-data" } });
-            console.log(response.data);
-            setUserData(data);
-        }
-        catch (err) {
-            console.log(err);
-        }
+
+        await registerUser(dispatch, formData);
     }
 
-    const InputData = [
-        {
-            name: "username",
-            type: "text",
-            label: "Username",
-            value: userData.username,
-        }, {
-            name: "email",
-            type: "email",
-            label: "Email",
-            value: userData.email,
-        },
-        {
-            name: "password",
-            type: "password",
-            label: "Password",
-            value: userData.password,
-        },
-        {
-            name: "address",
-            type: "text",
-            label: "Address",
-            value: userData.address,
-        },
-        {
-            name: "contacts",
-            type: "tel",
-            label: "Phone Number",
-            pattern: {
-                inputProps: {
-                    inputMode: "numeric",
-                    pattern: `[0-9]{10}`
-                }
-            },
-        },
-        {
-            name: "dob",
-            type: "date",
-            label: "Date of Birth"
-        },
-    ]
 
 
     // image upload change handle
@@ -162,7 +134,6 @@ const UserRegister = () => {
         setUserData({ ...userData, "image": imaged })
         setProfileImage(URL.createObjectURL(imaged))
     }
-
 
     return (
         <Container>
@@ -188,20 +159,90 @@ const UserRegister = () => {
 
 
                     <FormDiv>
-                        {InputData.map((input) => (
-                            <FormItem key={input.label}>
-                                <Label> {input.label} </Label>
-                                <TextInput
-                                    name={input.name}
-                                    type={input.type}
-                                    value={input.value && input.value}
-                                    onChange={handleChange}
-                                    InputProps={input.pattern}
-                                    required
-                                    variant={"standard"}
-                                />
-                            </FormItem>
-                        ))}
+
+                        {/* // username */}
+                        <FormItem >
+                            <Label> Username </Label>
+                            <TextInput
+                                name={"username"}
+                                type={"text"}
+                                value={userData.username}
+                                onChange={handleChange}
+                                required
+                                variant={"standard"}
+                            />
+                        </FormItem>
+
+
+                        {/* // emails */}
+                        <FormItem >
+                            <Label> Email </Label>
+                            <TextInput
+                                name={"email"}
+                                type={"email"}
+                                value={userData.email}
+                                onChange={handleChange}
+                                required
+                                variant={"standard"}
+                            />
+                        </FormItem>
+
+                        {/* // Password */}
+                        <FormItem >
+                            <Label> Password </Label>
+                            <TextInput
+                                name={"password"}
+                                type={"password"}
+                                value={userData.password}
+                                onChange={handleChange}
+                                required
+                                variant={"standard"}
+                            />
+                        </FormItem>
+
+
+                        {/* // Address */}
+                        <FormItem >
+                            <Label> Address </Label>
+                            <TextInput
+                                name={"address"}
+                                type={"text"}
+                                value={userData.address}
+                                onChange={handleChange}
+                                required
+                                variant={"standard"}
+                            />
+                        </FormItem>
+
+                        {/* // Contacts */}
+                        <FormItem >
+                            <Label> Contacts </Label>
+                            <TextInput
+                                 placeholder="contacts"
+                                 type="tel"
+                                 value={userData.contacts}
+                                 onChange={handleChange}
+                                 inputProps={{
+                                   pattern: '[0-9]{10}',
+                                   maxLength: 10,
+                                   inputMode: 'numeric',
+                                 }} 
+                                 variant={"standard"}
+                            />
+                        </FormItem>
+
+
+                        {/* // Date of birth */}
+                        <FormItem >
+                            <Label> DOB </Label>
+                            <TextInput
+                                name={"dob"}
+                                type={"date"}
+                                onChange={handleChange}
+                                required
+                                variant={"standard"}
+                            />
+                        </FormItem>
 
                         <FormItem>
                             <Label> User Role </Label>

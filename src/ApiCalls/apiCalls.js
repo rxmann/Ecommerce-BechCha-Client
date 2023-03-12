@@ -2,7 +2,6 @@ import { userRequest } from "../requestMethods/requestMethods";
 import { toast } from 'react-toastify';
 import { cartStart, cartFail, updateCartSuccess, emptyCart } from "../Redux/cartSlice"
 import months from 'months';
-import { persistor } from "../Redux/store";
  
 export const successToast = (message) => {
     toast.success(message, {
@@ -59,7 +58,6 @@ export const addProductToCart = async (dispatch, product, quantity, maxQuantity,
     try {
         await userRequest.post(`/cart`, form)
         reloadCart(dispatch);
-        successToast("Product added to cart!")
     }
     catch (err) {
         console.log(err);
@@ -76,7 +74,6 @@ export const emptyMyCart = async (dispatch) => {
     try {
         await userRequest.delete("/cart");
         dispatch(emptyCart())
-        successToast("Cart Emptied!")
     }
     catch (error) {
         console.log(error);

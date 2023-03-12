@@ -41,8 +41,6 @@ const UserDetails = () => {
         getOrders();
     }, [id])
 
-    console.log(orders);
-
 
     return (
         <Container>
