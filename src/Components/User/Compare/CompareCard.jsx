@@ -1,37 +1,33 @@
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
 const Container = styled.div`
-  width: 200px;
-  height: 300px;
   padding: 10px;
   background-color: #ffffff;
   display: flex;
-  flex-direction: column;
-  border-radius: 2px;
-  margin: 20px 10px;
-
-  &:hover {
-    transform: translate(2);
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-  }
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  height: 100px;
+  width: 350px;
+  overflow: hidden;
 
 `
 const ImageContainer = styled.div`
-  flex: 4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  flex: 1;
+  width: 100%;
+  height: 90%;
   overflow: hidden;
-  background-color: #ffffff;
+  padding: 10px;
 `
 
 const Image = styled.img`
-  height: 100%;
-  width: 100%;
+    width: 90%;
+    height: 90%;
+  object-fit: contain;
   cursor: pointer;
   transition: transform .3s ease;
   transform: scale(0.8);
-  border-radius: 2px;
 
   &:hover {
     transform: scale(1);
@@ -39,58 +35,38 @@ const Image = styled.img`
 `
 
 const Wrapper = styled.div`
-  flex: 1;
+  flex: 2;
   display: flex;
   flex-direction: column;
-`
-
-
-const Title = styled.h2`
-  font-size: 14px;
-  font-weight: 500;
-  margin: 10px;
-`
-
-
-const Info = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
   justify-content: space-between;
+`
+
+
+const Title = styled.h3`
+  font-weight: 400;
 `
 
 const Price = styled.span`
   font-size: 18px;
   font-weight: 600;
   color:  #0171b6;
-  margin: 10px;
 `
 
-const AddBtn = styled(AddBoxOutlinedIcon)`
-  transition: box-shadow 150ms ease-out;
-  &:hover {
-		box-shadow: 0 0 0 8px rgba($white, 0.5);
-    transform: scale(1.1, 1.1);
-	}
-`
 
-const CompareCard = () => {
+const CompareCard = ({data}) => {
+
+    const navigate = useNavigate();
+
   return (
     <Container >
     <ImageContainer>
-    <Image onClick={() => navigate(`/product/${data._id}`)} src={image} />
+    <Image onClick={() => navigate(`/product/${data._id}`)} src={data.images[0]?.url} />
     </ImageContainer>
 
     <Wrapper>
       <Title> {data.title} </Title>
+      <Price>  RS {data.price} </Price>
     </Wrapper>
-
-    <Info>
-      <Price> RS {data.price} </Price>
-      <AddBtn
-        sx= {{cursor: 'pointer'}}
-      fontSize="medium"  color="primary"/>
-    </Info>
   </Container>
   )
 }

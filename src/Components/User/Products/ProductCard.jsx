@@ -90,7 +90,7 @@ const ProductCard = ({ data }) => {
       <Info>
         <Price> RS {data.price} </Price>
         <CompareIcon
-        onClick={() => dispatch(addToCompare(data.title))}
+        onClick={() => dispatch(addToCompare(data))}
           sx= {{cursor: 'pointer'}}
         fontSize="medium"  color="primary"/>
       </Info>
