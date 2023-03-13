@@ -104,6 +104,8 @@ const ProfilePic = styled.img`
 const Navbar = () => {
 
     const { currentUser, isSignedIn } = useSelector(state => state.user);
+    const { products } = useSelector(state => state.compare);
+
     const quantity = useSelector(state => state.usercart?.totalQuantity)
     const navigate = useNavigate();
 
@@ -165,8 +167,10 @@ const Navbar = () => {
                             <ShoppingCartOutlined />
                         </Badge>
                     </Mbtn>
-                    <Mbtn>
-                        <CompareIcon />
+                    <Mbtn onClick={() => navigate("/compare-mylist")}>
+                    <Badge color='error' badgeContent={products.length}  >
+                        <CompareIcon   />
+                        </Badge>
                     </Mbtn>
                 </Right>
             </Wrapper>

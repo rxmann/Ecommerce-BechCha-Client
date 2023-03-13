@@ -30,7 +30,6 @@ const AdminOrderControls = ({ data }) => {
 
     useEffect(() => {
         const sta = data.status;
-        console.log(data.status);
         switch (sta) {
             case "pending":
                 setItemsList("processing")

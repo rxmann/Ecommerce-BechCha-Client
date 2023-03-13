@@ -72,7 +72,7 @@ userRequest.interceptors.request.use(async (request) => {
             console.log("Interceptor Error: ", err.response?.data);
             if (err.response.data?.code === "notoken") {
                 console.log("Token Expired");
-                localStorage.setItem("persist:root", null);
+                await localStorage.setItem("persist:root", JSON.stringify(null));
             }
         }
 

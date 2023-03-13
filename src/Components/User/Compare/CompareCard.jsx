@@ -1,8 +1,4 @@
 import styled from "styled-components"
-import CompareIcon from '@mui/icons-material/Compare';
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addToCompare } from "../../../Redux/compareProductSlice";
 
 const Container = styled.div`
   width: 200px;
@@ -70,32 +66,33 @@ const Price = styled.span`
   margin: 10px;
 `
 
+const AddBtn = styled(AddBoxOutlinedIcon)`
+  transition: box-shadow 150ms ease-out;
+  &:hover {
+		box-shadow: 0 0 0 8px rgba($white, 0.5);
+    transform: scale(1.1, 1.1);
+	}
+`
 
-const ProductCard = ({ data }) => {
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const image = data.images[0]?.url;
-
+const CompareCard = () => {
   return (
     <Container >
-      <ImageContainer>
-      <Image onClick={() => navigate(`/product/${data._id}`)} src={image} />
-      </ImageContainer>
+    <ImageContainer>
+    <Image onClick={() => navigate(`/product/${data._id}`)} src={image} />
+    </ImageContainer>
 
-      <Wrapper>
-        <Title> {data.title} </Title>
-      </Wrapper>
+    <Wrapper>
+      <Title> {data.title} </Title>
+    </Wrapper>
 
-      <Info>
-        <Price> RS {data.price} </Price>
-        <CompareIcon
-        onClick={() => dispatch(addToCompare(data.title))}
-          sx= {{cursor: 'pointer'}}
-        fontSize="medium"  color="primary"/>
-      </Info>
-    </Container>
+    <Info>
+      <Price> RS {data.price} </Price>
+      <AddBtn
+        sx= {{cursor: 'pointer'}}
+      fontSize="medium"  color="primary"/>
+    </Info>
+  </Container>
   )
 }
 
-export default ProductCard
+export default CompareCard

@@ -138,7 +138,7 @@ const App = () => {
           element: <ShowProductsPage />,
         },
         {
-          path: "/compare/:id",
+          path: "/compare-mylist",
           element: <ComparePage />,
         },
         {
