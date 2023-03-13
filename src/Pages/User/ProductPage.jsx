@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux"
 import { addProductToCart } from "../../ApiCalls/apiCalls";
 import { getOneProduct } from "../../ApiCalls/ProductApiCalls";
+import { addToCompare } from "../../Redux/compareProductSlice";
 
 const Container = styled.div`
   display: flex;
@@ -206,7 +207,7 @@ const ProductPage = () => {
 
               <QuickLinks>
                 <Links> <FavoriteIcon /> ADD TO WISHLIST </Links>
-                <Links> <BalanceIcon /> ADD TO COMPARE </Links>
+                <Links onClick={() => dispatch(addToCompare(product))} > <BalanceIcon /> ADD TO COMPARE </Links>
               </QuickLinks>
             </Right>
 
