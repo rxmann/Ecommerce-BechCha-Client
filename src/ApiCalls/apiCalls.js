@@ -135,6 +135,7 @@ export const deleteProductFromCart = async (dispatch, prodId) => {
 export const updateItemFromCart = async (dispatch, product, type) => {
     dispatch(cartStart())
     try {
+        console.log(product, type);
         await userRequest.patch("/cart", { 
             product: product._id, 
             type, 
