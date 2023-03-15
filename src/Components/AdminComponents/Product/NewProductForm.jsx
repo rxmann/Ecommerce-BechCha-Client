@@ -155,6 +155,8 @@ const NewProductForm = ({ FormType, prodDetails }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        console.log(values.description);
         if (FormType === "add") {
             await addProductAdmin(values);
             getAllProducts();
@@ -219,7 +221,10 @@ const NewProductForm = ({ FormType, prodDetails }) => {
                             <JoditEditor
                                 config={config}
                                 value={values["description"]}
-                                onBlur={con => setValues({ ...values, "description": con })}
+                                onBlur={(con) => {
+                                    const editorContent = con;
+                                    setValues({ ...values, description: editorContent });
+                                }}
                             />
                         </DescWrap>
                     </FormDesc>

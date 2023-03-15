@@ -141,7 +141,13 @@ const ProductPage = () => {
   useEffect(() => {
     const getEssential = async () => {
       const pro = await getOneProduct(id);
-      setProduct(pro)
+      const textContent = document.createElement("div");
+      textContent.innerHTML = pro.description;
+      const plainText = textContent.innerText;
+      setProduct({
+        ...pro,
+        description: plainText
+      });
     }
 
     getEssential()
@@ -192,7 +198,7 @@ const ProductPage = () => {
               </TitleWrapper>
               <Price> RS {product.price} </Price>
               {/* <Description >  */}
-              {product.description}
+              {product.description}.innerText
               {/* </Description> */}
               <p style={{ color: "red" }}> Stock: {product.quantity} </p>
               <QuantityDiv>
