@@ -1,4 +1,3 @@
-import { Delete } from "@mui/icons-material"
 import { Button } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
@@ -20,10 +19,15 @@ const TopDiv = styled.div`
 
 const MainWrapper = styled.div`
   flex: 5;
+  display: flex;
+  align-items: center;
+  gap: 30px;
 `
 const ComparePage = () => {
   const dispatch = useDispatch();
   const { products } = useSelector(state => state.compare)
+
+
   return (
     <Container>
       <Button  sx={{marginLeft: "auto"}} color={"error"} onClick={() => dispatch(emptyCompare())}> EMPTY COMPARE LIST</Button>
@@ -34,7 +38,9 @@ const ComparePage = () => {
         </TopDiv>
 
         <MainWrapper>
-            B
+             {products.map((product) => (
+              product.title
+            ))}
         </MainWrapper>
     </Container>
   )

@@ -9,7 +9,7 @@ const Container = styled.div`
   border-radius: 8px;
   box-shadow: rgba(116, 153, 255, 0.548) 0px 5px 15px 0px;
   height: 100px;
-  width: 350px;
+  width: 300px;
   overflow: hidden;
 
 `
@@ -43,11 +43,11 @@ const Wrapper = styled.div`
 
 
 const Title = styled.h3`
-  font-weight: 400;
+  font-weight: 500;
 `
 
 const Price = styled.span`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   color:  #0171b6;
 `
