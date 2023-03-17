@@ -30,18 +30,12 @@ const ComparePage = () => {
 
   return (
     <Container>
-      <Button  sx={{marginLeft: "auto"}} color={"error"} onClick={() => dispatch(emptyCompare())}> EMPTY COMPARE LIST</Button>
-        <TopDiv>
-            {products.map((product) => (
-              <CompareCard key={product._id} data={product} />
-            ))}
-        </TopDiv>
-
-        <MainWrapper>
-             {products.map((product) => (
-              product.title
-            ))}
-        </MainWrapper>
+      <Button sx={{ marginLeft: "auto" }} color={"error"} onClick={() => dispatch(emptyCompare())}> EMPTY COMPARE LIST</Button>
+      <MainWrapper>
+        {products.map((product) => (
+          <CompareCard key={product._id} data={product} />
+        ))}
+      </MainWrapper>
     </Container>
   )
 }
