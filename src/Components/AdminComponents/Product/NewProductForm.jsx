@@ -155,8 +155,6 @@ const NewProductForm = ({ FormType, prodDetails }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        console.log(values.description);
         if (FormType === "add") {
             await addProductAdmin(values);
             getAllProducts();
