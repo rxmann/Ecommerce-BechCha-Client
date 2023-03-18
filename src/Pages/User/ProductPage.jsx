@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux"
 import { addProductToCart } from "../../ApiCalls/apiCalls";
 import { getOneProduct } from "../../ApiCalls/ProductApiCalls";
 import { addToCompare } from "../../Redux/compareProductSlice";
+import Fetching from "../../Components/User/EmptyView/Fetching";
 
 const Container = styled.div`
   display: flex;
@@ -121,12 +122,14 @@ const Span = styled.span`
     margin: 0px;
     font-weight: 600;
 `
-
-const LoadingScreen = styled.div`
-  height: 60vh;
+const DisplayInfo = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+`
+
+const DisplayUnit = styled.span`
+  color: green;
+  font-weight: 500;
 `
 
 
@@ -197,10 +200,18 @@ const ProductPage = () => {
                 <Span >Product ID: {product._id}</Span>
               </TitleWrapper>
               <Price> RS {product.price} </Price>
-              {/* <Description >  */}
-              {product.description}.innerText
-              {/* </Description> */}
-              <p style={{ color: "red" }}> Stock: {product.quantity} </p>
+
+              {product.description}
+
+
+              <DisplayInfo>
+
+                <DisplayUnit > Stock:   {product.quantity} </DisplayUnit>
+
+                {product.brand &&  <DisplayUnit > Brand:   {product.brand} </DisplayUnit>}
+              </DisplayInfo>
+             
+             
               <QuantityDiv>
                 <Button onClick={() => handleQuantity("dec", product.quantity)}> - </Button>
                 {quantity}
@@ -212,8 +223,8 @@ const ProductPage = () => {
               </AddToCart>
 
               <QuickLinks>
-                <Links> <FavoriteIcon /> ADD TO WISHLIST </Links>
                 <Links onClick={() => dispatch(addToCompare(product))} > <BalanceIcon /> ADD TO COMPARE </Links>
+                <Links> <FavoriteIcon /> ADD TO WISHLIST </Links>
               </QuickLinks>
             </Right>
 
@@ -221,7 +232,7 @@ const ProductPage = () => {
           <DescriptionTable />
         </Container>
 
-        : <LoadingScreen> Loading product ... </LoadingScreen>
+        : <Fetching type={"spokes"} />
       }
 
     </>
