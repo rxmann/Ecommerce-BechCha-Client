@@ -1,5 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { Button } from "@mui/material"
+import { useDispatch } from "react-redux";
+import { removeOneCompare } from "../../../Redux/compareProductSlice";
 
 const Container = styled.div`
   flex: 1;
@@ -7,7 +10,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  padding: 20px;
+  padding: 20px 20px 0px 20px;
   margin: 30px;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px; 
   border-radius: 20px;
@@ -68,10 +71,23 @@ const Desc = styled.span`
   font-weight: 400;
 `
 
+const DeleteBtn = styled(Button)`
+  opacity: 0.3;
+  width: 100%;
+
+  &:hover{
+    opacity: 1;
+  }
+`
 
 
 const CompareCard = ({ data }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleRemove = () => {
+    dispatch(removeOneCompare(data));
+  }
 
   return (
     <Container>
@@ -85,7 +101,7 @@ const CompareCard = ({ data }) => {
       <ProductInfoContainer>
         <Infor> Price  <Value> RS {data.price} </Value> </Infor>
         <Infor> InStock  <Value>  {data.quantity} </Value> </Infor>
-        <Infor> Brand  <Value>  {data.quantity} </Value> </Infor>
+        <Infor> Brand  <Value>  {data.brand ? data.brand : "None"} </Value> </Infor>
         <Infor> Sales  <Value>  {data.sold > 0 ? data.sold : 0} </Value> </Infor>
       </ProductInfoContainer>
 
@@ -93,6 +109,9 @@ const CompareCard = ({ data }) => {
         <Infor>Description</Infor>
         <Desc>{data.description}</Desc>
       </ProductDescContainer>
+      <DeleteBtn color="error" onClick={() => handleRemove()}> 
+        REMOVE
+      </DeleteBtn>
     </Container>
   );
 };

@@ -22,7 +22,7 @@ export const compareSlice = createSlice({
         emptyCompare: (state) => {
             state.products = [];
         },
-        deleteOneCompare: (state, action) => {
+        removeOneCompare: (state, action) => {
             state.products = state.products.filter((prod) => prod._id !== action.payload._id )
         }
     }
@@ -32,5 +32,6 @@ export const compareSlice = createSlice({
 export const { 
     addToCompare,  
     emptyCompare,  
+    removeOneCompare
 } = compareSlice.actions;
 export default compareSlice.reducer;
