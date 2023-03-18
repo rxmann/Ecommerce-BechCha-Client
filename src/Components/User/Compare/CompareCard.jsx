@@ -1,74 +1,100 @@
-import { useNavigate } from "react-router-dom"
-import styled from "styled-components"
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 const Container = styled.div`
-  padding: 10px;
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  border-radius: 8px;
-  box-shadow: rgba(116, 153, 255, 0.548) 0px 5px 15px 0px;
-  height: 100px;
-  width: 300px;
-  overflow: hidden;
-
-`
-const ImageContainer = styled.div`
   flex: 1;
-  width: 100%;
-  height: 90%;
-  overflow: hidden;
-  padding: 10px;
-`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  margin: 30px;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px; 
+  border-radius: 20px;
+  background-color: white;
+`;
+
+
+const ImageContainer = styled.div`
+  height: 200px;
+`;
 
 const Image = styled.img`
-    width: 90%;
-    height: 90%;
+width: 100%;
+height: 100%;
   object-fit: contain;
   cursor: pointer;
-  transition: transform .3s ease;
+  transition: transform 0.3s ease;
   transform: scale(0.8);
 
   &:hover {
     transform: scale(1);
   }
-`
+`;
 
-const Wrapper = styled.div`
-  flex: 2;
+const ProductInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-`
-
+  width: 60%;
+`;
 
 const Title = styled.h3`
   font-weight: 500;
-`
+`;
 
-const Price = styled.span`
-  font-size: 16px;
+const Infor = styled.span`
+  display: flex;  
+  justify-content: space-between;
+  color: gray;
+  font-weight: 500;
+  padding: 5px;
+`;
+const Value = styled.span`
+  font-size: 18px;
   font-weight: 600;
-  color:  #0171b6;
+  color: #0171b6;
+`;
+
+
+const ProductDescContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  height: 200px;
+`;
+
+const Desc = styled.span`
+  padding: 10px;
+  font-weight: 400;
 `
 
 
-const CompareCard = ({data}) => {
 
-    const navigate = useNavigate();
+const CompareCard = ({ data }) => {
+  const navigate = useNavigate();
 
   return (
-    <Container >
-    <ImageContainer>
-    <Image onClick={() => navigate(`/product/${data._id}`)} src={data.images[0]?.url} />
-    </ImageContainer>
-
-    <Wrapper>
+    <Container>
+      <ImageContainer>
+        <Image
+          onClick={() => navigate(`/product/${data._id}`)}
+          src={data.images[0]?.url}
+        />
+      </ImageContainer>
       <Title> {data.title} </Title>
-      <Price>  RS {data.price} </Price>
-    </Wrapper>
-  </Container>
-  )
-}
+      <ProductInfoContainer>
+        <Infor> Price  <Value> RS {data.price} </Value> </Infor>
+        <Infor> InStock  <Value>  {data.quantity} </Value> </Infor>
+        <Infor> Brand  <Value>  {data.quantity} </Value> </Infor>
+        <Infor> Sales  <Value>  {data.sold > 0 ? data.sold : 0} </Value> </Infor>
+      </ProductInfoContainer>
 
-export default CompareCard
+      <ProductDescContainer>
+        <Infor>Description</Infor>
+        <Desc>{data.description}</Desc>
+      </ProductDescContainer>
+    </Container>
+  );
+};
+
+export default CompareCard;

@@ -10,18 +10,12 @@ const Container = styled.div`
     padding: 10px 50px;
     gap: 20px;
 `
-const TopDiv = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 30px;
-`
 
 const MainWrapper = styled.div`
   flex: 5;
   display: flex;
   align-items: center;
-  gap: 30px;
+  justify-content: center;
 `
 const ComparePage = () => {
   const dispatch = useDispatch();
@@ -30,10 +24,12 @@ const ComparePage = () => {
 
   return (
     <Container>
-      <Button sx={{ marginLeft: "auto" }} color={"error"} onClick={() => dispatch(emptyCompare())}> EMPTY COMPARE LIST</Button>
+      {products.length > 0 && <Button sx={{ marginLeft: "auto" }} color={"error"} onClick={() => dispatch(emptyCompare())}> EMPTY COMPARE LIST</Button>}
       <MainWrapper>
         {products.map((product) => (
+        <>
           <CompareCard key={product._id} data={product} />
+        </>
         ))}
       </MainWrapper>
     </Container>
