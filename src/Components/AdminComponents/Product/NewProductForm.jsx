@@ -113,6 +113,7 @@ const NewProductForm = ({ FormType, prodDetails }) => {
                 title: prodDetails?.title,
                 category: prodDetails?.category,
                 price: prodDetails?.price,
+                brand: prodDetails?.brand || "",
                 quantity: prodDetails?.quantity,
                 description: prodDetails?.description,
                 images: [],
@@ -163,7 +164,7 @@ const NewProductForm = ({ FormType, prodDetails }) => {
         else {
             await editProductAdmin(values, prodDetails._id);
         }
-        window.location.reload(false);
+        // window.location.reload(false);
     }
 
     return (
@@ -176,7 +177,8 @@ const NewProductForm = ({ FormType, prodDetails }) => {
                             name="title"
                             value={values["title"]}
                             onChange={handleChange}
-                            size="small" required variant="outlined" type="text" />
+                            size="small" required
+                            variant="standard" type="text" />
                     </FormItem>
 
                     <FormItem >
@@ -198,7 +200,8 @@ const NewProductForm = ({ FormType, prodDetails }) => {
                             name="price"
                             value={values["price"]}
                             onChange={handleChange}
-                            size="small" required variant="outlined" type={"number"} />
+                            variant="standard"
+                            size="small" required  type={"number"} />
                     </FormItem>
 
                     <FormItem >
@@ -211,6 +214,17 @@ const NewProductForm = ({ FormType, prodDetails }) => {
                             required
                             variant="standard"
                             type={"number"} />
+                    </FormItem>
+
+
+                    <FormItem >
+                        <Label> Brand </Label>
+                        <TextInput
+                            name="brand"
+                            value={values["brand"]}
+                            onChange={handleChange}
+                            size="small" required
+                            variant="standard" type="text" />
                     </FormItem>
 
                     <FormDesc style={{ flexShrink: 4 }}>

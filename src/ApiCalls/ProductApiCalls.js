@@ -37,14 +37,17 @@ export const getOneProduct = async (id) => {
 
 export const addProductAdmin = async (values) => {
     const formData = new FormData();
-    formData.append("title", values.title);
-    formData.append("category", values.category);
-    formData.append("price", values.price);
-    formData.append("quantity", values.quantity);
-    formData.append("description", values.description);
-    values.images.forEach((image) => {
-        formData.append(`images`, image);
-    });
+
+    for (let key in values) {
+        if (key === "images" ) {
+            values.images.forEach((image) => {
+                formData.append(`images`, image);
+            });
+        }
+        else {
+            formData.append(key, values[key]);
+        }
+    }
 
     try {
         await userRequest.post("/products", formData)
@@ -61,14 +64,18 @@ export const addProductAdmin = async (values) => {
 
 export const editProductAdmin = async (values, id) => {
     const formData = new FormData();
-    formData.append("title", values.title);
-    formData.append("category", values.category);
-    formData.append("price", values.price);
-    formData.append("quantity", values.quantity);
-    formData.append("description", values.description);
-    values.images.forEach((image) => {
-        formData.append(`images`, image);
-    });
+    for (let key in values) {
+        if (key === "images" ) {
+            values.images.forEach((image) => {
+                formData.append(`images`, image);
+            });
+        }
+        else {
+            formData.append(key, values[key]);
+        }
+    }
+
+    
 
     try {
         await userRequest.patch(`/products/${id}`, formData)
