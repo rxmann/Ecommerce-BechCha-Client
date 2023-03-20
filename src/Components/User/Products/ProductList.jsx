@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components"
-import { getAllProducts } from "../../../ApiCalls/ProductApiCalls";
 import ProductCard from "./ProductCard";
 
 
@@ -9,19 +7,7 @@ const Container = styled.div`
   flex-wrap: wrap;
 `
 
-const ProductList = ({ id, sort, limitPrice, subIds }) => {
-  const [data, setData] = useState();
-
-
-
-  useEffect(() => {
-    const getProductsOfCategory = async () => {
-      const prods = await getAllProducts({sort, limitPrice, subIds})
-      setData(prods)
-    }
-    getProductsOfCategory();
-  }, [id, sort, limitPrice, subIds])
-
+const ProductList = ({ data}) => {
 
   return (
     <Container>

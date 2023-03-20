@@ -27,7 +27,7 @@ const TopSales = () => {
 
     useEffect(() => {
         const getTopSold = async () => {
-            const prods = await getAllProducts({limit: 6})
+            const prods = await getAllProducts({limit: 5})
             setData(prods)
         }
 

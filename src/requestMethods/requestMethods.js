@@ -93,6 +93,7 @@ userRequest.interceptors.request.use(async (request) => {
 // CHECK response after every request
 userRequest.interceptors.response.use(async (response) => {
     // console.log("Response Intyerceptors ", response.data);
+
     return response;
 })
 

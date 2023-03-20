@@ -122,8 +122,7 @@ const Navbar = () => {
 
 
     const performSearch = () => {
-        console.log(search);
-        navigate(`/search-results/${search}`);
+        search.length > 0 && navigate(`/search-results/${search}`)
     }
 
     return (
