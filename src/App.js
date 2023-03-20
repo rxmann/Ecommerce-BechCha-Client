@@ -39,6 +39,7 @@ import OrderPage from "./Components/User/Order/OrderPage"
 import ComparePage from "./Pages/User/ComparePage"
 import { useSelector } from "react-redux"
 import { useEffect } from "react"
+import SearchResults from "./Pages/User/SearchResults"
 
 
 const Wrapper = styled.div`
@@ -132,6 +133,10 @@ const App = () => {
         {
           path: "/",
           element: <Homepage />,
+        },
+        {
+          path: "/search-results/:id",
+          element: <SearchResults />
         },
         {
           path: "/products/:id",

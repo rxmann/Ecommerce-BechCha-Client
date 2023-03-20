@@ -53,7 +53,6 @@ const Middle = styled.div`
 `
 
 const SearchContainer = styled.div`
-    /* width: 70%; */
     min-width: 500px;
     display: flex;
     align-items: center;
@@ -120,6 +119,13 @@ const Navbar = () => {
             navigate(`/profile/me`);
         }
     }
+
+
+    const performSearch = () => {
+        console.log(search);
+        navigate(`/search-results/${search}`);
+    }
+
     return (
         <Container>
             <Wrapper >
@@ -147,7 +153,7 @@ const Navbar = () => {
                                 </InputAdornment>
                             }
                         />
-                        <SearchButton variant='contained'>Search</SearchButton>
+                        <SearchButton variant='contained' onClick={() => performSearch()}>Search</SearchButton>
                     </SearchContainer>
                 </Middle>
 
