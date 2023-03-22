@@ -25,14 +25,13 @@ const Left = styled.div`
 const Right = styled.div`
   flex: 5;
   display: flex;
-  align-items: center;
   flex-direction: column;
 `
 
 const Info = styled.h3`
-  font-weight: 300;
+  font-weight: 400;
   color: gray;
-  padding: 10px;
+  padding: 20px;
 `
 
 const FilterItem = styled.div`
@@ -63,10 +62,12 @@ const SearchResults = () => {
   // get category display image
   useEffect(() => {
     const getData = async () => {
+      console.log(query);
       try {
         const prods = await getAllProducts({
           sort,
           limitPrice,
+          search: query
         });
         setData(prods);
       }
