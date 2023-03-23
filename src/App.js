@@ -128,6 +128,10 @@ const App = () => {
       element: <EmptyView />
     },
     {
+      path: "/profile/checkout-form",
+      element: <CheckoutForm />
+    },
+    {
       path: "",
       element: <Layout />,
       children: [
@@ -150,10 +154,6 @@ const App = () => {
         {
           path: "/product/:id",
           element: <ProductPage />,
-        },
-        {
-          path: "/checkout-form",
-          element: <CheckoutForm />
         },
         {
           path: "/profile",

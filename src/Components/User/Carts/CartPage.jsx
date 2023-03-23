@@ -179,7 +179,7 @@ const CartPage = () => {
                         </Button>
                         <Button
                             // onClick={() => makeAnOrder(dispatch, userCart, TOTALPAYABLE)}
-                            onClick={() => navigate("/checkout-form")}
+                            onClick={() => navigate("/profile/checkout-form")}
                             variant="contained"> Checkout </Button>
                     </Cart>
                 </SummaryWrapper>
