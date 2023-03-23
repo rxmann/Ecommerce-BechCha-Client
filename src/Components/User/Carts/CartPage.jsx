@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { emptyMyCart, reloadCart } from "../../../ApiCalls/apiCalls";
 import { makeAnOrder } from "../../../ApiCalls/ordersApiCalls";
 import Fetching from "../EmptyView/Fetching";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
     display: flex;
@@ -96,6 +97,7 @@ const Total = styled.h3`
 const CartPage = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         reloadCart(dispatch);
@@ -176,7 +178,8 @@ const CartPage = () => {
                             Empty Cart
                         </Button>
                         <Button
-                            onClick={() => makeAnOrder(dispatch, userCart, TOTALPAYABLE)}
+                            // onClick={() => makeAnOrder(dispatch, userCart, TOTALPAYABLE)}
+                            onClick={() => navigate("/checkout-form")}
                             variant="contained"> Checkout </Button>
                     </Cart>
                 </SummaryWrapper>

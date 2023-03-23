@@ -40,6 +40,7 @@ import ComparePage from "./Pages/User/ComparePage"
 import { useSelector } from "react-redux"
 import { useEffect } from "react"
 import SearchResults from "./Pages/User/SearchResults"
+import CheckoutForm from "./Components/User/Checkout/CheckoutForm"
 
 
 const Wrapper = styled.div`
@@ -149,6 +150,10 @@ const App = () => {
         {
           path: "/product/:id",
           element: <ProductPage />,
+        },
+        {
+          path: "/checkout-form",
+          element: <CheckoutForm />
         },
         {
           path: "/profile",
