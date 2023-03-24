@@ -29,8 +29,6 @@ const CheckoutForm = () => {
   const [component, setComponent] = useState( );
 
  useEffect(() => {
-
-  console.log(page)
   switch (page) {
     case "Shipping":
       setComponent(<ShippingForm  setElement={setPage} />);
@@ -42,8 +40,6 @@ const CheckoutForm = () => {
       setComponent(<PaymentTab setElement={setPage} />);
       break;
   }
-
-  
  } , [page]);
 
   return (
