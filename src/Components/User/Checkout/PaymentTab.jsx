@@ -1,8 +1,26 @@
-import React from 'react'
+import { Button } from "@mui/material";
+import styled from "styled-components"
 
-const PaymentTab = () => {
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+const PaymentTab = ({setElement}) => {
   return (
-    <div>PaymentTab</div>
+    <Container>
+       <Button
+       fullWidth
+       color="info"
+        variant={"contained"}
+        onClick={() => {
+          setElement("Shipping");
+        }}
+      >
+        Checkout
+      </Button>
+    </Container>
   )
 }
 

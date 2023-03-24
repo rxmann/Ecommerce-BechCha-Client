@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Button, Input } from "@mui/material";
-import Confirmation from "./ConfirmationForm";
 
 const Container = styled.div`
   display: flex;
@@ -41,30 +40,37 @@ const FormInput = styled(Input)`
 `;
 
 const ShippingForm = ({ setElement }) => {
+
+  
+  const handleConfirm = () => {
+   setElement("Confirmation");
+  }
+
+
   return (
     <Container>
       <ShippingWrapper>
-        <Form>
+        <Form >
           <FormItem>
             <InfoTitle> Recepitant Name </InfoTitle>
-            <FormInput />
+            <FormInput required />
           </FormItem>
           <FormItem>
             <InfoTitle> Billing Address </InfoTitle>
-            <FormInput />
+            <FormInput required />
           </FormItem>
           <FormItem>
             <InfoTitle> Shipping Address </InfoTitle>
-            <FormInput />
+            <FormInput required />
           </FormItem>
           <FormItem>
             <InfoTitle> Contacts </InfoTitle>
-            <FormInput type="tel" />
+            <FormInput type="tel" required/>
           </FormItem>
 
           <Button
+            onClick={handleConfirm}
             variant={"contained"}
-            onClick={() => setElement("Confirmation")}
           >
             confirm
           </Button>
