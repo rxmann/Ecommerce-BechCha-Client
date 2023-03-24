@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Button, Input } from "@mui/material";
-import Confirmation from "./ConfirmationForm";
+import PaymentTab from "./PaymentTab"
 
 const Container = styled.div`
   display: flex;
@@ -40,7 +40,7 @@ const FormInput = styled(Input)`
   flex: 2;
 `;
 
-const ShippingForm = ({ setElement }) => {
+const ConfirmationForm = ({ setElement }) => {
   return (
     <Container>
       <ShippingWrapper>
@@ -49,22 +49,13 @@ const ShippingForm = ({ setElement }) => {
             <InfoTitle> Recepitant Name </InfoTitle>
             <FormInput />
           </FormItem>
-          <FormItem>
-            <InfoTitle> Billing Address </InfoTitle>
-            <FormInput />
-          </FormItem>
-          <FormItem>
-            <InfoTitle> Shipping Address </InfoTitle>
-            <FormInput />
-          </FormItem>
-          <FormItem>
-            <InfoTitle> Contacts </InfoTitle>
-            <FormInput type="tel" />
-          </FormItem>
-
+          
           <Button
             variant={"contained"}
-            onClick={() => setElement("Confirmation")}
+            onClick={() => {
+              console.log("chek");
+              setElement("Payment")
+            }}
           >
             confirm
           </Button>
@@ -74,4 +65,4 @@ const ShippingForm = ({ setElement }) => {
   );
 };
 
-export default ShippingForm;
+export default ConfirmationForm;

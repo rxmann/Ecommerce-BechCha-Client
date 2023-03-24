@@ -1,9 +1,5 @@
 import { ProgressBar, Step } from "react-step-progress-bar";
-
 import styled from "styled-components";
-import Confirmation from "./Confirmation";
-import PaymentTab from "./PaymentTab";
-import ShippingForm from "./ShippingForm";
 
 const Container = styled.div`
   padding: 20px;
@@ -37,7 +33,7 @@ const MultiStepProgressBar = styled.div`
 const CheckoutSteps = ({ Element, setElement }) => {
   var stepPercentage = 0;
 
-  switch (Element.name) {
+  switch (Element) {
     case "Shipping":
       stepPercentage = 20;
       break;
@@ -54,16 +50,13 @@ const CheckoutSteps = ({ Element, setElement }) => {
 
   const steps = [
     {
-      name: "Shipping",
-      element: <ShippingForm setElement={setElement}/>,
+      name: "Shipping"
     },
     {
-      name: "Confirmation",
-      element: <Confirmation />,
+      name: "Confirmation"
     },
     {
-      name: "Payment",
-      element: <PaymentTab />,
+      name: "Payment"
     },
   ];
 
@@ -79,14 +72,14 @@ const CheckoutSteps = ({ Element, setElement }) => {
             <Step key={index} transition="scale">
               {({ accomplished }) =>
                 accomplished ? (
-                  <StatusWrapper onClick={() => setElement(step)}>
+                  <StatusWrapper onClick={() => setElement(step.name)}>
                     <IconWrapper color={"#ffffff"} bg={"#0171b6"}>
                       {step.name}
                     </IconWrapper>
                   </StatusWrapper>
                 ) : (
-                  <StatusWrapper onClick={() => setElement(step)}>
-                    <IconWrapper color={""} bg={"#f5f7f8"}>
+                  <StatusWrapper onClick={() => setElement(step.name)}>
+                    <IconWrapper color={""} bg={"#ffffff"}>
                       {step.name}
                     </IconWrapper>
                   </StatusWrapper>
