@@ -13,6 +13,17 @@ import { publicRequest, userRequest } from "../requestMethods/requestMethods";
 import { failureToast, successToast } from "./apiCalls";
 
 
+export const getShippingDetails = async ( id ) => {
+    try {
+        const response = await userRequest.get(`/users/shipping/${id}`)
+        const data = response.data;
+        return data
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
 
 
 export const registerUser = async (dispatch, userPayload) => {
@@ -166,6 +177,7 @@ export const getOneUser = async (dispatch, id) => {
         return null;
     }
 }
+
 
 
 
