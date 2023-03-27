@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 const Container = styled.div`
   display: flex;
@@ -76,9 +77,17 @@ const ItemC = styled.span`
 const ConfirmationForm = ({ setElement }) => {
   const cart = useSelector((state) => state.usercart);
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+
+
+  const handleCancel = () => {
+    // do something when user clicks "No"
+    setShowModal(false);
+  };
 
 
   const handleConfirm = () => {
+    setShowModal(false);
     setElement("Payment");
   }
 
@@ -124,7 +133,7 @@ const ConfirmationForm = ({ setElement }) => {
       <Button
        type="submit"
         variant={"contained"}
-        onClick={handleConfirm}
+        onClick={()=>handleConfirm}
       >
         Proceed to pay
       </Button>
