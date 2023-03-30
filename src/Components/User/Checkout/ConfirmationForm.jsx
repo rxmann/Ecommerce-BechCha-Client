@@ -3,6 +3,9 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import Modal from "./Modal"
+
+
 
 const Container = styled.div`
   display: flex;
@@ -133,10 +136,19 @@ const ConfirmationForm = ({ setElement }) => {
       <Button
        type="submit"
         variant={"contained"}
-        onClick={()=>handleConfirm}
+        onClick={() => setShowModal(true)}
       >
         Proceed to pay
       </Button>
+
+
+      <Modal
+        show={showModal}
+        message="Confirm the order list?"
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      />
+
     </Container>
   );
 };
