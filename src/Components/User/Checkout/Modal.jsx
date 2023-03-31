@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import styled from "styled-components";
 
 const Container = styled.div`
-    display: flex;
+    display: ${props => props.st === true ? 'flex' : "none"};
     flex-direction: column;
     gap: 20px;
     border: 2px solid #0171b6;
@@ -12,6 +12,7 @@ const Container = styled.div`
 const Content = styled.div`
     display: flex;
     gap: 20px;
+    justify-content: space-between;
 `;
 
 const Message = styled.p`
@@ -26,19 +27,15 @@ const Btn = styled(Button)`
 
 const Modal = ({ show, message, onConfirm, onCancel }) => {
 
-    const modalStyle = {
-        display: show ? 'block' : 'none'
-      };
-
 
   return (
-    <Container style={modalStyle}>
+    <Container st={show}>
       <Message>{message}</Message>
       <Content>
-        <Btn variant={"outlined"} onClick={onConfirm}>
+        <Btn variant={"outlined"} onClick={onCancel}>
           No
         </Btn>
-        <Btn variant={"contained"} onClick={onCancel}>
+        <Btn variant={"contained"} onClick={onConfirm}>
           Yes
         </Btn>
       </Content>

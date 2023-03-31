@@ -12,6 +12,7 @@ const Container = styled.div`
   flex-direction: column;
   padding: 10px;
   gap: 30px;
+  width: 50%;
 `;
 
 const Wrapper = styled.div`
@@ -77,7 +78,7 @@ const ItemC = styled.span`
   gap: 50px;
 `;
 
-const ConfirmationForm = ({ setElement }) => {
+const ConfirmationForm = () => {
   const cart = useSelector((state) => state.usercart);
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
@@ -91,7 +92,7 @@ const ConfirmationForm = ({ setElement }) => {
 
   const handleConfirm = () => {
     setShowModal(false);
-    setElement("Payment");
+    navigate("/checkout-form/payment")
   }
 
   return (

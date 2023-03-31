@@ -30,24 +30,9 @@ const MultiStepProgressBar = styled.div`
   width: 50%;
 `;
 
-const CheckoutSteps = ({ Element, setElement }) => {
-  var stepPercentage = 0;
+const CheckoutSteps = ({ step }) => {
 
-  switch (Element) {
-    case "Shipping":
-      stepPercentage = 20;
-      break;
-    case "Confirmation":
-      stepPercentage = 70;
-      break;
-    case "Payment":
-      stepPercentage = 100;
-      break;
-    default:
-      stepPercentage = 20;
-  }
-
-
+// for progressbar
   const steps = [
     {
       name: "Shipping"
@@ -65,20 +50,20 @@ const CheckoutSteps = ({ Element, setElement }) => {
     <Container>
       <MultiStepProgressBar>
         <ProgressBar
-          percent={stepPercentage}
+          percent={step}
           filledBackground="linear-gradient(to right, #2c8fffd3, #4effb8e8)"
         >
           {steps.map((step, index) => (
             <Step key={index} transition="scale">
               {({ accomplished }) =>
                 accomplished ? (
-                  <StatusWrapper onClick={() => setElement(step.name)}>
+                  <StatusWrapper >
                     <IconWrapper color={"#ffffff"} bg={"#0171b6"}>
                       {step.name}
                     </IconWrapper>
                   </StatusWrapper>
                 ) : (
-                  <StatusWrapper onClick={() => setElement(step.name)}>
+                  <StatusWrapper>
                     <IconWrapper color={""} bg={"#ffffff"}>
                       {step.name}
                     </IconWrapper>

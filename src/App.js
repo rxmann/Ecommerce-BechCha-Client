@@ -41,6 +41,9 @@ import { useSelector } from "react-redux"
 import { useEffect } from "react"
 import SearchResults from "./Pages/User/SearchResults"
 import CheckoutForm from "./Components/User/Checkout/CheckoutForm"
+import ConfirmationForm from "./Components/User/Checkout/ConfirmationForm"
+import ShippingForm from "./Components/User/Checkout/ShippingForm"
+import PaymentTab from "./Components/User/Checkout/PaymentTab"
 
 
 const Wrapper = styled.div`
@@ -53,8 +56,17 @@ const Contents = styled.div`
 `
 
 const ProfileWrapper = styled.div`
-  padding: 10px 50px;
-  
+  background-color: #f5f7f8;
+`
+
+const CheckoutWrapper = styled.div`
+
+`
+const Mid = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 `
 
 // box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
@@ -63,6 +75,8 @@ const ProfileWrapper = styled.div`
 
 
 const App = () => {
+
+  // main layout
   const Layout = () => {
     return (
       <Wrapper>
@@ -73,6 +87,8 @@ const App = () => {
     );
   };
 
+
+  // admin dash layout
   const AdminLayout = () => {
     const navigate = useNavigate();
     const { isSignedIn, currentUser } = useSelector(state => state.user)
@@ -98,6 +114,8 @@ const App = () => {
   };
 
 
+
+  // proile page layout
   const ProfileLayout = () => {
     const navigate = useNavigate();
     const { isSignedIn } = useSelector(state => state.user)
@@ -122,14 +140,52 @@ const App = () => {
   }
 
 
+  const CheckoutLayout = () => {
+    const navigate = useNavigate();
+    const { isSignedIn } = useSelector(state => state.user)
+
+    useEffect(() => {
+      const checkLogin = () => {
+        if (!isSignedIn) {
+          navigate("/login");
+        }
+      }
+      checkLogin();
+    }, [isSignedIn, navigate]);
+
+    return (
+      <CheckoutWrapper>
+        <CheckoutForm />
+        <Mid>
+          <Outlet />
+        </Mid>
+      </CheckoutWrapper>
+    )
+  }
+
+
   const router = createBrowserRouter([
     {
       path: "*",
       element: <EmptyView />
     },
     {
-      path: "/profile/checkout-form",
-      element: <CheckoutForm />
+      path: "/checkout-form",
+      element: <CheckoutLayout />,
+      children: [
+        {
+          path: "/checkout-form/shipping",
+          element: <ShippingForm />
+        },
+        {
+          path: "/checkout-form/confirmation",
+          element: <ConfirmationForm />
+        },
+        {
+          path: "/checkout-form/payment",
+          element: <PaymentTab />
+        },
+      ]
     },
     {
       path: "",

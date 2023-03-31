@@ -1,17 +1,13 @@
-import { useEffect, useState } from "react"
 import styled from "styled-components"
 import CheckoutSteps from "./CheckoutSteps"
-import ConfirmationForm from "./ConfirmationForm"
-import PaymentTab from "./PaymentTab"
-import ShippingForm from "./ShippingForm"
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const Container = styled.div`
-  background-color: #f5f7f8;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 50px;
-  height: 90vh;
   gap: 30px;
 `
 const Title = styled.h1`
@@ -26,33 +22,30 @@ const Wrapper = styled.div`
 
 const CheckoutForm = () => {
   const [page, setPage] = useState("Shipping");
-  const [component, setComponent] = useState( );
 
- useEffect(() => {
-  switch (page) {
-    case "Shipping":
-      setComponent(<ShippingForm  setElement={setPage} />);
-      break;
-    case "Confirmation":
-      setComponent(<ConfirmationForm  setElement={setPage} />);
-      break;
-    case "Payment":
-      setComponent(<PaymentTab setElement={setPage} />);
-      break;
-  }
- } , [page]);
+  const currentPage = useLocation().pathname;
+  const [stepPercentage, setStepPercentage] = useState(10);
+
+  useEffect(() => {
+    if (currentPage.toLowerCase().includes("shipping")) {
+      setStepPercentage(20);
+      setPage("Shipping")
+    }
+    else if (currentPage.toLowerCase().includes("confirmation")) {
+      setStepPercentage(70);
+      setPage("Confirmation")
+    }
+    else if (currentPage.toLowerCase().includes("payment")) {
+      setStepPercentage(100);
+      setPage("Payment")
+    }
+  }, [currentPage])
+
 
   return (
     <Container>
-       { page &&
-       <>
        <Title> Checkout </Title>
-      <CheckoutSteps  Element={page} setElement={setPage} />
-        <Wrapper>
-        {component}
-      </Wrapper>
-       </>
-      }
+      <CheckoutSteps step={stepPercentage} />
   </Container>
   )
 }

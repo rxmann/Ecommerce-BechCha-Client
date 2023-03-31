@@ -4,12 +4,14 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { userRequest } from "../../../requestMethods/requestMethods";
 import { getShippingDetails } from "../../../ApiCalls/UserApiCalls";
+import { useNavigate } from "react-router-dom";
 
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 50%;
 `;
 
 const ShippingWrapper = styled.div`
@@ -47,6 +49,7 @@ const FormInput = styled(Input)`
 const ShippingForm = ({ setElement }) => {
 
   const {currentUser} = useSelector(state => state.user)
+  const navigate = useNavigate();
 
   // update / add shipping details
   const handleConfirm = async () => {
@@ -59,7 +62,7 @@ const ShippingForm = ({ setElement }) => {
 
 
       await userRequest.post(`/shipping`, formData);
-      setElement("Confirmation");
+      navigate("/checkout-form/confirmation")
     }catch (err) {
     
     }
