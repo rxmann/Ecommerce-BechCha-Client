@@ -4,9 +4,12 @@ import styled from "styled-components";
 const Container = styled.div`
     display: ${props => props.st === true ? 'flex' : "none"};
     flex-direction: column;
+    width: 50%;
     gap: 20px;
-    border: 2px solid #0171b6;
+    background-color: #ffffff;
     padding: 50px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px; 
+   
 `;
 
 const Content = styled.div`
@@ -17,8 +20,7 @@ const Content = styled.div`
 
 const Message = styled.p`
     font-weight: 500;
-    font-size: 18px;
-    color: gray;
+    font-size: 24px;
 `;
 
 const Btn = styled(Button)`
@@ -32,7 +34,7 @@ const Modal = ({ show, message, onConfirm, onCancel }) => {
     <Container st={show}>
       <Message>{message}</Message>
       <Content>
-        <Btn variant={"outlined"} onClick={onCancel}>
+        <Btn color="error" variant={"outlined"} onClick={onCancel}>
           No
         </Btn>
         <Btn variant={"contained"} onClick={onConfirm}>

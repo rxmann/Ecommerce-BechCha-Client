@@ -57,10 +57,12 @@ const Contents = styled.div`
 
 const ProfileWrapper = styled.div`
   background-color: #f5f7f8;
+  padding: 10px 50px;
 `
 
 const CheckoutWrapper = styled.div`
-
+  background-color: #f5f7f8;
+  height: 100vh;
 `
 const Mid = styled.div`
     display: flex;

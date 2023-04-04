@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import CheckoutSteps from "./CheckoutSteps"
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -15,9 +15,9 @@ const Title = styled.h1`
   padding: 20px;
 `
 
-const Wrapper = styled.div`
-    margin: 50px;
-    width: 40%;
+const Logo = styled.img`
+    width: 100px;
+    cursor: pointer;
 `
 
 const CheckoutForm = () => {
@@ -44,9 +44,12 @@ const CheckoutForm = () => {
 
   return (
     <Container>
-       <Title> Checkout </Title>
+      <Link to="/">
+        <Logo src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true' />
+      </Link>
+      <Title> Checkout </Title>
       <CheckoutSteps step={stepPercentage} />
-  </Container>
+    </Container>
   )
 }
 

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { ProgressBar, Step } from "react-step-progress-bar";
 import styled from "styled-components";
 
@@ -31,19 +32,37 @@ const MultiStepProgressBar = styled.div`
 `;
 
 const CheckoutSteps = ({ step }) => {
-
+  const navigate = useNavigate();
 // for progressbar
-  const steps = [
-    {
-      name: "Shipping"
-    },
-    {
-      name: "Confirmation"
-    },
-    {
-      name: "Payment"
-    },
-  ];
+  const steps = [{
+    id: 1,
+    name: "Shipping"
+  },
+  {
+    id: 2,
+    name: "Confirmation",
+  },
+  {
+    id: 3,
+    name:  "Payment"
+  }];
+
+
+  const handleNavigate = (id) => {
+
+    console.log(id)
+    switch (id) {
+      case 1:
+        navigate("/checkout-form/shipping")
+        break;
+      case 2:
+        navigate("/checkout-form/confirmation")
+        break;
+      case 3:
+        navigate("/checkout-form/payment")
+        break;
+    }
+  }
 
 
   return (
@@ -58,7 +77,7 @@ const CheckoutSteps = ({ step }) => {
               {({ accomplished }) =>
                 accomplished ? (
                   <StatusWrapper >
-                    <IconWrapper color={"#ffffff"} bg={"#0171b6"}>
+                    <IconWrapper color={"#ffffff"} bg={"#0171b6"} onClick={() => handleNavigate(step.id)} >
                       {step.name}
                     </IconWrapper>
                   </StatusWrapper>
