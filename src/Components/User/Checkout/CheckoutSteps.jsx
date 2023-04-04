@@ -61,9 +61,10 @@ const CheckoutSteps = ({ step }) => {
       case 3:
         navigate("/checkout-form/payment")
         break;
+      default: 
+        break;
     }
   }
-
 
   return (
     <Container>
@@ -83,7 +84,7 @@ const CheckoutSteps = ({ step }) => {
                   </StatusWrapper>
                 ) : (
                   <StatusWrapper>
-                    <IconWrapper color={""} bg={"#ffffff"}>
+                    <IconWrapper color={""} bg={"#ffffff"} >
                       {step.name}
                     </IconWrapper>
                   </StatusWrapper>
