@@ -30,7 +30,7 @@ const PaymentTab = () => {
         variant={"contained"}
         onClick={async() => {
           await makeAnOrder(dispatch, userCart, totalAmount)
-          navigate("/profile/orders/me")
+          // navigate("/profile/orders/me")
         }}
       >
         Checkout {totalAmount}
