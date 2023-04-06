@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { DataGrid } from '@mui/x-data-grid';
 import { useSelector } from "react-redux"
 import { Box } from "@mui/material";
+import { Link } from "react-router-dom";
 
 
 const Container = styled.div`
@@ -62,7 +63,7 @@ const HR = styled.hr`
 
 
 const OrderList = styled.div`
-  padding: 20px;
+    padding: 20px;
 `
 
 const BOX = styled(Box)`
@@ -83,7 +84,12 @@ const Total = styled.h3`
 `
 
 const Footer = styled.div`
+    padding: 20px;
+`
 
+const Logo = styled.img`
+    width: 100px;
+    cursor: pointer;
 `
 
 
@@ -95,15 +101,16 @@ const InvoicePage = () => {
 
 
   const columns = [
-    { headerName: "Product", field: "product",  headerClassName: "header-datatable", flex: 2, 
-    renderCell: (params) => {
-      return (
-        <>
-          {params.row.product.title}
-        </>
-      )
-    }
-  },
+    {
+      headerName: "Product", field: "product", headerClassName: "header-datatable", flex: 2,
+      renderCell: (params) => {
+        return (
+          <>
+            {params.row.product.title}
+          </>
+        )
+      }
+    },
     {
       headerName: "Quantity",
       headerClassName: "header-datatable",
@@ -112,7 +119,7 @@ const InvoicePage = () => {
       renderCell: (params) => {
         return (
           <>
-          {params.row.quantity}
+            {params.row.quantity}
           </>
         )
       },
@@ -124,11 +131,11 @@ const InvoicePage = () => {
       flex: 1,
       renderCell: (params) => {
         return (
-         <>
-          {params.row.price}
+          <>
+            {params.row.price}
           </>
         )
-      } 
+      }
     },
     {
       headerName: "SubTotal",
@@ -137,11 +144,11 @@ const InvoicePage = () => {
       flex: 1,
       renderCell: (params) => {
         return (
-         <>
-         NPR {params.row.price * params.row.quantity}
+          <>
+            NPR {params.row.price * params.row.quantity}
           </>
         )
-      } 
+      }
     },
   ]
 
@@ -170,37 +177,39 @@ const InvoicePage = () => {
 
         <OrderList>
           <BOX>
-          <DataGrid
-            rows={cart}
-            columns={columns}
-            getRowId={row => row._id}
-            getRowClassName={() => `rows-datatable`}
+            <DataGrid
+              rows={cart}
+              columns={columns}
+              getRowId={row => row._id}
+              getRowClassName={() => `rows-datatable`}
 
-            autoHeight  
-            autoWidth
-            disableSelectionOnClick
-            disableColumnFilter
-            disableColumnMenu
-            disableColumnSelector
-            disableDensitySelector
-            disableExtendRowFullWidth
-            disableReorderColumns
-            disableSort
-            hideFooterPagination
-            hideFooterRowCount
-            hideFooterSelectedRowCount
-          />
+              autoHeight
+              autoWidth
+              disableSelectionOnClick
+              disableColumnFilter
+              disableColumnMenu
+              disableColumnSelector
+              disableDensitySelector
+              disableExtendRowFullWidth
+              disableReorderColumns
+              disableSort
+              hideFooterPagination
+              hideFooterRowCount
+              hideFooterSelectedRowCount
+            />
           </BOX>
         </OrderList>
 
-        <HR/>
+        <HR />
 
         <Total>
-             NPR 100000
+          TOTAL - NPR 100000
         </Total>
 
         <Footer>
-          
+          <Link to="/">
+            <Logo src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true' />
+          </Link>
         </Footer>
       </Wrapper>
     </Container>
