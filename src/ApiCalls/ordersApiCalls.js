@@ -1,4 +1,4 @@
-import { userRequest } from "../requestMethods/requestMethods";
+import { publicRequest, userRequest } from "../requestMethods/requestMethods";
 import { emptyMyCart, failureToast, successToast } from "./apiCalls";
 
 
@@ -96,10 +96,21 @@ export const makeAnOrder = async (dispatch, orderData, totalPayable) => {
         const form = {
             products: cartProducts, payable: totalPayable, totalItems: cartQuantity
         }
-        // console.log(form);
-        await userRequest.post("/orders", form);
+
+        const response = await userRequest.post("/orders", form);
         await emptyMyCart(dispatch);
         successToast(` ${cartQuantity} items ordered successfully! `)
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        failureToast(error.response.data)
+    }
+}
+
+export const sendInvoice = async (invoice) => {
+    try {
+       const response = await publicRequest.post("/orders/invoice", { invoice });
+       console.log(response);
     } catch (error) {
         console.log(error);
         failureToast(error.response.data)

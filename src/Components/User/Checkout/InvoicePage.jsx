@@ -1,13 +1,16 @@
 import styled from "styled-components"
 import { DataGrid } from '@mui/x-data-grid';
-import { useSelector } from "react-redux"
+import moment from 'moment';
 import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { getOneOrderById } from "../../../ApiCalls/ordersApiCalls";
+import { useState } from "react";
 
 
 const Container = styled.div`
   padding: 30px;
-  width: 60%;
+  width: 800px;
   margin: auto;
 `
 const Wrapper = styled.div`
@@ -47,10 +50,18 @@ const SubWrapB = styled.div`
 `
 
 
-const Info = styled.span`
-  font-weight: 400;
-  font-size: 14px;
+const Info = styled.div`
+  font-weight: 500;
+  font-size: 16px;
   color: black;
+  display: flex;
+`
+const InfoName = styled.span`
+  flex: 1;
+`
+
+const InfoValue = styled.span`
+  flex: 2;
 `
 
 const HR = styled.hr`
@@ -93,16 +104,22 @@ const Logo = styled.img`
 `
 
 
-const InvoicePage = () => {
+const InvoicePage = ({ order }) => {
 
+  const [data, setData] = useState()
 
-  const { cart } = useSelector(state => state.usercart);
-  console.log(cart);
-
-
+  useEffect(() => {
+    const getOrderDetails = async () => {
+      const details = await getOneOrderById(order);
+      setData(details);
+    }
+    getOrderDetails();
+  }, [order])
+  
+  
   const columns = [
     {
-      headerName: "Product", field: "product", headerClassName: "header-datatable", flex: 2,
+      headerName: "Product", field: "product", headerClassName: "header-datatable", flex: 3,
       renderCell: (params) => {
         return (
           <>
@@ -155,64 +172,77 @@ const InvoicePage = () => {
 
   return (
     <Container>
-      <Wrapper>
-        <TopWrapper>
-          <Title color={"white"}> Invoice </Title>
-        </TopWrapper>
+      {data && data.products &&
+        <Wrapper>
+          <TopWrapper>
+            <Title color={"white"}> Invoice </Title>
+          </TopWrapper>
 
-        <OrderInfoWrapper>
-          <SubWrapA>
-            <Info> Roman Karki </Info>
-            <Info> Mandikhatar, Kathmandu </Info>
-            <Info> Date: 12/02/2023 </Info>
-          </SubWrapA>
-          <SubWrapB>
-            <Info> OrderID: #0123123123123123123 </Info>
-          </SubWrapB>
-        </OrderInfoWrapper>
+          <OrderInfoWrapper>
+            <SubWrapA>
+              <Info>
+                <InfoName> Recepient </InfoName>
+                <InfoValue> {data.recipient} </InfoValue>
+              </Info>
+              <Info> 
+                <InfoName> Ship to </InfoName>
+                <InfoValue>  {data.shipping} </InfoValue>
+              </Info>
+              <Info> <InfoName> Date </InfoName>  <InfoValue> {moment(data.createdAt).format('MMMM Do YYYY')} </InfoValue> </Info>
+            </SubWrapA>
+            <SubWrapB>
+              <Info> 
+                <InfoName> OrderID </InfoName>
+                <InfoValue> {data._id} </InfoValue>
+              </Info>
+            </SubWrapB>
+          </OrderInfoWrapper>
 
-        <HR />
+          <HR />
 
-        <Title color={"gray"} > Order List </Title>
+          <Title color={"gray"} > Order List </Title>
 
-        <OrderList>
-          <BOX>
-            <DataGrid
-              rows={cart}
-              columns={columns}
-              getRowId={row => row._id}
-              getRowClassName={() => `rows-datatable`}
+          <OrderList>
+            <BOX>
+              <DataGrid
+                rows={data.products}
+                columns={columns}
+                getRowId={row => row._id}
+                getRowClassName={() => `rows-datatable`}
 
-              autoHeight
-              autoWidth
-              disableSelectionOnClick
-              disableColumnFilter
-              disableColumnMenu
-              disableColumnSelector
-              disableDensitySelector
-              disableExtendRowFullWidth
-              disableReorderColumns
-              disableSort
-              hideFooterPagination
-              hideFooterRowCount
-              hideFooterSelectedRowCount
-            />
-          </BOX>
-        </OrderList>
+                autoHeight
+                autoWidth
+                disableSelectionOnClick
+                disableColumnFilter
+                disableColumnMenu
+                disableColumnSelector
+                disableDensitySelector
+                disableExtendRowFullWidth
+                disableReorderColumns
+                disableSort
+                hideFooterPagination
+                hideFooterRowCount
+                hideFooterSelectedRowCount
+              />
+            </BOX>
+          </OrderList>
 
-        <HR />
+          <HR />
 
-        <Total>
-          TOTAL - NPR 100000
-        </Total>
+          <Total>
+          {`TOTAL - NPR ${data.payable} `}
+          </Total>
 
-        <Footer>
-          <Link to="/">
-            <Logo src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true' />
-          </Link>
-        </Footer>
-      </Wrapper>
+          <Footer>
+            <Link to="/">
+              <Logo src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true' />
+            </Link>
+          </Footer>
+        </Wrapper>
+      }
     </Container>
+
+
   )
 }
 

@@ -45,6 +45,7 @@ import ConfirmationForm from "./Components/User/Checkout/ConfirmationForm"
 import ShippingForm from "./Components/User/Checkout/ShippingForm"
 import PaymentTab from "./Components/User/Checkout/PaymentTab"
 import InvoicePage from "./Components/User/Checkout/InvoicePage"
+import Account from "./Components/User/ProfilePages/Account"
 
 
 const Wrapper = styled.div`
@@ -174,7 +175,7 @@ const App = () => {
     },
     {
       path: "/invoice",
-      element: <InvoicePage />
+      element: <InvoicePage  order={"642efd13b8b7c051cc50926c"}/>
     },
     {
       path: "/checkout-form",
@@ -229,6 +230,10 @@ const App = () => {
             {
               path: "/profile/cart/me",
               element: <CartPage />
+            },
+            {
+              path: "/profile/account/me",
+              element: <Account />
             },
             {
               path: "/profile/orders/me",

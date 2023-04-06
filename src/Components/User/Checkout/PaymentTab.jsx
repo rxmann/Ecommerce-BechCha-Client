@@ -1,10 +1,10 @@
 import { Button } from "@mui/material";
 import styled from "styled-components"
-import { makeAnOrder } from "../../../ApiCalls/ordersApiCalls";
+import { makeAnOrder, sendInvoice } from "../../../ApiCalls/ordersApiCalls";
 import { useDispatch, useSelector } from "react-redux"
-import { reloadCart } from "../../../ApiCalls/apiCalls";
-import { useEffect } from "react";
+import ReactDOMServer from 'react-dom/server';
 import { useNavigate } from "react-router-dom";
+import InvoicePage from "./InvoicePage";
 
 
 
@@ -29,7 +29,9 @@ const PaymentTab = () => {
         color="info"
         variant={"contained"}
         onClick={async() => {
-          await makeAnOrder(dispatch, userCart, totalAmount)
+          const order = await makeAnOrder(dispatch, userCart, totalAmount)
+          const invoice = ReactDOMServer.renderToString(<InvoicePage order={order._id} />)
+          await sendInvoice(invoice)
           navigate("/profile/orders/me")
         }}
       >
