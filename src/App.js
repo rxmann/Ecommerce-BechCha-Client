@@ -44,6 +44,7 @@ import CheckoutForm from "./Components/User/Checkout/CheckoutForm"
 import ConfirmationForm from "./Components/User/Checkout/ConfirmationForm"
 import ShippingForm from "./Components/User/Checkout/ShippingForm"
 import PaymentTab from "./Components/User/Checkout/PaymentTab"
+import InvoicePage from "./Components/User/Checkout/InvoicePage"
 
 
 const Wrapper = styled.div`
@@ -170,6 +171,10 @@ const App = () => {
     {
       path: "*",
       element: <EmptyView />
+    },
+    {
+      path: "/invoice",
+      element: <InvoicePage />
     },
     {
       path: "/checkout-form",
