@@ -1,6 +1,5 @@
 import { AccountCircle, DeleteOutline } from '@mui/icons-material';
 import { Button } from '@mui/material';
-import { current } from '@reduxjs/toolkit';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
