@@ -171,7 +171,7 @@ const InvoicePage = ({ order }) => {
 
 
   return (
-    <Container>
+    <Container  >
       {data && data.products &&
         <Wrapper>
           <TopWrapper>
@@ -245,5 +245,6 @@ const InvoicePage = ({ order }) => {
 
   )
 }
+
 
 export default InvoicePage
