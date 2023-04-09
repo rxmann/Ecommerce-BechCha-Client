@@ -97,6 +97,7 @@ export const makeAnOrder = async (dispatch, orderData, totalPayable) => {
         }
 
         const response = await userRequest.post("/orders", form);
+
         await emptyMyCart(dispatch);
         successToast(` ${cartQuantity} items ordered successfully! `)
         return response.data;

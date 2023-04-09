@@ -21,6 +21,7 @@ export const getShippingDetails = async ( id ) => {
     }
     catch (err) {
         console.log(err);
+        return null
     }
 }
 
