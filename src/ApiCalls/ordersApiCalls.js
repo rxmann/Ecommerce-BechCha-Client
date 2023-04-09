@@ -100,19 +100,21 @@ export const makeAnOrder = async (dispatch, orderData, totalPayable) => {
 
         await emptyMyCart(dispatch);
         successToast(` ${cartQuantity} items ordered successfully! `)
-        return response.data;
+        return response?.data;
     } catch (error) {
         console.log(error);
         failureToast(error.response.data)
     }
 }
 
-export const sendInvoice = async (invoice) => {
+export const sendInvoice = async (orderID) => {
     try {
-       const response = await publicRequest.post("/orders/invoice", { invoice });
+        const order = await getOneOrderById(orderID);
+
+       const response = await publicRequest.post("/orders/invoice", { order });
        console.log(response);
     } catch (error) {
         console.log(error);
-        failureToast(error.response.data)
+        failureToast(error?.response?.data)
     }
 }
