@@ -46,7 +46,7 @@ const FormInput = styled(Input)`
   flex: 2;
 `;
 
-const ShippingForm = ({ setElement }) => {
+const ShippingForm = () => {
 
   const {currentUser} = useSelector(state => state.user)
   const navigate = useNavigate();
@@ -94,7 +94,7 @@ const ShippingForm = ({ setElement }) => {
     }
 
     getUserInfo()
-  }, [])
+  }, [currentUser._id])
 
 
   return (

@@ -93,7 +93,7 @@ const LinkItem = styled.a`
 const LoginPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { isFetching, currentUser, isSignedIn } = useSelector(state => state.user);
+    const {  currentUser, isSignedIn } = useSelector(state => state.user);
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -110,8 +110,8 @@ const LoginPage = () => {
 
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
-        await loginUser(dispatch, formData);
-        window.location.reload(false);
+        const result = await loginUser(dispatch, formData);
+        if (result === true) {  window.location.reload(false) }
     }
 
 
@@ -126,7 +126,7 @@ const LoginPage = () => {
             
         }
         checkLogin();
-    }, [currentUser, isSignedIn])
+    }, [currentUser, isSignedIn , navigate])
 
     return (
         <Container>

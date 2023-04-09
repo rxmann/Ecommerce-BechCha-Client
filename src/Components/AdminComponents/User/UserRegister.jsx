@@ -4,7 +4,7 @@ import styled from "styled-components"
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../../ApiCalls/UserApiCalls";
-
+import {useNavigate} from "react-router-dom"
 
 
 const UploadB = styled.label`
@@ -73,6 +73,8 @@ const Title = styled.h2`
 
 const UserRegister = () => {
 
+    const navigate = useNavigate();
+
     const data = {
         username: "",
         email: "",
@@ -116,6 +118,7 @@ const UserRegister = () => {
         formData.append("isAdmin", userData["isAdmin"]);
         formData.append("contacts", userData["contacts"]);
         formData.append("dob", userData["dob"]);
+        formData.append("image", userData["image"]);
 
 
         Object.keys(formData).forEach(key => {
@@ -123,7 +126,16 @@ const UserRegister = () => {
         });
 
 
-        await registerUser(dispatch, formData);
+        try {
+            const result = await registerUser(dispatch, formData);
+            if (result === true) {
+                navigate("/admin/users")
+            }
+        }
+        catch (e) {
+            console.log(e);
+        }
+        
     }
 
 
@@ -218,7 +230,7 @@ const UserRegister = () => {
                         <FormItem >
                             <Label> Contacts </Label>
                             <TextInput
-                                 placeholder="contacts"
+                                name={"contacts"}
                                  type="tel"
                                  value={userData.contacts}
                                  onChange={handleChange}

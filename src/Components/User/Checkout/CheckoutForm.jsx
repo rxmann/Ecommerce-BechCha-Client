@@ -21,7 +21,6 @@ const Logo = styled.img`
 `
 
 const CheckoutForm = () => {
-  const [page, setPage] = useState("Shipping");
 
   const currentPage = useLocation().pathname;
   const [stepPercentage, setStepPercentage] = useState(10);
@@ -29,15 +28,12 @@ const CheckoutForm = () => {
   useEffect(() => {
     if (currentPage.toLowerCase().includes("shipping")) {
       setStepPercentage(20);
-      setPage("Shipping")
     }
     else if (currentPage.toLowerCase().includes("confirmation")) {
       setStepPercentage(70);
-      setPage("Confirmation")
     }
     else if (currentPage.toLowerCase().includes("payment")) {
       setStepPercentage(100);
-      setPage("Payment")
     }
   }, [currentPage])
 

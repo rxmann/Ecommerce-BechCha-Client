@@ -1,6 +1,5 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled from "styled-components"
-import WestIcon from '@mui/icons-material/West';
 import { useEffect, useState } from "react";
 import { cancelThisOrder, getOneOrderById } from "../../../ApiCalls/ordersApiCalls";
 import Fetching from "../EmptyView/Fetching";

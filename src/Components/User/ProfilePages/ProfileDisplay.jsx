@@ -50,7 +50,7 @@ const ProfileDisplay = () => {
             }
         }
         checkLogin();
-    }, [isSignedIn, userId, dispatch]);
+    }, [isSignedIn, userId, dispatch, navigate]);
 
 
 

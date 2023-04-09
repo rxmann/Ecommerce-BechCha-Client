@@ -2,7 +2,6 @@ import styled from "styled-components"
 import Button from '@mui/material/Button';
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { publicRequest } from "../../requestMethods/requestMethods";
 import {
     FormControl,
     InputLabel,

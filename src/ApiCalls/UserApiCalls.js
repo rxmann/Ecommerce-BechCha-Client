@@ -29,10 +29,10 @@ export const getShippingDetails = async ( id ) => {
 export const registerUser = async (dispatch, userPayload) => {
     dispatch(requestStart());
     try {
-        const response = await publicRequest.post("/users/register", userPayload)
-        const user = response.data.user;
+        await publicRequest.post("/users/register", userPayload)
         successToast('User account created!');
         dispatch(requestSuccess());
+        return true;
     }
     catch (err) {
         dispatch(requestFailure());
@@ -78,6 +78,7 @@ export const loginUser = async (dispatch, user) => {
         const response = await publicRequest.post("/users/login", user)
         dispatch(loginSuccess(response.data));
         successToast("Logged in successfully");
+        return true;
     }
     catch (err) {
         dispatch(requestFailure(err.reponse?.data));

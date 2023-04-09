@@ -47,7 +47,7 @@ const FilterHeading = styled.h2`
 const InputItem = styled.div``;
 
 const Input = styled.input``;
-const Label = styled.label`
+const Label = styled.label` 
   margin-left: 10px;
 `;
 

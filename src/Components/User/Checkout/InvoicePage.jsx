@@ -10,7 +10,6 @@ import { useState } from "react";
 
 const Container = styled.div`
   padding: 30px;
-  width: 800px;
   margin: auto;
 `
 const Wrapper = styled.div`
@@ -104,6 +103,7 @@ const Logo = styled.img`
 `
 
 
+
 const InvoicePage = ({ order }) => {
 
   const [data, setData] = useState()
@@ -115,8 +115,8 @@ const InvoicePage = ({ order }) => {
     }
     getOrderDetails();
   }, [order])
-  
-  
+
+
   const columns = [
     {
       headerName: "Product", field: "product", headerClassName: "header-datatable", flex: 3,
@@ -171,6 +171,7 @@ const InvoicePage = ({ order }) => {
 
 
   return (
+
     <Container  >
       {data && data.products &&
         <Wrapper>
@@ -184,14 +185,14 @@ const InvoicePage = ({ order }) => {
                 <InfoName> Recepient </InfoName>
                 <InfoValue> {data.recipient} </InfoValue>
               </Info>
-              <Info> 
+              <Info>
                 <InfoName> Ship to </InfoName>
                 <InfoValue>  {data.shipping} </InfoValue>
               </Info>
               <Info> <InfoName> Date </InfoName>  <InfoValue> {moment(data.createdAt).format('MMMM Do YYYY')} </InfoValue> </Info>
             </SubWrapA>
             <SubWrapB>
-              <Info> 
+              <Info>
                 <InfoName> OrderID </InfoName>
                 <InfoValue> {data._id} </InfoValue>
               </Info>
@@ -230,7 +231,7 @@ const InvoicePage = ({ order }) => {
           <HR />
 
           <Total>
-          {`TOTAL - NPR ${data.payable} `}
+            {`TOTAL - NPR ${data.payable} `}
           </Total>
 
           <Footer>
@@ -241,6 +242,7 @@ const InvoicePage = ({ order }) => {
         </Wrapper>
       }
     </Container>
+
 
 
   )

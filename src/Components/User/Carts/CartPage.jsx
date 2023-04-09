@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./CartItem";
 import { useEffect } from "react";
 import { emptyMyCart, reloadCart } from "../../../ApiCalls/apiCalls";
-import { makeAnOrder } from "../../../ApiCalls/ordersApiCalls";
 import Fetching from "../EmptyView/Fetching";
 import { useNavigate } from "react-router-dom";
 

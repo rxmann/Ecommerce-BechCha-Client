@@ -23,8 +23,8 @@ const AdminOrderControls = ({ data }) => {
 
     const handleUpdateOrder = async () => {
         const orderId = data._id;
-        await updateThisOrder(orderId, selected);
-        window.location.reload(false);
+        const ress = await updateThisOrder(orderId, selected);
+        ress === true && window.location.reload(false)
     }
 
 
