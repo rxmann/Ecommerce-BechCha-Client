@@ -146,8 +146,15 @@ const DataTable = ({ rows, columns, link, type }) => {
            }}
            getRowId={row => row._id}
            getRowClassName={() => `rows-datatable`}
-           pageSize={8} // set the initial page size
-           rowsPerPageOptions={[5, 10, 20]} // set the available page sizes
+           
+           initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 10,
+              },
+            },
+          }}
+          pageSizeOptions={[5, 10, 25, 50]}// set the available page sizes
          />
          : <Fetching type="Empty"/> 
         }

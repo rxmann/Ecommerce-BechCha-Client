@@ -82,7 +82,9 @@ export const getAllOrdersAsAdmin = async ({limit=0}) => {
 
 
 
-export const makeAnOrder = async (dispatch, orderData, totalPayable) => {
+
+
+export const makeAnOrder = async (dispatch, { orderData, totalPayable, type }) => {
     try {
         let cartProducts = orderData.map(prod => {
             const { _id, ...rest} = prod;
@@ -93,8 +95,13 @@ export const makeAnOrder = async (dispatch, orderData, totalPayable) => {
         }, 0)
         
         const form = {
-            products: cartProducts, payable: totalPayable, totalItems: cartQuantity
+            products: cartProducts, 
+            payable: totalPayable, 
+            totalItems: cartQuantity, 
+            paymentType: type,
+            isPaid: type!== "cashondelivery" ? true : false
         }
+
 
         const response = await userRequest.post("/orders", form);
 

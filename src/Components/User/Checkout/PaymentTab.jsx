@@ -1,18 +1,27 @@
 import { Button } from "@mui/material";
 import styled from "styled-components"
-import { makeAnOrder, sendInvoice } from "../../../ApiCalls/ordersApiCalls";
+import { makeAnOrder } from "../../../ApiCalls/ordersApiCalls";
 import { useDispatch, useSelector } from "react-redux"
-import ReactDOMServer from 'react-dom/server';
 import { useNavigate } from "react-router-dom";
-import InvoicePage from "./InvoicePage";
-
-
+import Khalti from "../../Khalti/Khalti";
 
 
 const Container = styled.div`
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
+  gap: 40px;
+`
+
+const BtnContainer = styled.div`
+  display: flex;
+  gap: 50px;
+  width: 100%;
+`
+
+const Total = styled.h1`
+  color: gray;
 `
 
 const PaymentTab = () => {
@@ -22,21 +31,32 @@ const PaymentTab = () => {
 
   const { cart: userCart, totalAmount } = useSelector(state => state.usercart);
 
+  const handlePlaceOrder = async () => {
+    const ord = await makeAnOrder( dispatch,  { orderData:userCart, totalPayable:totalAmount, type:"cashondelivery" })
+    navigate("/profile/orders/me")
+  }
+
   return (
     <Container>
-      <Button
-        fullWidth
-        color="info"
-        variant={"contained"}
-        onClick={async() => {
-          const order = await makeAnOrder(dispatch, userCart, totalAmount)
-          const invoice = ReactDOMServer.renderToString(<InvoicePage order={order._id} />)
-          await sendInvoice(invoice)
-          navigate("/profile/orders/me")
-        }}
-      >
-        Checkout {totalAmount}
-      </Button>
+
+      <Total>
+       NPR {totalAmount}
+      </Total>
+
+      <BtnContainer>
+        <Button
+          fullWidth
+          color="warning"
+          variant={"contained"}
+          onClick={handlePlaceOrder}
+        >
+          Cash on delivery
+        </Button>
+
+        <Khalti  amount={totalAmount} order={userCart} />
+
+      </BtnContainer>
+
     </Container>
   )
 }

@@ -208,6 +208,7 @@ const ProductPage = () => {
 
                 <DisplayUnit > Stock:   {product.quantity} </DisplayUnit>
 
+                {product.sold &&  (<DisplayUnit > Sold:   {product.sold} </DisplayUnit>)}
                 {product.brand &&  <DisplayUnit > Brand:   {product.brand} </DisplayUnit>}
               </DisplayInfo>
              

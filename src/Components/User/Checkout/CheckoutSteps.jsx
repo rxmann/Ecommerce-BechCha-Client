@@ -78,7 +78,7 @@ const CheckoutSteps = ({ step }) => {
               {({ accomplished }) =>
                 accomplished ? (
                   <StatusWrapper >
-                    <IconWrapper color={"#ffffff"} bg={"#0171b6"} onClick={() => handleNavigate(step.id)} >
+                    <IconWrapper color={"#ffffff"} bg={"#00508c"} onClick={() => handleNavigate(step.id)} >
                       {step.name}
                     </IconWrapper>
                   </StatusWrapper>
