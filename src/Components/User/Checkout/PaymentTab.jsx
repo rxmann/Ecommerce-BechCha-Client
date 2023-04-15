@@ -32,7 +32,7 @@ const PaymentTab = () => {
   const { cart: userCart, totalAmount } = useSelector(state => state.usercart);
 
   const handlePlaceOrder = async () => {
-    const ord = await makeAnOrder( dispatch,  { orderData:userCart, totalPayable:totalAmount, type:"cashondelivery" })
+    await makeAnOrder( dispatch,  { orderData:userCart, totalPayable:totalAmount, type:"cashondelivery" })
     navigate("/profile/orders/me")
   }
 

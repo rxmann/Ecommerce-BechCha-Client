@@ -11,6 +11,7 @@ const Khalti = ({ order, amount }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+
     let kconfig = {
         // replace this key with yours
         "publicKey": khaltiKeys.PUBLIC_KEY,
@@ -30,6 +31,10 @@ const Khalti = ({ order, amount }) => {
                 userRequest.post('/orders/pay-khalti', data)
                     .then(async (response) => {
                         console.log(response.data);
+
+                        // if (amount === response.data.amount) {
+
+                        // }
                         await makeAnOrder(dispatch,
                             {
                                 orderData: order,
