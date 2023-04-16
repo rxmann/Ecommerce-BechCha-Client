@@ -73,7 +73,7 @@ const OrderDetails = ({ type }) => {
     const getOrderDetails = async () => {
       const orderDetails = await getOneOrderById(orderId);
       setSum(orderDetails?.products?.reduce((acc, val) => {
-        return acc += val.price
+        return acc += val.price * val.quantity
       }, 0))
       setOrder(orderDetails);
     }

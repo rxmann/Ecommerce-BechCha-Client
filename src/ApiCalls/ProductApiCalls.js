@@ -1,7 +1,7 @@
 import { publicRequest, userRequest } from "../requestMethods/requestMethods";
 import { failureToast, successToast } from "./apiCalls";
 
-export const getAllProducts = async ({sort, limitPrice, subIds, limit, search}) => {
+export const getAllProducts = async ({ssort, sort, limitPrice, subIds, limit, search}) => {
     try {
         let endpoint = "/products?"
         if (sort)  endpoint += `sort=${sort}&`
@@ -10,7 +10,7 @@ export const getAllProducts = async ({sort, limitPrice, subIds, limit, search}) 
         if (limit) endpoint += `limit=${limit}&`
         if (search) endpoint += `search=${search}&`
 
-        // console.log(endpoint);
+        console.log(endpoint);
         const response = await publicRequest.get(endpoint);
         return response.data;
     }

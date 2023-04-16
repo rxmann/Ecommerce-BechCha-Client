@@ -129,8 +129,7 @@ const Footer = () => {
                 <Title> Useful Links </Title>
                 <List>
                     <ListItems > <Linkd to={"/profile/cart/me"}>  Cart  </Linkd> </ListItems>
-                    <ListItems > <Linkd to={"/profile"}> My Account </Linkd></ListItems>
-                    <ListItems ><Linkd to={"/profile/wishlist"}> Wishlist</Linkd>  </ListItems>
+                    <ListItems > <Linkd to={"/profile/me"}> My Account </Linkd></ListItems>
                     <ListItems > <Linkd to={"/profile/orders/me"}> Order Tracking </Linkd></ListItems>
                     <ListItems ><Linkd to={"/profile"}> Terms </Linkd></ListItems>
                 </List>

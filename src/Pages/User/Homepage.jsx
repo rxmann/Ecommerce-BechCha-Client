@@ -4,6 +4,7 @@ import Categories from "../../Components/User/Category/Categories"
 import styled from "styled-components"
 import Newsletter from "../../Components/User/Layout/Newsletter"
 import TopSales from "../../Components/User/Essentials/TopSales"
+import ForYou from "../../Components/User/Essentials/ForYou"
 
 
 // #9cb2e0
@@ -28,6 +29,7 @@ const Homepage = () => {
         <FeaturedSlider />
         <Categories />
         <TopSales />
+        <ForYou />
         <Newsletter />
       </Wrapper>
     </Container>

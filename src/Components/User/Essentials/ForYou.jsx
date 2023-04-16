@@ -9,11 +9,12 @@ const Container = styled.div`
 `
 
 const Wrap = styled.div`
-     display: flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     margin: 20px 0px;
 `
+
 
 const Title = styled.h1`
     color: #0171b6;
@@ -29,12 +30,12 @@ const Wrapper = styled.div`
     flex-wrap: wrap;
 `
 
-const TopSales = () => {
+const ForYou = () => {
     const [data, setData] = useState()
 
     useEffect(() => {
         const getTopSold = async () => {
-            const prods = await getAllProducts({limit: 7, sort: "sold"})
+            const prods = await getAllProducts({limit: 7, sort: "quantity"})
             setData(prods)
         }
 
@@ -45,7 +46,7 @@ const TopSales = () => {
     <Container>
        <Wrap>
        <Title>
-            Top Sold Products
+           Only for you!
         </Title>
        </Wrap>
 
@@ -60,4 +61,4 @@ const TopSales = () => {
   )
 }
 
-export default TopSales
+export default ForYou

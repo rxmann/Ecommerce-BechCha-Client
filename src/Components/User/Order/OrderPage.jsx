@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import Fetching from "../EmptyView/Fetching";
 import { useNavigate } from 'react-router-dom';
 import { getMyOrdersList } from "../../../ApiCalls/ordersApiCalls";
+import { InputAdornment, OutlinedInput } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
+
 const moment = require("moment");
+
 
 const Container = styled.div`
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
@@ -57,59 +61,101 @@ const Action = styled(Button)`
 
 `
 
+const SearchContainer = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding: 50px 0px;
+`
+const SearchBox = styled(OutlinedInput)`
+    width: 25%;
+`
 
+const SearchButton = styled(Button)`
+    margin-right: 20px;
+`
+const StatusButton = ({ type }) => {
+  let color, background;
+  switch (type) {
+    case "pending":
+      color = "primary"
+      background = "#ddd9ff"
+      break;
+    case "delivered":
+      color = "success"
+      background = "#e5faf2"
+      break;
+    case "processing":
+      color = "secondary"
+      background = "#fcebfe"
+      break;
+    case "shipping":
+      color = "info"
+      background = "#ebf1fe"
+      break;
+    case "cancelled":
+      color = "error"
+      background = "#fff0f1"
+      break;
+    default:
+     return
+  }
+  return <Button size={"small"} color={color} sx={{ background: background }} type={type}> {type} </Button>
+}
 
 
 const OrderPage = () => {
 
   const navigate = useNavigate();
 
-  const StatusButton = ({ type }) => {
-    let color, background;
-    switch (type) {
-      case "pending":
-        color = "primary"
-        background = "#ddd9ff"
-        break;
-      case "delivered":
-        color = "success"
-        background = "#e5faf2"
-        break;
-      case "processing":
-        color = "secondary"
-        background = "#fcebfe"
-        break;
-      case "shipping":
-        color = "info"
-        background = "#ebf1fe"
-        break;
-      case "cancelled":
-        color = "error"
-        background = "#fff0f1"
-        break;
-      default:
-       return
-    }
-    return <Button size={"small"} color={color} sx={{ background: background }} type={type}> {type} </Button>
-  }
-
-
-
   // orders data
   const [orders, setOrders] = useState();
+  const [search, setSearch] = useState("");
 
 
   useEffect(() => {
     const getMyOrder = async () => {
-      setOrders(await getMyOrdersList())
+      const data = await getMyOrdersList()
+      setOrders(filterRows(data, search))
     }
     getMyOrder();
-  }, [])
+  }, [search])
+
+
+  const filterRows = (data, searchQuery) => {
+    return data?.filter(ord =>
+        String(ord._id).toLowerCase().includes(searchQuery.toLowerCase())
+      )
+  }
 
 
   return (
     <Container>
       <Title>Recent Transactions</Title>
+
+      <SearchContainer>
+        <SearchBox
+          size="small"
+          maxLength={30}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search by order ID"
+          sx={{ backgroundColor: "#ffffff" }}
+          startAdornment={
+            <InputAdornment position="start">
+              <SearchIcon color="info" />
+            </InputAdornment>
+          }
+          endAdornment={
+            <InputAdornment position="end">
+              <SearchButton >Search</SearchButton>
+            </InputAdornment>
+          }
+        />
+      </SearchContainer>
+
+
       {orders?.length > 0 ?
         <Table>
           <TableBody>
@@ -123,7 +169,7 @@ const OrderPage = () => {
             </TableRow>
 
             {orders &&
-              orders.map((order) => (
+              orders.slice(0, 4).map((order) => (
                 <TableRow key={order?.updatedAt}>
                   <User>
                     {order.products.map((prod) => (
