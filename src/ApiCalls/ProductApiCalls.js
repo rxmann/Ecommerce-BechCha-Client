@@ -10,7 +10,7 @@ export const getAllProducts = async ({ssort, sort, limitPrice, subIds, limit, se
         if (limit) endpoint += `limit=${limit}&`
         if (search) endpoint += `search=${search}&`
 
-        console.log(endpoint);
+        // console.log(endpoint);   
         const response = await publicRequest.get(endpoint);
         return response.data;
     }

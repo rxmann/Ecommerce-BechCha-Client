@@ -9,6 +9,8 @@ import OrderedProduct from "./OrderedProduct";
 import { Button } from "@mui/material";
 import OrderSummary from "./OrderSummary";
 import AdminOrderControls from "./AdminOrderControls";
+import InvoicePage from "../Checkout/InvoicePage"
+
 
 const Container = styled.div`
   flex: 5;
@@ -68,6 +70,7 @@ const OrderDetails = ({ type }) => {
 
   const [order, setOrder] = useState();
   const [Sum, setSum] = useState();
+  
 
   useEffect(() => {
     const getOrderDetails = async () => {
@@ -82,6 +85,9 @@ const OrderDetails = ({ type }) => {
 
 
 
+  
+
+
   return (
     <Container>
       {order ?
@@ -89,6 +95,8 @@ const OrderDetails = ({ type }) => {
           <OrderTitleWrapper>
             <Title>Order Details</Title>
             {order.status === "pending" && <Button color="error" onClick={() => cancelThisOrder(order._id)}> Cancel Order </Button>}
+
+            {order.status === "delivered" && <Button color="success" > Download Invoice </Button>}
           </OrderTitleWrapper>
           {type === "admin" && <AdminOrderControls data={order} />}
           <Wrapper>
@@ -102,20 +110,22 @@ const OrderDetails = ({ type }) => {
 
 
             {/* progress bar */}
-            <StepProgressBar status={order.status} />
+            <StepProgressBar status={order.status} /> 
           </Wrapper>
 
           {/* { Order Items and Summary } */}
           <OrderStatusWrapper>
 
-
+        
             <OrderedProduct data={order} />
 
             <OrderSummary data={order} Sum={Sum} />
 
 
           </OrderStatusWrapper>
-
+          <div id ="inv">
+          <InvoicePage  order={order._id} /> 
+          </div>
         </>
 
         : <Fetching type="Empty" Message="No orders with such ID" />

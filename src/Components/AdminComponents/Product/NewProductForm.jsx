@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Button, MenuItem, Select, TextField } from "@mui/material";
 import JoditEditor from "jodit-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import UploadIcon from '@mui/icons-material/Upload';
 import ClearIcon from '@mui/icons-material/Clear';
 import { addProductAdmin, editProductAdmin, getAllProducts } from '../../../ApiCalls/ProductApiCalls';
@@ -99,7 +99,7 @@ const DelBtn = styled.div`
 
 const NewProductForm = ({ FormType, prodDetails }) => {
 
-
+    const editor = useRef("");
     const [values, setValues] = useState({ title: "", category: "", price: "", quantity: "", description: "", images: [] });
     const [categories, setCategories] = useState([]);
 
@@ -159,7 +159,7 @@ const NewProductForm = ({ FormType, prodDetails }) => {
         if (FormType === "add") {
             await addProductAdmin(values);
             getAllProducts();
-            
+
         }
         else {
             await editProductAdmin(values, prodDetails._id);
@@ -201,7 +201,7 @@ const NewProductForm = ({ FormType, prodDetails }) => {
                             value={values["price"]}
                             onChange={handleChange}
                             variant="standard"
-                            size="small" required  type={"number"} />
+                            size="small" required type={"number"} />
                     </FormItem>
 
                     <FormItem >
@@ -231,6 +231,8 @@ const NewProductForm = ({ FormType, prodDetails }) => {
                         <Label> Description </Label>
                         <DescWrap>
                             <JoditEditor
+                                ref={editor}
+                                tabIndex={1}
                                 config={config}
                                 value={values["description"]}
                                 onBlur={(con) => {

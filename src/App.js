@@ -48,6 +48,8 @@ import InvoicePage from "./Components/User/Checkout/InvoicePage"
 import Account from "./Components/User/ProfilePages/Account"
 
 
+
+
 const Wrapper = styled.div`
   background-color: #f5f7f8;
 `
@@ -55,6 +57,7 @@ const Contents = styled.div`
   display: flex;
   font-family: 'Nunito', sans-serif;
   background-color: #f5f7f8;
+  padding: 0px 50px 0px 0px;
 `
 
 const ProfileWrapper = styled.div`

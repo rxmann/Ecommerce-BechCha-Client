@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Button } from "@mui/material"
 import { useDispatch } from "react-redux";
 import { removeOneCompare } from "../../../Redux/compareProductSlice";
+import { useEffect, useState } from "react";
 
 const Container = styled.div`
   flex: 1;
@@ -69,6 +70,7 @@ const ProductDescContainer = styled.div`
 const Desc = styled.span`
   padding: 10px;
   font-weight: 400;
+  overflow: hidden;
 `
 
 const DeleteBtn = styled(Button)`
@@ -85,9 +87,24 @@ const CompareCard = ({ data }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [description, setDescription] = useState()
+
   const handleRemove = () => {
     dispatch(removeOneCompare(data));
   }
+
+
+  useEffect( ( ) => {
+    const getData = () => {
+      const textContent = document.createElement("div");
+      textContent.innerHTML = data.description;
+      const plainText = textContent.innerText;
+      setDescription(plainText);
+    }
+
+    getData();
+  }, [data])
+
 
   return (
     <Container>
@@ -107,7 +124,7 @@ const CompareCard = ({ data }) => {
 
       <ProductDescContainer>
         <Infor>Description</Infor>
-        <Desc>{data.description}</Desc>
+        <Desc>{description}</Desc>
       </ProductDescContainer>
       <DeleteBtn color="error" onClick={() => handleRemove()}> 
         REMOVE
