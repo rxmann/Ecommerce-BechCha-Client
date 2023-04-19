@@ -9,7 +9,7 @@ import OrderedProduct from "./OrderedProduct";
 import { Button } from "@mui/material";
 import OrderSummary from "./OrderSummary";
 import AdminOrderControls from "./AdminOrderControls";
-import InvoicePage from "../Checkout/InvoicePage"
+import InvoicePage from "../Checkout/InvoicePage";
 
 
 const Container = styled.div`
@@ -62,11 +62,11 @@ const OrderStatusWrapper = styled.div`
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 `
 
-
-
 const OrderDetails = ({ type }) => {
 
   const orderId = useParams().id;
+
+  
 
   const [order, setOrder] = useState();
   const [Sum, setSum] = useState();
@@ -83,20 +83,25 @@ const OrderDetails = ({ type }) => {
     getOrderDetails();
   }, [orderId])
 
+  const [modalOpen, setModalOpen] = useState(false);
 
-
-  
-
+  const toggleModal = () => {
+    setModalOpen(!modalOpen);
+  };
 
   return (
     <Container>
       {order ?
         <>
+        {modalOpen ?
+          <InvoicePage onClose={toggleModal} order={order._id} />
+        :
+        <>
           <OrderTitleWrapper>
             <Title>Order Details</Title>
             {order.status === "pending" && <Button color="error" onClick={() => cancelThisOrder(order._id)}> Cancel Order </Button>}
 
-            {order.status === "delivered" && <Button color="success" > Download Invoice </Button>}
+            {order.status === "delivered" && <Button color="success" onClick={toggleModal} > Download Invoice </Button>}
           </OrderTitleWrapper>
           {type === "admin" && <AdminOrderControls data={order} />}
           <Wrapper>
@@ -123,13 +128,12 @@ const OrderDetails = ({ type }) => {
 
 
           </OrderStatusWrapper>
-          <div id ="inv">
-          <InvoicePage  order={order._id} /> 
-          </div>
+          </>
+          }
         </>
-
-        : <Fetching type="Empty" Message="No orders with such ID" />
-      }
+        :
+        <Fetching type="Empty" Message="No orders with such ID" /> }
+      
     </Container>
   )
 }
