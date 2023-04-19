@@ -8,8 +8,8 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { addProductToCart } from "../../ApiCalls/apiCalls";
 import { addToCompareP, getOneProduct } from "../../ApiCalls/ProductApiCalls";
-import { addToCompare } from "../../Redux/compareProductSlice";
 import Fetching from "../../Components/User/EmptyView/Fetching";
+import ConfirmModal from "../../Components/User/EmptyView/ConfirmModal";
 
 const Container = styled.div`
   display: flex;
@@ -133,6 +133,7 @@ const DisplayUnit = styled.span`
 `
 
 
+
 const ProductPage = () => {
   const id = useParams().id;
 
@@ -142,6 +143,8 @@ const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState(null);
   const [imageSelected, setImageSelected] = useState();
+  const [confirmAdd, setConfirmAdd] = useState()
+  const [modal, setModal] = useState(false) 
 
   useEffect(() => {
     const getEssential = async () => {
@@ -183,87 +186,89 @@ const ProductPage = () => {
         catHere = prod.category.name;
     })  
 
-    console.log(catHere);
-
     if (product.category.name === catHere) {
       console.log("add compare invoked");
       addToCompareP(dispatch, product)
     }
     else {
-      alert("Different category exist in Compare List. Would you still like to proceed?")
-      if (confirm("Confirm selection?")) {
-
-      } else {
-        
-      }
-      // addToCompareP(dispatch, product)
+        setModal(true);
     }
   }
 
+
+  useEffect(() => {
+    { confirmAdd === true && 
+      addToCompareP(dispatch, product)
+      setModal(false);
+      setConfirmAdd(false);
+    }
+  }, [confirmAdd])
+
   return (
     <>
-      {product ?
-        <Container>
-          <Wrapper>
-            <Left>
-              <ImageContainer>
-                {product.images?.map(image => (
-                  <SmallImage key={image.public_id}
-                    selected={image.url === imageSelected}
-                    onClick={() => { setImageSelected(image?.url) }}
-                    src={image.url} />
-                ))}
-              </ImageContainer>
+    { modal && <ConfirmModal modal={modal} setModal={setModal}  setConfirmAdd={setConfirmAdd}/> }
 
-              <MainImageContainer>
-                <BigImage src={imageSelected || product.images[0]?.url} />
-              </MainImageContainer>
-            </Left>
+    {product ?
+      <Container>
+        <Wrapper>
+          <Left>
+            <ImageContainer>
+              {product.images?.map(image => (
+                <SmallImage key={image.public_id}
+                  selected={image.url === imageSelected}
+                  onClick={() => { setImageSelected(image?.url) }}
+                  src={image.url} />
+              ))}
+            </ImageContainer>
 
-            <Right>
-              <TitleWrapper>
-                <Title> {product.title} </Title>
-                <Span >Product ID: {product._id}</Span>
-              </TitleWrapper>
-              <Price> RS {product.price} </Price>
+            <MainImageContainer>
+              <BigImage src={imageSelected || product.images[0]?.url} />
+            </MainImageContainer>
+          </Left>
 
-              {product.description}
+          <Right>
+            <TitleWrapper>
+              <Title> {product.title} </Title>
+              <Span >Product ID: {product._id}</Span>
+            </TitleWrapper>
+            <Price> RS {product.price} </Price>
+
+            {product.description}
 
 
-              <DisplayInfo>
+            <DisplayInfo>
 
-                <DisplayUnit > Stock:   {product.quantity} </DisplayUnit>
+              <DisplayUnit > Stock:   {product.quantity} </DisplayUnit>
 
-                {product.sold &&  (<DisplayUnit > Sold:   {product.sold} </DisplayUnit>)}
-                {product.brand &&  <DisplayUnit > Brand:   {product.brand} </DisplayUnit>}
-              </DisplayInfo>
-             
-             
-              <QuantityDiv>
-                <Button onClick={() => handleQuantity("dec", product.quantity)}> - </Button>
-                {quantity}
-                <Button onClick={() => handleQuantity("inc", product.quantity)} > + </Button>
-              </QuantityDiv>
+              {product.sold &&  (<DisplayUnit > Sold:   {product.sold} </DisplayUnit>)}
+              {product.brand &&  <DisplayUnit > Brand:   {product.brand} </DisplayUnit>}
+            </DisplayInfo>
+           
+           
+            <QuantityDiv>
+              <Button onClick={() => handleQuantity("dec", product.quantity)}> - </Button>
+              {quantity}
+              <Button onClick={() => handleQuantity("inc", product.quantity)} > + </Button>
+            </QuantityDiv>
 
-              <AddToCart onClick={handleAddToCart}>
-                <AddShoppingCartIcon /> ADD TO CART
-              </AddToCart>
+            <AddToCart onClick={handleAddToCart}>
+              <AddShoppingCartIcon /> ADD TO CART
+            </AddToCart>
 
-              <QuickLinks>
-                <Links onClick={handleCompare} > <BalanceIcon /> ADD TO COMPARE </Links>
-                <Links> <FavoriteIcon /> ADD TO WISHLIST </Links>
-              </QuickLinks>
-            </Right>
+            <QuickLinks>
+              <Links onClick={handleCompare} > <BalanceIcon /> ADD TO COMPARE </Links>
+              <Links> <FavoriteIcon /> ADD TO WISHLIST </Links>
+            </QuickLinks>
+          </Right>
 
-          </Wrapper>
-          <DescriptionTable />
-        </Container>
+        </Wrapper>
+        <DescriptionTable />
+      </Container>
 
-        : <Fetching type={"spokes"} />
-      }
-
-    </>
+      : <Fetching type={"spokes"} />
+  }
+  </>
   )
 }
-
+  
 export default ProductPage
