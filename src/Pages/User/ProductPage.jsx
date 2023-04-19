@@ -5,9 +5,9 @@ import BalanceIcon from '@mui/icons-material/Balance';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DescriptionTable from "../../Components/User/DescriptionTable/DescriptionTable";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { addProductToCart } from "../../ApiCalls/apiCalls";
-import { getOneProduct } from "../../ApiCalls/ProductApiCalls";
+import { addToCompareP, getOneProduct } from "../../ApiCalls/ProductApiCalls";
 import { addToCompare } from "../../Redux/compareProductSlice";
 import Fetching from "../../Components/User/EmptyView/Fetching";
 
@@ -136,6 +136,8 @@ const DisplayUnit = styled.span`
 const ProductPage = () => {
   const id = useParams().id;
 
+  const  { products } = useSelector(state => state.compare)
+
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState(null);
@@ -172,6 +174,30 @@ const ProductPage = () => {
   const handleAddToCart = async () => {
     console.log("Add to cart!");
     await addProductToCart(dispatch, product, quantity, product.quantity, id);
+  }
+
+
+  const handleCompare = () => {
+    let catHere;
+    products.map((prod) => {
+        catHere = prod.category.name;
+    })  
+
+    console.log(catHere);
+
+    if (product.category.name === catHere) {
+      console.log("add compare invoked");
+      addToCompareP(dispatch, product)
+    }
+    else {
+      alert("Different category exist in Compare List. Would you still like to proceed?")
+      if (confirm("Confirm selection?")) {
+
+      } else {
+        
+      }
+      // addToCompareP(dispatch, product)
+    }
   }
 
   return (
@@ -224,7 +250,7 @@ const ProductPage = () => {
               </AddToCart>
 
               <QuickLinks>
-                <Links onClick={() => dispatch(addToCompare(product))} > <BalanceIcon /> ADD TO COMPARE </Links>
+                <Links onClick={handleCompare} > <BalanceIcon /> ADD TO COMPARE </Links>
                 <Links> <FavoriteIcon /> ADD TO WISHLIST </Links>
               </QuickLinks>
             </Right>

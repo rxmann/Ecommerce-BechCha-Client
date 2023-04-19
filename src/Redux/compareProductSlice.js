@@ -7,17 +7,22 @@ export const compareSlice = createSlice({
     },
     reducers: {
         addToCompare: (state, action) => {
-            const productsIDS = state.products.map((prod) => {
+            let productCat;
+            let productsIDs = state.products.map((prod) => {
+                productCat = prod.category.name;
                 return prod._id;
             });
-            if (productsIDS.includes(action.payload._id)) {
+
+            console.log(productCat);
+
+            if (productsIDs.includes(action.payload._id)) {
                 return;
             }
             else if (state.products.length >= 3) {
                 state.products.splice(0, (state.products.length - 2 ));
             }
+           
             state.products.push(action.payload);
-            
         },
         emptyCompare: (state) => {
             state.products = [];

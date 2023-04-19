@@ -1,4 +1,4 @@
-import { publicRequest, userRequest } from "../requestMethods/requestMethods";
+import { userRequest } from "../requestMethods/requestMethods";
 import { emptyMyCart, failureToast, successToast } from "./apiCalls";
 
 
@@ -111,17 +111,5 @@ export const makeAnOrder = async (dispatch, { orderData, totalPayable, type }) =
     } catch (error) {
         console.log(error);
         failureToast(error.response.data)
-    }
-}
-
-export const sendInvoice = async (orderID) => {
-    try {
-        const order = await getOneOrderById(orderID);
-
-       const response = await publicRequest.post("/orders/invoice", { order });
-       console.log(response);
-    } catch (error) {
-        console.log(error);
-        failureToast(error?.response?.data)
     }
 }
