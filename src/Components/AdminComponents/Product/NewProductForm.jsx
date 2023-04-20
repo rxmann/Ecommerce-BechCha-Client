@@ -111,7 +111,7 @@ const NewProductForm = ({ FormType, prodDetails }) => {
         if (FormType === "edit") {
             setValues({
                 title: prodDetails?.title,
-                category: prodDetails?.category,
+                category: prodDetails?.category?._id,
                 price: prodDetails?.price,
                 brand: prodDetails?.brand || "",
                 quantity: prodDetails?.quantity,
@@ -223,7 +223,7 @@ const NewProductForm = ({ FormType, prodDetails }) => {
                             name="brand"
                             value={values["brand"]}
                             onChange={handleChange}
-                            size="small" required
+                            size="small" 
                             variant="standard" type="text" />
                     </FormItem>
 

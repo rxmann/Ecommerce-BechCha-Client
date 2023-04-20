@@ -45,7 +45,7 @@ const ProductUpdate = ({ prodDetails }) => {
   
   useEffect(() => {
     if (prodDetails) {
-      console.log(prodDetails);
+      // console.log(prodDetails);
       setImageSelected(prodDetails?.images[0]?.url);
     }
   }, [prodDetails])

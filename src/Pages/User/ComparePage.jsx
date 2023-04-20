@@ -46,9 +46,7 @@ const ComparePage = () => {
         }
       <MainWrapper>
         {products.map((product) => (
-        <>
           <CompareCard key={product._id} data={product} />
-        </>
         ))}
       </MainWrapper>
     </>  :

@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import DataTable from '../../Components/AdminComponents/Tables/DataTable';
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch} from "react-redux"
 import { useEffect, useState } from 'react';
 import { deleteProductAdmin, getAllProducts } from '../../ApiCalls/ProductApiCalls';
 
@@ -83,17 +83,6 @@ const ProductsTab = () => {
     getEssentials();
   }, [dispatch, navigate])
 
-  const {categories} = useSelector(state => state.product)
-
-  const getCatName = (id) => {
-    for (let i = 0; i < categories?.length; i++) {
-      if (categories[i]._id === id) {
-        return categories[i].slug;
-      }
-    }
-    return id;
-  }
-
 
 
   /// column for product datatable
@@ -126,7 +115,7 @@ const ProductsTab = () => {
       flex: 3,
       renderCell: (params) => {
         return (
-          getCatName(params.row.category)
+          params.row.category.name
         )
       } 
     },

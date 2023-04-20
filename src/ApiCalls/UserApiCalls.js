@@ -59,7 +59,7 @@ export const verifyUserOTP = async (dispatch, payload) => {
 export const resendUserOTP = async (dispatch, payload) => {
     dispatch(requestStart());
     try {
-        console.log(payload);
+        // console.log(payload);
         await publicRequest.post("/users/resendOTP", { email: payload })
         successToast("OTP sent to email:", payload);
         dispatch(requestSuccess());
@@ -93,7 +93,7 @@ export const loginUser = async (dispatch, user) => {
 export const updateUser = async (dispatch, user, id) => {
     dispatch(requestStart());
     try {
-        console.log(user);
+        // console.log(user);
         const response = await userRequest.patch(`/users/${id}`, user);
         dispatch(updateSuccess(response.data));
         successToast("User data updated successfully")

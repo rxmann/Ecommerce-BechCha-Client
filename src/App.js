@@ -46,6 +46,7 @@ import ShippingForm from "./Components/User/Checkout/ShippingForm"
 import PaymentTab from "./Components/User/Checkout/PaymentTab"
 import InvoicePage from "./Components/User/Checkout/InvoicePage"
 import Account from "./Components/User/ProfilePages/Account"
+import Settings from "./Components/AdminComponents/Settings/SettingsAdmin"
 
 
 
@@ -301,6 +302,10 @@ const App = () => {
         {
           path: "/admin/category/add",
           element: <CategoryAdd />
+        },
+        {
+          path: "/admin/settings",
+          element: <Settings />
         },
       ]
     },

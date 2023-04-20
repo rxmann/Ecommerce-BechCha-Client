@@ -183,7 +183,9 @@ const ProductPage = () => {
   const handleCompare = () => {
     let catHere;
     products.map((prod) => {
-        catHere = prod.category.name;
+        return (
+          catHere = prod.category.name
+        )
     })  
     if (!catHere) {
       addToCompareP(dispatch, product)
@@ -199,8 +201,8 @@ const ProductPage = () => {
 
 
   useEffect(() => {
-    { confirmAdd === true && 
-      addToCompareP(dispatch, product)
+    if (confirmAdd === true) {
+      addToCompareP(dispatch, product);
       setModal(false);
       setConfirmAdd(false);
     }
@@ -217,9 +219,10 @@ const ProductPage = () => {
             <ImageContainer>
               {product.images?.map(image => (
                 <SmallImage key={image.public_id}
-                  selected={image.url === imageSelected}
-                  onClick={() => { setImageSelected(image?.url) }}
-                  src={image.url} />
+                selected={image.url === imageSelected}
+                onClick={() => { setImageSelected(image?.url) }}
+                src={image.url} />
+               
               ))}
             </ImageContainer>
 
