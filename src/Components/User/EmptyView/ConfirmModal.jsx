@@ -13,6 +13,7 @@ const Modal = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  z-index: 999;
 `;
 const HeadinG = styled.h3`
   font-weight: 600;

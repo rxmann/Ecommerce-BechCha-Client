@@ -7,7 +7,7 @@ import { failureToast, successToast } from "./apiCalls";
 
 export const addToCompareP = async ( dispatch, product) => {
     try {
-        console.log(product);
+        // console.log(product);
         const res = dispatch(addToCompare(product));
         if (res === "unmatched") {
             successToast("Product's Category do not match with items in Compare List!")

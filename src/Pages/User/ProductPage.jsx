@@ -185,8 +185,10 @@ const ProductPage = () => {
     products.map((prod) => {
         catHere = prod.category.name;
     })  
-
-    if (product.category.name === catHere) {
+    if (!catHere) {
+      addToCompareP(dispatch, product)
+    }
+    else if (product.category.name === catHere) {
       console.log("add compare invoked");
       addToCompareP(dispatch, product)
     }
@@ -202,7 +204,7 @@ const ProductPage = () => {
       setModal(false);
       setConfirmAdd(false);
     }
-  }, [confirmAdd])
+  }, [confirmAdd, product, dispatch])
 
   return (
     <>

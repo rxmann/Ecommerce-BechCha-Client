@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import BalanceIcon from "@mui/icons-material/Balance";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addToCompare } from "../../../Redux/compareProductSlice";
+import { useDispatch, useSelector } from "react-redux";
+import ConfirmModal from "../EmptyView/ConfirmModal";
+import { addToCompareP } from "../../../ApiCalls/ProductApiCalls";
+import { useEffect, useState } from "react";
 
 const Container = styled.div`
   width: 200px;
@@ -74,8 +76,41 @@ const ProductCard = ({ data }) => {
   const dispatch = useDispatch();
   const image = data.images[0]?.url;
 
+  const [confirmAdd, setConfirmAdd] = useState()
+  const [modal, setModal] = useState(false) 
+  const  { products } = useSelector(state => state.compare)
+
+  const handleCompare = () => {
+    let catHere;
+    products.map((prod) => {
+        catHere = prod.category.name;
+    })  
+
+    if (!catHere) {
+      addToCompareP(dispatch, data)
+    }
+    else if (data.category.name === catHere ) {
+      console.log("add compare invoked");
+      addToCompareP(dispatch, data)
+    }
+    else {
+        setModal(true);
+    }
+  }
+
+
+  useEffect(() => {
+    { confirmAdd === true && 
+      addToCompareP(dispatch, data)
+      setModal(false);
+      setConfirmAdd(false);
+    }
+  }, [confirmAdd, data, dispatch])
+
+
   return (
     <Container>
+       { modal && <ConfirmModal modal={modal} setModal={setModal}  setConfirmAdd={setConfirmAdd}/> }
       <ImageContainer>
         <Image onClick={() => navigate(`/product/${data._id}`)} src={image} />
       </ImageContainer>
@@ -87,7 +122,7 @@ const ProductCard = ({ data }) => {
       <Info>
         <Price> RS {data.price} </Price>
         <BalanceIcon
-          onClick={() => dispatch(addToCompare(data))}
+          onClick={handleCompare}
           sx={{ cursor: "pointer" }}
           fontSize="small"
           color="primary"
