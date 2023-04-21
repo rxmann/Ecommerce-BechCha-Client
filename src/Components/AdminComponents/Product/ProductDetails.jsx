@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getOneProduct } from "../../../ApiCalls/ProductApiCalls";
-import { PieChart, Pie, Tooltip, Sector, Cell } from "recharts";
+import DonutChart from "react-donut-chart";
 
 const Container = styled.div`
   flex: 5;
@@ -86,9 +86,11 @@ const Data = styled.span`
 `;
 
 const ProductChart = styled.div`
+  padding: 20px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 `;
 
 const BottomWrapper = styled.div`
@@ -111,27 +113,26 @@ const ProductDetails = () => {
     makereq();
   }, [prodId]);
 
-  const data01 = [
-    { name: "Quantity Left", value: data.quantity },
-    { name: "Total Sales", value: data.sold },
-  ];
-
-
   return (
     <Container>
       <Title> Product Profile </Title>
       <TopWrapper>
         <Left>
           <ProductChart>
-            <PieChart width={400} height={400}>
-              <Pie
-                dataKey="value"
-                data={data01}
-                fill="#089e60"
-                label
-              />
-              <Tooltip />
-            </PieChart>
+            <DonutChart
+              data={[
+                {
+                  label: "Total Sales",
+                  value: data.sold,
+                },
+                {
+                  label: "Quantity Left",
+                  value: data.quantity,
+                },
+              ]}
+              colors={["#0b74a8", "#0171b6"]}
+            />
+            ;
           </ProductChart>
         </Left>
 
