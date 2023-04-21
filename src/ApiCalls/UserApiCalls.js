@@ -160,7 +160,7 @@ export const deleteUserAccount = async (dispatch, id, userId) => {
     dispatch(requestStart());
     try {
         await userRequest.delete(`/users/${id}`)
-        if (id === userId) {
+        if (!userId) {
             dispatch(deleteUserSuccess());
         }
         else {

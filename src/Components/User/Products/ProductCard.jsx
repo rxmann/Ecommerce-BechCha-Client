@@ -113,7 +113,7 @@ const ProductCard = ({ data }) => {
 
   return (
     <Container>
-       { modal && <ConfirmModal modal={modal} setModal={setModal}  setConfirmAdd={setConfirmAdd}/> }
+       { modal && <ConfirmModal message={"You are comparing unsimilar category products!"} title={"Would you still like to compare products?"} modal={modal} setModal={setModal}  setConfirmAdd={setConfirmAdd}/> }
       <ImageContainer>
         <Image onClick={() => navigate(`/product/${data._id}`)} src={image} />
       </ImageContainer>

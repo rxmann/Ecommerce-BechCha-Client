@@ -29,12 +29,12 @@ const Info = styled.span`
     padding: 10px;
 `
 
-const ConfirmModal = ({ setModal, modal, setConfirmAdd }) => {
+const ConfirmModal = ({ message, title, setModal, modal, setConfirmAdd }) => {
   return (
     <Modal>
       {modal}
-      <Info> The items in your compare list are of different category. </Info>
-      <HeadinG> Still compare unsimilar categories? </HeadinG>
+      <Info> {message} </Info>
+      <HeadinG> {title} </HeadinG>
       <BtnContainer>
         <Button variant="contained" color="secondary" onClick={() => setModal(!modal)}> Cancel </Button>
         <Button variant="contained" color="info" onClick={() => setConfirmAdd(true)}> Confirm </Button>

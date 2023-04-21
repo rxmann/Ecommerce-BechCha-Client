@@ -1,22 +1,30 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { OutlinedInput, IconButton, InputAdornment } from "@mui/material";
+import {
+  OutlinedInput,
+  IconButton,
+  InputAdornment,
+  Button,
+} from "@mui/material";
 import { useEffect } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { updateUserPassword } from "../../../ApiCalls/UserApiCalls";
-import {useDispatch} from "react-redux"
+import {
+  deleteUserAccount,
+  updateUserPassword,
+} from "../../../ApiCalls/UserApiCalls";
+import { useDispatch, useSelector } from "react-redux";
+import ConfirmModal from "../EmptyView/ConfirmModal";
 
 const Container = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; 
   margin-bottom: 50px;
+  gap: 20px;
 `;
 
 const Form = styled.form`
-  flex: 1.5;
+  flex: 3;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -39,9 +47,35 @@ const Label = styled.label`
   color: gray;
 `;
 
+const ProfileContainer = styled.div`
+  flex: 1;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  background-color: white;
+  border-radius: 10px;
+  height: 100%;
+  overflow: hidden;
+`;
+
+const ProfileImg = styled.img`
+  object-fit: contain;
+  width: 60%;
+  
+`;
+
 const Account = ({ user, isFetching }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
+  const { currentUser } = useSelector((state) => state.user);
+
+  const [confirmAdd, setConfirmAdd] = useState();
+  const [modal, setModal] = useState(false);
 
   const [formData, setFormData] = useState({
     oldPassword: "",
@@ -69,11 +103,19 @@ const Account = ({ user, isFetching }) => {
   // submit updates user
   const handleUpdate = async (e) => {
     e.preventDefault();
-    if (formData.newPassword !== formData.confirmNewPassword) return alert("New Password do not match with the confirmation!");
-    console.log(formData);
+    if (formData.newPassword !== formData.confirmNewPassword)
+      return alert("New Password do not match with the confirmation!");
 
-    await updateUserPassword(dispatch, formData);
+    setModal(true);
   };
+
+  useEffect(() => {
+    if (confirmAdd === true) {
+      updateUserPassword(dispatch, formData);
+      setModal(false);
+      setConfirmAdd(false);
+    }
+  }, [confirmAdd, dispatch, formData]);
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -96,9 +138,23 @@ const Account = ({ user, isFetching }) => {
     },
   ];
 
+  const handleDeleteAccount = async () => {
+    await deleteUserAccount(dispatch, currentUser._id, null);
+    navigate("/");
+  };
+
   return (
     <Container>
       <Form onSubmit={handleUpdate}>
+        {modal && (
+          <ConfirmModal
+            message="You are about to change your account's password and log out."
+            title="Confirm updating password?"
+            modal={modal}
+            setModal={setModal}
+            setConfirmAdd={setConfirmAdd}
+          />
+        )}
         {InputData.map((input) => (
           <FormItem key={input.label}>
             <Label> {input.label} </Label>
@@ -129,6 +185,19 @@ const Account = ({ user, isFetching }) => {
           Update
         </LoadingButton>
       </Form>
+
+      <ProfileContainer>
+        <ProfileImg src={currentUser?.image} />
+        <Button
+          size="small"
+          color="error"
+          variant="contained"
+          onClick={handleDeleteAccount}
+        >
+          {" "}
+          Delete Account {currentUser?.username}{" "}
+        </Button>
+      </ProfileContainer>
     </Container>
   );
 };
