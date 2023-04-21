@@ -18,6 +18,9 @@ const Title = styled.h1`
     color: gray;
 `
 
+const ChartWrap = styled.div`
+  
+`
 
 const CategoryDisplay = () => {
 
@@ -40,6 +43,9 @@ const CategoryDisplay = () => {
     <Container>
       <Title> Category Profile </Title>
       <CategoryForm FormType={"update"} Data={category} />
+      <ChartWrap>
+
+      </ChartWrap>
     </Container>
   )
 }

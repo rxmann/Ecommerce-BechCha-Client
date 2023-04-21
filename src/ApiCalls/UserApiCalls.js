@@ -88,6 +88,19 @@ export const loginUser = async (dispatch, user) => {
 
 }
 
+export const updateUserPassword = async (dispatch, user) => {
+    dispatch(requestStart());
+    try {
+        const response = await userRequest.patch("/users/password", user)
+        successToast(response.data.message);
+    }
+    catch (err) {
+        dispatch(requestFailure(err.reponse?.data));
+        failureToast(err.response?.data)
+    }
+
+}
+
 
 
 export const updateUser = async (dispatch, user, id) => {
