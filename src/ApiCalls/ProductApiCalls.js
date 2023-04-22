@@ -4,10 +4,30 @@ import { failureToast, successToast } from "./apiCalls";
 
 
 
+export const updateFeatured = async ( products ) => {
+    try {
+        const response = await userRequest.patch("/products/update/featured", {products});
+        console.log(response.data);
+    }
+    catch (err) {
+
+    }
+}
+
+
+export const getFeatured = async (  ) => {
+    try {
+        const response = await publicRequest.get("/products/find/featured");
+        return response.data;
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
 
 export const addToCompareP = async ( dispatch, product) => {
     try {
-        // console.log(product);
         const res = dispatch(addToCompare(product));
         if (res === "unmatched") {
             successToast("Product's Category do not match with items in Compare List!")

@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Thumbs, Autoplay } from "swiper";
-
+import { getFeatured } from "../../../ApiCalls/ProductApiCalls";
 // Import Swiper styles
 import "swiper/css/bundle";
-import "swiper/css/autoplay"
+import "swiper/css/autoplay";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   padding: 10px 50px;
@@ -59,67 +62,68 @@ const ShopNow = styled.button`
   cursor: pointer;
   font-weight: 600;
   letter-spacing: 2px;
-  box-shadow: 1px 2px 4px rgba(0,0,0,0.15);
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.15);
   transition: box-shadow 0.3s ease-in-out;
   border: 0.3px solid #0171b6;
 
   &:hover {
     background-color: #0171b6;
     color: white;
-    box-shadow: 1px 2px 6px rgba(0,0,0,0.3);
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.3);
   }
 `;
 
 const FeaturedSlider = () => {
-  const sliderItems = [
-    {
-      id: 0,
-      img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/G24F2.png?raw=true",
-      title: "Dashain Sale",
-      desc: "DON'T COMPROMISE ON TECH! GET FLAT 30% OFF FOR NEW MODELS",
-    },
-    {
-      id: 1,
-      img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/keyboard.png?raw=true",
-      title: "Dashain Sale",
-      desc: "DON'T COMPROMISE ON TECH! GET FLAT 30% OFF FOR NEW MODELS",
-    },
-    {
-      id: 2,
-      img: "https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/G24F2.png?raw=true",
-      title: "Dashain Sale",
-      desc: "DON'T COMPROMISE ON TECH! GET FLAT 30% OFF FOR NEW MODELS",
-    },
-  ];
+  const navigate = useNavigate();
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    const getFeaturedItems = async () => {
+      let response = await getFeatured();
+      response = response.map((pd) => {
+        const textContent = document.createElement("div");
+        textContent.innerHTML = pd.description;
+        const plainText = textContent.innerText.slice(0, 300) + '...';
+        return { ...pd, description: plainText };
+      });
+      console.log(response[0]);
+      setData(response);
+    };
+
+    getFeaturedItems();
+  }, []);
 
   return (
     <Container>
       <Swiper
         modules={[Navigation, Thumbs, Pagination, Autoplay]}
-        autoplay = {{delay: 4000}}
+        autoplay={{ delay: 4000 }}
         loop={true}
         spaceBetween={0}
-        slidesPerView= {1}
+        slidesPerView={1}
         navigation
         pagination={{ clickable: true }}
         grabCursor
       >
-        {sliderItems.map((product) => (
-          <SwiperSlide key={product.id}>
-            <Wrapper>
-              <ImageContainer>
-                <Image src={product.img} />
-              </ImageContainer>
+        {data?.length > 0 &&
+          data.map((product) => (
+            <SwiperSlide key={product._id}>
+              <Wrapper>
+                <ImageContainer>
+                  <Image src={product.images[0].url} />
+                </ImageContainer>
 
-              <InfoContainer>
-                <Title>{product.title}</Title>
-                <Description>{product.desc}</Description>
+                <InfoContainer>
+                  <Title>{product.title}</Title>
+                  <Description>{product.description}</Description>
 
-                <ShopNow>SHOP NOW</ShopNow>
-              </InfoContainer>
-            </Wrapper>
-          </SwiperSlide>
-        ))}
+                  <ShopNow onClick={() => navigate(`/product/${product._id}`)}>
+                    SHOP NOW
+                  </ShopNow>
+                </InfoContainer>
+              </Wrapper>
+            </SwiperSlide>
+          ))}
       </Swiper>
     </Container>
   );

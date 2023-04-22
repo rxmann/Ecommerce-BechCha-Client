@@ -71,49 +71,50 @@ const Price = styled.span`
   margin: 10px;
 `;
 
-const ProductCard = ({ data }) => {
+const ProductCard = ({ data, disp }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const image = data.images[0]?.url;
 
-  const [confirmAdd, setConfirmAdd] = useState()
-  const [modal, setModal] = useState(false) 
-  const  { products } = useSelector(state => state.compare)
+  const [confirmAdd, setConfirmAdd] = useState();
+  const [modal, setModal] = useState(false);
+  const { products } = useSelector((state) => state.compare);
 
   const handleCompare = () => {
     let catHere;
     products.map((prod) => {
-        return (
-          catHere = prod.category.name
-        )
-    })  
+      return (catHere = prod.category.name);
+    });
 
     if (!catHere) {
-      addToCompareP(dispatch, data)
-    }
-    else if (data.category.name === catHere ) {
+      addToCompareP(dispatch, data);
+    } else if (data.category.name === catHere) {
       console.log("add compare invoked");
-      addToCompareP(dispatch, data)
+      addToCompareP(dispatch, data);
+    } else {
+      setModal(true);
     }
-    else {
-        setModal(true);
-    }
-  }
-
+  };
 
   useEffect(() => {
-   if (confirmAdd === true) {
-        addToCompareP(dispatch, data);
-        setModal(false);
-        setConfirmAdd(false);
-      }
-  }, [confirmAdd, data, dispatch])
-  
-
+    if (confirmAdd === true) {
+      addToCompareP(dispatch, data);
+      setModal(false);
+      setConfirmAdd(false);
+    }
+  }, [confirmAdd, data, dispatch]);
 
   return (
     <Container>
-       { modal && <ConfirmModal message={"You are comparing unsimilar category products!"} title={"Would you still like to compare products?"} modal={modal} setModal={setModal}  setConfirmAdd={setConfirmAdd}/> }
+      {modal && (
+        <ConfirmModal
+          message={"You are comparing unsimilar category products!"}
+          title={"Would you still like to compare products?"}
+          modal={modal}
+          setModal={setModal}
+          setConfirmAdd={setConfirmAdd}
+        />
+      )}
       <ImageContainer>
         <Image onClick={() => navigate(`/product/${data._id}`)} src={image} />
       </ImageContainer>
@@ -124,12 +125,14 @@ const ProductCard = ({ data }) => {
 
       <Info>
         <Price> RS {data.price} </Price>
-        <BalanceIcon
-          onClick={handleCompare}
-          sx={{ cursor: "pointer" }}
-          fontSize="small"
-          color="primary"
-        />
+        {disp !== "none" && (
+          <BalanceIcon
+            onClick={handleCompare}
+            sx={{ cursor: "pointer" }}
+            fontSize="small"
+            color="primary"
+          />
+        )}
       </Info>
     </Container>
   );
