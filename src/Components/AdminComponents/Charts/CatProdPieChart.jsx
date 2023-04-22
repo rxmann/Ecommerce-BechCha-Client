@@ -35,12 +35,14 @@ const CatProdPieChart = () => {
     getCatProdData();
   }, []);
 
-  console.log(data);
+
+
 
   return (
     <Container>
       <Title> Products Distribution </Title>
-      <Chhart>{data && <DonutChart data={data}  width={600} height={400} />}</Chhart>
+      <Chhart>{data && <DonutChart data={data}  paddingAngle={5} width={600} height={400} />}</Chhart>
+
     </Container>
   );
 };

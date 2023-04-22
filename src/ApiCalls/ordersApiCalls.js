@@ -5,7 +5,6 @@ import { emptyMyCart, failureToast, successToast } from "./apiCalls";
 
 export const updateThisOrder = async (id, status)  => {
     try {
-        console.log(status);
         await userRequest.patch(`/orders/update/${id}`, { status: status });
         successToast("Order status updated!")
         return true;
