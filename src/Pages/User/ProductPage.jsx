@@ -3,13 +3,13 @@ import styled from "styled-components";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import BalanceIcon from "@mui/icons-material/Balance";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import DescriptionTable from "../../Components/User/DescriptionTable/DescriptionTable";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addProductToCart } from "../../ApiCalls/apiCalls";
 import { addToCompareP, getOneProduct } from "../../ApiCalls/ProductApiCalls";
 import Fetching from "../../Components/User/EmptyView/Fetching";
 import ConfirmModal from "../../Components/User/EmptyView/ConfirmModal";
+import ReviewComponent from "../../Components/User/Products/ReviewComponent";
 
 const Container = styled.div`
   display: flex;
@@ -116,9 +116,9 @@ const Links = styled.div`
 
 
 const Description = styled.p`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
-  letter-spacing: 1px;
+  letter-spacing: 0.6px;
 `;
 
 
@@ -136,6 +136,10 @@ const DisplayInfo = styled.div`
 const DisplayUnit = styled.span`
   color: green;
   font-weight: 500;
+`;
+
+const ReviewsWrapper = styled.div`
+  padding: 10px 50px;
 `;
 
 const ProductPage = () => {
@@ -287,7 +291,14 @@ const ProductPage = () => {
               </QuickLinks>
             </Right>
           </Wrapper>
-          <DescriptionTable />
+                  
+          
+
+          <ReviewsWrapper>
+                <ReviewComponent />
+          </ReviewsWrapper>
+
+
         </Container>
       ) : (
         <Fetching type={"spokes"} />

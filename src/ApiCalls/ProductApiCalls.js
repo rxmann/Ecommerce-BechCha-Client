@@ -8,6 +8,7 @@ export const updateFeatured = async ( products ) => {
     try {
         const response = await userRequest.patch("/products/update/featured", {products});
         console.log(response.data);
+        successToast("Featured products updated!")
     }
     catch (err) {
 

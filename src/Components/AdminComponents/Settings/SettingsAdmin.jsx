@@ -63,7 +63,9 @@ const SettingsAdmin = () => {
 
   const handleChange = (e, index) => {
     const newValues = [...values];
-    newValues[index] = e.target.value;
+    if (!values.includes(e.target.value)) {
+      newValues[index] = e.target.value;
+    }
     setValues(newValues);
   };
 
@@ -83,7 +85,6 @@ const SettingsAdmin = () => {
   const setFeaturedProd = async () => {
     console.log(values);
     await updateFeatured(values);
-    window.location.reload(false);
   };
 
   return (

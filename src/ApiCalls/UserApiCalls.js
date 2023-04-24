@@ -184,7 +184,7 @@ export const getOneUser = async (dispatch, id) => {
         return response.data;
     }
     catch (er) {
-        console.log(er.response?.data || er);
+        console.log(er);
         if (er.response?.data?.code?.toString() === "notoken") {
             localStorage.setItem("persist:root", null);
         }
