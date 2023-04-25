@@ -3,6 +3,19 @@ import { publicRequest, userRequest } from "../requestMethods/requestMethods";
 import { failureToast, successToast } from "./apiCalls";
 
 
+export const handleReviewPost = async (rating, comment, id) => {
+    try {
+        const response = await userRequest.post("/reviews", { rating, comment, product: id });
+        console.log(response);
+        successToast(response.data.msg)
+    }
+    catch (err) {
+        failureToast(err.response.data.msg);
+        console.log(err);
+    }
+}
+
+
 
 export const updateFeatured = async ( products ) => {
     try {

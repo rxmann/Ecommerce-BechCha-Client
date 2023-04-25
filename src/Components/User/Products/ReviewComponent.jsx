@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import { Button } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
-import StarHalfIcon from "@mui/icons-material/StarHalf";
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
 
 const Container = styled.div`
-  padding: 10px;
+  padding: 10px 30px;
   background-color: white;
 `;
 
 const TopWrap = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: space-between;
 `;
 
@@ -21,7 +21,8 @@ const Profiler = styled.div`
 `
 
 const PostedOn = styled.span`
-    font-weight: 20px;
+    font-weight: 400;
+    font-size: 10px;
 `
 
 const BottomWrap = styled.div``;
@@ -32,36 +33,43 @@ const ReviewComment = styled.div`
 `;
 const UserProfile = styled.p`
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
 `;
 
 const Star = styled.div`
     display: flex;
     align-items: center;
-    color: gold;
 `;
 
-const ReviewComponent = () => {
+const ReviewComponent = ({data}) => {
+
+  
   return (
     <Container>
       <TopWrap>
             <Profiler>
-            <UserProfile> Roman@07 </UserProfile>
+            <UserProfile> {data?.user?.username} </UserProfile>
         <Star>
-          {Array(5)
-            .fill()
-            .map((_, index) => (
-              <StarIcon size="small" key={index} /> 
+          {Array(5).fill().map((_, index) => (
+               <StarIcon
+               key={index}
+               sx={{
+                 cursor: 'pointer',
+                 color: index < data?.rating ? 'gold' : 'gray',
+               }}
+             />
             ))}
         </Star>
             </Profiler>
 
-            <PostedOn> </PostedOn>
+            <PostedOn> 
+                Posted On: { data?.updatedAt }
+            </PostedOn>
       </TopWrap>
 
       <BottomWrap>
         <ReviewComment> 
-            Wow! I really like this thing. It was in a perfect condition and I strongly recommend buying it.
+            {data?.comment}
         </ReviewComment>
         <Button> </Button>
       </BottomWrap>

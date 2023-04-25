@@ -10,6 +10,8 @@ import { addToCompareP, getOneProduct } from "../../ApiCalls/ProductApiCalls";
 import Fetching from "../../Components/User/EmptyView/Fetching";
 import ConfirmModal from "../../Components/User/EmptyView/ConfirmModal";
 import ReviewComponent from "../../Components/User/Products/ReviewComponent";
+import { Button } from "@mui/material";
+import ReviewForm from "../../Components/User/Products/ReviewForm";
 
 const Container = styled.div`
   display: flex;
@@ -75,7 +77,7 @@ const QuantityDiv = styled.div`
   align-items: center;
   gap: 10px;
 `;
-const Button = styled.button`
+const ButtonBD = styled.button`
   cursor: pointer;
   width: 50px;
   height: 50px;
@@ -114,13 +116,11 @@ const Links = styled.div`
   font-size: 14px;
 `;
 
-
 const Description = styled.p`
   font-size: 18px;
   font-weight: 400;
   letter-spacing: 0.6px;
 `;
-
 
 const Span = styled.span`
   font-size: 10px;
@@ -139,11 +139,27 @@ const DisplayUnit = styled.span`
 `;
 
 const ReviewsWrapper = styled.div`
-  padding: 10px 50px;
+  margin: 10px 50px;
+  background-color: white;
+`;
+
+const WrapperReview = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 30px;
+`;
+
+const ReviewsTitle = styled.h2`
+  color: gray;
+  border-bottom: 3px solid #0171b6;
+  display: table;
 `;
 
 const ProductPage = () => {
   const id = useParams().id;
+
+  const [reviewSelected, setReviewSelected] = useState(false);
 
   const { products } = useSelector((state) => state.compare);
 
@@ -246,11 +262,7 @@ const ProductPage = () => {
               </TitleWrapper>
               <Price> RS {product.price} </Price>
 
-
-
-                    <Description >
-                    {product.description}
-                    </Description>
+              <Description>{product.description}</Description>
 
               <DisplayInfo>
                 <DisplayUnit> Stock: {product.quantity} </DisplayUnit>
@@ -264,15 +276,19 @@ const ProductPage = () => {
               </DisplayInfo>
 
               <QuantityDiv>
-                <Button onClick={() => handleQuantity("dec", product.quantity)}>
+                <ButtonBD
+                  onClick={() => handleQuantity("dec", product.quantity)}
+                >
                   {" "}
                   -{" "}
-                </Button>
+                </ButtonBD>
                 {quantity}
-                <Button onClick={() => handleQuantity("inc", product.quantity)}>
+                <ButtonBD
+                  onClick={() => handleQuantity("inc", product.quantity)}
+                >
                   {" "}
                   +{" "}
-                </Button>
+                </ButtonBD>
               </QuantityDiv>
 
               <AddToCart onClick={handleAddToCart}>
@@ -291,14 +307,34 @@ const ProductPage = () => {
               </QuickLinks>
             </Right>
           </Wrapper>
-                  
-          
 
           <ReviewsWrapper>
-                <ReviewComponent />
+            {reviewSelected && (
+              <ReviewForm
+                onCancel={() => setReviewSelected(false)}
+                onSubmit={() => setReviewSelected(false)}
+                prod={product._id}
+              />
+            )}
+            <WrapperReview>
+              <ReviewsTitle> Reviews </ReviewsTitle>
+              <Button
+                size="small"
+                color="secondary"
+                variant="contained"
+                onClick={() => setReviewSelected(true)}
+              >
+                Add a review
+              </Button>
+            </WrapperReview>
+            {product.reviews.length > 0 ? (
+              product.reviews.map((prod) => (
+                <ReviewComponent key={prod._id} data={prod} />
+              ))
+            ) : (
+              <Fetching type={"Empty"} Message={"No reviews posted yet!"} />
+            )}
           </ReviewsWrapper>
-
-
         </Container>
       ) : (
         <Fetching type={"spokes"} />
