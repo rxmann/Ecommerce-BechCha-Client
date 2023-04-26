@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { PersonOutline, CreditCard, Store, SettingsApplications, Dashboard, LocalShipping, Category, AccountCircleOutlined } from "@mui/icons-material"
+import { PersonOutline, CreditCard, Store, SettingsApplications, Dashboard, Category } from "@mui/icons-material"
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -128,20 +128,11 @@ const Sidebar = () => {
                 name: "Orders",
                 icon: (<CreditCard className="iconMUI" />),
                 goto: "/admin/orders"
-            },
-            {
-                name: "Delivery",
-                icon: (<LocalShipping className="iconMUI" />),
-                goto: ""
-            },]
+            }]
         },
         {
             title: "USER",
-            options: [{
-                name: "Profile",
-                icon: (<AccountCircleOutlined className="iconMUI" />),
-                goto: ""
-            },
+            options: [
             {
                 name: "Settings",
                 icon: (<SettingsApplications className="iconMUI" />),

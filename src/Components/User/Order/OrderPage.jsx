@@ -169,7 +169,7 @@ const OrderPage = () => {
             </TableRow>
 
             {orders &&
-              orders.slice(0, 4).map((order) => (
+              orders.map((order) => (
                 <TableRow key={order?.updatedAt}>
                   <User>
                     {order.products.map((prod) => (

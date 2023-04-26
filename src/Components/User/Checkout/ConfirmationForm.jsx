@@ -3,8 +3,7 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import Modal from "./Modal"
-
+import ConfirmModal from "../EmptyView/ConfirmModal"
 
 
 const Container = styled.div`
@@ -86,15 +85,9 @@ const ConfirmationForm = () => {
   const [showModal, setShowModal] = useState(false);
 
 
-  const handleCancel = () => {
-    // do something when user clicks "No"
-    setShowModal(false);
-  };
-
-
-  const handleConfirm = () => {
-    setShowModal(false);
-    navigate("/checkout-form/payment")
+  const handleConfirm = (dat) => {
+    console.log(dat);
+    if (dat === true) return navigate("/checkout-form/payment")
   }
 
   return (
@@ -156,12 +149,13 @@ const ConfirmationForm = () => {
 
 
       <Wrapper>
-        <Modal
-          show={showModal}
-          message="Confirm the order list?"
-          onConfirm={handleConfirm}
-          onCancel={handleCancel}
-        />
+      { showModal &&  <ConfirmModal  
+        message="You are going to select whole cart items and current quantity." 
+        title="Are you sure to confirm the produt?"
+        setModal={setShowModal} 
+        modal={showModal}
+        setConfirmAdd={handleConfirm}
+      /> }
       </Wrapper>
 
     </Container>
