@@ -74,7 +74,6 @@ const Price = styled.span`
 const ProductCard = ({ data, disp }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const image = data.images[0]?.url;
 
   const [confirmAdd, setConfirmAdd] = useState();
   const [modal, setModal] = useState(false);
@@ -104,6 +103,7 @@ const ProductCard = ({ data, disp }) => {
     }
   }, [confirmAdd, data, dispatch]);
 
+
   return (
     <Container>
       {modal && (
@@ -116,7 +116,7 @@ const ProductCard = ({ data, disp }) => {
         />
       )}
       <ImageContainer>
-        <Image onClick={() => navigate(`/product/${data._id}`)} src={image} />
+        <Image onClick={() => navigate(`/product/${data._id}`)} src={"" || data?.image?.url} />
       </ImageContainer>
 
       <Wrapper>

@@ -3,15 +3,49 @@ import { publicRequest, userRequest } from "../requestMethods/requestMethods";
 import { failureToast, successToast } from "./apiCalls";
 
 
-export const handleReviewPost = async (rating, comment, id) => {
+
+
+export const getIndexedProducts = async ({query, limit=2}) => {
     try {
-        const response = await userRequest.post("/reviews", { rating, comment, product: id });
-        console.log(response);
+        const response = await publicRequest.get(`/products/find/indexed-query?search=${query}&limit=${limit}`)
+        const {products} = response.data;
+        return products;
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+
+
+
+export const handleReviewDelete = async ( user, id ) => {
+
+    try {
+        const response = await userRequest.delete(`/reviews/${id}/${user}`);
+        window.location.reload(false);
         successToast(response.data.msg)
+
     }
     catch (err) {
         failureToast(err.response.data.msg);
         console.log(err);
+    }
+}
+
+
+
+
+
+export const handleReviewPost = async (rating, comment, id) => {
+    try {
+        const response = await userRequest.post("/reviews", { rating, comment, product: id });
+        window.location.reload(false);
+        successToast(response.data.msg)
+    }
+    catch (err) {
+        failureToast(err.response.data.msg);
+        // console.log(err);
     }
 }
 
@@ -54,7 +88,7 @@ export const addToCompareP = async ( dispatch, product) => {
 
 
 
-export const getAllProducts = async ({ssort, sort, limitPrice, subIds, limit, search}) => {
+export const getAllProducts = async ({ sort, limitPrice, subIds, limit, search}) => {
     try {
         let endpoint = "/products?"
         if (sort)  endpoint += `sort=${sort}&`

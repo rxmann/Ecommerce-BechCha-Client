@@ -86,7 +86,7 @@ const FeaturedSlider = () => {
         const plainText = textContent.innerText.slice(0, 300) + '...';
         return { ...pd, description: plainText };
       });
-      console.log(response[0]);
+      // console.log(response[0]);
       setData(response);
     };
 

@@ -36,7 +36,11 @@ const ForYou = () => {
     useEffect(() => {
         const getTopSold = async () => {
             const prods = await getAllProducts({limit: 7, sort: "quantity"})
-            setData(prods)
+            const products = await prods.map((p) => {
+                return { ...p, image: p.images[0] }
+            })
+           
+            setData(products)
         }
 
         getTopSold();

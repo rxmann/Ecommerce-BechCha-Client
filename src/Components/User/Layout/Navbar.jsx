@@ -1,16 +1,16 @@
 import styled from 'styled-components'
 import Badge from '@mui/material/Badge';
-import SearchIcon from '@mui/icons-material/Search';
 import { ShoppingCartOutlined } from '@mui/icons-material';
 import CompareIcon from '@mui/icons-material/Compare';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import ClearIcon from '@mui/icons-material/Clear';
 import { useState } from 'react';
-import Button from '@mui/material/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import { InputAdornment, OutlinedInput } from '@mui/material';
+import {  OutlinedInput } from '@mui/material';
+import { useEffect } from 'react';
+import { getIndexedProducts } from '../../../ApiCalls/ProductApiCalls';
+import SearchBox from './SearchBox';
 
 
 const Container = styled.div`
@@ -52,25 +52,7 @@ const Middle = styled.div`
     justify-content: center;
 `
 
-const SearchContainer = styled.div`
-    min-width: 500px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    gap: 5px;
-`
-const SearchBox = styled(OutlinedInput)`
-    width: 100%;
-`
 
-const SearchButton = styled(Button)`
-    margin-right: 20px;
-`
-const Clear = styled(ClearIcon)`
-    cursor: pointer;
-    color: #0171b6;
-`
 
 const Right = styled.div`
     flex: 1;
@@ -107,9 +89,6 @@ const Navbar = () => {
 
     const quantity = useSelector(state => state.usercart?.totalQuantity)
     const navigate = useNavigate();
-
-
-    const [search, setSearch] = useState("");
     
     const handleProfile = () => {
         if (!isSignedIn || !currentUser) {
@@ -121,9 +100,7 @@ const Navbar = () => {
     }
 
 
-    const performSearch = () => {
-        search.length > 0 && navigate(`/search-results/${search}`)
-    }
+
 
     return (
         <Container>
@@ -135,25 +112,7 @@ const Navbar = () => {
                 </Left>
 
                 <Middle>
-                    <SearchContainer>
-                        <SearchBox
-                            size="small"
-                            maxLength={30}
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    {search && <Clear onClick={() => setSearch('')} />}
-                                </InputAdornment>
-                            }
-                            startAdornment={
-                                <InputAdornment position="start">
-                                    <SearchIcon color="info" />
-                                </InputAdornment>
-                            }
-                        />
-                        <SearchButton variant='contained' onClick={() => performSearch()}>Search</SearchButton>
-                    </SearchContainer>
+                   <SearchBox />
                 </Middle>
 
 

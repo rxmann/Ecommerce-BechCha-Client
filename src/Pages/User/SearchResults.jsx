@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProductList from "../../Components/User/Products/ProductList";
 import styled from "styled-components";
-import { getAllProducts } from "../../ApiCalls/ProductApiCalls";
+import { getAllProducts, getIndexedProducts } from "../../ApiCalls/ProductApiCalls";
 
 const Container = styled.div``;
 
@@ -56,19 +56,15 @@ const SearchResults = () => {
 
   const [data, setData] = useState();
 
-  const [limitPrice, setLimitPrice] = useState(100000);
+  const [limit, setLimit] = useState(100000);
   const [sort, setSort] = useState(null);
 
   // get category display image
   useEffect(() => {
+
     const getData = async () => {
-      console.log(query);
       try {
-        const prods = await getAllProducts({
-          sort,
-          limitPrice,
-          search: query
-        });
+        const prods = await  await getIndexedProducts({query, limit:5});
         setData(prods);
       }
       catch (err) {
@@ -79,16 +75,15 @@ const SearchResults = () => {
 
     getData();
 
-  }, [query, sort, limitPrice])
+  }, [query, sort, limit])
 
 
 
   return (
     <Container>
       <Wrapper>
-        <Left>
-          {/* *********************************************************************** */}
-          <FilterItem>
+        {/* <Left>
+           <FilterItem>
             <FilterHeading> Price </FilterHeading>
             <InputItem>
               <span>0</span>
@@ -96,12 +91,12 @@ const SearchResults = () => {
                 type={"range"}
                 min={0}
                 max={100000}
-                onChange={(e) => setLimitPrice(e.target.value)}
+                onChange={(e) => setLimit(e.target.value)}
               />
-              <span>{limitPrice}</span>
+              <span>{limit}</span>
             </InputItem>
           </FilterItem>
-          {/* *********************************************************************** */}
+
           <FilterItem>
             <FilterHeading> Sort </FilterHeading>
             <InputItem>
@@ -125,8 +120,8 @@ const SearchResults = () => {
               />
               <Label htmlFor={"desc"}> Price ( High - Low ) </Label>
             </InputItem>
-          </FilterItem>
-        </Left>
+  </FilterItem>    
+        </Left> */}
 
 
         <Right>

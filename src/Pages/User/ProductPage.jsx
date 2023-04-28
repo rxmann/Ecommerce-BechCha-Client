@@ -159,6 +159,7 @@ const ReviewsTitle = styled.h2`
 const ProductPage = () => {
   const id = useParams().id;
 
+
   const [reviewSelected, setReviewSelected] = useState(false);
 
   const { products } = useSelector((state) => state.compare);
