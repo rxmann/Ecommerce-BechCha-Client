@@ -4,7 +4,9 @@ import ProductList from "../../Components/User/Products/ProductList";
 import styled from "styled-components";
 import { getAllProducts, getIndexedProducts } from "../../ApiCalls/ProductApiCalls";
 
-const Container = styled.div``;
+const Container = styled.div`
+  height: 90vh;
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -64,7 +66,7 @@ const SearchResults = () => {
 
     const getData = async () => {
       try {
-        const prods = await  await getIndexedProducts({query, limit:5});
+        const prods = await getIndexedProducts({query});
         setData(prods);
       }
       catch (err) {

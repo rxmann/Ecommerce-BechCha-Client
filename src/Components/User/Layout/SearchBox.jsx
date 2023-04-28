@@ -47,10 +47,11 @@ const SearchBox = () => {
   const [searchResults, setSearchResults] = useState();
 
   ///////////////////
-  const performSearch = () => {
+  const performSearch = (searchQuery) => {
     if (search.length > 0) {
       setSearchResults([]);
-      return navigate(`/search-results/${search}`);
+      setSearch(searchQuery);
+      return navigate(`/search-results/${searchQuery}`);
     }
   };
 
@@ -67,6 +68,8 @@ const SearchBox = () => {
 
     getSearchResults();
   }, [search]);
+
+
 
   return (
     <SearchContainer>
@@ -87,13 +90,13 @@ const SearchBox = () => {
             </InputAdornment>
           }
         />
-        <SearchButton variant="contained" onClick={() => performSearch()}>
+        <SearchButton variant="contained" onClick={() => performSearch(search)}>
           Search
         </SearchButton>
       </WrapperA>
 
       <WrapperB>
-        <SearchResultData searchResults={searchResults} setSearch={setSearch} />
+        <SearchResultData searchResults={searchResults}  performSearch={performSearch} />
       </WrapperB>
     </SearchContainer>
   );

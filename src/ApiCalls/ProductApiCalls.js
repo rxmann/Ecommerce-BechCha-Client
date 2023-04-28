@@ -5,7 +5,7 @@ import { failureToast, successToast } from "./apiCalls";
 
 
 
-export const getIndexedProducts = async ({query, limit=2}) => {
+export const getIndexedProducts = async ({query, limit=10}) => {
     try {
         const response = await publicRequest.get(`/products/find/indexed-query?search=${query}&limit=${limit}`)
         const {products} = response.data;

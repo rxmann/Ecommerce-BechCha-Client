@@ -11,7 +11,7 @@ const Container = styled.div`
 const SuggestContainer = styled.div`
     padding: 5px;
     cursor: pointer;
-    z-index: 5;
+    z-index: 3;
     background-color: #f5f7f8;
 
     &:hover {
@@ -21,11 +21,13 @@ const SuggestContainer = styled.div`
 `
 
 
-const SearchResultData = ( {searchResults, setSearch} ) => {
+const SearchResultData = ( {searchResults, performSearch} ) => {
   return (
     <Container>
             {  searchResults && searchResults.map((pr) => (
-                <SuggestContainer onClick={() => setSearch(pr.title)} key={pr._id}> {pr.title} </SuggestContainer>
+                <SuggestContainer onClick={() => {
+                  performSearch(pr.title)
+                }} key={pr._id}> {pr.title} </SuggestContainer>
             )) }
     </Container>
   )
