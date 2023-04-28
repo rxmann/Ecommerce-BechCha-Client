@@ -7,19 +7,31 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { getIndexedProducts } from "../../../ApiCalls/ProductApiCalls";
+import SearchResultData from "./SearchResultData";
 
 const SearchContainer = styled.div`
-  min-width: 500px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  gap: 5px;
+  position: fixed;
+  top: 10px;
+`;
+
+const WrapperA = styled.div`
+  display: flex;
   gap: 5px;
 `;
 
+const WrapperB = styled.div`
+  display: flex;  
+  width: 100%;
+`;
+
 const SearchBoxx = styled(OutlinedInput)`
-    width: 100%;
-`
+  width: 100%;
+`;
 
 const SearchButton = styled(Button)`
   margin-right: 20px;
@@ -32,41 +44,57 @@ const Clear = styled(ClearIcon)`
 const SearchBox = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState();
 
+  ///////////////////
   const performSearch = () => {
-    search.length > 0 && navigate(`/search-results/${search}`);
+    if (search.length > 0) {
+      setSearchResults([]);
+      return navigate(`/search-results/${search}`);
+    }
   };
 
+  ////////////////////////
   useEffect(() => {
     const getSearchResults = async () => {
-      const prods = await getIndexedProducts({ query: search });
-      console.log(prods);
+      if (!search) {
+        setSearchResults([]);
+        return false;
+      }
+      const prods = await getIndexedProducts({ query: search, limit: 5 });
+      setSearchResults(prods);
     };
 
-   getSearchResults(); 
+    getSearchResults();
   }, [search]);
 
   return (
     <SearchContainer>
-      <SearchBoxx
-        size="small"
-        maxLength={30}
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        endAdornment={
-          <InputAdornment position="end">
-            {search && <Clear onClick={() => setSearch("")} />}
-          </InputAdornment>
-        }
-        startAdornment={
-          <InputAdornment position="start">
-            <SearchIcon color="info" />
-          </InputAdornment>
-        }
-      />
-      <SearchButton variant="contained" onClick={() => performSearch()}>
-        Search
-      </SearchButton>
+      <WrapperA>
+        <SearchBoxx
+          size="small"
+          maxLength={30}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          endAdornment={
+            <InputAdornment position="end">
+              {search && <Clear onClick={() => setSearch("")} />}
+            </InputAdornment>
+          }
+          startAdornment={
+            <InputAdornment position="start">
+              <SearchIcon color="info" />
+            </InputAdornment>
+          }
+        />
+        <SearchButton variant="contained" onClick={() => performSearch()}>
+          Search
+        </SearchButton>
+      </WrapperA>
+
+      <WrapperB>
+        <SearchResultData searchResults={searchResults} setSearch={setSearch} />
+      </WrapperB>
     </SearchContainer>
   );
 };

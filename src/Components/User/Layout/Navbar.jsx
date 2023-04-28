@@ -3,13 +3,9 @@ import Badge from '@mui/material/Badge';
 import { ShoppingCartOutlined } from '@mui/icons-material';
 import CompareIcon from '@mui/icons-material/Compare';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import {  OutlinedInput } from '@mui/material';
-import { useEffect } from 'react';
-import { getIndexedProducts } from '../../../ApiCalls/ProductApiCalls';
 import SearchBox from './SearchBox';
 
 
@@ -50,8 +46,8 @@ const Middle = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 `
-
 
 
 const Right = styled.div`
