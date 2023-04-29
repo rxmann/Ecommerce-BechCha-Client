@@ -66,7 +66,10 @@ export const updateFeatured = async ( products ) => {
 export const getFeatured = async (  ) => {
     try {
         const response = await publicRequest.get("/products/find/featured");
-        return response.data;
+        const products = response.data.map((prod) => {
+            return { ...prod, image: prod.images[0] }
+        })
+        return products;
     }
     catch (err) {
         console.log(err);

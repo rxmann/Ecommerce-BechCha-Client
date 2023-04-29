@@ -107,7 +107,11 @@ const ProductsPage = () => {
         limitPrice,
         subIds: selectedValues,
       });
-      setData(prods);
+      const products = prods.map(p => {
+        return { ...p, image: p.images[0] }
+      })
+
+      setData(products);
     };
     getProductsOfCategory();
   }, [paramId, sort, limitPrice, selectedValues]);

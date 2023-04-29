@@ -47,7 +47,7 @@ export const cancelThisOrder = async (id) => {
 // needs authorization
 export const getOneOrderById = async (id) => {
     try {
-        const response = await userRequest.get(`/orders/${id}`);
+        const response = await userRequest.get(`/orders/user/${id}`);
         return response.data;
     }
     catch (error) {
@@ -56,9 +56,10 @@ export const getOneOrderById = async (id) => {
 }
 
 
-export const getMyOrdersList = async () => {
+export const getMyOrdersList = async (id) => {
     try {
-        const response = await userRequest.get(`/orders/me`)
+        const response = await userRequest.get(`/orders/${id}`)
+        console.log(response.data);
         return response.data;
     }
     catch (error) {

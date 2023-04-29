@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import styled from "styled-components"
 import ProfileDisplay from "../../User/ProfilePages/ProfileDisplay"
 import OrderWidget from "../Widgets/OrderWidget"
-import { getOneOrderById } from "../../../ApiCalls/ordersApiCalls"
+import { getMyOrdersList, getOneOrderById } from "../../../ApiCalls/ordersApiCalls"
 
 const Container = styled.div`
     flex: 5;
@@ -35,15 +35,12 @@ const UserDetails = () => {
 
     useEffect(() => {
         const getOrders = async () => {
-            const data = await getOneOrderById(id)
+            const data = await getMyOrdersList(id)
             setOrders(data);
             
         }
         getOrders();
     }, [id])
-
-
-    console.log(id, orders);
 
     return (
         <Container>
