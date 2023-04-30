@@ -13,6 +13,25 @@ import { publicRequest, userRequest } from "../requestMethods/requestMethods";
 import { failureToast, successToast } from "./apiCalls";
 
 
+
+
+
+export const updateShippingDetails = async (formData) => {
+    try {
+        await userRequest.post(`/shipping`, formData);
+        successToast("Shipping info updated!");
+        return true;
+    }
+    catch (err) {
+        console.log(err);
+        failureToast(err.response.data)
+        return false;
+    }
+}
+
+
+
+
 export const getShippingDetails = async ( id ) => {
     try {
         const response = await userRequest.get(`/users/shipping/${id}`)
@@ -51,7 +70,8 @@ export const verifyUserOTP = async (dispatch, payload) => {
         dispatch(requestSuccess());
     }
     catch (err) {
-        failureToast("Could not send email");
+        console.log(err.response.data);
+        failureToast(err.response.data);
     }
 }
 

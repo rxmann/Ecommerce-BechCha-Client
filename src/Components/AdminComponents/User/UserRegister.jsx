@@ -111,30 +111,26 @@ const UserRegister = () => {
         if (userData.password.length < 8 || !/\d/.test(userData.password)) return alert("Password should be 8 characters long and must include Numbers")
 
         
-        const formData = new FormData();
-        formData.append("username", userData["username"]);
-        formData.append("email", userData["email"]);
-        formData.append("password", userData["password"]);
-        formData.append("isAdmin", userData["isAdmin"]);
-        formData.append("contacts", userData["contacts"]);
-        formData.append("dob", userData["dob"]);
-        formData.append("image", userData["image"]);
+        const myForm = new FormData();
+        myForm.append("username", userData["username"]);
+        myForm.append("email", userData["email"]);
+        myForm.append("password", userData["password"]);
+        myForm.append("isAdmin", userData["isAdmin"]);
+        myForm.append("contacts", userData["contacts"]);
+        myForm.append("address", userData["address"]);
+        myForm.append("dob", userData["dob"]);
+        myForm.append("image", userData["image"]);
 
+        console.log(myForm);
 
-        Object.keys(formData).forEach(key => {
-            console.log(key, formData[key]);
-        });
+        for (const key of myForm.keys()) {
+            console.log(`${key}: ${myForm.get(key)}`);
+          }
 
-
-        try {
-            const result = await registerUser(dispatch, formData);
+            const result = await registerUser(dispatch, myForm);
             if (result === true) {
                 navigate("/admin/users")
             }
-        }
-        catch (e) {
-            console.log(e);
-        }
         
     }
 

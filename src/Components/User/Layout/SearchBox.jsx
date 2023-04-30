@@ -51,7 +51,7 @@ const SearchBox = () => {
     if (search.length > 0) {
       setSearchResults([]);
       setSearch(searchQuery);
-      return navigate(`/search-results/${searchQuery}`);
+      navigate(`/search-results/${searchQuery}`);   
     }
   };
 

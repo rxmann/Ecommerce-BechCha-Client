@@ -96,7 +96,7 @@ const UsersTab = () => {
   useEffect(() => {
     const getAllUsers = async () => {
         try {
-            const res = await userRequest.get("/users/find");
+            const res = await userRequest.get(`/users/find?new=${true}`);
             setUsers(res?.data)
         }
         catch (err) {

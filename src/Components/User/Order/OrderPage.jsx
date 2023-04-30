@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { getMyOrdersList } from "../../../ApiCalls/ordersApiCalls";
 import { InputAdornment, OutlinedInput } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
-
+import { useSelector } from "react-redux"
 const moment = require("moment");
 
 
@@ -107,6 +107,8 @@ const StatusButton = ({ type }) => {
 
 const OrderPage = () => {
 
+
+  const { currentUser } = useSelector(state => state.user);
   const navigate = useNavigate();
 
   // orders data
@@ -116,7 +118,7 @@ const OrderPage = () => {
 
   useEffect(() => {
     const getMyOrder = async () => {
-      const data = await getMyOrdersList()
+      const data = await getMyOrdersList(currentUser._id)
       setOrders(filterRows(data, search))
     }
     getMyOrder();
