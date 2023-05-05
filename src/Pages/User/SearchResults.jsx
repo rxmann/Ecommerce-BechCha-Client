@@ -84,7 +84,7 @@ const SearchResults = () => {
   return (
     <Container>
       <Wrapper>
-        {/* <Left>
+        <Left>
            <FilterItem>
             <FilterHeading> Price </FilterHeading>
             <InputItem>
@@ -123,7 +123,7 @@ const SearchResults = () => {
               <Label htmlFor={"desc"}> Price ( High - Low ) </Label>
             </InputItem>
   </FilterItem>    
-        </Left> */}
+        </Left>
 
 
         <Right>
