@@ -5,9 +5,9 @@ import { failureToast, successToast } from "./apiCalls";
 
 
 
-export const getIndexedProducts = async ({query, limit=10}) => {
+export const getIndexedProducts = async ({query, limit=5, sort}) => {
     try {
-        const response = await publicRequest.get(`/products/find/indexed-query?search=${query}&limit=${limit}`)
+        const response = await publicRequest.get(`/products/find/indexed-query?search=${query}&limit=${limit}&sort=${sort}`)
         const {products} = response.data;
         return products;
     }
@@ -77,12 +77,10 @@ export const getFeatured = async (  ) => {
 }
 
 
-export const addToCompareP = async ( dispatch, product) => {
+export const addToCompareP = async ( dispatch, productId) => {
     try {
-        const res = dispatch(addToCompare(product));
-        if (res === "unmatched") {
-            successToast("Product's Category do not match with items in Compare List!")
-        }
+        const product = await getOneProduct(productId);
+        dispatch(addToCompare(product));
     }
     catch (err) {
         console.log(err);

@@ -66,7 +66,7 @@ const SearchResults = () => {
 
     const getData = async () => {
       try {
-        const prods = await getIndexedProducts({query});
+        const prods = await getIndexedProducts({query, sort, limit});
         setData(prods);
       }
       catch (err) {

@@ -207,10 +207,10 @@ const ProductPage = () => {
       return (catHere = prod.category.name);
     });
     if (!catHere) {
-      addToCompareP(dispatch, product);
+      addToCompareP(dispatch, product._id);
     } else if (product.category.name === catHere) {
       console.log("add compare invoked");
-      addToCompareP(dispatch, product);
+      addToCompareP(dispatch, product._id);
     } else {
       setModal(true);
     }
@@ -218,7 +218,7 @@ const ProductPage = () => {
 
   useEffect(() => {
     if (confirmAdd === true) {
-      addToCompareP(dispatch, product);
+      addToCompareP(dispatch, product._id);
       setModal(false);
       setConfirmAdd(false);
     }
@@ -228,6 +228,8 @@ const ProductPage = () => {
     <>
       {modal && (
         <ConfirmModal
+          message={"You are comparing unsimilar category products!"}
+          title={"Would you still like to compare products?"}
           modal={modal}
           setModal={setModal}
           setConfirmAdd={setConfirmAdd}

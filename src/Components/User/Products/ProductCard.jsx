@@ -82,14 +82,13 @@ const ProductCard = ({ data, disp }) => {
   const handleCompare = () => {
     let catHere;
     products.map((prod) => {
-      return (catHere = prod.category.name);
+      return (catHere = prod?.category?.name);
     });
 
     if (!catHere) {
-      addToCompareP(dispatch, data);
+      addToCompareP(dispatch, data._id);
     } else if (data.category.name === catHere) {
-      console.log("add compare invoked");
-      addToCompareP(dispatch, data);
+      addToCompareP(dispatch, data._id);
     } else {
       setModal(true);
     }
@@ -97,7 +96,7 @@ const ProductCard = ({ data, disp }) => {
 
   useEffect(() => {
     if (confirmAdd === true) {
-      addToCompareP(dispatch, data);
+      addToCompareP(dispatch, data._id);
       setModal(false);
       setConfirmAdd(false);
     }

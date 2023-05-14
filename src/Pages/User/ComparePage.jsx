@@ -34,6 +34,8 @@ const ComparePage = () => {
   const { products } = useSelector(state => state.compare)
 
 
+  console.log(products);
+
   return (
     <Container>
     {products.length > 0 ? 
