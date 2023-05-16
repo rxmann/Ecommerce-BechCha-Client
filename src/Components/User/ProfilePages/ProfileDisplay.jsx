@@ -38,7 +38,7 @@ const ProfileDisplay = () => {
     const navigate = useNavigate();
     const { isSignedIn, currentUser } = useSelector(state => state.user)
 
-    if (!userId) userId = currentUser?._id
+    if (userId !== "me") userId = currentUser?._id
 
     const [user, setUser] = useState({});
 

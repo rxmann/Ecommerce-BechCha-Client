@@ -111,7 +111,7 @@ const Sidebar = () => {
             }],
         },
         {
-            title: "PRODUCTS",
+            title: "INVENTORY",
             options: [{
                 name: "Products",
                 icon: (<Store className="iconMUI" />),

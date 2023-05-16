@@ -122,15 +122,18 @@ const RegisterPage = () => {
 
         if (formData.password.length < 8 || !/\d/.test(formData.password)) return alert("Password should be 8 characters long and must include Numbers")
 
-        await registerUser(dispatch, formData);
-        setFormData({
-            username: "",
-            email: "",
-            password: "",
-            dob: "",
-
-        })
-        navigate("/verify-registration");
+        const resP = await registerUser(dispatch, formData);
+        if (resP) {
+            setFormData({
+                username: "",
+                email: "",
+                password: "",
+                dob: "",
+    
+            })
+            navigate("/verify-registration");
+        }
+        
     }
 
 

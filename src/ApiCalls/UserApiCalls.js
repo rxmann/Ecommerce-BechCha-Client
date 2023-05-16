@@ -57,6 +57,7 @@ export const registerUser = async (dispatch, userPayload) => {
     catch (err) {
         dispatch(requestFailure());
         failureToast(err.response.data);
+        return false;
     }
 }
 
