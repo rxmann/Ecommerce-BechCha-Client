@@ -16,6 +16,25 @@ import { failureToast, successToast } from "./apiCalls";
 
 
 
+export const resetPassword = async (dispatch, payload) => {
+    dispatch(requestStart());
+    try {
+        console.log(payload);
+        await publicRequest.post("/users/reset/password", payload)
+        dispatch(requestSuccess());
+        return true
+    }
+    catch (err) {
+        dispatch(requestSuccess());
+        console.log(err);
+        failureToast(err.response.data?.message || err.response?.data);
+        return false;
+    }
+}
+
+
+
+
 export const updateShippingDetails = async (formData) => {
     try {
         await userRequest.post(`/shipping`, formData);
@@ -84,10 +103,13 @@ export const resendUserOTP = async (dispatch, payload) => {
         await publicRequest.post("/users/resendOTP", { email: payload })
         successToast("OTP sent to email:", payload);
         dispatch(requestSuccess());
+        return true
     }
     catch (err) {
         console.log(err);
-        failureToast(err.response.data.message);
+        failureToast(err.response.data?.message || err.response?.data);
+        dispatch(requestSuccess());
+        return false;
     }
 }
 

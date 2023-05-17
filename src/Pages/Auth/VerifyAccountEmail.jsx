@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import LockIcon from '@mui/icons-material/Lock';
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
@@ -9,13 +8,12 @@ import {
     OutlinedInput,
     InputAdornment
 } from "@mui/material";
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import MailIcon from '@mui/icons-material/Mail';
-
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingButton from "@mui/lab/LoadingButton";
-import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../ApiCalls/UserApiCalls";
+import { useDispatch } from "react-redux";
+import { resendUserOTP } from "../../ApiCalls/UserApiCalls";
+
 
 
 
@@ -45,7 +43,7 @@ const Span = styled.span`
 
 const Wrappper = styled.div`
     flex: 2;
-    width: 90%;
+    width: 100%;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -54,11 +52,13 @@ const Wrappper = styled.div`
 `
 const H1 = styled.h1`
     font-weight: 400;
+    display: flex;
+    justify-content: center;
 `
 const Form = styled.form`
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 40px;
 `
 
 const Btn = styled.button`
@@ -83,50 +83,26 @@ const Logo = styled.img`
     margin-bottom: 30px;
 `
 
-const LinkItem = styled.a`
-    cursor: pointer;
-`
 
 
-
-
-const LoginPage = () => {
+const VerifyAccountEmail = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const {  currentUser, isSignedIn } = useSelector(state => state.user);
-    const [formData, setFormData] = useState({
-        email: "",
-        password: "",
-    })
 
+    const [email, setEmail] = useState("")
 
-    const [showPassword, setShowPassword] = useState(false);
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleSubmit = async (e) => {
+       e.preventDefault();
+       console.log(email);
+       const ress = await resendUserOTP(dispatch, email);
 
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
-    }
-
-    const handleSubmitLogin = async (e) => {
-        e.preventDefault();
-        const result = await loginUser(dispatch, formData);
-        if (result === true) {  window.location.reload(false) }
+       ress === true && navigate("/password-reset-form")
     }
 
 
     useEffect(() => {
-        const checkLogin = () => {
-            if (currentUser?.isAdmin && isSignedIn) {
-                navigate("/admin/dashboard");
-            }
-            else if (isSignedIn) {
-                navigate("/")
-            }
-            
-        }
-        checkLogin();
-    }, [currentUser, isSignedIn , navigate])
+       
+    }, [])
 
     return (
         <Container>
@@ -135,14 +111,14 @@ const LoginPage = () => {
                     <Logo src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true' />
                 </Link>
                 <Wrappper>
-                    <H1> Login </H1>
-                    <Form onSubmit={handleSubmitLogin}>
+                    <H1> Password Reset  </H1>
+                    <Form onSubmit={handleSubmit}>
                         <FormControl>
                             <InputLabel> Email </InputLabel>
                             <OutlinedInput
                                 name="email"
-                                value={formData.email}
-                                onChange={handleChange}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 required
                                 label="Email"
                                 type="email"
@@ -156,46 +132,14 @@ const LoginPage = () => {
                             />
                         </FormControl>
 
-                        {/* ////////////////// */}
-                        <FormControl>
-                            <InputLabel> Password </InputLabel>
-                            <OutlinedInput
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                type={showPassword ? 'text' : 'password'}
-                                startAdornment={
-                                    <InputAdornment position="start">
-                                        <IconButton  >
-                                            <LockIcon />
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton onClick={handleClickShowPassword} >
-                                            {showPassword ? <Visibility /> : <VisibilityOff />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                                label="Password"
-                                required={true}
-                            />
-                        </FormControl>
-
-                        <LinkItem onClick={() => navigate("/request-pass-reset")}> forgot password? </LinkItem>
-
 
                         <LoadingButton
                             type="submit"
                             size="large"
                             variant="contained"
                         >
-                            Login
+                           REQUEST OTP
                         </LoadingButton>
-
-
-                        <LinkItem href={`/verify-registration`} > Verify account </LinkItem>
 
                         <Span> Don't have an account yet? </Span>
 
@@ -211,4 +155,4 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage
+export default VerifyAccountEmail

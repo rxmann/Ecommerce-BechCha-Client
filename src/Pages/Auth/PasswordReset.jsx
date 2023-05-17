@@ -1,22 +1,19 @@
 import styled from "styled-components"
-import LockIcon from '@mui/icons-material/Lock';
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import MailIcon from '@mui/icons-material/Mail';
+import LockIcon from '@mui/icons-material/Lock';
+import LoadingButton from '@mui/lab/LoadingButton';
 import {
     FormControl,
     InputLabel,
     IconButton,
     OutlinedInput,
-    InputAdornment
+    InputAdornment,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import MailIcon from '@mui/icons-material/Mail';
-
-import 'react-toastify/dist/ReactToastify.css';
-import LoadingButton from "@mui/lab/LoadingButton";
-import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../ApiCalls/UserApiCalls";
-
+import { useDispatch} from "react-redux"
+import { resetPassword } from "../../ApiCalls/UserApiCalls";
 
 
 const Container = styled.div`
@@ -38,12 +35,7 @@ const Card = styled.div`
     padding: 20px;
 `
 
-const Span = styled.span`
-    font-size: 14px;
-    color: #0171b6;
-`
-
-const Wrappper = styled.div`
+const Wrapper = styled.div`
     flex: 2;
     width: 90%;
     padding: 20px;
@@ -54,26 +46,13 @@ const Wrappper = styled.div`
 `
 const H1 = styled.h1`
     font-weight: 400;
+    display: flex;
+    justify-content: center;
 `
 const Form = styled.form`
     display: flex;
     flex-direction: column;
     gap: 20px;
-`
-
-const Btn = styled.button`
-    padding: 10px;
-    border: none; 
-    font-size  : 14px;
-    background-color: #aaaaaa;
-    color: white;
-    cursor: pointer;
-    width: 100%;
-
-    &:hover {
-        color: black;
-        background-color: #f5f7f8;
-    }
 `
 
 const Logo = styled.img`
@@ -83,22 +62,25 @@ const Logo = styled.img`
     margin-bottom: 30px;
 `
 
-const LinkItem = styled.a`
-    cursor: pointer;
+const FormCtrl = styled(FormControl)`
 `
 
 
 
+const PasswordReset = () => {
 
-const LoginPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const {  currentUser, isSignedIn } = useSelector(state => state.user);
+
+
     const [formData, setFormData] = useState({
         email: "",
         password: "",
+        confirmPassword: "",
+        ptp: ""
     })
 
+    const [otp, setOTP] = useState("")
 
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -108,36 +90,34 @@ const LoginPage = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
-    const handleSubmitLogin = async (e) => {
+
+
+    const handleSubmitReset = async (e) => {
         e.preventDefault();
-        const result = await loginUser(dispatch, formData);
-        if (result === true) {  window.location.reload(false) }
+
+        if (formData.password.length < 8 || !/\d/.test(formData.password)) return alert("Password should be 8 characters long and must include Numbers")
+        formData.otp = otp;
+
+        const resP = await resetPassword(dispatch, formData);
+        if (resP) {
+            navigate("/verify-registration");
+        }
     }
 
 
-    useEffect(() => {
-        const checkLogin = () => {
-            if (currentUser?.isAdmin && isSignedIn) {
-                navigate("/admin/dashboard");
-            }
-            else if (isSignedIn) {
-                navigate("/")
-            }
-            
-        }
-        checkLogin();
-    }, [currentUser, isSignedIn , navigate])
+
 
     return (
         <Container>
             <Card>
+
                 <Link to="/">
                     <Logo src='https://github.com/rxmxndai/rxmxndai-assets/blob/main/assets/Bech_Cha.png?raw=true' />
                 </Link>
-                <Wrappper>
-                    <H1> Login </H1>
-                    <Form onSubmit={handleSubmitLogin}>
-                        <FormControl>
+                <Wrapper>
+                    <H1> Reset password </H1>
+                    <Form onSubmit={handleSubmitReset} >
+                        <FormCtrl>
                             <InputLabel> Email </InputLabel>
                             <OutlinedInput
                                 name="email"
@@ -154,10 +134,26 @@ const LoginPage = () => {
                                     </InputAdornment>
                                 }
                             />
+                        </FormCtrl>
+
+
+                        <FormControl>
+                            <InputLabel> OTP </InputLabel>
+                            <OutlinedInput
+                                inputProps={{ maxLength: 4 }}
+                                value={otp}
+                                onChange={(e) => setOTP(e.target.value)}
+                                type="text"
+                                label="OTP"
+                                required={true}
+                                sx={{ letterSpacing: "10px" }}
+                            />
                         </FormControl>
 
+
+
                         {/* ////////////////// */}
-                        <FormControl>
+                        <FormCtrl>
                             <InputLabel> Password </InputLabel>
                             <OutlinedInput
                                 name="password"
@@ -181,34 +177,47 @@ const LoginPage = () => {
                                 label="Password"
                                 required={true}
                             />
-                        </FormControl>
-
-                        <LinkItem onClick={() => navigate("/request-pass-reset")}> forgot password? </LinkItem>
+                        </FormCtrl>
 
 
+                        <FormCtrl>
+                            <InputLabel> Confirm Password </InputLabel>
+                            <OutlinedInput
+                                name="confirmPassword"
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                                type={showPassword ? 'text' : 'password'}
+                                startAdornment={
+                                    <InputAdornment position="start">
+                                        <IconButton  >
+                                            <LockIcon />
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton onClick={handleClickShowPassword} >
+                                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                                label="Password"
+                                required={true}
+                            />
+                        </FormCtrl>
+                       
                         <LoadingButton
                             type="submit"
                             size="large"
                             variant="contained"
                         >
-                            Login
+                            Reset Password
                         </LoadingButton>
-
-
-                        <LinkItem href={`/verify-registration`} > Verify account </LinkItem>
-
-                        <Span> Don't have an account yet? </Span>
-
-                        <Btn
-                            onClick={() => navigate("/register")}>
-                            Register
-                        </Btn>
                     </Form>
-                </Wrappper>
-
+                </Wrapper>
             </Card>
         </Container>
     )
 }
 
-export default LoginPage
+export default PasswordReset

@@ -47,6 +47,8 @@ import PaymentTab from "./Components/User/Checkout/PaymentTab"
 import InvoicePage from "./Components/User/Checkout/InvoicePage"
 import Account from "./Components/User/ProfilePages/Account"
 import Settings from "./Components/AdminComponents/Settings/SettingsAdmin"
+import VerifyAccountEmail from "./Pages/Auth/VerifyAccountEmail"
+import PasswordReset from "./Pages/Auth/PasswordReset"
 
 
 
@@ -320,8 +322,15 @@ const App = () => {
     {
       path: "/verify-registration",
       element: (<VerifyOTP />)
+    },
+    {
+      path: "/request-pass-reset",
+      element: (<VerifyAccountEmail />)
+    },
+    {
+      path: "/password-reset-form",
+      element: (<PasswordReset/>)
     }
-
   ])
 
 
