@@ -77,7 +77,7 @@ const PasswordReset = () => {
         email: "",
         password: "",
         confirmPassword: "",
-        ptp: ""
+        otp: ""
     })
 
     const [otp, setOTP] = useState("")
@@ -100,7 +100,7 @@ const PasswordReset = () => {
 
         const resP = await resetPassword(dispatch, formData);
         if (resP) {
-            navigate("/verify-registration");
+            navigate("/login");
         }
     }
 

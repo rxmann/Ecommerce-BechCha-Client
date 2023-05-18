@@ -19,8 +19,9 @@ import { failureToast, successToast } from "./apiCalls";
 export const resetPassword = async (dispatch, payload) => {
     dispatch(requestStart());
     try {
-        console.log(payload);
-        await publicRequest.post("/users/reset/password", payload)
+        const response = await publicRequest.post("/users/reset/password", payload)
+        console.log(response.data);
+        successToast(response.data.message)
         dispatch(requestSuccess());
         return true
     }
