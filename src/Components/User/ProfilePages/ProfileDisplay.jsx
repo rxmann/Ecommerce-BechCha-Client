@@ -33,12 +33,12 @@ const Bottom = styled.div`
 
 const ProfileDisplay = () => {
 
-    let userId = useParams().id;
+    let paramms = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { isSignedIn, currentUser } = useSelector(state => state.user)
 
-    if (userId !== "me") userId = currentUser?._id
+    const [userId, setUserId] = useState("me");
 
     const [user, setUser] = useState({});
 
@@ -55,6 +55,9 @@ const ProfileDisplay = () => {
 
 
     useEffect(() => {
+        console.log(paramms);
+        setUserId("id" in paramms ? paramms.id : currentUser?._id)
+
         const userD = async () => {
             const response = await getOneUser(dispatch, userId)
             setUser(response);

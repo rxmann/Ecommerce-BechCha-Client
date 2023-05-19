@@ -1,3 +1,4 @@
+import { Button } from "@mui/material"
 import styled from "styled-components"
 
 const SummaryWrapper = styled.div`
@@ -48,6 +49,7 @@ const TotalPayableDiv = styled.div`
 
 
 const OrderSummary = ({data: order, Sum}) => {
+    console.log(order);
     return (
 
         <SummaryWrapper>
@@ -72,6 +74,14 @@ const OrderSummary = ({data: order, Sum}) => {
                 <Item>
                     <SummaryName>Total Items </SummaryName>
                     <SummaryValue > {order.totalItems} </SummaryValue>
+                </Item>
+                <Item>
+                    <SummaryName> Payment Type </SummaryName>
+                    <SummaryValue > {order?.paymentType ? order?.paymentType : "Cash-on-delivery"}  </SummaryValue>
+                </Item>
+                <Item>
+                    <SummaryName> Payment Status </SummaryName>
+                    <SummaryValue > <Button variant="contained" color={order?.isPaid ? "success" : "error"} >{order?.isPaid ? "Paid" : "Not Paid"}</Button>  </SummaryValue>
                 </Item>
             </UserInfo>
 

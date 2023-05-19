@@ -26,7 +26,7 @@ export const resetPassword = async (dispatch, payload) => {
         return true
     }
     catch (err) {
-        dispatch(requestSuccess());
+        dispatch(requestFailure());
         console.log(err);
         failureToast(err.response.data?.message || err.response?.data);
         return false;
@@ -75,8 +75,8 @@ export const registerUser = async (dispatch, userPayload) => {
         return true;
     }
     catch (err) {
-        dispatch(requestFailure());
         failureToast(err.response.data);
+        dispatch(requestFailure());
         return false;
     }
 }
@@ -89,10 +89,13 @@ export const verifyUserOTP = async (dispatch, payload) => {
         await publicRequest.post("/users/verifyOTP", { email: payload.email, otp: payload.otp.toString() })
         successToast("User verified!")
         dispatch(requestSuccess());
+        return true;
     }
     catch (err) {
         console.log(err.response.data);
         failureToast(err.response.data);
+        dispatch(requestFailure());
+        return false;
     }
 }
 
@@ -109,7 +112,7 @@ export const resendUserOTP = async (dispatch, payload) => {
     catch (err) {
         console.log(err);
         failureToast(err.response.data?.message || err.response?.data);
-        dispatch(requestSuccess());
+        dispatch(requestFailure());
         return false;
     }
 }

@@ -5,22 +5,18 @@ export const userSlice = createSlice({
     initialState: {
         currentUser: null,
         isFetching: false,
-        error: false,
         isSignedIn: false,
         accessToken: null,
     },
     reducers: {
         requestStart: (state) => {
             state.isFetching = true;
-            state.error = false;
         },
         requestFailure: (state) => {
             state.isFetching = false;
-            state.error = true;
         },
         requestSuccess: (state) => {
             state.isFetching = false;
-            state.error = false;
         },
         registerSuccess: (state, action) => {
             state.isFetching = false;

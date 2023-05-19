@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
     FormControl,
     InputLabel,
@@ -83,8 +83,6 @@ const Logo = styled.img`
     margin-bottom: 30px;
 `
 
-
-
 const VerifyAccountEmail = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -95,15 +93,8 @@ const VerifyAccountEmail = () => {
        e.preventDefault();
        console.log(email);
        const ress = await resendUserOTP(dispatch, email);
-
        ress === true && navigate("/password-reset-form")
     }
-
-
-    useEffect(() => {
-       
-    }, [])
-
     return (
         <Container>
             <Card>

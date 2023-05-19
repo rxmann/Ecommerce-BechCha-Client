@@ -93,7 +93,7 @@ const LinkItem = styled.a`
 const LoginPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const {  currentUser, isSignedIn } = useSelector(state => state.user);
+    const {  currentUser, isSignedIn, isFetching } = useSelector(state => state.user);
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -187,6 +187,7 @@ const LoginPage = () => {
 
 
                         <LoadingButton
+                            loading={isFetching}
                             type="submit"
                             size="large"
                             variant="contained"

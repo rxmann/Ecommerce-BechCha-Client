@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { resendUserOTP, verifyUserOTP } from "../../ApiCalls/UserApiCalls";
 import { useDispatch, useSelector } from "react-redux";
+import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 
 
 
@@ -88,7 +89,7 @@ const LinkItem = styled.a`
 const VerifyOTP = () => {
 
 
-    const {currentUser} = useSelector(state => state.user);
+    const {currentUser, isFetching } = useSelector(state => state.user);
     const navigate = useNavigate();   
     const dispatch = useDispatch(); 
     const [otp, setOTP] = useState("")
@@ -101,8 +102,10 @@ const VerifyOTP = () => {
         const payload = {
             email, otp
         }
-        await verifyUserOTP(dispatch, payload);
-        navigate("/login");  
+        const respp = await verifyUserOTP(dispatch, payload);
+         if (respp ) {
+            navigate("/login"); 
+         }
     }
 
     const handleResend = async (e) => {
@@ -151,7 +154,14 @@ const VerifyOTP = () => {
                             />
                         </FormControl>
 
-                        <Button type="submit" size="large" variant="contained"> verify </Button>
+                        <LoadingButton
+                            loading={isFetching}
+                            type="submit"
+                            size="large"
+                            variant="contained"
+                        >
+                            verify
+                        </LoadingButton>
 
                         <LinkItem onClick={handleResend} > Resend OTP </LinkItem>
 
@@ -159,6 +169,7 @@ const VerifyOTP = () => {
                             onClick={() => navigate("/register")}>
                             Register
                         </Btn>
+
                     </Form>
                 </Wrappper>
 
