@@ -38,7 +38,7 @@ const PaymentTab = () => {
     await makeAnOrder(dispatch, {
       orderData: userCart,
       totalPayable: totalAmount,
-      type: "cashondelivery",
+      type: "Cash-on-delivery",
     });
     navigate("/profile/orders/me");
   };

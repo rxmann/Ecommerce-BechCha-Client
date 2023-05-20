@@ -29,6 +29,7 @@ const Item = styled.li`
     justify-content: space-between;
     align-items: center;
     margin: 20px 0px;
+    gap: 50px;
 `
 const Image = styled.img`
     width: 40px;
@@ -37,6 +38,7 @@ const Image = styled.img`
     object-fit: cover;
 `
 const User = styled.div`
+    flex: 2;
     display: flex;
     flex-direction: column;
 `

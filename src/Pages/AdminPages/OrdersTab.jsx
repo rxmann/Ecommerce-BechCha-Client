@@ -6,7 +6,8 @@ import { useEffect, useState } from 'react';
 import { deleteThisOrder, getAllOrdersAsAdmin } from '../../ApiCalls/ordersApiCalls';
 import moment from 'moment';
 import { DeleteOutline } from '@mui/icons-material';
-
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import GppBadIcon from '@mui/icons-material/GppBad';
 
 
 const Container = styled.div`
@@ -105,6 +106,7 @@ const OrdersTab = () => {
     useEffect(() => {
         const getOrds = async () => {
             const ordersList = await getAllOrdersAsAdmin({ limit: 0 });
+            console.log(ordersList);
             setData(ordersList)
         }
         getOrds();
@@ -166,7 +168,10 @@ const OrdersTab = () => {
             flex: 1,
             renderCell: (params) => {
                 return (
-                    <StatusButton type={params.row.status} />
+                    <>
+                        <StatusButton type={params.row.status} />
+                        { params.row.isPaid === true ? <VerifiedUserIcon fontSize="small" color="primary" />  :  <GppBadIcon fontSize="small"  color="error" />  }
+                    </>
                 )
             }
         },

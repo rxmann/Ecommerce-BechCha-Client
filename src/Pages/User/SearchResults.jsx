@@ -69,8 +69,9 @@ const FullPage = styled.div`
 
 const PaginationSection = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
+  padding: 20px 10px;
   gap: 10px;
 `
 
@@ -196,17 +197,6 @@ const SearchResults = () => {
               setSort(null)
             }}> reset filters </Button>
           </FilterItem>
-
-
-          <FilterItem>
-          <PaginationSection>
-              <Button  disabled={page === 1}  variant="contained" onClick={() => page > 1 && setPage(page - 1)}> Previous </Button>
-              <PageNumber > {page} </PageNumber>
-              <Button   disabled={page === totalProductsPages}  variant="contained"   onClick={() => page < totalProductsPages && setPage(page + 1)} > Next </Button>
-          </PaginationSection>
-          </FilterItem>
-
-
         </Left>
 
         <Right>
@@ -217,11 +207,11 @@ const SearchResults = () => {
           : <FullPage> <Fetching type="Empty" Message={`No results for products "${query}"`} />  </FullPage>
           }
 
-          {/* <PaginationSection>
-              <Button size="large"  disabled={page === 1} fullWidth variant="contained" onClick={() => page > 1 && setPage(page - 1)}> Previous </Button>
+          <PaginationSection>
+              <Button size="large"  disabled={page === 1} variant="contained" onClick={() => page > 1 && setPage(page - 1)}> Previous </Button>
               <PageNumber > {page} </PageNumber>
-              <Button  size="large" disabled={page === totalProductsPages} fullWidth variant="contained"   onClick={() => page < totalProductsPages && setPage(page + 1)} > Next </Button>
-          </PaginationSection> */}
+              <Button  size="large" disabled={page === totalProductsPages}  variant="contained"   onClick={() => page < totalProductsPages && setPage(page + 1)} > Next </Button>
+          </PaginationSection>
         </Right>
       </Wrapper>
     </Container>

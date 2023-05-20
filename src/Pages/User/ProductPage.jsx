@@ -94,7 +94,7 @@ const ButtonBD = styled.button`
 const AddToCart = styled.div`
   padding: 10px 20px;
   width: 180px;
-  background-color: #0171b6;
+  background-color: ${props => props.color ? props.color : "gray"};
   color: white;
   display: flex;
   align-items: center;
@@ -110,11 +110,11 @@ const QuickLinks = styled.div`
   padding: 10px 0px;
 `;
 const Links = styled.div`
-  color: #0076ce;
+  color: ${props => props.color && props.color};
   display: flex;
   align-items: center;
   gap: 10px;
-  cursor: pointer;
+  cursor: ${props => props.point && props.point};
   font-size: 14px;
 `;
 
@@ -190,6 +190,7 @@ const ProductPage = () => {
       const plainText = textContent.innerText;
 
       const totalRatings = pro?.reviews?.length;
+
       setProduct({
         ...pro,
         description: plainText,
@@ -210,7 +211,7 @@ const ProductPage = () => {
   };
 
   const handleAddToCart = async () => {
-    console.log("Add to cart!");
+    if (product.quantity === 0) return;
     await addProductToCart(dispatch, product, quantity, product.quantity, id);
   };
 
@@ -344,7 +345,7 @@ const ProductPage = () => {
                   {" "}
                   -{" "}
                 </ButtonBD>
-                {quantity}
+                {quantity >= 1 ? quantity : 0}
                 <ButtonBD
                   onClick={() => handleQuantity("inc", product.quantity)}
                 >
@@ -353,16 +354,16 @@ const ProductPage = () => {
                 </ButtonBD>
               </QuantityDiv>
 
-              <AddToCart onClick={handleAddToCart}>
-                <AddShoppingCartIcon /> ADD TO CART
+              <AddToCart color={product.quantity === 0 ? "gray" : "#0171b6"}  disabled={product.quantity === 0 ? true : false} onClick={handleAddToCart}>
+                <AddShoppingCartIcon  /> ADD TO CART
               </AddToCart>
 
               <QuickLinks>
-                <Links onClick={handleCompare}>
+                <Links point="pointer" color="#0171b6" onClick={handleCompare}>
                   {" "}
                   <BalanceIcon /> ADD TO COMPARE{" "}
                 </Links>
-                <Links>
+                <Links point="none" color="gray" >
                   {" "}
                   <FavoriteIcon /> ADD TO WISHLIST{" "}
                 </Links>

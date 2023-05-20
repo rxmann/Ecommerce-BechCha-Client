@@ -172,7 +172,7 @@ export const updateUserPassword = async (dispatch, user) => {
 export const updateUser = async (dispatch, user, id) => {
     dispatch(requestStart());
     try {
-        // console.log(user);
+        console.log(user);
         const response = await userRequest.patch(`/users/${id}`, user);
         dispatch(updateSuccess(response.data));
         successToast("User data updated successfully")

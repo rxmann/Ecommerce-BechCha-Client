@@ -96,7 +96,7 @@ const ShippingForm = () => {
     };
 
     getUserInfo();
-  }, [currentUser._id]);
+  }, [currentUser?._id]);
 
   return (
     <Container>

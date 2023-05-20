@@ -28,7 +28,7 @@ const AdminOrderControls = ({ data }) => {
     const handleUpdateOrder = async () => {
         const orderId = data._id;
         const ress = await updateThisOrder(orderId, selected);
-        ress === true && navigate(`/admin/order/${orderId}`)
+        ress === true && window.location.reload(false)
     }
 
 
