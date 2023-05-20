@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import ProductCard from '../Products/ProductCard'
 import { getAllProducts } from '../../../ApiCalls/ProductApiCalls'
 import Fetching from '../EmptyView/Fetching'
+import { Button } from '@mui/material'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 const Container = styled.div`
     padding: 10px 50px;
@@ -30,6 +32,12 @@ const Wrapper = styled.div`
     flex-wrap: wrap;
 `
 
+const WrapperD = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+`
+
 const ForYou = () => {
     const [data, setData] = useState()
 
@@ -46,6 +54,8 @@ const ForYou = () => {
         getTopSold();
     }, [])
 
+    const navigate = useNavigate()
+
   return (
     <Container>
        <Wrap>
@@ -61,6 +71,10 @@ const ForYou = () => {
             : <Fetching type={"Empty"} />
             }
         </Wrapper>
+
+        <WrapperD>
+        <Button onClick={() => navigate("/search-results/s")}> View more </Button>
+        </WrapperD>
     </Container>
   )
 }

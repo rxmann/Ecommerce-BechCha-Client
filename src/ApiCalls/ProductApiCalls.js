@@ -1,11 +1,12 @@
 import { addToCompare } from "../Redux/compareProductSlice";
+import { requestFailure, requestStart, requestSuccess } from "../Redux/userSlice";
 import { publicRequest, userRequest } from "../requestMethods/requestMethods";
 import { failureToast, successToast } from "./apiCalls";
 
 
 
 
-export const getIndexedProducts = async ({query, limit=5, sort}) => {
+export const getIndexedProducts = async ({query, limit=0, sort }) => {
     try {
         const response = await publicRequest.get(`/products/find/indexed-query?search=${query}&limit=${limit}&sort=${sort}`)
         const {products} = response.data;
@@ -45,7 +46,7 @@ export const handleReviewPost = async (rating, comment, id) => {
     }
     catch (err) {
         failureToast(err.response.data.msg);
-        // console.log(err);
+        console.log(err);
     }
 }
 
@@ -124,7 +125,8 @@ export const getOneProduct = async (id) => {
 
 
 
-export const addProductAdmin = async (values) => {
+export const addProductAdmin = async (dispatch, values) => {
+    dispatch(requestStart())
     const formData = new FormData();
 
     for (let key in values) {
@@ -141,17 +143,20 @@ export const addProductAdmin = async (values) => {
     try {
         await userRequest.post("/products", formData)
         successToast("Product added in the system")
+        dispatch(requestSuccess())
     }
     catch (err) {
         console.log(err.response.data);
         failureToast(err.response?.data)
+        dispatch(requestFailure())
     }
 }
 
 
 
 
-export const editProductAdmin = async (values, id) => {
+export const editProductAdmin = async (dispatch, values, id) => {
+    dispatch(requestStart())
     const formData = new FormData();
     for (let key in values) {
         if (key === "images" ) {
@@ -169,10 +174,12 @@ export const editProductAdmin = async (values, id) => {
     try {
         await userRequest.patch(`/products/${id}`, formData)
         successToast("Product updated")
+        dispatch(requestSuccess())
     }
     catch (err) {
         console.log(err.response.data);
         failureToast("Problem updating the product info.")
+        dispatch(requestFailure())
     }
 }
 

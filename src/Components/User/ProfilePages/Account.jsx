@@ -103,9 +103,12 @@ const Account = ({ user, isFetching }) => {
   // submit updates user
   const handleUpdate = async (e) => {
     e.preventDefault();
-    if (formData.newPassword !== formData.confirmNewPassword)
+    if (formData.newPassword !== formData.confirmNewPassword) {
       return alert("New Password do not match with the confirmation!");
+    }
 
+    if (formData.newPassword.length < 8 || !/\d/.test(formData.newPassword)) return alert("Password should be 8 characters long and must include Numbers")
+    formData.id = currentUser._id;
     setModal(true);
   };
 

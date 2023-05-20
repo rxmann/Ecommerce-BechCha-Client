@@ -5,7 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import UploadIcon from '@mui/icons-material/Upload';
 import ClearIcon from '@mui/icons-material/Clear';
 import { addProductAdmin, editProductAdmin, getAllProducts } from '../../../ApiCalls/ProductApiCalls';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 
 const Form = styled.form`
     padding: 20px;
@@ -100,10 +101,12 @@ const DelBtn = styled.div`
 const NewProductForm = ({ FormType, prodDetails }) => {
 
     const editor = useRef("");
+    const dispatch = useDispatch();
     const [values, setValues] = useState({ title: "", category: "", price: "", quantity: "", description: "", images: [] });
     const [categories, setCategories] = useState([]);
 
     const { categories: cat } = useSelector(state => state.product)
+    const { isFetching } = useSelector(state => state.user)
 
     useEffect(() => {
         setCategories(cat);
@@ -157,12 +160,11 @@ const NewProductForm = ({ FormType, prodDetails }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (FormType === "add") {
-            await addProductAdmin(values);
+            await addProductAdmin(dispatch, values);
             getAllProducts();
-
         }
         else {
-            await editProductAdmin(values, prodDetails._id);
+            await editProductAdmin(dispatch, values, prodDetails._id);
         }
         // window.location.reload(false);
     }
@@ -273,7 +275,7 @@ const NewProductForm = ({ FormType, prodDetails }) => {
 
                 </FormOptions>
             </FormWrapper>
-            <Button type="submit" fullWidth variant="contained"> {FormType} </Button>
+            <LoadingButton  loading={isFetching}  type="submit" fullWidth variant="contained" >{FormType}</LoadingButton>
         </Form>
     )
 }

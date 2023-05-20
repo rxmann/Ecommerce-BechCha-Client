@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
-import { deleteUserAccount } from '../../ApiCalls/UserApiCalls';
+import { deleteUserAccount, getAllUsers } from '../../ApiCalls/UserApiCalls';
 import DataTable from '../../Components/AdminComponents/Tables/DataTable';
 import { userRequest } from '../../requestMethods/requestMethods';
 
@@ -94,17 +94,11 @@ const UsersTab = () => {
   const [ref, setRef] = useState(false);
 
   useEffect(() => {
-    const getAllUsers = async () => {
-        try {
-            const res = await userRequest.get(`/users/find?new=${true}`);
-            setUsers(res?.data)
-        }
-        catch (err) {
-            console.log(err);
-        }
+    const getAll = async () => {
+      setUsers(await getAllUsers());
     }
 
-    getAllUsers();
+    getAll();
   }, [ref, navigate]);
 
 

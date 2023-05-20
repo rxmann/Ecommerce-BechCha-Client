@@ -62,7 +62,8 @@ const SearchBox = () => {
         setSearchResults([]);
         return false;
       }
-      const prods = await getIndexedProducts({ query: search, limit: 5 });
+      const prods = await getIndexedProducts({ query: search });
+      // console.log(prods);
       setSearchResults(prods);
     };
 

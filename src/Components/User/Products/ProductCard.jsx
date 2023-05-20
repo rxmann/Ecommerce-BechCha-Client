@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import ConfirmModal from "../EmptyView/ConfirmModal";
 import { addToCompareP } from "../../../ApiCalls/ProductApiCalls";
 import { useEffect, useState } from "react";
+import StarIcon from "@mui/icons-material/Star";
+import StarHalfIcon from "@mui/icons-material/StarHalf";
 
 const Container = styled.div`
   width: 200px;
@@ -71,6 +73,11 @@ const Price = styled.span`
   margin: 10px;
 `;
 
+const Star = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const ProductCard = ({ data, disp }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -102,6 +109,7 @@ const ProductCard = ({ data, disp }) => {
     }
   }, [confirmAdd, data, dispatch]);
 
+  // console.log(data?.averageRating);
 
   return (
     <Container>
@@ -115,12 +123,59 @@ const ProductCard = ({ data, disp }) => {
         />
       )}
       <ImageContainer>
-        <Image onClick={() => navigate(`/product/${data._id}`)} src={"" || data?.image?.url} />
+        <Image
+          onClick={() => navigate(`/product/${data._id}`)}
+          src={"" || data?.image?.url}
+        />
       </ImageContainer>
 
       <Wrapper>
         <Title> {data.title} </Title>
       </Wrapper>
+
+      <Price>
+        <Star>
+          { data?.averageRating > 0 && Array(5)
+            .fill()
+            .map((_, index) => {
+              // Check for full star
+              if (index < Math.floor(data?.averageRating)) {
+                return (
+                  <StarIcon
+                    key={index}
+                    sx={{
+                      color: "gold",
+                    }}
+                  />
+                );
+              }
+              // Check for half-star
+              if (
+                index <= Math.floor(data?.averageRating) &&
+                Math.ceil(data?.averageRating) < 6 &&
+                data?.averageRating % 1 !== 0
+              ) {
+                return (
+                  <StarHalfIcon
+                    key={index}
+                    sx={{
+                      color: "gold",
+                    }}
+                  />
+                );
+              }
+              // Render empty star
+              return (
+                <StarIcon
+                  key={index}
+                  sx={{
+                    color: "gray",
+                  }}
+                />
+              );
+            })}
+        </Star>
+      </Price>
 
       <Info>
         <Price> RS {data.price} </Price>

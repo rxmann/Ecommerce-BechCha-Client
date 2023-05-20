@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import { Button, Input } from "@mui/material";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userRequest } from "../../../requestMethods/requestMethods";
 import {
   getShippingDetails,
   updateShippingDetails,
 } from "../../../ApiCalls/UserApiCalls";
 import { useNavigate } from "react-router-dom";
+import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 
 const Container = styled.div`
   display: flex;
@@ -49,7 +50,8 @@ const FormInput = styled(Input)`
 `;
 
 const ShippingForm = () => {
-  const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const { currentUser, isFetching } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   // update / add shipping details
@@ -61,7 +63,7 @@ const ShippingForm = () => {
       formData.append("billingAddress", form.billingAddress);
       formData.append("contacts", form.contacts);
 
-     const response =  await updateShippingDetails(formData);
+     const response =  await updateShippingDetails(dispatch, formData);
 
      if (response)  navigate("/checkout-form/confirmation");
       
@@ -138,9 +140,15 @@ const ShippingForm = () => {
             />
           </FormItem>
 
-          <Button variant={"contained"} onClick={handleConfirm}>
-            confirm
-          </Button>
+          <LoadingButton
+          onClick={handleConfirm}
+                            loading={isFetching}
+                            type="submit"
+                            size="large"
+                            variant="contained"
+                        >
+                            Confirm
+                        </LoadingButton>
         </Form>
       </ShippingWrapper>
     </Container>

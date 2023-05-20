@@ -12,6 +12,8 @@ import ConfirmModal from "../../Components/User/EmptyView/ConfirmModal";
 import ReviewComponent from "../../Components/User/Products/ReviewComponent";
 import { Button } from "@mui/material";
 import ReviewForm from "../../Components/User/Products/ReviewForm";
+import StarIcon from "@mui/icons-material/Star";
+import StarHalfIcon from "@mui/icons-material/StarHalf";
 
 const Container = styled.div`
   display: flex;
@@ -155,10 +157,19 @@ const ReviewsTitle = styled.h2`
   border-bottom: 3px solid #0171b6;
   display: table;
 `;
+const Star = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const RatingSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 30px;
+`;
 
 const ProductPage = () => {
   const id = useParams().id;
-
 
   const [reviewSelected, setReviewSelected] = useState(false);
 
@@ -178,9 +189,11 @@ const ProductPage = () => {
       textContent.innerHTML = pro.description;
       const plainText = textContent.innerText;
 
+      const totalRatings = pro?.reviews?.length;
       setProduct({
         ...pro,
         description: plainText,
+        ratingCount: totalRatings,
       });
     };
 
@@ -264,6 +277,52 @@ const ProductPage = () => {
                 <Span>Product ID: {product._id}</Span>
               </TitleWrapper>
               <Price> RS {product.price} </Price>
+
+              <RatingSection>
+                <Star>
+                  {Array(5)
+                    .fill()
+                    .map((_, index) => {
+                      // Check for full star
+                      if (index < Math.floor(product?.averageRating)) {
+                        return (
+                          <StarIcon
+                            key={index}
+                            sx={{
+                              color: "gold",
+                            }}
+                          />
+                        );
+                      }
+                      // Check for half-star
+                      if (
+                        index <= Math.floor(product?.averageRating) &&
+                        Math.ceil(product?.averageRating) < 6 &&
+                        product?.averageRating % 1 !== 0
+                      ) {
+                        return (
+                          <StarHalfIcon
+                            key={index}
+                            sx={{
+                              color: "gold",
+                            }}
+                          />
+                        );
+                      }
+                      // Render empty star
+                      return (
+                        <StarIcon
+                          key={index}
+                          sx={{
+                            color: "gray",
+                          }}
+                        />
+                      );
+                    })}
+                </Star>
+
+                <span>({product.ratingCount} reviews)</span>
+              </RatingSection>
 
               <Description>{product.description}</Description>
 

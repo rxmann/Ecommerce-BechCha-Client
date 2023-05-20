@@ -2,9 +2,10 @@ import { Avatar, Button, MenuItem, Select, TextField } from "@mui/material"
 import { useState } from "react"
 import styled from "styled-components"
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../../ApiCalls/UserApiCalls";
 import {useNavigate} from "react-router-dom"
+import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 
 
 const UploadB = styled.label`
@@ -88,8 +89,8 @@ const UserRegister = () => {
     const [userData, setUserData] = useState(data);
     const dispatch = useDispatch();
 
-
-
+    const { isFetching } = useSelector(state => state.user)
+ 
     // state management
     const handleChange = (e) => {
         setUserData({ ...userData, [e.target.name]: e.target.value })
@@ -270,7 +271,7 @@ const UserRegister = () => {
 
 
 
-                    <Button sx={{ maxWidth: "200px", padding: "10px 20px" }} type="submit" variant="contained">Register</Button>
+                    <LoadingButton  loading={isFetching} sx={{ maxWidth: "200px", padding: "10px 20px" }} type="submit" variant="contained">Register</LoadingButton>
 
                 </Form>
             </Wrapper>

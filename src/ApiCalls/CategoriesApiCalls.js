@@ -1,6 +1,7 @@
 import { publicRequest, userRequest } from "../requestMethods/requestMethods";
 import { getFailure, getStart, getCategoriesSuccess } from "../Redux/productSlice";
 import { failureToast, successToast } from "./apiCalls";
+import { requestFailure, requestStart, requestSuccess } from "../Redux/userSlice";
 
 export const getAllCategories = async (dispatch) => {
     dispatch(getStart())
@@ -30,16 +31,17 @@ export const getOneCategoryDetails = async (paramId) => {
 
 
 export const AddCategory = async (dispatch, formData) => {
-    dispatch(getStart())
+    dispatch(requestStart())
     try {
         await userRequest.post("/categories/add", formData)
         getAllCategories(dispatch);
         successToast("Category Added!")
+        dispatch(requestSuccess())
     }
     catch (err) {
         console.log(err.response.data);
         failureToast(err?.response?.data);
-        dispatch(getFailure())
+        dispatch(requestFailure())
     }
 }
 

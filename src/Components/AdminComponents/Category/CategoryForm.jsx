@@ -6,6 +6,8 @@ import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import CategoryIcon from '@mui/icons-material/Category';
 import {  UpdateCategory } from "../../../ApiCalls/CategoriesApiCalls";
 import { AddCategory } from "../../../ApiCalls/CategoriesApiCalls";
+import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
+import { useNavigate } from "react-router-dom";
 
 const UploadB = styled.label`
     cursor: pointer;
@@ -55,6 +57,7 @@ const TextInput = styled(TextField)`
 const CategoryForm = ({ FormType, Data }) => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [values, setValues] = useState({
         name: "",
         parentId: "",
@@ -66,6 +69,8 @@ const CategoryForm = ({ FormType, Data }) => {
     // set categories for drop down
     const [categories, setCategories] = useState([]);
     const { categories: cat } = useSelector(state => state.product)
+
+    const { isFetching } = useSelector(state => state.user)
 
 
     useEffect(() => {
@@ -105,15 +110,16 @@ const CategoryForm = ({ FormType, Data }) => {
         console.log(FormType);
         if (FormType !== "update") {
             await AddCategory(dispatch, formData);
+        }
+        else {
+            await UpdateCategory(dispatch, formData, Data?._id);
             setValues({
                 name: "",
                 parentId: "",
                 image: "",
             })
         }
-        else {
-            await UpdateCategory(dispatch, formData, Data?._id);
-        }
+        navigate(`/admin/categories`)
 
     }
 
@@ -172,7 +178,15 @@ const CategoryForm = ({ FormType, Data }) => {
                         ))}
                     </Select>
                 </FormItem>
-                <Button type="submit" variant="contained"  > {FormType} </Button>
+
+                <LoadingButton
+                            loading={isFetching}
+                            type="submit"
+                            size="large"
+                            variant="contained"
+                        >
+                         {FormType}
+                        </LoadingButton>
             </FormWrapper>
         </Form>
     )

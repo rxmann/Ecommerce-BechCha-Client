@@ -1,4 +1,5 @@
 import { emptyCart } from "../Redux/cartSlice";
+import { emptyCompare } from "../Redux/compareProductSlice";
 import {
     deleteUserSuccess,
     deleteUserSuccessAdmin,
@@ -12,6 +13,17 @@ import {
 import { publicRequest, userRequest } from "../requestMethods/requestMethods";
 import { failureToast, successToast } from "./apiCalls";
 
+
+export const getAllUsers = async () => {
+    try {
+        const res = await userRequest.get(`/users/find`);
+        console.log(res.data);
+        return res.data;
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
 
 
 
@@ -36,13 +48,16 @@ export const resetPassword = async (dispatch, payload) => {
 
 
 
-export const updateShippingDetails = async (formData) => {
+export const updateShippingDetails = async (dispatch, formData) => {
+    dispatch(requestStart());
     try {
         await userRequest.post(`/shipping`, formData);
         successToast("Shipping info updated!");
+        dispatch(requestSuccess());
         return true;
     }
     catch (err) {
+        dispatch(requestFailure());
         console.log(err);
         failureToast(err.response.data)
         return false;
@@ -103,7 +118,7 @@ export const verifyUserOTP = async (dispatch, payload) => {
 export const resendUserOTP = async (dispatch, payload) => {
     dispatch(requestStart());
     try {
-        // console.log(payload);
+        console.log(payload, "heyyyy");
         await publicRequest.post("/users/resendOTP", { email: payload })
         successToast("OTP sent to email:", payload);
         dispatch(requestSuccess());
@@ -136,14 +151,18 @@ export const loginUser = async (dispatch, user) => {
 }
 
 export const updateUserPassword = async (dispatch, user) => {
+    console.log(user.id);
     dispatch(requestStart());
     try {
         const response = await userRequest.patch("/users/password", user)
         successToast(response.data.message);
+        dispatch(requestSuccess());
+        dispatch(LogoutUser(dispatch, user))
     }
     catch (err) {
         dispatch(requestFailure(err.reponse?.data));
         failureToast(err.response?.data)
+        dispatch(requestFailure());
     }
 
 }
@@ -172,11 +191,11 @@ export const updateUserByAdmin = async (dispatch, user, id) => {
     try {
         await userRequest.patch(`/users/${id}`, user);
         successToast("User data updated successfully")
-        dispatch(requestSuccess)
+        dispatch(requestSuccess())
     }
     catch (err) {
         console.log(err.response);
-        dispatch(requestFailure(err.reponse?.data));
+        dispatch(requestFailure());
         failureToast(err.response?.data)
     }
 }
@@ -188,10 +207,11 @@ export const LogoutUser = async (dispatch, id) => {
     dispatch(requestStart());
     try {
         await userRequest.delete(`/users/logout/${id}`);
+        dispatch(requestSuccess());
         dispatch(logoutUserSuccess());
         dispatch(emptyCart());
+        dispatch( emptyCompare());
         successToast("User logged out!")
-        dispatch(requestSuccess)
     }
     catch (err) {
         console.log(err);

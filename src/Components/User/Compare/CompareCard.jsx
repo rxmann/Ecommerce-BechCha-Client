@@ -11,7 +11,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  padding: 20px 20px 0px 20px;
+  padding: 20px 20px 20px 20px;
   margin: 30px;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px; 
   border-radius: 20px;
@@ -74,12 +74,7 @@ const Desc = styled.span`
 `
 
 const DeleteBtn = styled(Button)`
-  opacity: 0.3;
   width: 100%;
-
-  &:hover{
-    opacity: 1;
-  }
 `
 
 
@@ -120,6 +115,7 @@ const CompareCard = ({ data }) => {
         <Infor> InStock  <Value>  {data.quantity} </Value> </Infor>
         <Infor> Brand  <Value>  {data.brand ? data.brand : "None"} </Value> </Infor>
         <Infor> Sales  <Value>  {data.sold > 0 ? data.sold : 0} </Value> </Infor>
+        <Infor> Rating  <Value>  {data.averageRating ? data.averageRating : "None" }   </Value> </Infor>
       </ProductInfoContainer>
 
       <ProductDescContainer>

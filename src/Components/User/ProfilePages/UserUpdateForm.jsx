@@ -106,7 +106,7 @@ const UserUpdateForm = ({user, isFetching, isAdmin, email}) => {
             userData.append(`image`, formData.image);
         }
 
-        console.log(isAdmin);
+
         if (!isAdmin) {
             await updateUser(dispatch, userData, user._id);
         }

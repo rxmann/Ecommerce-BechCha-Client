@@ -11,7 +11,7 @@ import {
 import MailIcon from '@mui/icons-material/Mail';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingButton from "@mui/lab/LoadingButton";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { resendUserOTP } from "../../ApiCalls/UserApiCalls";
 
 
@@ -95,6 +95,11 @@ const VerifyAccountEmail = () => {
        const ress = await resendUserOTP(dispatch, email);
        ress === true && navigate("/password-reset-form")
     }
+
+    const { isFetching } = useSelector(state => state.user)
+
+
+
     return (
         <Container>
             <Card>
@@ -125,6 +130,7 @@ const VerifyAccountEmail = () => {
 
 
                         <LoadingButton
+                            loading={isFetching}
                             type="submit"
                             size="large"
                             variant="contained"

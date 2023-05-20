@@ -5,6 +5,7 @@ import { khaltiKeys } from "./khaltiKey";
 import { makeAnOrder } from '../../ApiCalls/ordersApiCalls';
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom";
+import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 
 const Khalti = ({ order, amount }) => {
 
@@ -64,12 +65,12 @@ const Khalti = ({ order, amount }) => {
     let checkout = new KhaltiCheckout(kconfig);
 
     return (
-        <Button
+        <LoadingButton
             fullWidth
             color="secondary"
             variant='contained'
             // amount : amount * 100
-            onClick={() => checkout.show({ amount: 20000 })}  > Pay via Khalti  </Button>
+            onClick={() => checkout.show({ amount: 20000 })}  > Pay via Khalti  </LoadingButton>
     )
 }
 

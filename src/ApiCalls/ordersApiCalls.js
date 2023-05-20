@@ -1,3 +1,4 @@
+import { requestFailure, requestStart, requestSuccess } from "../Redux/userSlice";
 import { userRequest } from "../requestMethods/requestMethods";
 import { emptyMyCart, failureToast, successToast } from "./apiCalls";
 
@@ -85,6 +86,7 @@ export const getAllOrdersAsAdmin = async ({limit=0}) => {
 
 
 export const makeAnOrder = async (dispatch, { orderData, totalPayable, type }) => {
+    dispatch(requestStart())
     try {
         let cartProducts = orderData.map(prod => {
             const { _id, ...rest} = prod;
@@ -107,9 +109,11 @@ export const makeAnOrder = async (dispatch, { orderData, totalPayable, type }) =
 
         await emptyMyCart(dispatch);
         successToast(` ${cartQuantity} items ordered successfully! `)
+        dispatch(requestSuccess())
         return response?.data;
     } catch (error) {
         console.log(error);
         failureToast(error.response.data)
+        dispatch(requestFailure())
     }
 }

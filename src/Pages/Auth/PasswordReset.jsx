@@ -12,7 +12,7 @@ import {
     InputAdornment,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useDispatch} from "react-redux"
+import { useDispatch, useSelector} from "react-redux"
 import { resetPassword } from "../../ApiCalls/UserApiCalls";
 
 
@@ -71,6 +71,8 @@ const PasswordReset = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const { isFetching } = useSelector(state => state.user)
 
 
     const [formData, setFormData] = useState({
@@ -207,6 +209,7 @@ const PasswordReset = () => {
                         </FormCtrl>
                        
                         <LoadingButton
+                            loading={isFetching}
                             type="submit"
                             size="large"
                             variant="contained"
