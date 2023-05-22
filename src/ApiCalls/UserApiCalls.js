@@ -10,8 +10,9 @@ import {
     requestSuccess,
     updateSuccess
 } from "../Redux/userSlice";
-import { publicRequest, userRequest } from "../requestMethods/requestMethods";
 import { failureToast, successToast } from "./apiCalls";
+import { publicRequest, userRequest } from "../requestMethods/requestMethods";
+
 
 
 export const getAllUsers = async () => {
@@ -166,7 +167,6 @@ export const updateUserPassword = async (dispatch, user) => {
     }
 
 }
-
 
 
 export const updateUser = async (dispatch, user, id) => {
