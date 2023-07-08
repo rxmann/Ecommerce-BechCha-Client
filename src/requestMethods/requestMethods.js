@@ -2,7 +2,12 @@ import axios from "axios"
 import jwt_decode from "jwt-decode";
 import dayjs from 'dayjs'
 
-const BASE_URL = "http://localhost:5000/api"
+// const BASE_URL = "http://localhost:5000/api"
+
+const BASE_URL = "https://bechcha-ecommerce.onrender.com/api"
+
+
+
 
 let isRefreshing = false;
 

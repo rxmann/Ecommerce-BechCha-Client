@@ -36,25 +36,7 @@ const Title = styled.h2`
   margin-bottom: 20px;
 `;
 
-const Card = styled.div`
-  width: 200px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-`;
 
-const CardImage = styled.img`
-  width: 100%;
-  height: 100px;
-  object-fit: cover;
-`;
-
-const CardTitle = styled.span`
-  font-size: 18px;
-  padding: 10px 10px;
-  font-weight: 600;
-`;
 
 const SettingsAdmin = () => {
   const [featured, setFeatured] = useState();

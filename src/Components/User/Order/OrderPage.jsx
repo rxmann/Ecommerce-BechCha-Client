@@ -122,7 +122,7 @@ const OrderPage = () => {
       setOrders(filterRows(data, search))
     }
     getMyOrder();
-  }, [search])
+  }, [search, currentUser._id])
 
 
   const filterRows = (data, searchQuery) => {

@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import { deleteUserAccount, getAllUsers } from '../../ApiCalls/UserApiCalls';
 import DataTable from '../../Components/AdminComponents/Tables/DataTable';
-import { userRequest } from '../../requestMethods/requestMethods';
 
 
 const Container = styled.div`

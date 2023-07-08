@@ -4,7 +4,7 @@ import ProductCard from '../Products/ProductCard'
 import { getAllProducts } from '../../../ApiCalls/ProductApiCalls'
 import Fetching from '../EmptyView/Fetching'
 import { Button } from '@mui/material'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Container = styled.div`
     padding: 10px 50px;

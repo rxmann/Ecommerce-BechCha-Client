@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import styled from "styled-components"
 import ProfileDisplay from "../../User/ProfilePages/ProfileDisplay"
 import OrderWidget from "../Widgets/OrderWidget"
-import { getMyOrdersList, getOneOrderById } from "../../../ApiCalls/ordersApiCalls"
+import { getMyOrdersList } from "../../../ApiCalls/ordersApiCalls"
 
 const Container = styled.div`
     flex: 5;

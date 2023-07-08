@@ -55,7 +55,6 @@ const ProfileDisplay = () => {
 
 
     useEffect(() => {
-        console.log(paramms);
         setUserId("id" in paramms ? paramms.id : currentUser?._id)
 
         const userD = async () => {
@@ -63,7 +62,7 @@ const ProfileDisplay = () => {
             setUser(response);
         }
         userD();
-    }, [userId, dispatch]);
+    }, [userId, paramms, dispatch, currentUser?._id]);
 
 
     const handleLogout = async (e) => {
