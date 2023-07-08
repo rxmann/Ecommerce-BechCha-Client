@@ -88,7 +88,7 @@ const ReviewComponent = ({ data }) => {
 
           <Right>
             {currentUser &&
-              (currentUser._id === data.user._id || currentUser.isAdmin) && (
+              (currentUser?._id === data?.user?._id || currentUser?.isAdmin) && (
                 <Button  onClick={handleDelete}>
                   {" "}
                   <DeleteIcon  sx={{ cursor: "pointer", color: "gray" }} />{" "}
