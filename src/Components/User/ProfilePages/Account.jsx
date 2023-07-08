@@ -109,7 +109,7 @@ const Account = ({ user, isFetching }) => {
 
     if (formData.newPassword.length < 8 || !/\d/.test(formData.newPassword)) return alert("Password should be 8 characters long and must include Numbers")
     formData.id = currentUser._id;
-    setModal(true);
+    // setModal(true);
   };
 
   useEffect(() => {
@@ -142,7 +142,7 @@ const Account = ({ user, isFetching }) => {
   ];
 
   const handleDeleteAccount = async () => {
-    await deleteUserAccount(dispatch, currentUser._id, null);
+    // await deleteUserAccount(dispatch, currentUser._id, null);
     navigate("/");
   };
 
