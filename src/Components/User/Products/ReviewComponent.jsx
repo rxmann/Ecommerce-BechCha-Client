@@ -62,7 +62,7 @@ const ReviewComponent = ({ data }) => {
 
 
   const handleDelete = async ( ) => {
-      await handleReviewDelete( data.user._id, data._id);
+      await handleReviewDelete( data.user?._id, data?._id);
   }
 
   return (
