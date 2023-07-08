@@ -10,10 +10,10 @@ import { useEffect } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import {
-  deleteUserAccount,
-  updateUserPassword,
-} from "../../../ApiCalls/UserApiCalls";
+// import {
+//   deleteUserAccount,
+//   updateUserPassword,
+// } from "../../../ApiCalls/UserApiCalls";
 import { useDispatch, useSelector } from "react-redux";
 import ConfirmModal from "../EmptyView/ConfirmModal";
 
@@ -114,7 +114,7 @@ const Account = ({ user, isFetching }) => {
 
   useEffect(() => {
     if (confirmAdd === true) {
-      updateUserPassword(dispatch, formData);
+      // updateUserPassword(dispatch, formData);
       setModal(false);
       setConfirmAdd(false);
     }
