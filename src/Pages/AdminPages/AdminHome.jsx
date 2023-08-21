@@ -14,7 +14,6 @@ import {
   getUserStats,
 } from "../../ApiCalls/apiCalls";
 import { getAllOrdersAsAdmin } from "../../ApiCalls/ordersApiCalls";
-import CatProdPieChart from "../../Components/AdminComponents/Charts/CatProdPieChart";
 
 const Container = styled.div`
   flex: 5;
@@ -49,7 +48,7 @@ const AdminHome = () => {
     if (!currentUser.isAdmin || !isSignedIn) {
       navigate("/");
     }
-  }, [currentUser, isSignedIn, navigate, accessToken]);
+  }, [currentUser, isSignedIn, accessToken]);
 
   // orders sales stats
   // orders stats
@@ -108,8 +107,6 @@ const AdminHome = () => {
         <OrderWidget orders={ordersData} />
         <NewUserWidget />
       </HomeWidgets>
-
-      <CatProdPieChart />
     </Container>
   );
 };

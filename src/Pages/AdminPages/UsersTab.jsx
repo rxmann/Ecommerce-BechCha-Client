@@ -103,7 +103,6 @@ const UsersTab = () => {
 
 
   const handleDeleteOne = async (id) => {
-    console.log(id);
     await deleteUserAccount(dispatch, id, currentUser._id);
     setRef(!ref);
   }

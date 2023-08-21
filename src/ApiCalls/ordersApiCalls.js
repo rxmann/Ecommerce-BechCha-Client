@@ -20,8 +20,10 @@ export const updateThisOrder = async (id, status)  => {
 export const deleteThisOrder = async (id) => {
     try {
         const response = await userRequest.delete(`/orders/${id}`);
-        successToast(response);
-        window.location.reload(false);
+        console.log(response.status);
+        if (response.status === 200) {
+            successToast("Order deleted!");
+        }
     }
     catch (error) {
         console.log(error);
@@ -35,9 +37,7 @@ export const cancelThisOrder = async (id) => {
     try {
         const response = await userRequest.post(`/orders/cancel/${id}`);
         successToast(response.data);
-        setInterval(() => {
-            window.location.reload(false);
-        }, 2000)
+        window.location.reload(false)
     }
     catch (error) {
         console.log(error);
@@ -63,7 +63,6 @@ export const getOneOrderById = async (id) => {
 export const getMyOrdersList = async (id) => {
     try {
         const response = await userRequest.get(`/orders/${id}`)
-        console.log(response.data);
         return response.data;
     }
     catch (error) {
@@ -106,7 +105,6 @@ export const makeAnOrder = async (dispatch, { orderData, totalPayable, type }) =
             paymentType: type,
             isPaid: type === "Cash-on-delivery" ? false : true
         }
-        console.log(form.isPaid);
 
         const response = await userRequest.post("/orders", form);
 

@@ -2,6 +2,7 @@ import { Button, MenuItem, Select } from "@mui/material"
 import { useEffect, useState } from "react";
 import styled from "styled-components"
 import { updateThisOrder } from "../../../ApiCalls/ordersApiCalls";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -19,6 +20,8 @@ const Selector = styled.div`
 
 const AdminOrderControls = ({ data }) => {
 
+    const navigate = useNavigate();
+
     const [selected, setSelected] = useState("");
 
     const [itemsList, setItemsList] = useState(data.status);
@@ -27,7 +30,7 @@ const AdminOrderControls = ({ data }) => {
     const handleUpdateOrder = async () => {
         const orderId = data._id;
         const ress = await updateThisOrder(orderId, selected);
-        ress === true && window.location.reload(false)
+        ress === true && navigate("/admin/orders")
     }
 
 

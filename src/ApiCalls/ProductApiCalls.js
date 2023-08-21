@@ -198,14 +198,3 @@ export const deleteProductAdmin = async (id) => {
 
 
 
-
-export const getCategoryProductsCount = async (  ) => {
-    try {
-        const response = await userRequest.get("/products/categorical-distribution")
-        return response.data;
-    }
-    catch (err) {
-        console.log(err);
-    }
-}
-

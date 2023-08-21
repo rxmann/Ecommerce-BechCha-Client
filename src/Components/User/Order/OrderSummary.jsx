@@ -49,7 +49,7 @@ const TotalPayableDiv = styled.div`
 
 
 const OrderSummary = ({data: order, Sum}) => {
-    console.log(order);
+
     return (
 
         <SummaryWrapper>

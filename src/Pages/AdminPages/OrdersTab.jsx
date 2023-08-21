@@ -102,15 +102,16 @@ const OrdersTab = () => {
     const navigate = useNavigate();
     const [data, setData] = useState([]);
 
+    const [ch, setCh] = useState("");
+
 
     useEffect(() => {
         const getOrds = async () => {
             const ordersList = await getAllOrdersAsAdmin({ limit: 0 });
-            console.log(ordersList);
             setData(ordersList)
         }
         getOrds();
-    }, [])
+    }, [ch])
 
 
 
@@ -197,7 +198,10 @@ const OrdersTab = () => {
                 return (
                     <ActionCell>
                         <ViewButton onClick={() => navigate(`/admin/order/${params.row._id}`)}> Edit </ViewButton>
-                        <DelBtn size="small" variant="text" color="error" onClick={() => deleteThisOrder(params.row._id)}>
+                        <DelBtn size="small" variant="text" color="error" onClick={() => {
+                            deleteThisOrder(params.row._id)
+                            setCh(new Date().toISOString());
+                        }}>
                             <DeleteOutline />
                         </DelBtn>
                     </ActionCell>

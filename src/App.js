@@ -44,7 +44,6 @@ import CheckoutForm from "./Components/User/Checkout/CheckoutForm"
 import ConfirmationForm from "./Components/User/Checkout/ConfirmationForm"
 import ShippingForm from "./Components/User/Checkout/ShippingForm"
 import PaymentTab from "./Components/User/Checkout/PaymentTab"
-import InvoicePage from "./Components/User/Checkout/InvoicePage"
 import Account from "./Components/User/ProfilePages/Account"
 import Settings from "./Components/AdminComponents/Settings/SettingsAdmin"
 import VerifyAccountEmail from "./Pages/Auth/VerifyAccountEmail"
@@ -108,9 +107,12 @@ const App = () => {
         if (!isSignedIn || !currentUser.isAdmin) {
           navigate("/login");
         }
+        else {
+          navigate("/admin/dashboard")
+        }
       }
       checkLogin();
-    }, [isSignedIn, navigate, currentUser?.isAdmin]);
+    }, [isSignedIn, currentUser?.isAdmin]);
 
     return (
       <Wrapper >
@@ -137,7 +139,7 @@ const App = () => {
         }
       }
       checkLogin();
-    }, [isSignedIn, navigate]);
+    }, [isSignedIn]);
 
     return (
       <Wrapper>
@@ -178,10 +180,6 @@ const App = () => {
     {
       path: "*",
       element: <EmptyView />
-    },
-    {
-      path: "/invoice",
-      element: <InvoicePage  order={"642efd13b8b7c051cc50926c"}/>
     },
     {
       path: "/checkout-form",

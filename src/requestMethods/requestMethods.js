@@ -2,9 +2,9 @@ import axios from "axios"
 import jwt_decode from "jwt-decode";
 import dayjs from 'dayjs'
 
-// const BASE_URL = "http://localhost:5000/api"
+const BASE_URL = "http://localhost:5000/api"
 
-const BASE_URL = "https://bechcha-ecommerce.onrender.com/api"
+// const BASE_URL = "https://bechcha-ecommerce.onrender.com/api"
 
 
 
@@ -27,12 +27,12 @@ const getAccessToken = () => {
 
 export const publicRequest = axios.create({
     baseURL: BASE_URL,
-    withCredentials: true,
+    // withCredentials: true,
 })
 
 export const userRequest = axios.create({
     baseURL: BASE_URL,
-    withCredentials: true,
+    // withCredentials: true,
     headers: {
         'Content-Type': 'multipart/form-data',
         authorization: `Bearer ${getAccessToken()}`,
@@ -47,7 +47,7 @@ userRequest.interceptors.request.use(async (request) => {
 
     const user = jwt_decode(accessToken);
     const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
-    console.log("Request Interceptors! | isExpired? ", isExpired);
+    // console.log("Request Interceptors! | isExpired? ", isExpired);
 
     if (!isExpired) return request;
 

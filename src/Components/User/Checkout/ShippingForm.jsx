@@ -61,6 +61,7 @@ const ShippingForm = () => {
       formData.append("shippingAddress", form.shippingAddress);
       formData.append("billingAddress", form.billingAddress);
       formData.append("contacts", form.contacts);
+      formData.append("email", form.email);
 
      const response =  await updateShippingDetails(dispatch, formData);
 

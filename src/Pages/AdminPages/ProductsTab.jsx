@@ -73,6 +73,7 @@ const ProductsTab = () => {
   const dispatch = useDispatch();
   
   const [products, setProducts] = useState([]);
+  const [ch, setCh] = useState("");
 
   useEffect(() => {
     const getEssentials = async () => {
@@ -81,7 +82,7 @@ const ProductsTab = () => {
     }
 
     getEssentials();
-  }, [dispatch, navigate])
+  }, [ch])
 
 
 
@@ -115,7 +116,7 @@ const ProductsTab = () => {
       flex: 3,
       renderCell: (params) => {
         return (
-          params.row.category.name
+          params.row.category?.name
         )
       } 
     },
@@ -137,7 +138,7 @@ const ProductsTab = () => {
             <DelBtn 
               onClick={async () => {
                 await deleteProductAdmin(params.row._id)
-                setProducts(await getAllProducts());
+                setCh(new Date().toISOString());
               }}
               size="small" variant="text" color="error">
               <DeleteOutline />
@@ -147,6 +148,7 @@ const ProductsTab = () => {
       }
     }
   ]
+
 
   return (
     <Container>

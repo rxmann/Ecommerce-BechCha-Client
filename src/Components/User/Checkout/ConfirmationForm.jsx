@@ -86,7 +86,6 @@ const ConfirmationForm = () => {
 
 
   const handleConfirm = (dat) => {
-    console.log(dat);
     if (dat === true) return navigate("/checkout-form/payment")
   }
 
