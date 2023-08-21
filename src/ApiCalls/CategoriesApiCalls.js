@@ -9,6 +9,7 @@ export const getAllCategories = async (dispatch) => {
         const response = await publicRequest.get("/categories");
         console.log("Categories updated!");
         dispatch(getCategoriesSuccess(response.data.CategoryList));
+        return true;
     }
     catch (err) {
         console.log(err);

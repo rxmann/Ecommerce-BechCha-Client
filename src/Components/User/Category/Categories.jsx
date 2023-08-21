@@ -48,21 +48,21 @@ const Span = styled.span`
 
 const Categories = () => {
 
-    const [CategoriesList, setCategoriesList] = useState([]);
-    const dispatch = useDispatch();
     const { categories } = useSelector(state => state.product);
 
+    const [CategoriesList, setCategoriesList] = useState([]);
+
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        const getCategoriesAll = async () => {
-            if (categories && categories?.length === 0) {
-                const cats = await getAllCategories(dispatch);
-                setCategoriesList(cats);
-            } else {
-                setCategoriesList(categories);
-            }
+
+        if ( CategoriesList.length === 0 ) {
+            getAllCategories(dispatch)
         }
-        getCategoriesAll();
-    }, [dispatch, categories]);
+
+        setCategoriesList(categories)
+
+    }, [categories]);
 
 
 
@@ -94,7 +94,7 @@ const Categories = () => {
                 effect={'slide'}
             >
                 <List >
-                    {CategoriesList?.length > 0 ?
+                    {CategoriesList ?
                         CategoriesList.map((each) => (
                             <SwiperSlide key={each._id}>
                                 <OneCategory category={each} />
