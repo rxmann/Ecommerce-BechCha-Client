@@ -78,11 +78,6 @@ const Mid = styled.div`
     justify-content: center;
 `
 
-// box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-// dense
-// box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px; 
-
-
 const App = () => {
 
   // main layout
