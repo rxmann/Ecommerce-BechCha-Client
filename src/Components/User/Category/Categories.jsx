@@ -8,7 +8,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css/bundle";
 import "swiper/css/autoplay";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Fetching from "../EmptyView/Fetching";
 
 const Container = styled.div`
