@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import OneCategory from './CategoryBlock'
-import { Navigation, Autoplay } from "swiper";
 import { useDispatch, useSelector } from "react-redux"
 import { getAllCategories } from "../../../ApiCalls/CategoriesApiCalls"
+import { Navigation, Autoplay } from "swiper/modules";
 
 // Import Swiper styles
 import "swiper/css/bundle";

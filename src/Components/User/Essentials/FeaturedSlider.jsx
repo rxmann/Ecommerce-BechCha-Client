@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Thumbs, Autoplay } from "swiper";
+import { Navigation, Pagination, Thumbs, Autoplay } from "swiper/modules";
 import { getFeatured } from "../../../ApiCalls/ProductApiCalls";
 // Import Swiper styles
 import "swiper/css/bundle";
