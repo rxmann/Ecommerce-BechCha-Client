@@ -1,85 +1,86 @@
-import { createBrowserRouter, RouterProvider, Outlet, useNavigate } from "react-router-dom"
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,
+  useNavigate,
+} from "react-router-dom";
 
 // User
-import Navbar from "./Components/User/Layout/Navbar"
-import Footer from "./Components/User/Layout/Footer"
-import Homepage from "./Pages/User/Homepage"
-import ShowProductsPage from "./Pages/User/ShowProductsPage"
-import ProductPage from "./Pages/User/ProductPage"
-import ProfilePage from "./Pages/User/ProfilePage"
-import EmptyView from "./Components/User/EmptyView/EmptyView"
+import Navbar from "./Components/User/Layout/Navbar";
+import Footer from "./Components/User/Layout/Footer";
+import Homepage from "./Pages/User/Homepage";
+import ShowProductsPage from "./Pages/User/ShowProductsPage";
+import ProductPage from "./Pages/User/ProductPage";
+import ProfilePage from "./Pages/User/ProfilePage";
+import EmptyView from "./Components/User/EmptyView/EmptyView";
 // Auth
-import LoginPage from "./Pages/Auth/LoginPage"
-import RegisterPage from "./Pages/Auth/RegisterPage"
-import VerifyOTP from "./Pages/Auth/VerifyOTPpage"
+import LoginPage from "./Pages/Auth/LoginPage";
+import RegisterPage from "./Pages/Auth/RegisterPage";
+import VerifyOTP from "./Pages/Auth/VerifyOTPpage";
 // Admin
-import Topbar from "./Components/AdminComponents/CommonLayouts/Topbar"
-import Sidebar from "./Components/AdminComponents/CommonLayouts//Sidebar"
-import AdminHome from "./Pages/AdminPages/AdminHome"
-import UsersTab from "./Pages/AdminPages/UsersTab"
-import ProductsTab from "./Pages/AdminPages/ProductsTab"
+import Topbar from "./Components/AdminComponents/CommonLayouts/Topbar";
+import Sidebar from "./Components/AdminComponents/CommonLayouts//Sidebar";
+import AdminHome from "./Pages/AdminPages/AdminHome";
+import UsersTab from "./Pages/AdminPages/UsersTab";
+import ProductsTab from "./Pages/AdminPages/ProductsTab";
 
-import UserDetails from "./Components/AdminComponents/User/UserDetails"
-import UserRegister from "./Components/AdminComponents/User/UserRegister"
-import ProductDetails from "./Components/AdminComponents/Product/ProductDetails"
-import ProductAdd from "./Components/AdminComponents/Product/ProductAdd"
+import UserDetails from "./Components/AdminComponents/User/UserDetails";
+import UserRegister from "./Components/AdminComponents/User/UserRegister";
+import ProductDetails from "./Components/AdminComponents/Product/ProductDetails";
+import ProductAdd from "./Components/AdminComponents/Product/ProductAdd";
 
-import styled from "styled-components"
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import styled from "styled-components";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import CartPage from "./Components/User/Carts/CartPage"
-import ProfileDisplay from "./Components/User/ProfilePages/ProfileDisplay"
-import CategoriesTab from "./Pages/AdminPages/CategoriesTab"
-import CategoryAdd from "./Components/AdminComponents/Category/CategoryAdd"
-import CategoryDisplay from "./Components/AdminComponents/Category/CategoryDisplay"
-import OrdersTab from "./Pages/AdminPages/OrdersTab"
-import OrderDetails from "./Components/User/Order/OrderDetails"
-import OrderPage from "./Components/User/Order/OrderPage"
-import ComparePage from "./Pages/User/ComparePage"
-import { useSelector } from "react-redux"
-import { useEffect } from "react"
-import SearchResults from "./Pages/User/SearchResults"
-import CheckoutForm from "./Components/User/Checkout/CheckoutForm"
-import ConfirmationForm from "./Components/User/Checkout/ConfirmationForm"
-import ShippingForm from "./Components/User/Checkout/ShippingForm"
-import PaymentTab from "./Components/User/Checkout/PaymentTab"
-import Account from "./Components/User/ProfilePages/Account"
-import Settings from "./Components/AdminComponents/Settings/SettingsAdmin"
-import VerifyAccountEmail from "./Pages/Auth/VerifyAccountEmail"
-import PasswordReset from "./Pages/Auth/PasswordReset"
-
-
-
+import CartPage from "./Components/User/Carts/CartPage";
+import ProfileDisplay from "./Components/User/ProfilePages/ProfileDisplay";
+import CategoriesTab from "./Pages/AdminPages/CategoriesTab";
+import CategoryAdd from "./Components/AdminComponents/Category/CategoryAdd";
+import CategoryDisplay from "./Components/AdminComponents/Category/CategoryDisplay";
+import OrdersTab from "./Pages/AdminPages/OrdersTab";
+import OrderDetails from "./Components/User/Order/OrderDetails";
+import OrderPage from "./Components/User/Order/OrderPage";
+import ComparePage from "./Pages/User/ComparePage";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import SearchResults from "./Pages/User/SearchResults";
+import CheckoutForm from "./Components/User/Checkout/CheckoutForm";
+import ConfirmationForm from "./Components/User/Checkout/ConfirmationForm";
+import ShippingForm from "./Components/User/Checkout/ShippingForm";
+import PaymentTab from "./Components/User/Checkout/PaymentTab";
+import Account from "./Components/User/ProfilePages/Account";
+import Settings from "./Components/AdminComponents/Settings/SettingsAdmin";
+import VerifyAccountEmail from "./Pages/Auth/VerifyAccountEmail";
+import PasswordReset from "./Pages/Auth/PasswordReset";
 
 const Wrapper = styled.div`
   background-color: #f5f7f8;
-`
+`;
 const Contents = styled.div`
   display: flex;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   background-color: #f5f7f8;
   padding: 0px 50px 0px 0px;
-`
+`;
 
 const ProfileWrapper = styled.div`
   background-color: #f5f7f8;
   padding: 10px 50px;
-`
+`;
 
 const CheckoutWrapper = styled.div`
   background-color: #f5f7f8;
   height: 100vh;
-`
+`;
 const Mid = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
 const App = () => {
-
   // main layout
   const Layout = () => {
     return (
@@ -91,26 +92,24 @@ const App = () => {
     );
   };
 
-
   // admin dash layout
   const AdminLayout = () => {
     const navigate = useNavigate();
-    const { isSignedIn, currentUser } = useSelector(state => state.user)
+    const { isSignedIn, currentUser } = useSelector((state) => state.user);
 
     useEffect(() => {
       const checkLogin = () => {
         if (!isSignedIn || !currentUser.isAdmin) {
           navigate("/login");
+        } else {
+          navigate("/admin/dashboard");
         }
-        else {
-          navigate("/admin/dashboard")
-        }
-      }
+      };
       checkLogin();
-    }, [isSignedIn, currentUser?.isAdmin]);
+    }, [isSignedIn, currentUser?.isAdmin, navigate]);
 
     return (
-      <Wrapper >
+      <Wrapper>
         <Topbar />
         <Contents>
           <Sidebar />
@@ -120,19 +119,17 @@ const App = () => {
     );
   };
 
-
-
   // proile page layout
   const ProfileLayout = () => {
     const navigate = useNavigate();
-    const { isSignedIn } = useSelector(state => state.user)
+    const { isSignedIn } = useSelector((state) => state.user);
 
     useEffect(() => {
       const checkLogin = () => {
         if (!isSignedIn) {
           navigate("/login");
         }
-      }
+      };
       checkLogin();
     }, [isSignedIn]);
 
@@ -143,20 +140,19 @@ const App = () => {
           <Outlet />
         </ProfileWrapper>
       </Wrapper>
-    )
-  }
-
+    );
+  };
 
   const CheckoutLayout = () => {
     const navigate = useNavigate();
-    const { isSignedIn } = useSelector(state => state.user)
+    const { isSignedIn } = useSelector((state) => state.user);
 
     useEffect(() => {
       const checkLogin = () => {
         if (!isSignedIn) {
           navigate("/login");
         }
-      }
+      };
       checkLogin();
     }, [isSignedIn, navigate]);
 
@@ -167,14 +163,13 @@ const App = () => {
           <Outlet />
         </Mid>
       </CheckoutWrapper>
-    )
-  }
-
+    );
+  };
 
   const router = createBrowserRouter([
     {
       path: "*",
-      element: <EmptyView />
+      element: <EmptyView />,
     },
     {
       path: "/checkout-form",
@@ -182,17 +177,17 @@ const App = () => {
       children: [
         {
           path: "/checkout-form/shipping",
-          element: <ShippingForm />
+          element: <ShippingForm />,
         },
         {
           path: "/checkout-form/confirmation",
-          element: <ConfirmationForm />
+          element: <ConfirmationForm />,
         },
         {
           path: "/checkout-form/payment",
-          element: <PaymentTab />
+          element: <PaymentTab />,
         },
-      ]
+      ],
     },
     {
       path: "",
@@ -204,7 +199,7 @@ const App = () => {
         },
         {
           path: "/search-results/:id",
-          element: <SearchResults />
+          element: <SearchResults />,
         },
         {
           path: "/products/:id",
@@ -224,25 +219,25 @@ const App = () => {
           children: [
             {
               path: "/profile/me",
-              element: <ProfileDisplay />
+              element: <ProfileDisplay />,
             },
             {
               path: "/profile/cart/me",
-              element: <CartPage />
+              element: <CartPage />,
             },
             {
               path: "/profile/account/me",
-              element: <Account />
+              element: <Account />,
             },
             {
               path: "/profile/orders/me",
-              element: <OrderPage />
+              element: <OrderPage />,
             },
             {
               path: "/profile/order/:id",
-              element: <OrderDetails type={"user"} />
+              element: <OrderDetails type={"user"} />,
             },
-          ]
+          ],
         },
       ],
     },
@@ -252,90 +247,86 @@ const App = () => {
       children: [
         {
           path: "/admin/dashboard",
-          element: <AdminHome />
+          element: <AdminHome />,
         },
         {
           path: "/admin/users",
-          element: <UsersTab />
+          element: <UsersTab />,
         },
         {
           path: "/admin/products",
-          element: <ProductsTab />
+          element: <ProductsTab />,
         },
         {
           path: "/admin/categories",
-          element: <CategoriesTab />
+          element: <CategoriesTab />,
         },
         {
           path: "/admin/orders",
-          element: <OrdersTab />
+          element: <OrdersTab />,
         },
         {
           path: "/admin/user/:id",
-          element: <UserDetails />
+          element: <UserDetails />,
         },
         {
           path: "/admin/product/:id",
-          element: <ProductDetails />
+          element: <ProductDetails />,
         },
         {
           path: "/admin/order/:id",
-          element: <OrderDetails type={"admin"}/>
+          element: <OrderDetails type={"admin"} />,
         },
         {
           path: "/admin/category/:id",
-          element: <CategoryDisplay />
+          element: <CategoryDisplay />,
         },
         {
           path: "/admin/user/register",
-          element: <UserRegister />
+          element: <UserRegister />,
         },
         {
           path: "/admin/product/add",
-          element: <ProductAdd />
+          element: <ProductAdd />,
         },
         {
           path: "/admin/category/add",
-          element: <CategoryAdd />
+          element: <CategoryAdd />,
         },
         {
           path: "/admin/settings",
-          element: <Settings />
+          element: <Settings />,
         },
-      ]
+      ],
     },
     {
       path: "/login",
-      element: (<LoginPage />)
+      element: <LoginPage />,
     },
     {
       path: "/register",
-      element: (<RegisterPage />)
+      element: <RegisterPage />,
     },
     {
       path: "/verify-registration",
-      element: (<VerifyOTP />)
+      element: <VerifyOTP />,
     },
     {
       path: "/request-pass-reset",
-      element: (<VerifyAccountEmail />)
+      element: <VerifyAccountEmail />,
     },
     {
       path: "/password-reset-form",
-      element: (<PasswordReset/>)
-    }
-  ])
-
-
-
-
+      element: <PasswordReset />,
+    },
+  ]);
 
   return (
     <>
       <RouterProvider router={router} />
       <ToastContainer />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

@@ -41,14 +41,14 @@ const HomeWidgets = styled.div`
 const AdminHome = () => {
   const navigate = useNavigate();
   const { currentUser, isSignedIn, accessToken } = useSelector(
-    (state) => state.user
+    (state) => state.user,
   );
 
   useEffect(() => {
     if (!currentUser.isAdmin || !isSignedIn) {
       navigate("/");
     }
-  }, [currentUser, isSignedIn, accessToken]);
+  }, [currentUser, isSignedIn, accessToken, navigate]);
 
   // orders sales stats
   // orders stats
@@ -100,7 +100,6 @@ const AdminHome = () => {
           grid
           dataKey={"users"}
         />
-        
       </ChartContainer>
 
       <HomeWidgets>
