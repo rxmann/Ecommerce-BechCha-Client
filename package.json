@@ -35,6 +35,12 @@
     "swiper": "^14.2.0"
   },
   "packageManager": "pnpm@11.23.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "core-js",
+      "core-js-pure"
+    ]
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
