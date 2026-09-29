@@ -49,10 +49,8 @@ const Span = styled.span`
 const Categories = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.product);
-  const [CategoriesList, setCategoriesList] = useState([]);
 
   useEffect(() => {
-    // Check if categories are empty, then fetch
     if (!categories || categories.length === 0) {
       getAllCategories(dispatch);
     }
@@ -79,8 +77,8 @@ const Categories = () => {
         effect={"slide"}
       >
         <List>
-          {CategoriesList ? (
-            CategoriesList.map((each) => (
+          {categories ? (
+            categories.map((each) => (
               <SwiperSlide key={each._id}>
                 <OneCategory category={each} />
               </SwiperSlide>
