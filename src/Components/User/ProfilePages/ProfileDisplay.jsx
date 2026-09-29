@@ -55,7 +55,7 @@ const ProfileDisplay = () => {
       setUser(response);
     };
     userD();
-  }, [paramms]);
+  }, [paramms, currentUser?._id, dispatch]);
 
   const handleLogout = async (e) => {
     e.preventDefault();

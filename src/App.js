@@ -131,7 +131,7 @@ const App = () => {
         }
       };
       checkLogin();
-    }, [isSignedIn]);
+    }, [isSignedIn, navigate]);
 
     return (
       <Wrapper>
